@@ -142,8 +142,15 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
+				</configuration>
+			</plugin>		
 		</plugins>
-		
 	</build>
 
 	<dependencies>
@@ -301,14 +308,6 @@
 						</reports>
 					</reportSet>
 				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0</version>
-				<configuration>
-					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
-				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>
