@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jadira.usertype</groupId>
+	<artifactId>jsr310-hibernate</artifactId>
+	<packaging>jar</packaging>
+
+	<version>1.0-SNAPSHOT</version>
+
+	<name>User Type and other capabilities for Hibernate</name>
+	<description>Classes utilising JSR 310 that add Hibernate support</description>
+
+	<inceptionYear>2010</inceptionYear>
+
+	<developers>
+		<developer>
+			<id>chrisph</id>
+			<name>Chris Pheby</name>
+			<email></email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<scm>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/</url>
+  	</scm>
+
+	<build>
+	
+		<resources>
+			<resource>
+				<targetPath>META-INF</targetPath>
+				<directory>.</directory>
+				<includes>
+					<include>LICENSE.txt</include>
+					<include>NOTICE.txt</include>
+				</includes>
+			</resource>
+		</resources>
+		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-repository-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/src.xml</descriptor>
+						<descriptor>src/main/assembly/bin.xml</descriptor>
+					</descriptors>
+					<tarLongFileMode>gnu</tarLongFileMode>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax.time</groupId>
+			<artifactId>jsr-310-ri</artifactId>
+			<version>20100212</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.time</groupId>
+			<artifactId>ZoneRuleInfo-TZDB</artifactId>
+			<version>2009b</version>
+			<scope>test</scope>
+		</dependency>		
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.5.0-Final</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.5.0-Final</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.geronimo.specs</groupId>
+  			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+  			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.11.0.GA</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.11</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+  			<groupId>org.dbunit</groupId>
+  			<artifactId>dbunit</artifactId>
+  			<version>2.4.7</version>
+  			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.2.132</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time-hibernate</artifactId>
+			<version>1.2</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.hibernate</groupId>
+					<artifactId>hibernate</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>joda-time</groupId>
+					<artifactId>joda-time</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.1.2</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>dependencies</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<configLocation>${basedir}/checkstyle.xml</configLocation>
+					<enableRulesSummary>false</enableRulesSummary>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.4.2/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<showSuccess>true</showSuccess>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.1</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+
+</project>

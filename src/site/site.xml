@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<project xmlns="http://maven.apache.org/DECORATION/1.0.1"
+  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.1 http://maven.apache.org/xsd/decoration-1.0.1.xsd" 
+	name="JSR 310 Hibernate User Types">
+	<publishDate position="navigation-bottom" format="yyyy-MM-dd" />
+
+	<body>
+
+		<menu name="JSR 310 Hibernate">
+			<item name="Overview" href="index.html" />
+			<item name="Users guide" href="userguide.html" />
+			<item name="Javadoc (Release)" href="apidocs/index.html" />
+			<item name="License" href="licensecover.html" />
+			<item name="Release notes" href="changes-report.html" />
+			<item name="Download"
+				href="http://sourceforge.net/projects/jsr310-hibernate/files/jsr310-hibernate/" />
+		</menu>
+
+		<menu name="Development">
+			<item name="Sourceforge" href="http://sourceforge.net/projects/jsr310-hibernate/" />
+			<item name="Mailing lists" href="mail-lists.html" />
+			<item name="Tasks" href="tasks.html" />
+			<item name="Subversion"
+				href="http://jsr310-hibernate.svn.sourceforge.net/viewvc/jsr310-hibernate/trunk/" />
+			<item name="Javadoc (Development)" href="apidocs/index.html" />
+		</menu>
+
+		<menu ref="reports" />
+
+	</body>
+
+</project>
