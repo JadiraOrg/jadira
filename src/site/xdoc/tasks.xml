@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>JSR 310 - Hibernate UserTypes - Tasks</title>
+		<title>User Type - Tasks</title>
 		<author>Chris Pheby</author>
 	</properties>
 

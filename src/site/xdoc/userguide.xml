@@ -20,14 +20,14 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>JSR 310 - Hibernate UserTypes - Manual</title>
+		<title>User Type - Manual</title>
 		<author>Chris Pheby</author>
 	</properties>
 	
 	<body>
 
 		<section name="Introduction">
-			<p>JSR310 Hibernate UserTypes can
+			<p>User Type can
 				persist JSR 310 based dates and times to a database using
 				Hibernate.</p>
 			<p>Eventually, once JDBC and JPA adopt JSR 310 you won't need this
@@ -62,12 +62,12 @@ private LocalDateTime dateTime;
 		]]></pre>
 				<p>
 					Some of the types require more than one column to be specified, as with
-					<code>PersistentZonedDateTime</code>:
+					<code>PersistentOffsetDateTime</code>:
 				</p>
 				<pre><![CDATA[
-@Columns(columns={@Column(name="dateTime"),@Column(name="timeZone")})
-@Type(type="org.jadira.usertype.jsr310.PersistentZonedDateTime")
-private ZonedDateTime startDateTime;
+@Columns(columns={@Column(name="dateTime"),@Column(name="offset")})
+@Type(type="org.jadira.usertype.jsr310.PersistentOffsetDateTime")
+private OffsetDateTime startDateTime;
 		]]></pre>
 			</subsection>
 

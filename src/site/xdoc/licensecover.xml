@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>JSR 310 - Hibernate UserTypes - Tasks</title>
+		<title>User Type - Licensing</title>
 		<author>Chris Pheby</author>
 	</properties>
 
@@ -28,8 +28,7 @@
 
 		<section name="License information">
 			<p>
-				JSR 310 Hibernate UserTypes is released under the business-friendly
-				<a href="license.html">Apache 2.0 license</a>.
+				User Type is released under the business-friendly <a href="license.html">Apache 2.0 license</a>.
 			</p>
 		</section>
 

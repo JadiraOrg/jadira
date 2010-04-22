@@ -20,16 +20,17 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>JSR 310 - Hibernate UserTypes - Home</title>
+		<title>User Type - Home</title>
 		<author>Chris Pheby</author>
 	</properties>
 
 	<body>
 
-		<section name="JSR 310 - Hibernate UserTypes">
+		<section name="User Type">
 			<p>
-				This project aims to provide the classes necessary to
-				persist JSR 310 Date and Time datatypes using Hibernate.
+User Types and classes for use with Hibernate. Includes user types for use with the javax.time 
+classes included in the early review class of JSR 310. Where possible these types are compatible 
+with the equivalent Joda Time - Hibernate user types. 
 			</p>
 		</section>
 
