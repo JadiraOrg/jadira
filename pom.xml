@@ -16,15 +16,14 @@
   limitations under the License.
 
  -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jadira.usertype</groupId>
 	<artifactId>jsr310-hibernate</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 
 	<name>User Type and other capabilities for Hibernate</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
@@ -35,7 +34,7 @@
 		<developer>
 			<id>chrisph</id>
 			<name>Chris Pheby</name>
-			<email></email>
+			<email />
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -51,9 +50,9 @@
 	</licenses>
 	
 	<scm>
-	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</connection>
-	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</developerConnection>
-	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/</url>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/jsr310-hibernate-1.0</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/jsr310-hibernate-1.0</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/jsr310-hibernate-1.0</url>
   	</scm>
 
 	<build>
