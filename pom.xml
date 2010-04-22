@@ -23,7 +23,7 @@
 	<artifactId>jsr310-hibernate</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 
 	<name>User Type and other capabilities for Hibernate</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
@@ -50,9 +50,9 @@
 	</licenses>
 	
 	<scm>
-	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/jsr310-hibernate-1.0</connection>
-	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/jsr310-hibernate-1.0</developerConnection>
-	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/jsr310-hibernate-1.0</url>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/</url>
   	</scm>
 
 	<build>
