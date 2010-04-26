@@ -47,7 +47,7 @@
 					Use the <code>type</code> attribute with your property configuration. e.g.:
 				</p>
 				<pre><![CDATA[
-<property type="org.jadira.usertype.jsr310.PersistentLocalDateTime" name="dateTime"/>
+<property type="org.jadira.usertype.dateandtime.jsr310.PersistentLocalDateTime" name="dateTime"/>
 		]]></pre>
 			</subsection>
 
@@ -57,7 +57,7 @@
 				</p>
 				<pre><![CDATA[
 @Column
-@Type(type="org.jadira.usertype.jsr310.PersistentLocalDateTime")
+@Type(type="org.jadira.usertype.dateandtime.jsr310.PersistentLocalDateTime")
 private LocalDateTime dateTime;
 		]]></pre>
 				<p>
@@ -66,7 +66,7 @@ private LocalDateTime dateTime;
 				</p>
 				<pre><![CDATA[
 @Columns(columns={@Column(name="dateTime"),@Column(name="offset")})
-@Type(type="org.jadira.usertype.jsr310.PersistentOffsetDateTime")
+@Type(type="org.jadira.usertype.dateandtime.jsr310.PersistentOffsetDateTime")
 private OffsetDateTime startDateTime;
 		]]></pre>
 			</subsection>

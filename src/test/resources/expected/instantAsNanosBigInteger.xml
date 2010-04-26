@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <instantAsNanosBigInteger ID="0" INSTANT="1077728625000000760" NAME="test_0"/>
+  <instantAsNanosBigInteger ID="1" INSTANT="321581025000000000" NAME="test_1"/>
+</dataset>

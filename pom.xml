@@ -20,13 +20,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jadira.usertype</groupId>
-	<artifactId>jsr310-hibernate</artifactId>
+	<artifactId>dateandtime-hibernate</artifactId>
 	<packaging>jar</packaging>
 
 	<version>1.1-SNAPSHOT</version>
 
 	<name>User Type and other capabilities for Hibernate</name>
-	<description>Classes utilising JSR 310 that add Hibernate support</description>
+	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
 
 	<inceptionYear>2010</inceptionYear>
 
@@ -165,6 +165,12 @@
 			<version>2009b</version>
 			<scope>test</scope>
 		</dependency>		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+			<optional>true</optional>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -241,7 +247,7 @@
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>1.6</version>
-			<scope>test</scope>
+			<optional>true</optional>
 		</dependency>
 		
 	</dependencies>
