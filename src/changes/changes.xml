@@ -25,9 +25,10 @@
 
 	<body>
 		<!-- types are add, fix, remove, update -->
-		<release version="1.1" date="TBC" description="New Types">
+		<release version="1.1" date="30-04-2010" description="New Types">
 			<action dev="Chris Pheby" type="add">Added support for Instant types and DurationAsString</action>
 			<action dev="Chris Pheby" type="update">Refactored package names and added unit tests</action>
+			<action dev="Chris Pheby" type="add">Added user types for Joda Time</action>
 		</release>
 
 		<release version="1.0" date="22-04-2010" description="Initial Release">
