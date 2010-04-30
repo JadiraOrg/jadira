@@ -27,7 +27,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.jsr310.PersistentInstantAsTimestamp;
 
-
 @Entity
 @Table(name = "instantAsTimestamp")
 @TypeDef(name = "test_InstantAsTimestampType", typeClass = PersistentInstantAsTimestamp.class)

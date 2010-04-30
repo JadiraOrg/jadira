@@ -44,8 +44,8 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         Period.months(3), 
         Period.seconds(30), 
         Period.of(4, 35, 40, 141, 0, 0, 0), 
-        Period.of(28, 10, 2, 2, 4, 35, 40),
-        Period.of(28, 10, 0, 16, 4, 35, 40)
+        Period.of(28, 10, 2, 2, 4, 35, 40000000),
+        Period.of(28, 10, 0, 16, 4, 35, 40000000)
     };
 
     private static final org.joda.time.Period[] jodaPeriods = new org.joda.time.Period[] { 
@@ -54,8 +54,8 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         org.joda.time.Period.months(3), 
         org.joda.time.Period.seconds(30), 
         new org.joda.time.Period(4, 35, 0, 40, 141, 0, 0, 0), 
-        new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 0),
-        new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 0)
+        new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 40),
+        new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40)
     };
     
     private static EntityManagerFactory factory;

@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class TestPersistentLocalTimeAsTimestamp extends DatabaseCapable {
 
-    private static final LocalTime[] localTimes = new LocalTime[] { LocalTime.of(14, 2, 25), LocalTime.of(23, 59, 59, 999), LocalTime.of(0, 0, 0) };
+    private static final LocalTime[] localTimes = new LocalTime[] { LocalTime.of(14, 2, 25), LocalTime.of(23, 59, 59, 999000000), LocalTime.of(0, 0, 0) };
 
     private static EntityManagerFactory factory;
 

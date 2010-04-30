@@ -39,7 +39,8 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
 
     @Override
     public Timestamp get(ResultSet rs, String name) throws SQLException {
-        return rs.getTimestamp(name, getUtcCalendar());
+        final Timestamp timestamp = rs.getTimestamp(name, getUtcCalendar());
+        return timestamp;
     }
 
     @Override

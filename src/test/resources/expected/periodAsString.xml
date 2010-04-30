@@ -22,6 +22,6 @@
   <periodAsString ID="2" NAME="test_2" PERIOD="P3M"/>
   <periodAsString ID="3" NAME="test_3" PERIOD="PT30S"/>
   <periodAsString ID="4" NAME="test_4" PERIOD="P4Y35M40DT141H"/>
-  <periodAsString ID="5" NAME="test_5" PERIOD="P28Y10M2DT2H4M35.00000004S"/>
-  <periodAsString ID="6" NAME="test_6" PERIOD="P28Y10MT16H4M35.00000004S"/>
+  <periodAsString ID="5" NAME="test_5" PERIOD="P28Y10M2DT2H4M35.04S"/>
+  <periodAsString ID="6" NAME="test_6" PERIOD="P28Y10MT16H4M35.04S"/>
 </dataset>

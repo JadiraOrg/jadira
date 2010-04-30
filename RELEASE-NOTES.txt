@@ -11,3 +11,6 @@ All feedback is welcomed via the project mailing list
 
 To Do
 -----
+Adding new types from JodaTime 2.0 - MonthDay and YearMonth
+Adding JodaTime's Interval (with DateTime for Start / End times) for compatiblility with JodaTime Contrib
+Adding InstantInterval (if reinstated into JSR 303)

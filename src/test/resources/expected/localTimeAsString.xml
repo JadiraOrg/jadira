@@ -18,6 +18,6 @@
  -->
 <dataset>
   <localTimeAsString ID="0" LOCALTIME="14:02:25" NAME="test_0"/>
-  <localTimeAsString ID="1" LOCALTIME="23:59:59.000000999" NAME="test_1"/>
+  <localTimeAsString ID="1" LOCALTIME="23:59:59.999" NAME="test_1"/>
   <localTimeAsString ID="2" LOCALTIME="00:00" NAME="test_2"/>
 </dataset>
