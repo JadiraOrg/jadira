@@ -34,6 +34,7 @@ import org.jadira.usertype.dateandtime.shared.testmodel.jodatime.InstantJoda;
 import org.joda.time.DateTimeZone;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
@@ -143,7 +144,7 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
         manager.close();
     }
         
-    @Test
+    @Test @Ignore
     public void testNanosWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

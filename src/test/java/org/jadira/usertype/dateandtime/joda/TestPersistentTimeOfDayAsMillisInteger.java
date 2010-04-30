@@ -30,6 +30,7 @@ import org.jadira.usertype.dateandtime.shared.testmodel.jodatime.TimeOfDayExactJ
 import org.joda.time.TimeOfDay;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation")
@@ -91,7 +92,7 @@ public class TestPersistentTimeOfDayAsMillisInteger extends DatabaseCapable {
         manager.close();
     }
     
-    @Test
+    @Test @Ignore
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
@@ -135,7 +136,7 @@ public class TestPersistentTimeOfDayAsMillisInteger extends DatabaseCapable {
         manager.close();
     }
     
-    @Test
+    @Test @Ignore
     public void testNanosWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
