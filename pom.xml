@@ -23,7 +23,7 @@
 	<artifactId>dateandtime-hibernate</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 
 	<name>User Type and other capabilities for Hibernate</name>
 	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
@@ -50,9 +50,9 @@
 	</licenses>
 	
 	<scm>
-	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/dateandtime-hibernate-1.1</connection>
-	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/dateandtime-hibernate-1.1</developerConnection>
-	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/dateandtime-hibernate-1.1</url>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/</url>
   	</scm>
 
 	<build>
