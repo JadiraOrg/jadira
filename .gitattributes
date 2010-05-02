@@ -131,6 +131,9 @@ src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/AbstractLocati
 src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeDateType.java -text
 src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimeType.java -text
 src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimestampType.java -text
+src/site/apt/howto.apt -text
+src/site/apt/limitation.apt -text
+src/site/fml/faqs.fml -text
 src/site/site.xml -text
 src/site/xdoc/index.xml -text
 src/site/xdoc/licensecover.xml -text
