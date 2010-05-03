@@ -33,8 +33,7 @@
 			<item name="FAQs" href="/faqs.html"/>
 			<item name="License" href="licensecover.html" />
 			<item name="Release notes" href="changes-report.html" />
-			<item name="Download"
-				href="http://sourceforge.net/projects/usertype/files/dateandtime-hibernate/" />
+			<item name="Download" href="http://sourceforge.net/projects/usertype/files/dateandtime-hibernate/" />
 		</menu>
 		
 		<menu ref="modules" />
@@ -43,13 +42,15 @@
 			<item name="Sourceforge" href="http://sourceforge.net/projects/usertype/" />
 			<item name="Mailing lists" href="mail-lists.html" />
 			<item name="Tasks" href="tasks.html" />
-			<item name="Subversion"
-				href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
-			<item name="Javadoc (Development)" href="apidocs/index.html" />
+			<item name="Subversion" href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
 		</menu>
 
 		<menu ref="reports" />
 
 	</body>
+	
+	<powered-by>
+		<item name="Hosted by SourceForge" href="http://www.sourceforge.net" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1"/>	    
+	</powered-by>
 	
 </project>

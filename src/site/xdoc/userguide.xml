@@ -27,13 +27,10 @@
 	<body>
 
 		<section name="Introduction">
-			<p>User Type can
-				persist JSR 310 based dates and times to a database using
+			<p>User Type can persist both JSR 310 and Joda Time based dates and times to a database using
 				Hibernate.</p>
-			<p>Eventually, once JDBC and JPA adopt JSR 310 you won't need this
-				project, but
-				in the meantime, this lets early adopters of JSR 310 also make use of
-				Hibernate</p>
+			<p>This project lets early adopters of JSR 310 also make use of
+				Hibernate and for users of Joda Time provides a forward migration path</p>
 
 			<subsection name="Documentation">
 				<p>
