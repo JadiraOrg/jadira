@@ -23,7 +23,9 @@
 	<publishDate position="navigation-bottom" format="yyyy-MM-dd" />
 
 	<poweredBy>
-		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1"/>
+		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net/" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1" />
+		<logo name="Built using Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-button-green.png" />
+		<logo name="Sponsored by Jadira" href="http://blog.jadira.co.uk/" img="images/jadira-small.png" />
 	</poweredBy>
 
 	<body>

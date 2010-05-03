@@ -134,6 +134,7 @@ src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTi
 src/site/apt/howto.apt -text
 src/site/apt/limitation.apt -text
 src/site/fml/faqs.fml -text
+src/site/resources/images/jadira-small.png -text
 src/site/site.xml -text
 src/site/xdoc/index.xml -text
 src/site/xdoc/licensecover.xml -text
