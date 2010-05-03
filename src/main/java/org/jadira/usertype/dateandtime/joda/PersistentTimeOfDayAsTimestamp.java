@@ -17,14 +17,12 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
 
+import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
-import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
-
 /**
- * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
+ * Persist {@link TimeOfDay} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */

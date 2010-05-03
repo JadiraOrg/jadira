@@ -31,7 +31,7 @@ public class BigIntegerColumnInstantMapper extends AbstractBigIntegerColumnMappe
 
     @Override
     public Instant fromNonNullValue(BigInteger value) {
-        return new Instant(value.divide(BigInteger.valueOf(1000000l)).longValue());
+        return new Instant(value.divide(BigInteger.valueOf(1000000L)).longValue());
     }
 
     @Override
@@ -41,6 +41,6 @@ public class BigIntegerColumnInstantMapper extends AbstractBigIntegerColumnMappe
 
     @Override
     public BigInteger toNonNullValue(Instant value) {
-        return BigInteger.valueOf(value.getMillis()).multiply(BigInteger.valueOf(1000000l));
+        return BigInteger.valueOf(value.getMillis()).multiply(BigInteger.valueOf(1000000L));
     }
 }

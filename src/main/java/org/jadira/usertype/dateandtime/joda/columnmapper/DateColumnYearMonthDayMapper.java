@@ -17,14 +17,13 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
 
-import org.jadira.usertype.dateandtime.joda.PersistentLocalDate;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractDateColumnMapper;
 import org.joda.time.YearMonthDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
 /**
- * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
+ * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalDate}
  */
 public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearMonthDay> {
 

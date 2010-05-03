@@ -22,6 +22,10 @@
 	name="User Type for Hibernate">
 	<publishDate position="navigation-bottom" format="yyyy-MM-dd" />
 
+	<poweredBy>
+		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1"/>
+	</poweredBy>
+
 	<body>
 		
 		<menu name="Documentation">
@@ -46,11 +50,7 @@
 		</menu>
 
 		<menu ref="reports" />
-
-		<poweredBy>
-			<logo name="Hosted by SourceForge" href="http://www.sourceforge.net" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1"/>
-		</poweredBy>
-
+		
 	</body>
 	
 </project>

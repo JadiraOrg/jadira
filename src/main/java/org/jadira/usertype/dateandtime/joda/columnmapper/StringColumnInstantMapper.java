@@ -25,13 +25,12 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
 
     private static final long serialVersionUID = -6885561256539185520L;
 
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().append
-        (ISODateTimeFormat.date())
-            .appendLiteral('T').appendHourOfDay(2)
-            .appendLiteral(':').appendMinuteOfHour(2)
-            .appendLiteral(':').appendSecondOfMinute(2)
-            .appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFractionOfSecond(3, 9).toParser())
-            .appendTimeZoneOffset("Z", true, 2, 4).toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().append(ISODateTimeFormat.date())
+        .appendLiteral('T').appendHourOfDay(2)
+        .appendLiteral(':').appendMinuteOfHour(2)
+        .appendLiteral(':').appendSecondOfMinute(2)
+        .appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFractionOfSecond(3, 9).toParser())
+        .appendTimeZoneOffset("Z", true, 2, 4).toFormatter();
     
     @Override
     public Instant fromNonNullValue(String s) { 

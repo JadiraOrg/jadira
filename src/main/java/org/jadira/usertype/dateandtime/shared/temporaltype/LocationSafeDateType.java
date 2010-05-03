@@ -53,8 +53,7 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
     public Object fromStringValue(String xml) throws HibernateException {
         try {
             return new SimpleDateFormat(DATE_FORMAT).parse(xml);
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new HibernateException("could not parse XML", ex);
         }
     }

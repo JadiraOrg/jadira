@@ -30,7 +30,7 @@ public class PersistentDateMidnight extends AbstractMultiColumnUserType<DateMidn
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new DateColumnLocalDateMapper(), new StringColumnDateTimeZoneMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnDateTimeZoneMapper() };
     
     @Override
     protected DateMidnight fromConvertedColumns(Object[] convertedColumns) {

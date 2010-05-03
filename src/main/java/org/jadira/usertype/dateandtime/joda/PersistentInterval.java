@@ -31,7 +31,7 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new TimestampColumnLocalDateTimeMapper(), new TimestampColumnLocalDateTimeMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new TimestampColumnLocalDateTimeMapper() };
     
     @Override
     protected Interval fromConvertedColumns(Object[] convertedColumns) {

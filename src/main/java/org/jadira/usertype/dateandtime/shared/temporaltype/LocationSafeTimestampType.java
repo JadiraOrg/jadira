@@ -65,8 +65,7 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
     public Timestamp fromStringValue(String xml) throws HibernateException {
         try {
             return new Timestamp( new SimpleDateFormat(TIMESTAMP_FORMAT).parse(xml).getTime() );
-        }
-        catch (ParseException ex) {
+        } catch (ParseException ex) {
             throw new HibernateException("could not parse XML", ex);
         }
     }

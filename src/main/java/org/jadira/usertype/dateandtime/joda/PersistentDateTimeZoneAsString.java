@@ -15,15 +15,12 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import javax.time.calendar.YearMonth;
-
+import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.DateTimeZone;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
-
 /**
- * Maps a {@link YearMonth} to and from String for Hibernate.
+ * Maps a {@link DateTimeZone} to and from String for Hibernate.
  */
 public class PersistentDateTimeZoneAsString extends AbstractUserType<DateTimeZone, String, StringColumnDateTimeZoneMapper> {
 }

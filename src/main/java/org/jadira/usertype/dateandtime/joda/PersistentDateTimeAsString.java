@@ -30,7 +30,7 @@ public class PersistentDateTimeAsString extends AbstractMultiColumnUserType<Date
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
     
     @Override
     protected DateTime fromConvertedColumns(Object[] convertedColumns) {

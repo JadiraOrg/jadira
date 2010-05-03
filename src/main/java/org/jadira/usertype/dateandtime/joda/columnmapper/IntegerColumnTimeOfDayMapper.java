@@ -15,12 +15,11 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsMillisInteger;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractIntegerColumnMapper;
 import org.joda.time.TimeOfDay;
 
 /**
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsMillisInteger}
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsMillisInteger}
  */
 public class IntegerColumnTimeOfDayMapper extends AbstractIntegerColumnMapper<TimeOfDay> {
 

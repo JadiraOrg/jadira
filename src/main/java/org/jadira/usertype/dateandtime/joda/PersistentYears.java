@@ -15,15 +15,12 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import javax.time.calendar.Year;
-
+import org.jadira.usertype.dateandtime.joda.columnmapper.IntegerColumnYearsMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.Years;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.IntegerColumnYearsMapper;
-
 /**
- * Persist {@link Year} via Hibernate using integer value.
+ * Persist {@link Years} via Hibernate using integer value.
  */
 public class PersistentYears extends AbstractUserType<Years, Integer, IntegerColumnYearsMapper> {
 }
