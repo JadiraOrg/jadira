@@ -28,7 +28,7 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnTimeOfDayMapp
  * However, note that {@link org.joda.time.contrib.hibernate.PersistentTimeOfDayAsTime} contains a bug where times written
  * down will be offset from GMT due to its use of {@link java.sql.Time#setTime(long)}. This class is not affected by this
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes.
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.TimeOfDay} and {@link PersistentTimeOfDay}
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTime}
  */
 public class PersistentTimeOfDay extends AbstractUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> {
 }

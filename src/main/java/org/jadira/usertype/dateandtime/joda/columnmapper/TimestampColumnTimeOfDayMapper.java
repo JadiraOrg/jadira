@@ -24,7 +24,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
 /**
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.datandtime.joda.PersistentLocalTimeAsTimestamp}
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsTimestamp}
  */
 public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> {
 

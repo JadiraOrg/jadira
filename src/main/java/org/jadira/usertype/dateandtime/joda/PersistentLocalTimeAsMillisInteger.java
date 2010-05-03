@@ -18,6 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import org.jadira.usertype.dateandtime.joda.columnmapper.IntegerColumnLocalTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.LocalTime;
+import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link LocalTime} via Hibernate using milliseconds of the day. This type is
@@ -26,6 +27,7 @@ import org.joda.time.LocalTime;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  * @see PersistentLocalTimeAsNanosLong
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsMillisInteger}
  */
 public class PersistentLocalTimeAsMillisInteger extends AbstractUserType<LocalTime, Integer, IntegerColumnLocalTimeMapper> {
 }
