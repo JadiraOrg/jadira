@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsTimestamp;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
 import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
@@ -25,13 +24,13 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
 /**
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.datandtime.joda.PersistentLocalTimeAsTimestamp}
  */
 public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = 1921591625617366103L;
     
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("'0001-01-01' HH:mm:ss'.").appendFractionOfSecond(0,9).toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("'0001-01-01' HH:mm:ss'.").appendFractionOfSecond(0, 9).toFormatter();
     
     @Override
     public TimeOfDay fromNonNullString(String s) {

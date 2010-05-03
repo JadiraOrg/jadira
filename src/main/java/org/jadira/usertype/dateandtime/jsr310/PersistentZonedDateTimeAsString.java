@@ -35,7 +35,7 @@ public class PersistentZonedDateTimeAsString extends AbstractMultiColumnUserType
 
     private static final long serialVersionUID = -1335371912886315820L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper(), new StringColumnTimeZoneMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper(), new StringColumnTimeZoneMapper() };
     
     @Override
     protected ZonedDateTime fromConvertedColumns(Object[] convertedColumns) {

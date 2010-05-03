@@ -33,7 +33,7 @@ public class PersistentOffsetTimeAsLong extends AbstractMultiColumnUserType<Offs
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new LongColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new LongColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
     
     @Override
     protected OffsetTime fromConvertedColumns(Object[] convertedColumns) {

@@ -26,7 +26,7 @@ import org.joda.time.TimeOfDay;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  * @see PersistentTimeOfDayAsNanosLong
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.TimeOfDay} and {@link PersistentTimeOfDayAsTimestampMillisInteger
+ * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.TimeOfDay} and {@link PersistentTimeOfDayAsTimestampMillisInteger}
  */
 public class PersistentTimeOfDayAsMillisInteger extends AbstractUserType<TimeOfDay, Integer, IntegerColumnTimeOfDayMapper> {
 }

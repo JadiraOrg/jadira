@@ -44,8 +44,9 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
 
     @Override
     public void set(PreparedStatement st, Object value, int index) throws SQLException {
-        if (!(value instanceof Time))                
+        if (!(value instanceof Time)) {                
             value = deepCopy(value);
+        }
         st.setTime(index, (Time) value);
     }
 
@@ -64,8 +65,8 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
         try {
             return new Time(new SimpleDateFormat(TIME_FORMAT).parse(xml).getTime());
         }
-        catch (ParseException pe) {
-            throw new HibernateException("could not parse XML", pe);
+        catch (ParseException ex) {
+            throw new HibernateException("could not parse XML", ex);
         }
     }
     

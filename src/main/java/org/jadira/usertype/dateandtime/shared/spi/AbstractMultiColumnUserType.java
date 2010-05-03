@@ -49,7 +49,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return (Class<T>) TypeHelper.getTypeArguments(AbstractMultiColumnUserType.class, getClass()).get(0);
     }
     
-    public abstract ColumnMapper<?,?>[] getColumnMappers();
+    public abstract ColumnMapper<?, ?>[] getColumnMappers();
     
     public final boolean isMutable() {
         return false;
@@ -122,12 +122,12 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {
-                ColumnMapper<?,?> nextMapper = getColumnMappers()[i];
+                ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
                 nextMapper.getHibernateType().nullSafeSet(preparedStatement, null, index);
             }
         } else {
             
-            final T myValue = (T)value;
+            final T myValue = (T) value;
             Object[] convertedColumns = toConvertedColumns(myValue);
             
             for (int i = 0; i < getColumnMappers().length; i++) {

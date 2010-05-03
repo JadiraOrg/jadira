@@ -33,7 +33,7 @@ public class PersistentOffsetTimeAsTimestamp extends AbstractMultiColumnUserType
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new TimestampColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
     
     @Override
     protected OffsetTime fromConvertedColumns(Object[] convertedColumns) {

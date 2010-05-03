@@ -15,12 +15,11 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.joda.PersistentLocalDate;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
 import org.joda.time.YearMonthDay;
 
 /**
- * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
+ * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalDate}
  */
 public class StringColumnYearMonthDayMapper extends AbstractStringColumnMapper<YearMonthDay> {
 

@@ -54,14 +54,14 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
         try {
             return new SimpleDateFormat(DATE_FORMAT).parse(xml);
         }
-        catch (ParseException pe) {
-            throw new HibernateException("could not parse XML", pe);
+        catch (ParseException ex) {
+            throw new HibernateException("could not parse XML", ex);
         }
     }
     
     @Override
     public String toString(Object value) throws HibernateException {
-        return new SimpleDateFormat(DATE_FORMAT).format((java.util.Date)value);
+        return new SimpleDateFormat(DATE_FORMAT).format((java.util.Date) value);
     }
 
     public String getName() {

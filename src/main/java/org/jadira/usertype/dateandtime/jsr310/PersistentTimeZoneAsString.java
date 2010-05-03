@@ -16,14 +16,12 @@
 package org.jadira.usertype.dateandtime.jsr310;
 
 import javax.time.calendar.TimeZone;
-import javax.time.calendar.YearMonth;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnTimeZoneMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 
-
 /**
- * Maps a {@link YearMonth} to and from String for Hibernate.
+ * Maps a {@link TimeZone} to and from String for Hibernate.
  */
 public class PersistentTimeZoneAsString extends AbstractUserType<TimeZone, String, StringColumnTimeZoneMapper> {
 }

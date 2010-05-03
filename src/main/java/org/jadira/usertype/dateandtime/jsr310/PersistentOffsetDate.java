@@ -32,7 +32,7 @@ public class PersistentOffsetDate extends AbstractMultiColumnUserType<OffsetDate
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?,?>[] { new DateColumnLocalDateMapper(), new StringColumnZoneOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnZoneOffsetMapper() };
     
     @Override
     protected OffsetDate fromConvertedColumns(Object[] convertedColumns) {

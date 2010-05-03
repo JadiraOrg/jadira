@@ -34,7 +34,7 @@ public class LongColumnTimeOfDayMapper extends AbstractLongColumnMapper<TimeOfDa
 
     @Override
     public TimeOfDay fromNonNullValue(Long value) {
-        return new TimeOfDay(value / 1000000l, ISOChronology.getInstance(DateTimeZone.UTC));
+        return new TimeOfDay(value / 1000000L, ISOChronology.getInstance(DateTimeZone.UTC));
     }
 
     @Override
@@ -44,6 +44,6 @@ public class LongColumnTimeOfDayMapper extends AbstractLongColumnMapper<TimeOfDa
 
     @Override
     public Long toNonNullValue(TimeOfDay value) {
-        return new Long((value.toLocalTime().getMillisOfDay()) * 1000000l);
+        return new Long((value.toLocalTime().getMillisOfDay()) * 1000000L);
     }
 }

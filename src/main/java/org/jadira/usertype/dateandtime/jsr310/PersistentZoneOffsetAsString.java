@@ -15,15 +15,13 @@
  */
 package org.jadira.usertype.dateandtime.jsr310;
 
-import javax.time.calendar.YearMonth;
 import javax.time.calendar.ZoneOffset;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnZoneOffsetMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 
-
 /**
- * Maps a {@link YearMonth} to and from String for Hibernate.
+ * Maps a {@link ZoneOffset} to and from String for Hibernate.
  */
 public class PersistentZoneOffsetAsString extends AbstractUserType<ZoneOffset, String, StringColumnZoneOffsetMapper> {
 }

@@ -26,7 +26,7 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
     private static final long serialVersionUID = -6885561256539185520L;
 
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().append
-            (ISODateTimeFormat.date())
+        (ISODateTimeFormat.date())
             .appendLiteral('T').appendHourOfDay(2)
             .appendLiteral(':').appendMinuteOfHour(2)
             .appendLiteral(':').appendSecondOfMinute(2)

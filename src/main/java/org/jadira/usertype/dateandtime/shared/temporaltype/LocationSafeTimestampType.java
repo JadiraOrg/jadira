@@ -45,8 +45,9 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
 
     @Override
     public void set(PreparedStatement st, Object value, int index) throws SQLException {
-        if (!(value instanceof Timestamp))                
+        if (!(value instanceof Timestamp)) {                
             value = deepCopy(value);
+        }
         st.setTimestamp(index, (Timestamp) value, getUtcCalendar());
     }
 
@@ -65,8 +66,8 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
         try {
             return new Timestamp( new SimpleDateFormat(TIMESTAMP_FORMAT).parse(xml).getTime() );
         }
-        catch (ParseException pe) {
-            throw new HibernateException("could not parse XML", pe);
+        catch (ParseException ex) {
+            throw new HibernateException("could not parse XML", ex);
         }
     }
     

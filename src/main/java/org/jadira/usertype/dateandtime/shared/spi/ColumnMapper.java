@@ -19,20 +19,19 @@ import org.hibernate.type.NullableType;
 
 public interface ColumnMapper<T, J> {
 
-    public abstract NullableType getHibernateType();
+    NullableType getHibernateType();
 
-    public abstract int getSqlType();
+    int getSqlType();
 
-    public abstract T fromNonNullValue(J value);
+    T fromNonNullValue(J value);
 
-    public abstract T fromNonNullString(String s);
+    T fromNonNullString(String s);
 
-    public abstract J toNonNullValue(T value);
+    J toNonNullValue(T value);
 
-    public abstract String toNonNullString(T value);
+    String toNonNullString(T value);
 
-    public abstract Class<T> returnedClass();
+    Class<T> returnedClass();
 
-    public abstract Class<J> jdbcClass();
-
+    Class<J> jdbcClass();
 }

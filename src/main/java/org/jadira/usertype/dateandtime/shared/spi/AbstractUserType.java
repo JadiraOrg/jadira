@@ -29,23 +29,23 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> implements EnhancedUserType {
 
     private static final long serialVersionUID = -8258683760413283329L;
-    private final ColumnMapper<T,J> columnMapper;
+    private final ColumnMapper<T, J> columnMapper;
     private final int[] sqlTypes;
 
     @SuppressWarnings("unchecked")
     public AbstractUserType() {
         
         try {
-            columnMapper = (ColumnMapper<T,J>) TypeHelper.getTypeArguments(AbstractUserType.class, getClass()).get(2).newInstance();
-        } catch (InstantiationException e) {
-            throw new HibernateException("Could not initialise column mapper for " + getClass(), e);
-        } catch (IllegalAccessException e) {
-            throw new HibernateException("Could not access column mapper for " + getClass(), e);
+            columnMapper = (ColumnMapper<T, J>) TypeHelper.getTypeArguments(AbstractUserType.class, getClass()).get(2).newInstance();
+        } catch (InstantiationException ex) {
+            throw new HibernateException("Could not initialise column mapper for " + getClass(), ex);
+        } catch (IllegalAccessException ex) {
+            throw new HibernateException("Could not access column mapper for " + getClass(), ex);
         }
         sqlTypes = new int[] { getColumnMapper().getSqlType() };
     }
     
-    public final ColumnMapper<T,J> getColumnMapper() {
+    public final ColumnMapper<T, J> getColumnMapper() {
         return columnMapper;
     }
     
@@ -99,7 +99,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
     }
     
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
-        @SuppressWarnings("unchecked") J converted = (J)getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0]);
+        @SuppressWarnings("unchecked") J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0]);
         if (converted == null) {
             return null;
         }
@@ -122,7 +122,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
     }
        
     public String toXMLString(Object object) {
-        @SuppressWarnings("unchecked") final T myObject = (T)object;
+        @SuppressWarnings("unchecked") final T myObject = (T) object;
         return getColumnMapper().toNonNullString(myObject);
     }
 

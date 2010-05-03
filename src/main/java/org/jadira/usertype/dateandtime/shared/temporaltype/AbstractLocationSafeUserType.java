@@ -43,7 +43,7 @@ public abstract class AbstractLocationSafeUserType extends MutableType implement
     }
 
     public final Object deepCopy(Object value) throws HibernateException {
-        return (value==null) ? null : deepCopyNotNull(value);
+        return (value == null) ? null : deepCopyNotNull(value);
     }
 
     public boolean equals(Object x, Object y) {
@@ -64,7 +64,7 @@ public abstract class AbstractLocationSafeUserType extends MutableType implement
     
     public abstract Class<?> returnedClass();
 
-    public @SuppressWarnings("unchecked") Class getReturnedClass() {
+    @SuppressWarnings("unchecked") public Class getReturnedClass() {
         return returnedClass();
     }
     
@@ -90,8 +90,9 @@ public abstract class AbstractLocationSafeUserType extends MutableType implement
 
     @Override
     public void set(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
-        if (!(value instanceof java.sql.Date))                
+        if (!(value instanceof java.sql.Date)) {                
             value = deepCopy(value);
+        }
         st.setDate(index, (java.sql.Date) value, getUtcCalendar());
     }
 }
