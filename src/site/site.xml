@@ -39,7 +39,7 @@
 		
 		<menu ref="modules" />
 
-		<menu name=Development">
+		<menu name="Development">
 			<item name="Sourceforge" href="http://sourceforge.net/projects/usertype/" />
 			<item name="Mailing lists" href="mail-lists.html" />
 			<item name="Tasks" href="tasks.html" />
