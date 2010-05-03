@@ -29,7 +29,7 @@
 		<section name="User Type">
 			<p>
 User Types and classes for use with Hibernate. Includes user types for use with the javax.time 
-classes included in the early review class of JSR 310 as well as for Joda Time. Where possible these types are compatible 
+classes included in the early review draft of JSR 310 as well as for Joda Time. Where possible these types are compatible 
 with the equivalent &quot;Joda Time Contrib - Hibernate user types&quot;. 
 			</p>
 		</section>
