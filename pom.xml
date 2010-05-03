@@ -52,7 +52,7 @@
 			<subscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</subscribe>
 	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</unsubscribe>
 			<!-- <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=NOTYETARCHIVED</archive> -->
-			<post>jwebunit-users@lists.sourceforge.net</post>
+			<post>usertype-discuss@lists.sourceforge.net</post>
 		</mailingList>
 	</mailingLists>
 	
