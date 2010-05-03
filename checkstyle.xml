@@ -21,10 +21,10 @@
     "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 <module name="Checker">
 	<property name="localeLanguage" value="en" />
+	<module name="SuppressionFilter">
+		<property name="file" value="suppressions.xml"/>
+	</module>
 	<module name="TreeWalker">
-		<module name="SuppressionFilter">
-	    		<property name="file" value="suppressions.xml"/>
-		</module>
 		<module name="MemberName"/>
 		<module name="LocalVariableName">
 			<property name="format" value="^ex[0-9]*$" />
