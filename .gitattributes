@@ -291,3 +291,4 @@ src/test/resources/expected/zonedDateTime.xml -text
 src/test/resources/expected/zonedDateTimeAsString.xml -text
 src/test/resources/expected/zonedOffsetAsString.xml -text
 src/test/resources/log4j.properties -text
+/suppressions.xml -text
