@@ -27,8 +27,13 @@
 
 	<name>User Type and other capabilities for Hibernate</name>
 	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
-
+	<url>http://usertype.sourceforge.net/</url>
 	<inceptionYear>2010</inceptionYear>
+
+	<organization>
+		<name>Jadira Systems</name>
+		<url>http://blog.jadira.co.uk/</url>
+  	</organization>
 
 	<developers>
 		<developer>
@@ -71,6 +76,7 @@
   	</scm>
   	
   	<distributionManagement>
+  		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
   	  	<site>
   	  	  	<id>usertype.sourceforge.net</id>
   	  	  	<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs</url>
@@ -229,6 +235,7 @@
 			<artifactId>javassist</artifactId>
 			<version>3.11.0.GA</version>
 			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
