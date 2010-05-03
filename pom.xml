@@ -362,4 +362,11 @@
 		</plugins>
 	</reporting>
 
+	<repositories>
+		<repository>
+			<id>JBoss Repository</id>
+			<url>http://repository.jboss.com/maven2/</url>
+		</repository>
+	</repositories>
+
 </project>
