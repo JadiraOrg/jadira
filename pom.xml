@@ -43,6 +43,7 @@
 			<roles>
 				<role>Developer</role>
 			</roles>
+			<timezone>0</timezone>
 		</developer>
 	</developers>
 
@@ -94,8 +95,14 @@
   		</snapshotRepository>
 
   	</distributionManagement>
-
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
 	<build>
+		<defaultGoal>install</defaultGoal>
+
 	
 		<resources>
 			<resource>
@@ -109,56 +116,32 @@
 		</resources>
 		
 		<plugins>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<verbose>true</verbose>
-					<fork>true</fork>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
+				<artifactId>maven-plugin-plugin</artifactId>
+				<version>2.5</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<linksource>true</linksource>
-					<links>
-						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
-					</links>
-					<encoding>UTF-8</encoding>
-				</configuration>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<version>1.0</version>
 				<executions>
 					<execution>
-						<id>attach-javadocs</id>
-						<phase>package</phase>
+						<phase>validate</phase>
 						<goals>
-							<goal>jar</goal>
+							<goal>toolchain</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-repository-plugin</artifactId>
-				<version>2.3</version>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>5.0</version>
+							<vendor>sun</vendor>
+						</jdk>
+					</toolchains>
+			 	 </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -183,12 +166,201 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>1.5</source>
+					<target>1.5</target>
+					<compilerArgument>-g</compilerArgument>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.8</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>1.0-beta-1</version>
+				<executions>
+					<execution>
+						<id>enforce-versions</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>2.2.1</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>1.5.0</version>
+								</requireJavaVersion>
+								<bannedDependencies>
+									<excludes>
+										<exclude>commons-logging:*</exclude>
+									</excludes>
+								</bannedDependencies>
+								<requirePluginVersions>
+									<banLatest>true</banLatest>
+									<banRelease>true</banRelease>								
+									<banSnapshots>true</banSnapshots>
+									<unCheckedPluginList></unCheckedPluginList>
+								</requirePluginVersions>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-idea-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<dependenciesAsLibraries>true</dependenciesAsLibraries>
+					<useFullNames>false</useFullNames>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+					<aggregate>true</aggregate>
+					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.6</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-repository-plugin</artifactId>
+				<version>2.3</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-resources-plugin</artifactId> 
+				<version>2.4.2</version> 
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset> 
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.0</version>
 				<configuration>
 					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
 				</configuration>
-			</plugin>		
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId> 
+				<artifactId>cobertura-maven-plugin</artifactId> 
+				<version>2.4</version> 
+				<configuration>
+					<maxmem>128m</maxmem> 
+					<outputDirectory>${project.reporting.outputDirectory}/cobertura</outputDirectory> 
+					<formats>
+						<format>html</format> 
+						<format>xml</format> 
+					</formats>
+					<instrumentation>
+						<excludes>
+							<exclude>**/*Test.class</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
@@ -296,6 +468,87 @@
 	<reporting>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-changes-plugin</artifactId> 
+				<version>2.0</version> 
+				<inherited>false</inherited>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report> 
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<configLocation>${basedir}/checkstyle.xml</configLocation>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset>
+					<enableRulesSummary>false</enableRulesSummary>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+					<aggregate>true</aggregate>
+					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.6</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId> 
+				<artifactId>maven-pmd-plugin</artifactId> 
+				<version>2.4</version> 
+				<configuration>
+					<targetJdk>1.5</targetJdk>
+					<minimumTokens>20</minimumTokens>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+					<!-- <ruleset>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/pmd.xml</ruleset> -->
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.1.2</version>
@@ -316,47 +569,55 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.5</version>
-				<configuration>
-					<configLocation>${basedir}/checkstyle.xml</configLocation>
-					<enableRulesSummary>false</enableRulesSummary>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<linksource>true</linksource>
-					<links>
-						<link>http://java.sun.com/j2se/1.4.2/docs/api/</link>
-					</links>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.5</version>
 				<configuration>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
 					<showSuccess>true</showSuccess>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changes-plugin</artifactId>
-				<version>2.1</version>
-				<inherited>false</inherited>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>changes-report</report>
-						</reports>
-					</reportSet>
-				</reportSets>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>clirr-maven-plugin</artifactId>
+				<version>2.2.2</version>
 				<configuration>
-					<issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+					<comparisonVersion>1.1</comparisonVersion>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId> 
+				<artifactId>cobertura-maven-plugin</artifactId> 
+				<version>2.4</version> 
+				<configuration>
+					<formats>
+						<format>xml</format>
+						<format>html</format>
+					</formats>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId> 
+				<artifactId>findbugs-maven-plugin</artifactId> 
+				<version>2.3.1</version>
+				<configuration>
+					 <!-- <includeFilterFile>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/findbugs.xml</includeFilterFile> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>2.0-beta-2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<tags>
+						<tag>TODO</tag>
+						<tag>@todo</tag>
+						<tag>FIXME</tag>
+					</tags>
 				</configuration>
 			</plugin>
 		</plugins>
