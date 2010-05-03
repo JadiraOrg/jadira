@@ -43,7 +43,7 @@ public class PersistentDateTime extends AbstractMultiColumnUserType<DateTime> {
   
 
     @Override
-    public ColumnMapper<?, ?>[] getColumnMappers() {
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 

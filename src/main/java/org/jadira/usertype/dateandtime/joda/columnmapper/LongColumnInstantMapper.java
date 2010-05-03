@@ -39,6 +39,6 @@ public class LongColumnInstantMapper extends AbstractLongColumnMapper<Instant> {
 
     @Override
     public Long toNonNullValue(Instant value) {
-        return new Long(value.getMillis());
+        return Long.valueOf(value.getMillis());
     }
 }

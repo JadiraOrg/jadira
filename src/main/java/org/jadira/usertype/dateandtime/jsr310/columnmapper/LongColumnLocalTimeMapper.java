@@ -41,6 +41,6 @@ public class LongColumnLocalTimeMapper extends AbstractLongColumnMapper<LocalTim
 
     @Override
     public Long toNonNullValue(LocalTime value) {
-        return new Long(value.toNanoOfDay());
+        return Long.valueOf(value.toNanoOfDay());
     }
 }

@@ -43,7 +43,7 @@ public class PersistentDateMidnight extends AbstractMultiColumnUserType<DateMidn
   
 
     @Override
-    public ColumnMapper<?, ?>[] getColumnMappers() {
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 

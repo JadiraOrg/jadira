@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 
 import org.hibernate.HibernateException;
@@ -41,7 +42,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     }
     
     public int[] sqlTypes() {
-        return sqlTypes;
+        return Arrays.copyOf(sqlTypes, sqlTypes.length);
     }
     
     @SuppressWarnings("unchecked")
@@ -49,7 +50,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return (Class<T>) TypeHelper.getTypeArguments(AbstractMultiColumnUserType.class, getClass()).get(0);
     }
     
-    public abstract ColumnMapper<?, ?>[] getColumnMappers();
+    protected abstract ColumnMapper<?, ?>[] getColumnMappers();
     
     public final boolean isMutable() {
         return false;

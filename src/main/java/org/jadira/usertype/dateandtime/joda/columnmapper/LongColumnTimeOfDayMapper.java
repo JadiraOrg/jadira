@@ -44,6 +44,6 @@ public class LongColumnTimeOfDayMapper extends AbstractLongColumnMapper<TimeOfDa
 
     @Override
     public Long toNonNullValue(TimeOfDay value) {
-        return new Long((value.toLocalTime().getMillisOfDay()) * 1000000L);
+        return Long.valueOf((value.toLocalTime().getMillisOfDay()) * 1000000L);
     }
 }

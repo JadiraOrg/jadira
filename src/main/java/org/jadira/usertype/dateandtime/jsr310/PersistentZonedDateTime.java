@@ -51,7 +51,7 @@ public class PersistentZonedDateTime extends AbstractMultiColumnUserType<ZonedDa
   
 
     @Override
-    public ColumnMapper<?, ?>[] getColumnMappers() {
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 

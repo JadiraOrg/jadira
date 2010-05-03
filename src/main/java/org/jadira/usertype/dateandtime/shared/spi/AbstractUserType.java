@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Arrays;
 
 
 import org.hibernate.HibernateException;
@@ -54,7 +55,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
     }
     
     public final int[] sqlTypes() {
-        return sqlTypes;
+        return Arrays.copyOf(sqlTypes, sqlTypes.length);
     }
     
     public final boolean isMutable() {

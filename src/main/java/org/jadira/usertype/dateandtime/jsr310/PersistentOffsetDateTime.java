@@ -45,7 +45,7 @@ public class PersistentOffsetDateTime extends AbstractMultiColumnUserType<Offset
   
 
     @Override
-    public ColumnMapper<?, ?>[] getColumnMappers() {
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 

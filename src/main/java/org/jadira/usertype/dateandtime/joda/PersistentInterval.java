@@ -44,7 +44,7 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
   
 
     @Override
-    public ColumnMapper<?, ?>[] getColumnMappers() {
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 
