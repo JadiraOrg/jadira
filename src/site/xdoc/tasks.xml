@@ -27,7 +27,8 @@
 	<body>
 
 		<section name="Tasks outstanding">
-			<p>This project will continue to evolve as the JSR 310 standard progress through to final release</p>
+			<p>This project will continue to evolve to provide functionality found useful for particular instances of OR mapping with Hibernate.</p>
+			<p>Additionally, as the JSR 310 standard progresses and new snapshot releases are published, new releases of this project will also be made.</p>
 			<p>Contact the mailing lists for more details or to help.</p>
 		</section>
 
