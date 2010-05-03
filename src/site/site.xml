@@ -49,6 +49,7 @@
 			<item name="Mailing lists" href="mail-lists.html" />
 			<item name="Tasks" href="tasks.html" />
 			<item name="Subversion" href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
+			<item name="Maven 2 Repository" href="m2-repo/" />
 		</menu>
 
 		<menu ref="reports" />
