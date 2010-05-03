@@ -41,6 +41,21 @@
 		</developer>
 	</developers>
 
+	<mailingLists>
+		<mailingList>
+	    		<name>Usertype Discussion Mailing list</name>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</subscribe>
+	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</unsubscribe>
+			<!-- <archive>http://sourceforge.net/mailarchive/forum.php?forum_id=NOTYETARCHIVED</archive> -->
+			<post>jwebunit-users@lists.sourceforge.net</post>
+		</mailingList>
+	</mailingLists>
+	
+	<issueManagement>
+		<system>sourceforge</system><!--don't care-->
+		<url>http://sourceforge.net/tracker/?group_id=318316</url>
+	</issueManagement>
+
 	<licenses>
 		<license>
 			<name>Apache 2</name>
@@ -54,6 +69,25 @@
 	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/</developerConnection>
 	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/</url>
   	</scm>
+  	
+  	<distributionManagement>
+  	  	<site>
+  	  	  	<id>usertype.sourceforge.net</id>
+  	  	  	<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs</url>
+  	  	  	<name>Usertype Maven Site</name>
+  	  	</site>
+		<repository>
+			<id>usertype.sourceforge.net.m2-repo</id>
+			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo</url>
+			<name>Usertype Maven 2 Repository</name>
+  		</repository>
+  		<snapshotRepository>
+  			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
+  			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo-snapshots</url>
+  			<name>Usertype Maven 2 Snapshots Repository</name>
+  		</snapshotRepository>
+
+  	</distributionManagement>
 
 	<build>
 	
@@ -306,6 +340,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
 				<version>2.1</version>
+				<inherited>false</inherited>
 				<reportSets>
 					<reportSet>
 						<reports>
@@ -313,6 +348,9 @@
 						</reports>
 					</reportSet>
 				</reportSets>
+				<configuration>
+					<issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+				</configuration>
 			</plugin>
 		</plugins>
 	</reporting>
