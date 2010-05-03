@@ -55,7 +55,7 @@
 			<property name="allowUnchecked" value="true" />
 		</module>
 		<module name="LineLength">
-			<property name="max" value="120" />
+			<property name="max" value="200" />
 		</module>
 		<module name="JavadocVariable">
 			<property name="excludeScope" value="private" />
