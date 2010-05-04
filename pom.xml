@@ -535,6 +535,7 @@
 				<version>2.1</version>
 				<configuration>
 					<aggregate>true</aggregate>
+					<linkJavadoc>true</linkJavadoc>
 				</configuration>
 			</plugin>
 			<plugin>
