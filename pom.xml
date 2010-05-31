@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+	<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
   Copyright 2010 Christopher Pheby
@@ -17,15 +17,16 @@
 
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.jadira.usertype</groupId>
-	<artifactId>dateandtime-hibernate</artifactId>
-	<packaging>jar</packaging>
+	<artifactId>usertype.parent</artifactId>
+	<packaging>pom</packaging>
 
 	<version>1.2-SNAPSHOT</version>
 
-	<name>User Type and other capabilities for Hibernate</name>
+	<name>User Type for Hibernate Parent</name>
 	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
 	<url>http://usertype.sourceforge.net/</url>
 	<inceptionYear>2010</inceptionYear>
@@ -83,22 +84,62 @@
   	  	  	<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs</url>
   	  	  	<name>Usertype Maven Site</name>
   	  	</site>
+  	  	<!-- Old Sourceforge Repository
 		<repository>
 			<id>usertype.sourceforge.net.m2-repo</id>
 			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo</url>
 			<name>Usertype Maven 2 Repository</name>
-  		</repository>
+  		</repository> 
   		<snapshotRepository>
   			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
   			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo-snapshots</url>
   			<name>Usertype Maven 2 Snapshots Repository</name>
-  		</snapshotRepository>
-
+  		</snapshotRepository> -->
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<name>Nexus Release Repository</name>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+			<name>Sonatype Nexus Snapshots</name>
+		</snapshotRepository>
   	</distributionManagement>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.0</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 	
 	<build>
 		<defaultGoal>install</defaultGoal>
@@ -198,6 +239,7 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
+					<useProjectReferences>false</useProjectReferences> <!-- Project references do not work with test classifier -->
 				</configuration>
 			</plugin>
 			<plugin>
@@ -364,107 +406,6 @@
 		</plugins>
 	</build>
 
-	<dependencies>
-		<dependency>
-			<groupId>javax.time</groupId>
-			<artifactId>jsr-310-ri</artifactId>
-			<version>20100212</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>javax.time</groupId>
-			<artifactId>ZoneRuleInfo-TZDB</artifactId>
-			<version>2009b</version>
-			<scope>test</scope>
-		</dependency>		
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>1.6</version>
-			<optional>true</optional>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>3.5.0-Final</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.5.0-Final</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-  			<groupId>org.apache.geronimo.specs</groupId>
-  			<artifactId>geronimo-jpa_2.0_spec</artifactId>
-  			<version>1.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.11.0.GA</version>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.5.11</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.5.11</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.7</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-  			<groupId>org.dbunit</groupId>
-  			<artifactId>dbunit</artifactId>
-  			<version>2.4.7</version>
-  			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.2.132</version>
-			<scope>test</scope>
-		</dependency>
-		
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time-hibernate</artifactId>
-			<version>1.2</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>joda-time</groupId>
-					<artifactId>joda-time</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>1.6</version>
-			<optional>true</optional>
-		</dependency>
-		
-	</dependencies>
-
 	<reporting>
 		<plugins>
 			<plugin>
@@ -626,17 +567,119 @@
 
 	<repositories>
 		<repository>
+			<id>sonatype-nexus-staging</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<name>Nexus Release Repository</name>
+		</repository>
+		
+		<!-- Can't use these repositories for central sync up
+		<repository>
 			<id>jboss.repo</id>
 			<name>JBoss Maven repository</name>
 			<url>http://repository.jboss.com/maven2/</url>
 			<layout>default</layout>
-		</repository>
+		</repository> -->
+		
+		<!-- Uncomment for Site generation
 		<repository>
 			<id>fluido-skin.repo</id>
 			<name>Fluido-Skin Repository for Maven</name>
 			<url>http://fluido-skin.googlecode.com/svn/repo</url>
 			<layout>default</layout>
-		</repository>
+		</repository> -->
+		
 	</repositories>
+	
+	<dependencyManagement>
+	
+		<dependencies>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>3.3.2.GA</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>3.4.0.GA</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.geronimo.specs</groupId>
+				<artifactId>geronimo-jpa_2.0_spec</artifactId>
+				<version>1.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>javassist</groupId>
+				<artifactId>javassist</artifactId>
+				<version>3.8.0.GA</version>
+				<scope>runtime</scope>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>1.5.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.5.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.7</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.dbunit</groupId>
+				<artifactId>dbunit</artifactId>
+				<version>2.4.7</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>1.2.136</version>
+				<scope>test</scope>
+			</dependency>
 
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time-hibernate</artifactId>
+				<version>1.2</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>joda-time</groupId>
+						<artifactId>joda-time</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>
+				<groupId>joda-time</groupId>
+				<artifactId>joda-time</artifactId>
+				<version>1.6</version>
+				<optional>true</optional>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
+	<modules>
+		<module>usertype.spi</module>
+		<module>usertype.jodatime</module>
+		<module>usertype.jsr310</module>
+	</modules>
+	
 </project>

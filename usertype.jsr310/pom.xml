@@ -1,0 +1,164 @@
+	<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.jadira.usertype</groupId>
+		<artifactId>usertype.parent</artifactId>
+		<version>1.2-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jadira.usertype</groupId>
+	<artifactId>usertype.jsr310</artifactId>
+	<packaging>jar</packaging>
+
+	<version>1.2-SNAPSHOT</version>
+
+	<name>User Type for JSR310 with Hibernate</name>
+	<description>Classes utilising JSR 310 that add Hibernate support</description>
+  	
+  	<distributionManagement>
+  		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
+  	  	<site>
+  	  	  	<id>usertype.sourceforge.net</id>
+  	  	  	<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs</url>
+  	  	  	<name>Usertype Maven Site</name>
+  	  	</site>
+  	  	<!-- Can't sync to Nexus for JSR 310 -->
+		<repository>
+			<id>usertype.sourceforge.net.m2-repo</id>
+			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo</url>
+			<name>Usertype Maven 2 Repository</name>
+  		</repository> 
+  		<snapshotRepository>
+  			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
+  			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo-snapshots</url>
+  			<name>Usertype Maven 2 Snapshots Repository</name>
+  		</snapshotRepository>
+  	</distributionManagement>
+	
+	<dependencies>
+		<dependency>
+			<groupId>javax.time</groupId>
+			<artifactId>jsr-310-ri</artifactId>
+			<version>20100212</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.time</groupId>
+			<artifactId>ZoneRuleInfo-TZDB</artifactId>
+			<version>2009b</version>
+			<scope>test</scope>
+		</dependency>		
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.5.2-Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.5.2-Final</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.geronimo.specs</groupId>
+  			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+  			<groupId>org.dbunit</groupId>
+  			<artifactId>dbunit</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time-hibernate</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.spi</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.jodatime</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jadira.usertype</groupId>
+			<artifactId>usertype.spi</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		
+	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<name>Nexus Release Repository</name>
+		</repository>
+		
+		<repository>
+			<id>jboss.repo</id>
+			<name>JBoss Maven repository</name>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
+			<layout>default</layout>
+		</repository>		
+		<repository>
+			<id>fluido-skin.repo</id>
+			<name>Fluido-Skin Repository for Maven</name>
+			<url>http://fluido-skin.googlecode.com/svn/repo</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
+</project>

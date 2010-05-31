@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <offsetDateTimeAsString ID="0" NAME="test_0" MY_DATE="2004-02-25T17:03:45.000000760" MY_OFFSET="Z"/>
+  <offsetDateTimeAsString ID="1" NAME="test_1" MY_DATE="1980-03-11T02:03:45" MY_OFFSET="+02:00"/>
+</dataset>

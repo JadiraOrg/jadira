@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+  Copyright 2010 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<dataset>
+  <periodAsString ID="0" NAME="test_0" PERIOD="P2D"/>
+  <periodAsString ID="1" NAME="test_1" PERIOD="PT30S"/>
+  <periodAsString ID="2" NAME="test_2" PERIOD="P3M"/>
+  <periodAsString ID="3" NAME="test_3" PERIOD="PT30S"/>
+  <periodAsString ID="4" NAME="test_4" PERIOD="P4Y35M40DT141H"/>
+  <periodAsString ID="5" NAME="test_5" PERIOD="P28Y10M2DT2H4M35.04S"/>
+  <periodAsString ID="6" NAME="test_6" PERIOD="P28Y10MT16H4M35.04S"/>
+</dataset>

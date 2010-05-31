@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <localDateTimeAsString ID="0" LOCALDATETIME="2004-02-25 12:11:10.0" NAME="test_0"/>
+  <localDateTimeAsString ID="1" LOCALDATETIME="1980-03-11 13:12:11.0" NAME="test_1"/>
+</dataset>
