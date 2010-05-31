@@ -25,8 +25,9 @@
 
 	<body>
 		<!-- types are add, fix, remove, update -->
-		<release version="1.2" date="TBC" description="Changes and Improvements">
-			<action dev="Chris Pheby" type="update">Adding sourceforge Maven sites and Maven repository</action>
+		<release version="1.2" date="TBC" description="Central Sync Up">
+			<action dev="Chris Pheby" type="update">Modularise build so Joda Time support can be synchronized to central</action>
+			<action dev="Chris Pheby" type="update">Update JSR 310 support to Hibernate 3.5.2</action>
 		</release>
 
 		<release version="1.1" date="30-04-2010" description="New Types">
