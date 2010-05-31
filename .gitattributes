@@ -1,5 +1,10 @@
 * text=auto !eol
+/LICENSE.txt -text
+/README.txt -text
+/RELEASE-NOTES.txt -text
 changes/changes.xml -text
+/checkstyle.xml -text
+/maven-eclipse.xml -text
 /pom.xml -text
 site/apt/howto.apt -text
 site/apt/limitation.apt -text
@@ -297,6 +302,7 @@ src/test/resources/expected/zonedDateTime.xml -text
 src/test/resources/expected/zonedDateTimeAsString.xml -text
 src/test/resources/expected/zonedOffsetAsString.xml -text
 src/test/resources/log4j.properties -text
+/suppressions.xml -text
 usertype.jodatime/LICENSE.txt -text
 usertype.jodatime/README.txt -text
 usertype.jodatime/RELEASE-NOTES.txt -text
