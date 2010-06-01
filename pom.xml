@@ -23,7 +23,7 @@
 	<artifactId>usertype.parent</artifactId>
 	<packaging>pom</packaging>
 
-	<version>1.2</version>
+	<version>1.2-SNAPSHOT</version>
 
 	<name>User Type for Hibernate Parent</name>
 	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
