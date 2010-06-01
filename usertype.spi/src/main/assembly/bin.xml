@@ -28,11 +28,11 @@
 	<fileSets>
 		<fileSet>
 			<includes>
-				<include>LICENSE.txt</include>
-				<include>NOTICE.txt</include>
+				<include>../LICENSE.txt</include>
+				<include>../NOTICE.txt</include>
 				<include>pom.xml</include>
-				<include>README.txt</include>
-				<include>RELEASE-NOTES.txt</include>
+				<include>../README.txt</include>
+				<include>../RELEASE-NOTES.txt</include>
 			</includes>
 		</fileSet>
 		<fileSet>

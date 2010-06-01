@@ -29,11 +29,11 @@
 		<fileSet>
 			<includes>
 				<include>checkstyle.xml</include>
-				<include>LICENSE.txt</include>
-				<include>NOTICE.txt</include>
+				<include>../LICENSE.txt</include>
+				<include>../NOTICE.txt</include>
 				<include>pom.xml</include>
-				<include>README.txt</include>
-				<include>RELEASE-NOTES.txt</include>
+				<include>../README.txt</include>
+				<include>../RELEASE-NOTES.txt</include>
 			</includes>
 		</fileSet>
 		<fileSet>
@@ -48,6 +48,7 @@
 			<excludes>
 				<exclude>*-sources.jar</exclude>
 				<exclude>*-javadoc.jar</exclude>
+				<exclude>*-tests.jar</exclude>
 			</excludes>
 		</fileSet>
 	</fileSets>
