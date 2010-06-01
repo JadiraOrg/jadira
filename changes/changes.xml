@@ -25,7 +25,7 @@
 
 	<body>
 		<!-- types are add, fix, remove, update -->
-		<release version="1.2" date="TBC" description="Central Sync Up">
+		<release version="1.2" date="01-06-2010" description="Central Sync Up">
 			<action dev="Chris Pheby" type="update">Modularise build so Joda Time support can be synchronized to central</action>
 			<action dev="Chris Pheby" type="update">Update JSR 310 support to Hibernate 3.5.2</action>
 			<action dev="Chris Pheby" type="update">Uses New JBoss Nexus Repository</action>
