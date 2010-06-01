@@ -2,7 +2,6 @@
 /LICENSE.txt -text
 /README.txt -text
 /RELEASE-NOTES.txt -text
-changes/changes.xml -text
 /checkstyle.xml -text
 /pom.xml -text
 src/changes/changes.xml -text
