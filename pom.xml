@@ -437,6 +437,56 @@
 	<reporting>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<inherited>true</inherited>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.6</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+					<reportSets>
+						<reportSet>
+							<id>aggregate</id>
+							<inherited>false</inherited>
+							<configuration>
+							<!-- Specific configuration for the aggregate report -->
+							</configuration>
+							<reports>
+								<report>aggregate</report>
+							</reports>
+						</reportSet>
+						<reportSet>
+							<id>nonaggregate</id>
+							<configuration>
+							<!-- Specific configuration for the non aggregate report -->
+							</configuration>
+							<reports>
+								<report>javadoc</report>
+							</reports>
+						</reportSet>
+					</reportSets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<aggregate>true</aggregate>
+					<linkJavadoc>true</linkJavadoc>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId> 
 				<artifactId>maven-changes-plugin</artifactId> 
 				<version>2.0</version> 
@@ -467,15 +517,6 @@
 					<charset>${project.build.sourceEncoding}</charset>
 					<enableRulesSummary>false</enableRulesSummary>
 					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<version>2.1</version>
-				<configuration>
-					<aggregate>true</aggregate>
-					<linkJavadoc>true</linkJavadoc>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -559,47 +600,6 @@
 						<tag>@todo</tag>
 						<tag>FIXME</tag>
 					</tags>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-				<inherited>true</inherited>
-				<configuration>
-					<linksource>true</linksource>
-					<links>
-						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
-					</links>
-					<encoding>UTF-8</encoding>
-					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
-					<docletArtifact>
-						<groupId>gr.spinellis</groupId>
-						<artifactId>UmlGraph</artifactId>
-						<version>4.6</version>
-					</docletArtifact>
-					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
-					<reportSets>
-						<reportSet>
-							<id>aggregate</id>
-							<inherited>false</inherited>
-							<configuration>
-							<!-- Specific configuration for the aggregate report -->
-							</configuration>
-							<reports>
-								<report>aggregate</report>
-							</reports>
-						</reportSet>
-						<reportSet>
-							<id>nonaggregate</id>
-							<configuration>
-							<!-- Specific configuration for the non aggregate report -->
-							</configuration>
-							<reports>
-								<report>javadoc</report>
-							</reports>
-						</reportSet>
-					</reportSets>
 				</configuration>
 			</plugin>
 		</plugins>
