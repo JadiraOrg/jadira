@@ -5,15 +5,6 @@
 changes/changes.xml -text
 /checkstyle.xml -text
 /pom.xml -text
-site/apt/howto.apt -text
-site/apt/limitation.apt -text
-site/fml/faqs.fml -text
-site/resources/images/jadira-small.png -text
-site/site.xml -text
-site/xdoc/index.xml -text
-site/xdoc/licensecover.xml -text
-site/xdoc/tasks.xml -text
-site/xdoc/userguide.xml -text
 src/changes/changes.xml -text
 src/main/assembly/bin.xml -text
 src/main/assembly/src.xml -text

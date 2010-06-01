@@ -71,6 +71,11 @@
 		</license>
 	</licenses>
 	
+	<properties>
+		<configuration.base>http://usertype.svn.sourceforge.net/svnroot/usertype/trunk</configuration.base>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>		
+	</properties>
+	
 	<scm>
 	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk</connection>
 	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</developerConnection>
@@ -106,10 +111,6 @@
 			<name>Sonatype Nexus Snapshots</name>
 		</snapshotRepository>
   	</distributionManagement>
-	
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	
 	<profiles>
 		<profile>
@@ -157,7 +158,6 @@
 		</resources>
 		
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
@@ -312,31 +312,59 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>2.7</version>
+				<inherited>true</inherited>
 				<configuration>
 					<linksource>true</linksource>
 					<links>
 						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
 					</links>
 					<encoding>UTF-8</encoding>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<phase>package</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-					<aggregate>true</aggregate>
 					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
 					<docletArtifact>
 						<groupId>gr.spinellis</groupId>
 						<artifactId>UmlGraph</artifactId>
 						<version>4.6</version>
 					</docletArtifact>
-					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+					<reportSets>
+						<reportSet>
+							<id>aggregate</id>
+							<inherited>false</inherited>
+							<configuration>
+							<!-- Specific configuration for the aggregate report -->
+							</configuration>
+							<reports>
+								<report>aggregate</report>
+							</reports>
+						</reportSet>
+						<reportSet>
+							<id>attach-javadocs</id>
+							<configuration>
+							<!-- Specific configuration for the non aggregate report -->
+							</configuration>
+							<reports>
+								<report>javadoc</report>
+							</reports>
+						</reportSet>
+					</reportSets>
 				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>aggregate</id>
+						<phase>site</phase>
+						<goals>
+							<goal>aggregate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -432,42 +460,13 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.4</version>
 				<configuration>
-					<configLocation>${basedir}/../checkstyle.xml</configLocation>
+					<configLocation>${configuration.base}/checkstyle.xml</configLocation>
 					<encoding>${project.build.sourceEncoding}</encoding> 
 					<charset>${project.build.sourceEncoding}</charset>
 					<enableRulesSummary>false</enableRulesSummary>
 					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
-				<configuration>
-					<linksource>true</linksource>
-					<links>
-						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
-					</links>
-					<encoding>UTF-8</encoding>
-					<executions>
-						<execution>
-							<id>attach-javadocs</id>
-							<phase>package</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-					<aggregate>true</aggregate>
-					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
-					<docletArtifact>
-						<groupId>gr.spinellis</groupId>
-						<artifactId>UmlGraph</artifactId>
-						<version>4.6</version>
-					</docletArtifact>
-					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -560,6 +559,47 @@
 						<tag>@todo</tag>
 						<tag>FIXME</tag>
 					</tags>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.7</version>
+				<inherited>true</inherited>
+				<configuration>
+					<linksource>true</linksource>
+					<links>
+						<link>http://java.sun.com/j2se/1.5.0/docs/api/</link>
+					</links>
+					<encoding>UTF-8</encoding>
+					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>gr.spinellis</groupId>
+						<artifactId>UmlGraph</artifactId>
+						<version>4.6</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+					<reportSets>
+						<reportSet>
+							<id>aggregate</id>
+							<inherited>false</inherited>
+							<configuration>
+							<!-- Specific configuration for the aggregate report -->
+							</configuration>
+							<reports>
+								<report>aggregate</report>
+							</reports>
+						</reportSet>
+						<reportSet>
+							<id>nonaggregate</id>
+							<configuration>
+							<!-- Specific configuration for the non aggregate report -->
+							</configuration>
+							<reports>
+								<report>javadoc</report>
+							</reports>
+						</reportSet>
+					</reportSets>
 				</configuration>
 			</plugin>
 		</plugins>
