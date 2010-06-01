@@ -3,6 +3,7 @@
 /README.txt -text
 /RELEASE-NOTES.txt -text
 changes/changes.xml -text
+/checkstyle.xml -text
 /pom.xml -text
 site/apt/howto.apt -text
 site/apt/limitation.apt -text
@@ -300,7 +301,7 @@ src/test/resources/expected/zonedDateTime.xml -text
 src/test/resources/expected/zonedDateTimeAsString.xml -text
 src/test/resources/expected/zonedOffsetAsString.xml -text
 src/test/resources/log4j.properties -text
-usertype.jodatime/checkstyle.xml -text
+/suppressions.xml -text
 usertype.jodatime/maven-eclipse.xml -text
 usertype.jodatime/pom.xml -text
 usertype.jodatime/src/main/assembly/bin.xml -text
@@ -449,8 +450,6 @@ usertype.jodatime/src/test/resources/expected/zonedDateTime.xml -text
 usertype.jodatime/src/test/resources/expected/zonedDateTimeAsString.xml -text
 usertype.jodatime/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.jodatime/src/test/resources/log4j.properties -text
-usertype.jodatime/suppressions.xml -text
-usertype.jsr310/checkstyle.xml -text
 usertype.jsr310/maven-eclipse.xml -text
 usertype.jsr310/pom.xml -text
 usertype.jsr310/src/main/assembly/bin.xml -text
@@ -609,8 +608,6 @@ usertype.jsr310/src/test/resources/expected/zonedDateTime.xml -text
 usertype.jsr310/src/test/resources/expected/zonedDateTimeAsString.xml -text
 usertype.jsr310/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.jsr310/src/test/resources/log4j.properties -text
-usertype.jsr310/suppressions.xml -text
-usertype.spi/checkstyle.xml -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
 usertype.spi/src/main/assembly/bin.xml -text
@@ -633,4 +630,3 @@ usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/L
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimestampType.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/DatabaseCapable.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/RuntimeDatabaseUnitException.java -text
-usertype.spi/suppressions.xml -text
