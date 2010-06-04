@@ -59,7 +59,7 @@
 	</mailingLists>
 	
 	<issueManagement>
-		<system>sourceforge</system><!--don't care-->
+		<system>sourceforge</system>
 		<url>http://sourceforge.net/tracker/?group_id=318316</url>
 	</issueManagement>
 
@@ -616,7 +616,7 @@
 		<repository>
 			<id>jboss.repo</id>
 			<name>JBoss Maven repository</name>
-			<url>http://repository.jboss.com/maven2/</url>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 			<layout>default</layout>
 		</repository> -->
 		
