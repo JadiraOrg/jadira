@@ -49,8 +49,8 @@
 			<item name="Mailing lists" href="mail-lists.html" />
 			<item name="Tasks" href="tasks.html" />
 			<item name="Subversion" href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
-			<item name="Maven 2 Repository (JSR310)" href="m2-repo/" />
-			<item name="Maven 2 Repository (Central Staging)" href="http://oss.sonatype.org/content/groups/staging/org/jadira/" />
+			<item name="Maven 2 Repository (Central Releases)" href="http://repo1.maven.org/maven2/org/jadira/" />
+			<item name="Maven 2 Repository (JSR310 Support)" href="m2-repo/" />
 		</menu>
 
 		<menu ref="reports" />
