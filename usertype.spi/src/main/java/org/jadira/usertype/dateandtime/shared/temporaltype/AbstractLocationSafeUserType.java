@@ -64,7 +64,7 @@ public abstract class AbstractLocationSafeUserType extends MutableType implement
     
     public abstract Class<?> returnedClass();
 
-    @SuppressWarnings("unchecked") public Class getReturnedClass() {
+    @SuppressWarnings("rawtypes") public Class getReturnedClass() {
         return returnedClass();
     }
     
