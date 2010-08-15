@@ -25,7 +25,7 @@
 	<poweredBy>
 		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net/" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1" />
 		<logo name="Built using Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-button-green.png" />
-		<logo name="Sponsored by Jadira" href="http://blog.jadira.co.uk/" img="../images/jadira-small.png" />
+		<logo name="Jadira Open Source" href="http://blog.jadira.co.uk/" img="../images/jadira-small.png" />
 	</poweredBy>
 
 	<body>
@@ -56,9 +56,9 @@
 	</body>
 
 	<skin>
-	        <groupId>com.google.code</groupId>
+	        <groupId>com.googlecode.fluido-skin</groupId>
 	        <artifactId>fluido-skin</artifactId>
-	        <version>1.2</version>
+	        <version>1.3</version>
 	</skin>
 	
 </project>
