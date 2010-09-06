@@ -15,41 +15,18 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
-import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
-import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
+import java.sql.Timestamp;
+
+import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
 
 /**
- * Persist {@link DateTime} via Hibernate. The offset will be stored in an extra column.
+ * Persist {@link DateTime} via Hibernate. This type is
+ * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDateTime} however
+ * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
+ * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
+ * round down to the nearest millisecond. The type is persisted using the UTC timezone
  */
-public class PersistentDateTime extends AbstractMultiColumnUserType<DateTime> {
-
-    private static final long serialVersionUID = 1364221029392346011L;
-
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
-    
-    @Override
-    protected DateTime fromConvertedColumns(Object[] convertedColumns) {
-
-        LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
-        DateTimeZone offset = (DateTimeZone) convertedColumns[1];
-        
-        return new DateTime(datePart, offset);
-    }
-  
-
-    @Override
-    protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
-    }
-
-    @Override
-    protected Object[] toConvertedColumns(DateTime value) {
-
-        return new Object[] { value.toLocalDateTime(), value.getZone() };
-    }
+public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> {
 }

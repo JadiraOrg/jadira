@@ -23,6 +23,7 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentD
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnightAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTime.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeAsString.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeWithZone.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeZoneAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDurationAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentInstantAsMillisLong.java -text
@@ -69,11 +70,13 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmappe
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnYearsMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimeColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimeColumnTimeOfDayMapper.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnInstantMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnTimeOfDayMapper.java -text
 usertype.jodatime/src/site/site.xml -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTime.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDurationAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsMillisLong.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsNanosBigInteger.java -text
@@ -97,9 +100,11 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersist
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentYearMonthDay.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentYearMonthDayAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentYears.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/DateTimeJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/DurationJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/InstantAsBigIntJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/InstantJoda.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDurationAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsMillisLongHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsNanosBigIntegerHolder.java -text
@@ -133,6 +138,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/Y
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearsHolder.java -text
 usertype.jodatime/src/test/resources/META-INF/persistence.xml -text
 usertype.jodatime/src/test/resources/expected/.dbunit-comparison-files -text
+usertype.jodatime/src/test/resources/expected/dateTime.xml -text
 usertype.jodatime/src/test/resources/expected/durationAsString.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsMillisLong.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsNanosBigInteger.xml -text

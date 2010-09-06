@@ -26,7 +26,10 @@
 	<body>
 		<!-- types are add, fix, remove, update -->
 		<release version="1.3" date="06-09-2010" description="Fix Java 5 Support">
-			<action dev="Chris Pheby" type="update">Fix compilation on Java 5 for Joda Time support. NB. JSR 310 requires Java 6. Reported by Javed Mandary</action>
+			<action dev="Chris Pheby" type="fix">Fix compilation on Java 5 for Joda Time support. NB. JSR 310 requires Java 6. Reported by Javed Mandary</action>
+		<release version="1.3" date="06-09-2010" description="Fix Java 5 Support">
+			<action dev="Chris Pheby" type="add">Added PersistentDateTimeWithZone to replace previous PersistentDateTime. New PersistentDateTime class persists to a single column without zone.</action>
+
 		</release>
 
 		<release version="1.2" date="01-06-2010" description="Central Sync Up">
