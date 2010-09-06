@@ -19,13 +19,13 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-
 
 import org.hibernate.HibernateException;
 import org.hibernate.type.SerializationException;
 import org.hibernate.usertype.EnhancedUserType;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
+
+import static org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils.copyOf;
 
 public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> implements EnhancedUserType {
 
@@ -55,7 +55,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
     }
     
     public final int[] sqlTypes() {
-        return Arrays.copyOf(sqlTypes, sqlTypes.length);
+        return copyOf(sqlTypes);
     }
     
     public final boolean isMutable() {

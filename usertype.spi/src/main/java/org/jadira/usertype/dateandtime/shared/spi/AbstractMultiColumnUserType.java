@@ -15,12 +15,12 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
+import static org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils.copyOf;
+
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-
 
 import org.hibernate.HibernateException;
 import org.hibernate.type.SerializationException;
@@ -42,7 +42,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     }
     
     public int[] sqlTypes() {
-        return Arrays.copyOf(sqlTypes, sqlTypes.length);
+    	return copyOf(sqlTypes);
     }
     
     @SuppressWarnings("unchecked")

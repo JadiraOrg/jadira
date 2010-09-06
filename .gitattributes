@@ -327,6 +327,7 @@ usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
 usertype.spi/src/main/assembly/bin.xml -text
 usertype.spi/src/main/assembly/src.xml -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractColumnMapper.java -text

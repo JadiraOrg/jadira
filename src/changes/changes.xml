@@ -25,6 +25,10 @@
 
 	<body>
 		<!-- types are add, fix, remove, update -->
+		<release version="1.3" date="06-09-2010" description="Fix Java 5 Support">
+			<action dev="Chris Pheby" type="update">Fix compilation on Java 5 for Joda Time support. NB. JSR 310 requires Java 6. Reported by Javed Mandary</action>
+		</release>
+
 		<release version="1.2" date="01-06-2010" description="Central Sync Up">
 			<action dev="Chris Pheby" type="update">Modularise build so Joda Time support can be synchronized to central</action>
 			<action dev="Chris Pheby" type="update">Update JSR 310 support to Hibernate 3.5.2</action>
