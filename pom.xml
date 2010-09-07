@@ -165,67 +165,8 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>toolchain</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>5.0</version>
-							<vendor>sun</vendor>
-						</jdk>
-					</toolchains>
-			 	 </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
-				<configuration>
-					<descriptors>
-						<descriptor>src/main/assembly/src.xml</descriptor>
-						<descriptor>src/main/assembly/bin.xml</descriptor>
-					</descriptors>
-					<tarLongFileMode>gnu</tarLongFileMode>
-				</configuration>
-				<executions>
-					<execution>
-						<id>make-assembly</id>
-						<phase>deploy</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
 				<version>2.4</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<verbose>true</verbose>
-					<fork>true</fork>
-					<source>1.5</source>
-					<target>1.5</target>
-					<compilerArgument>-g</compilerArgument>
-					<encoding>${project.build.sourceEncoding}</encoding> 
-					<charset>${project.build.sourceEncoding}</charset>
-					<debug>true</debug>
-					<optimize>true</optimize>
-					<showDeprecations>true</showDeprecations>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
