@@ -17,8 +17,6 @@ src/site/xdoc/userguide.xml -text
 /suppressions.xml -text
 usertype.jodatime/maven-eclipse.xml -text
 usertype.jodatime/pom.xml -text
-usertype.jodatime/src/main/assembly/bin.xml -text
-usertype.jodatime/src/main/assembly/src.xml -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnight.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnightAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTime.java -text
@@ -172,8 +170,6 @@ usertype.jodatime/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.jodatime/src/test/resources/log4j.properties -text
 usertype.jsr310/maven-eclipse.xml -text
 usertype.jsr310/pom.xml -text
-usertype.jsr310/src/main/assembly/bin.xml -text
-usertype.jsr310/src/main/assembly/src.xml -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/PersistentDurationAsString.java -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/PersistentInstantAsMillisLong.java -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/PersistentInstantAsNanosBigInteger.java -text
@@ -331,8 +327,6 @@ usertype.jsr310/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.jsr310/src/test/resources/log4j.properties -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
-usertype.spi/src/main/assembly/bin.xml -text
-usertype.spi/src/main/assembly/src.xml -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigIntegerColumnMapper.java -text
