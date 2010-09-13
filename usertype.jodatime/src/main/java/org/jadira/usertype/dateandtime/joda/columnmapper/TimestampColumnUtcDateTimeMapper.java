@@ -26,7 +26,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper<DateTime> {
+public class TimestampColumnUtcDateTimeMapper extends AbstractTimestampColumnMapper<DateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -39,7 +39,7 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
 
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
-        return DATETIME_FORMATTER.parseDateTime(value.toString());
+        return DATETIME_FORMATTER.withZone(DateTimeZone.UTC).parseDateTime(value.toString());
     }
 
     @Override

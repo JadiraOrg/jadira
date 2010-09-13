@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
+import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnUtcDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.DateTime;
 
@@ -28,5 +28,5 @@ import org.joda.time.DateTime;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond. The type is persisted using the UTC timezone
  */
-public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> {
+public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnUtcDateTimeMapper> {
 }

@@ -18,6 +18,8 @@ package org.jadira.usertype.dateandtime.joda;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.TimeZone;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -35,8 +37,8 @@ import org.junit.Test;
 
 public class TestPersistentDateTime extends DatabaseCapable {
 
-    private static final DateTime[] dateTimes     = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC) };
-    private static final DateTime[] jodaDateTimes = new DateTime[] { new DateTime(2004, 2, 25, 8, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC) };
+    private static final DateTime[] dateTimes     = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC) };
+    private static final DateTime[] jodaDateTimes = new DateTime[] { new DateTime(2004, 2, 25, 8, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC) };
 
     private static EntityManagerFactory factory;
 
@@ -82,7 +84,7 @@ public class TestPersistentDateTime extends DatabaseCapable {
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            assertEquals(dateTimes[i].withZone(DateTimeZone.UTC).toString(), item.getDateTime().toString());
+            assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
         }
         
         verifyDatabaseTable(manager, JodaDateTimeHolder.class.getAnnotation(Table.class).name());
