@@ -19,4 +19,5 @@
 <dataset>
   <dateTime ID="0" DATETIME="2004-02-25 08:11:10.0" NAME="test_0"/>
   <dateTime ID="1" DATETIME="1980-03-11 13:12:11.5" NAME="test_1"/>
+  <dateTime ID="2" NAME="test_2"/>
 </dataset>
