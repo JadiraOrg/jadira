@@ -15,17 +15,19 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
+import static org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils.copyOf;
+
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
+
 import org.hibernate.type.SerializationException;
 import org.hibernate.usertype.EnhancedUserType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
-
-import static org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils.copyOf;
 
 public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> implements EnhancedUserType {
 
@@ -99,8 +101,15 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         return value;
     }
     
+    @SuppressWarnings({ "unchecked", "deprecation" }) 
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
-        @SuppressWarnings("unchecked") J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0]);
+        J converted;
+        if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+        	converted = (J) Hibernate36Helper.nullSafeGet(getColumnMapper(), resultSet, strings[0]);
+        } else {
+        	converted = (J) ((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeGet(resultSet, strings[0]);
+        }
+        
         if (converted == null) {
             return null;
         }
@@ -108,18 +117,34 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         return getColumnMapper().fromNonNullValue(converted);
     }
     
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
+    @SuppressWarnings("deprecation")
+	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
-            getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, null, index);
+            if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+            	Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, null, index);
+            } else {
+            	((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, null, index);
+            }
         } else {
             @SuppressWarnings("unchecked") final T myValue = (T) value;
-            getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
+            if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+            	Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
+            } else {
+            	((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
+            }
+            
         }
     }
     
-    public String objectToSQLString(Object object) {
+    @SuppressWarnings("deprecation")
+	public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
-        return getColumnMapper().getHibernateType().nullSafeToString(myObject == null ? null : getColumnMapper().toNonNullValue(myObject));
+        J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);
+        if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+        	return Hibernate36Helper.nullSafeToString(getColumnMapper(), convertedObject);
+        } else {
+        	return ((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeToString(convertedObject);
+        }
     }
        
     public String toXMLString(Object object) {

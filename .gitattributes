@@ -328,6 +328,8 @@ usertype.jsr310/src/test/resources/log4j.properties -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/Hibernate36Helper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ReflectionException.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractColumnMapper.java -text

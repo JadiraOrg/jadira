@@ -19,14 +19,20 @@ import java.sql.Time;
 import java.sql.Types;
 
 import org.hibernate.Hibernate;
-import org.hibernate.type.NullableType;
+import org.hibernate.type.TimeType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractTimeColumnMapper<T> extends AbstractColumnMapper<T, Time> {
 
     private static final long serialVersionUID = -3070239764121234482L;
 
-    public final NullableType getHibernateType() {
-        return Hibernate.TIME;
+    @SuppressWarnings("deprecation")
+	public final TimeType getHibernateType() {
+    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    		return (TimeType) Hibernate36Helper.getHibernateType("TIME");
+    	} else {
+    		return (TimeType) Hibernate.TIME;
+    	}
     }
     
     public final int getSqlType() {

@@ -32,6 +32,7 @@ import org.jadira.usertype.dateandtime.jsr310.testmodel.DurationJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPersistentDurationAsString extends DatabaseCapable {
@@ -97,6 +98,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
     }
     
     @Test
+    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
@@ -154,6 +156,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
     }
     
     @Test
+    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

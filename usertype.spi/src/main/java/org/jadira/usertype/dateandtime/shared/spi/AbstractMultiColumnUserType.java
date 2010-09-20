@@ -25,6 +25,7 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.type.SerializationException;
 import org.hibernate.usertype.UserType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
 public abstract class AbstractMultiColumnUserType<T> implements UserType, Serializable {
@@ -32,7 +33,9 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     private static final long serialVersionUID = -8258683760413283329L;
     
     private final int[] sqlTypes;
-
+    
+    // The class
+    
     public AbstractMultiColumnUserType() {
         
         sqlTypes = new int[getColumnMappers().length];
@@ -40,8 +43,8 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
             sqlTypes[i] = getColumnMappers()[i].getSqlType();
         }
     }
-    
-    public int[] sqlTypes() {
+   
+	public int[] sqlTypes() {
     	return copyOf(sqlTypes);
     }
     
@@ -93,14 +96,21 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return value;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
         
         Object[] convertedColumns = new Object[getColumnMappers().length];
         
         for (int i = 0; i < getColumnMappers().length; i++) {
             ColumnMapper nextMapper = getColumnMappers()[i];
-            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[i]);
+            
+            final Object converted;
+            if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+            	converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[i]);
+            } else {
+            	converted = ((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[i]);
+            }
+            
             if (converted != null) {
                 convertedColumns[i] = nextMapper.fromNonNullValue(converted);
             }
@@ -114,17 +124,21 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
 
         return null;
     }
-    
-    protected abstract T fromConvertedColumns(Object[] convertedColumns);
+
+	protected abstract T fromConvertedColumns(Object[] convertedColumns);
     
     protected abstract Object[] toConvertedColumns(T value);
         
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
-                nextMapper.getHibernateType().nullSafeSet(preparedStatement, null, index);
+                if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index);
+                } else {
+                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index);
+                }
             }
         } else {
             
@@ -133,7 +147,12 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
             
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper nextMapper = getColumnMappers()[i];
-                nextMapper.getHibernateType().nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
+                if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
+                } else {
+                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
+                }
+                
             }
         }
     }

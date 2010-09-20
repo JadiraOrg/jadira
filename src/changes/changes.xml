@@ -27,6 +27,9 @@
 		<!-- types are add, fix, remove, update -->
 		<release version="1.4" date="TBC" description="">
 			<action dev="Chris Pheby" type="update">Link Joda Time 1.6.2</action>
+			<action dev="Chris Pheby" type="update">Tracking Hibernate 3.6.0 releases</action>
+			<action dev="Chris Pheby" type="update">Link SLF4J 1.6.1</action>
+			<action dev="Chris Pheby" type="update">Updated Maven plugin dependencies</action>
 		</release>
 		
 		<release version="1.3.1" date="13-09-2010" description="UTC DateTime Behaviour Tweak">

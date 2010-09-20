@@ -30,6 +30,7 @@ import org.jadira.usertype.dateandtime.jsr310.testmodel.LocalTimeAsStringJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPersistentLocalTimeAsString extends DatabaseCapable {
@@ -93,6 +94,7 @@ public class TestPersistentLocalTimeAsString extends DatabaseCapable {
     }
     
     @Test
+    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
@@ -137,6 +139,7 @@ public class TestPersistentLocalTimeAsString extends DatabaseCapable {
     }
     
     @Test
+    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

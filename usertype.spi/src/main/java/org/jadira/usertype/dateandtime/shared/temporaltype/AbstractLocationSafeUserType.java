@@ -24,10 +24,10 @@ import java.util.TimeZone;
 
 import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
-import org.hibernate.type.MutableType;
 import org.hibernate.usertype.UserType;
 
-public abstract class AbstractLocationSafeUserType extends MutableType implements UserType, Serializable {
+@SuppressWarnings("deprecation")
+public abstract class AbstractLocationSafeUserType extends org.hibernate.type.MutableType implements UserType, Serializable {
 
     private static final long serialVersionUID = -1670945705327210610L;
 
@@ -83,11 +83,10 @@ public abstract class AbstractLocationSafeUserType extends MutableType implement
         return deepCopy(cached);
     }
 
-    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
+	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
         return nullSafeGet(resultSet, names[0]);
     }
     
-
     @Override
     public void set(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         if (!(value instanceof java.sql.Date)) {                

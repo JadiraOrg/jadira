@@ -17,9 +17,9 @@ package org.jadira.usertype.dateandtime.shared.spi;
 
 import java.sql.Types;
 
-
 import org.hibernate.Hibernate;
-import org.hibernate.type.NullableType;
+import org.hibernate.type.IntegerType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMapper<T, Integer> {
 
@@ -29,8 +29,13 @@ public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMappe
         return Types.INTEGER;
     }
     
-    public final NullableType getHibernateType() {
-        return Hibernate.INTEGER;
+    @SuppressWarnings("deprecation")
+	public final IntegerType getHibernateType() {
+    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    		return (IntegerType) Hibernate36Helper.getHibernateType("INTEGER");
+    	} else {
+    		return (IntegerType) Hibernate.INTEGER;
+    	}
     }
     
     public abstract T fromNonNullValue(Integer value);

@@ -19,7 +19,8 @@ import java.math.BigInteger;
 import java.sql.Types;
 
 import org.hibernate.Hibernate;
-import org.hibernate.type.NullableType;
+import org.hibernate.type.BigIntegerType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMapper<T, BigInteger> {
 
@@ -29,8 +30,13 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
         return Types.BIGINT;
     }
     
-    public final NullableType getHibernateType() {
-        return Hibernate.BIG_INTEGER;
+    @SuppressWarnings("deprecation")
+	public final BigIntegerType getHibernateType() {
+    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    		return (BigIntegerType) Hibernate36Helper.getHibernateType("BIG_INTEGER");
+    	} else {
+    		return (BigIntegerType) Hibernate.BIG_INTEGER;
+    	}
     }
     
     public abstract T fromNonNullValue(BigInteger value);

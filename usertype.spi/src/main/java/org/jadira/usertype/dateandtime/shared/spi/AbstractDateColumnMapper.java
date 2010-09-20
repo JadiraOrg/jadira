@@ -19,14 +19,20 @@ import java.sql.Date;
 import java.sql.Types;
 
 import org.hibernate.Hibernate;
-import org.hibernate.type.NullableType;
+import org.hibernate.type.DateType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T, Date> {
 
     private static final long serialVersionUID = -8841076386862845448L;
     
-    public final NullableType getHibernateType() {
-        return Hibernate.DATE;
+    @SuppressWarnings("deprecation")
+	public final DateType getHibernateType() {
+    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    		return (DateType) Hibernate36Helper.getHibernateType("DATE");
+    	} else {
+    		return (DateType) Hibernate.DATE;
+    	}
     }
     
     public final int getSqlType() {

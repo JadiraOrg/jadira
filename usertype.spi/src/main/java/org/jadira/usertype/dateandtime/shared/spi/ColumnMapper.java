@@ -15,11 +15,11 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
-import org.hibernate.type.NullableType;
+import org.hibernate.type.Type;
 
 public interface ColumnMapper<T, J> {
 
-    NullableType getHibernateType();
+	Type getHibernateType(); // Either NullableType or AbstractStandardBasicType<T>
 
     int getSqlType();
 

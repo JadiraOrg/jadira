@@ -19,14 +19,20 @@ import java.sql.Timestamp;
 import java.sql.Types;
 
 import org.hibernate.Hibernate;
-import org.hibernate.type.NullableType;
+import org.hibernate.type.TimestampType;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> {
 
     private static final long serialVersionUID = -3070239764121234482L;
 
-    public final NullableType getHibernateType() {
-        return Hibernate.TIMESTAMP;
+    @SuppressWarnings("deprecation")
+	public final TimestampType getHibernateType() {
+    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    		return (TimestampType) Hibernate36Helper.getHibernateType("TIMESTAMP");
+    	} else {
+    		return (TimestampType) Hibernate.TIMESTAMP;
+    	}
     }
     
     public final int getSqlType() {
