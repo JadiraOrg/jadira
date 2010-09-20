@@ -31,7 +31,7 @@ public abstract class AbstractStringColumnMapper<T> extends AbstractColumnMapper
     
     @SuppressWarnings("deprecation")
 	public final StringType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (StringType) Hibernate36Helper.getHibernateType("STRING");
     	} else {
     		return (StringType) Hibernate.STRING;

@@ -32,7 +32,7 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
     
     @SuppressWarnings("deprecation")
 	public final BigIntegerType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (BigIntegerType) Hibernate36Helper.getHibernateType("BIG_INTEGER");
     	} else {
     		return (BigIntegerType) Hibernate.BIG_INTEGER;

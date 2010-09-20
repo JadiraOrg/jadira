@@ -32,7 +32,7 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
     
     @SuppressWarnings("deprecation")
 	public final LongType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (LongType) Hibernate36Helper.getHibernateType("LONG");
     	} else {
     		return (LongType) Hibernate.LONG;

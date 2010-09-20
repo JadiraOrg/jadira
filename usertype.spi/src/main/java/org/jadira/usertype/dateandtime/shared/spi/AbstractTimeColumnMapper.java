@@ -28,7 +28,7 @@ public abstract class AbstractTimeColumnMapper<T> extends AbstractColumnMapper<T
 
     @SuppressWarnings("deprecation")
 	public final TimeType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (TimeType) Hibernate36Helper.getHibernateType("TIME");
     	} else {
     		return (TimeType) Hibernate.TIME;

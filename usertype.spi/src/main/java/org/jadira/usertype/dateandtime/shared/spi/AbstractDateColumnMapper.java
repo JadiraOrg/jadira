@@ -28,7 +28,7 @@ public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T
     
     @SuppressWarnings("deprecation")
 	public final DateType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (DateType) Hibernate36Helper.getHibernateType("DATE");
     	} else {
     		return (DateType) Hibernate.DATE;

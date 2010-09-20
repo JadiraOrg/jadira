@@ -105,7 +105,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
             ColumnMapper nextMapper = getColumnMappers()[i];
             
             final Object converted;
-            if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+            if(Hibernate36Helper.isHibernate36ApiAvailable()) {
             	converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[i]);
             } else {
             	converted = ((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[i]);
@@ -134,7 +134,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
-                if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+                if(Hibernate36Helper.isHibernate36ApiAvailable()) {
                 	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index);
                 } else {
                 	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index);
@@ -147,7 +147,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
             
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper nextMapper = getColumnMappers()[i];
-                if(Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+                if(Hibernate36Helper.isHibernate36ApiAvailable()) {
                 	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
                 } else {
                 	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);

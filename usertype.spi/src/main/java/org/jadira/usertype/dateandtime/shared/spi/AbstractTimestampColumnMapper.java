@@ -28,7 +28,7 @@ public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMap
 
     @SuppressWarnings("deprecation")
 	public final TimestampType getHibernateType() {
-    	if (Hibernate36Helper.USE_STANDARD_BASIC_TYPE_API) {
+    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (TimestampType) Hibernate36Helper.getHibernateType("TIMESTAMP");
     	} else {
     		return (TimestampType) Hibernate.TIMESTAMP;
