@@ -26,7 +26,6 @@ import org.hibernate.EntityMode;
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
 
-@SuppressWarnings("deprecation")
 public abstract class AbstractLocationSafeUserType extends org.hibernate.type.MutableType implements UserType, Serializable {
 
     private static final long serialVersionUID = -1670945705327210610L;

@@ -19,7 +19,6 @@ import java.sql.Types;
 
 import org.hibernate.Hibernate;
 import org.hibernate.type.LongType;
-import org.hibernate.type.TimeType;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T, Long> {
@@ -30,7 +29,6 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
         return Types.BIGINT;
     }
     
-    @SuppressWarnings("deprecation")
 	public final LongType getHibernateType() {
     	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (LongType) Hibernate36Helper.getHibernateType("LONG");

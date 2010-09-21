@@ -26,7 +26,6 @@ public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMap
 
     private static final long serialVersionUID = -3070239764121234482L;
 
-    @SuppressWarnings("deprecation")
 	public final TimestampType getHibernateType() {
     	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (TimestampType) Hibernate36Helper.getHibernateType("TIMESTAMP");

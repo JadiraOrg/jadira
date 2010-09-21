@@ -101,7 +101,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         return value;
     }
     
-    @SuppressWarnings({ "unchecked", "deprecation" }) 
+    @SuppressWarnings({ "unchecked" }) 
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
         J converted;
         if(Hibernate36Helper.isHibernate36ApiAvailable()) {
@@ -117,7 +117,6 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         return getColumnMapper().fromNonNullValue(converted);
     }
     
-    @SuppressWarnings("deprecation")
 	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
             if(Hibernate36Helper.isHibernate36ApiAvailable()) {
@@ -136,7 +135,6 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         }
     }
     
-    @SuppressWarnings("deprecation")
 	public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);

@@ -96,7 +96,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return value;
     }
     
-    @SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
         
         Object[] convertedColumns = new Object[getColumnMappers().length];
@@ -129,7 +129,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     
     protected abstract Object[] toConvertedColumns(T value);
         
-    @SuppressWarnings({ "rawtypes", "unchecked", "deprecation" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {

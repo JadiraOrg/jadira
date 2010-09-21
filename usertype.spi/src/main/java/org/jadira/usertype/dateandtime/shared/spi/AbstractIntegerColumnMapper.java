@@ -29,7 +29,6 @@ public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMappe
         return Types.INTEGER;
     }
     
-    @SuppressWarnings("deprecation")
 	public final IntegerType getHibernateType() {
     	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
     		return (IntegerType) Hibernate36Helper.getHibernateType("INTEGER");
