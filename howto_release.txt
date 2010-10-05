@@ -1,0 +1,26 @@
+1) Prepare the release:
+
+mvn clean install
+mvn release:prepare
+
+2) Perform the release:
+
+ssh -t username,usertype@shell.sf.net create
+exit
+mvn release:perform -P release-sign-artifacts
+
+2a) This can fail. If so:
+
+cd target/checkout
+mvn clean install
+mvn deploy -P release-sign-artifacts
+mvn site-deploy
+
+3) Promote the release:
+
+Log into http://oss.sonatype.org/
+Select 'Staging Repositories' then 'org.jadira.usertype'...
+Close the Repository
+Release the Repository
+
+Sync-up with Maven central is automatic.
