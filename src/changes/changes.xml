@@ -25,7 +25,7 @@
 
 	<body>
 		<!-- types are add, fix, remove, update -->
-		<release version="1.4" date="04-10-2010" description="">
+		<release version="1.4" date="04-10-2010" description="Hibernate 3.6 compatibility">
 			<action dev="Chris Pheby" type="update">Link Joda Time 1.6.2</action>
 			<action dev="Chris Pheby" type="update">Tracking Hibernate 3.6.0 releases</action>
 			<action dev="Chris Pheby" type="update">Link SLF4J 1.6.1</action>
