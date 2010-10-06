@@ -23,8 +23,8 @@ import java.lang.reflect.Array;
  */
 public class ArrayUtils {
 
-	private ArrayUtils() {
-	}
+    private ArrayUtils() {
+    }
 
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method
