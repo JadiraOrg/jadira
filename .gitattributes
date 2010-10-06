@@ -253,6 +253,7 @@ usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersist
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersistentZoneOffsetAsString.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersistentZonedDateTime.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersistentZonedDateTimeAsString.java -text
+usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/columnmapper/BigIntegerColumnInstantMapperTest.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/DurationAsStringHolder.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/DurationJoda.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/InstantAsBigIntJoda.java -text

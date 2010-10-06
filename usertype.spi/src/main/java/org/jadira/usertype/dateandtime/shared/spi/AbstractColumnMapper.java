@@ -28,7 +28,7 @@ public abstract class AbstractColumnMapper<T, J> implements Serializable, Column
      * @see org.jadira.usertype.dateandtime.shared.spi.ColumnMapper#returnedClass()
      */
     public final Class<T> returnedClass() {
-        @SuppressWarnings("unchecked")Class<T> result = (Class<T>) TypeHelper.getTypeArguments(ColumnMapper.class, getClass()).get(0);
+        @SuppressWarnings("unchecked")Class<T> result = (Class<T>) TypeHelper.getTypeArguments(AbstractColumnMapper.class, getClass()).get(0);
         return result;
     }
     
