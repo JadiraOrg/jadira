@@ -455,7 +455,7 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
-					<configLocation>${configuration.base}/checkstyle.xml</configLocation>
+					<configLocation>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/checkstyle.xml?revision=119&amp;content-type=text%2Fplain</configLocation>
 					<encoding>${project.build.sourceEncoding}</encoding> 
 					<charset>${project.build.sourceEncoding}</charset>
 					<enableRulesSummary>false</enableRulesSummary>
