@@ -210,7 +210,7 @@
 									<banLatest>true</banLatest>
 									<banRelease>true</banRelease>								
 									<banSnapshots>true</banSnapshots>
-									<unCheckedPluginList />
+									<unCheckedPluginList>org.codehaus.mojo:sonar-maven-plugin</unCheckedPluginList>
 								</requirePluginVersions>
 							</rules>
 						</configuration>
