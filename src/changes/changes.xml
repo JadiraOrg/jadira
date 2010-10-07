@@ -26,7 +26,7 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
-		<release version="1.5" date="TBC" description="Bugfix">
+		<release version="1.5" date="07-10-2010" description="Bugfix">
 			<action dev="Chris Pheby" type="fix">Fix a NullPointerException when using types in HQL suggested by Alison Winters</action>
 		</release>
 		
