@@ -24,6 +24,11 @@
 	</properties>
 
 	<body>
+	
+		<!-- types are add, fix, remove, update -->
+		<release version="1.6" date="TBC" description="Maintenance Release">
+			<action dev="Chris Pheby" type="update">Build now performed using Maven 3</action>
+		</release>
 
 		<!-- types are add, fix, remove, update -->
 		<release version="1.5" date="07-10-2010" description="Bugfix">
