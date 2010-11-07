@@ -29,6 +29,7 @@
 		<release version="1.6" date="TBC" description="Maintenance Release">
 			<action dev="Chris Pheby" type="update">Build now performed using Maven 3</action>
 			<action dev="Chris Pheby" type="update">Updated JSR 310 support to compile against JSR 310 0.6.2</action>
+			<action dev="Chris Pheby" type="update">JSR 310 support now tested against Hibernate 3.6.0.Final</action>
 		</release>
 
 		<release version="1.5" date="07-10-2010" description="Bugfix">
