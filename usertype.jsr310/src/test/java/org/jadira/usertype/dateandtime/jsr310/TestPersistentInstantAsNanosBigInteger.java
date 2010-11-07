@@ -35,8 +35,8 @@ import org.junit.Test;
 
 public class TestPersistentInstantAsNanosBigInteger extends DatabaseCapable {
 
-    private static final Instant[] instants = new Instant[] { Instant.from(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760000000, ZoneOffset.of("Z"))),
-            Instant.from(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.of("+02:00"))) };
+    private static final Instant[] instants = new Instant[] { Instant.of(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760000000, ZoneOffset.of("Z"))),
+            Instant.of(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.of("+02:00"))) };
 
     private static EntityManagerFactory factory;
 

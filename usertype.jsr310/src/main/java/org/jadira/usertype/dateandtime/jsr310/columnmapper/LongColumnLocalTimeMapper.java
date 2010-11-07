@@ -31,7 +31,7 @@ public class LongColumnLocalTimeMapper extends AbstractLongColumnMapper<LocalTim
 
     @Override
     public LocalTime fromNonNullValue(Long value) {
-        return LocalTime.fromNanoOfDay(value);
+        return LocalTime.ofNanoOfDay(value);
     }
 
     @Override

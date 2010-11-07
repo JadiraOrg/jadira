@@ -32,7 +32,7 @@ public class IntegerColumnLocalTimeMapper extends AbstractIntegerColumnMapper<Lo
     @Override
     public LocalTime fromNonNullValue(Integer value) {
         final long nanos = value * 1000000L;
-        return LocalTime.fromNanoOfDay(nanos);
+        return LocalTime.ofNanoOfDay(nanos);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class LongColumnInstantMapper extends AbstractLongColumnMapper<Instant> {
 
     @Override
     public Instant fromNonNullValue(Long value) {
-        return Instant.millis(value);
+        return Instant.ofEpochMillis(value);
     }
 
     @Override

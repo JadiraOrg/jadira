@@ -33,7 +33,7 @@ import org.junit.Test;
 
 public class TestPersistentZoneOffsetAsString extends DatabaseCapable {
 
-    private static final ZoneOffset[] zoneOffsets = new ZoneOffset[] { ZoneOffset.UTC, ZoneOffset.hours(5), ZoneOffset.hoursMinutes(11, 30), ZoneOffset.hoursMinutesSeconds(5, 40, 45) };
+    private static final ZoneOffset[] zoneOffsets = new ZoneOffset[] { ZoneOffset.UTC, ZoneOffset.ofHours(5), ZoneOffset.ofHoursMinutes(11, 30), ZoneOffset.ofHoursMinutesSeconds(5, 40, 45) };
 
     private static EntityManagerFactory factory;
 

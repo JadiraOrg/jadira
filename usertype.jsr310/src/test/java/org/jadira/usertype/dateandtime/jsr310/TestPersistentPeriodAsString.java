@@ -25,7 +25,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
-import javax.time.period.Period;
+import javax.time.calendar.Period;
 
 import junit.framework.Assert;
 
@@ -40,10 +40,10 @@ import org.junit.Test;
 public class TestPersistentPeriodAsString extends DatabaseCapable {
 
     private static final Period[] periods = new Period[] { 
-        Period.days(2), 
-        Period.seconds(30), 
-        Period.months(3), 
-        Period.seconds(30), 
+        Period.ofDays(2), 
+        Period.ofSeconds(30), 
+        Period.ofMonths(3), 
+        Period.ofSeconds(30), 
         Period.of(4, 35, 40, 141, 0, 0, 0), 
         Period.of(28, 10, 2, 2, 4, 35, 40000000),
         Period.of(28, 10, 0, 16, 4, 35, 40000000)
@@ -178,7 +178,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         PeriodAsStringHolder item = new PeriodAsStringHolder();
         item.setId(1);
         item.setName("test_nanos1");
-        item.setPeriod(Period.nanos(111444444));
+        item.setPeriod(Period.ofNanos(111444444));
 
         manager.persist(item);
         manager.flush();
@@ -205,7 +205,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());
-        assertEquals(Period.nanos(111444444), item.getPeriod());
+        assertEquals(Period.ofNanos(111444444), item.getPeriod());
 
         manager.close();
     }

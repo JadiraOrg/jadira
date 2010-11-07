@@ -67,16 +67,17 @@
 	</reporting>
 	
 	<dependencies>
+		<!-- JSR 310 Jars from https://jsr-310.dev.java.net/servlets/ProjectDocumentList?folderID=10338 -->
 		<dependency>
 			<groupId>javax.time</groupId>
 			<artifactId>jsr-310-ri</artifactId>
-			<version>20100212</version>
+			<version>0.6.2</version> <!-- 20100212 -->
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>javax.time</groupId>
-			<artifactId>ZoneRuleInfo-TZDB</artifactId>
-			<version>2009b</version>
+			<artifactId>TZDB-all</artifactId> <!-- ZoneRuleInfo-TZDB -->
+			<version>0.6.2</version> <!-- 2009b -->
 			<scope>test</scope>
 		</dependency>		
 		

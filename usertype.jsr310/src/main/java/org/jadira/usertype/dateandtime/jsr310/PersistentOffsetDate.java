@@ -40,7 +40,7 @@ public class PersistentOffsetDate extends AbstractMultiColumnUserType<OffsetDate
         LocalDate datePart = (LocalDate) convertedColumns[0];
         ZoneOffset offset = (ZoneOffset) convertedColumns[1];
         
-        return OffsetDate.from(datePart, offset);
+        return OffsetDate.of(datePart, offset);
     }
   
 

@@ -34,7 +34,7 @@ import org.junit.Test;
 
 public class TestPersistentOffsetTimeAsLong extends DatabaseCapable {
 
-    private static final OffsetTime[] offsetTimes = new OffsetTime[] { OffsetTime.of(12, 10, 31, ZoneOffset.UTC), OffsetTime.of(23, 7, 43, 120, ZoneOffset.hours(2)) };
+    private static final OffsetTime[] offsetTimes = new OffsetTime[] { OffsetTime.of(12, 10, 31, ZoneOffset.UTC), OffsetTime.of(23, 7, 43, 120, ZoneOffset.ofHours(2)) };
 
     private static EntityManagerFactory factory;
 

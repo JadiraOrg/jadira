@@ -40,7 +40,7 @@ public class PersistentOffsetDateTimeAsString extends AbstractMultiColumnUserTyp
         LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
         ZoneOffset offset = (ZoneOffset) convertedColumns[1];
         
-        return OffsetDateTime.from(datePart, offset);
+        return OffsetDateTime.of(datePart, offset);
     }
   
 

@@ -51,7 +51,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
     @Override
     public Timestamp toNonNullValue(Instant value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(OffsetDateTime.fromInstant(value, ZoneOffset.UTC));
+        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(OffsetDateTime.ofInstant(value, ZoneOffset.UTC));
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
 
         return timestamp;

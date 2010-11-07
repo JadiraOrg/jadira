@@ -24,8 +24,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 import javax.time.Duration;
 import javax.time.calendar.OffsetDate;
+import javax.time.calendar.Period;
 import javax.time.calendar.ZoneOffset;
-import javax.time.period.Period;
 
 import org.jadira.usertype.dateandtime.jsr310.testmodel.DurationAsStringHolder;
 import org.jadira.usertype.dateandtime.jsr310.testmodel.DurationJoda;
@@ -37,7 +37,7 @@ import org.junit.Test;
 
 public class TestPersistentDurationAsString extends DatabaseCapable {
 
-    private static final Duration[] durations = new Duration[] { Duration.ZERO, Duration.seconds(30), Period.seconds(30).toDuration(), Duration.durationBetween(OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).minusMonths(3).atMidnight(), OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).atMidnight()) };
+    private static final Duration[] durations = new Duration[] { Duration.ZERO, Duration.ofSeconds(30), Period.ofSeconds(30).toDuration(), Duration.between(OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).minusMonths(3).atMidnight(), OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).atMidnight()) };
     
     private static final org.joda.time.Duration[] jodaDurations = new org.joda.time.Duration[] { 
         org.joda.time.Duration.ZERO, 
@@ -173,7 +173,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         DurationAsStringHolder item = new DurationAsStringHolder();
         item.setId(1);
         item.setName("test_nanos1");
-        item.setDuration(Duration.nanos(999));
+        item.setDuration(Duration.ofNanos(999));
 
         manager.persist(item);
         manager.flush();
@@ -200,7 +200,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());
-        assertEquals(Duration.nanos(999), item.getDuration());
+        assertEquals(Duration.ofNanos(999), item.getDuration());
 
         manager.close();
     }

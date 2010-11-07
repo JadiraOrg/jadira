@@ -46,7 +46,7 @@ public class PersistentZonedDateTime extends AbstractMultiColumnUserType<ZonedDa
         ZoneOffset offset = (ZoneOffset) convertedColumns[1];
         TimeZone timeZone = (TimeZone) convertedColumns[2];
         
-        return ZonedDateTime.from(OffsetDateTime.from(datePart, offset), timeZone);
+        return ZonedDateTime.of(OffsetDateTime.of(datePart, offset), timeZone);
     }
   
 

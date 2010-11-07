@@ -31,7 +31,7 @@ public class BigIntegerColumnInstantMapper extends AbstractBigIntegerColumnMappe
 
     @Override
     public Instant fromNonNullValue(BigInteger value) {
-        return Instant.nanos(value);
+        return Instant.ofEpochNanos(value);
     }
 
     @Override

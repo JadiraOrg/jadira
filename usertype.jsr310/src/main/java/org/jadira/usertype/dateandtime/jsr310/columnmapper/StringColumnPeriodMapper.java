@@ -15,10 +15,9 @@
  */
 package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
-import javax.time.period.Period;
+import javax.time.calendar.Period;
 
 import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
-
 
 public class StringColumnPeriodMapper extends AbstractStringColumnMapper<Period> {
 
