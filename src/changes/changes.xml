@@ -28,9 +28,9 @@
 		<!-- types are add, fix, remove, update -->
 		<release version="1.6" date="TBC" description="Maintenance Release">
 			<action dev="Chris Pheby" type="update">Build now performed using Maven 3</action>
+			<action dev="Chris Pheby" type="update">Updated JSR 310 support to compile against JSR 310 0.6.2</action>
 		</release>
 
-		<!-- types are add, fix, remove, update -->
 		<release version="1.5" date="07-10-2010" description="Bugfix">
 			<action dev="Chris Pheby" type="fix">Fix a NullPointerException when using types in HQL suggested by Alison Winters</action>
 		</release>
