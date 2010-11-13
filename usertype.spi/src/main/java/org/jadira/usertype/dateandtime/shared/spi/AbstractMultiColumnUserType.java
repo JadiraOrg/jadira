@@ -135,9 +135,9 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
                 if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index);
+                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index + i);
                 } else {
-                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index);
+                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index + i);
                 }
             }
         } else {
