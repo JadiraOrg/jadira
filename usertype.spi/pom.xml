@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.usertype</groupId>
 		<artifactId>usertype.parent</artifactId>
-		<version>1.6-SNAPSHOT</version>
+		<version>1.6</version>
 	</parent>
 	
 	<modelVersion>4.0.0</modelVersion>
@@ -30,7 +30,7 @@
 	<artifactId>usertype.spi</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.6-SNAPSHOT</version>
+	<version>1.6</version>
 
 	<name>User Type SPI Classes for Hibernate</name>
 	<description>Shared depencies for User Type jars</description>
