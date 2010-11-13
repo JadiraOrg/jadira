@@ -37,8 +37,16 @@ public class PersistentDateMidnight extends AbstractMultiColumnUserType<DateMidn
 
         LocalDate datePart = (LocalDate) convertedColumns[0];
         DateTimeZone offset = (DateTimeZone) convertedColumns[1];
+
+        final DateMidnight result;
         
-        return new DateMidnight(datePart, offset);
+        if (datePart == null) {
+            result = null;
+        } else {
+            result = new DateMidnight(datePart.getYear(), datePart.getMonthOfYear(), datePart.getDayOfMonth(), offset);
+        }
+        
+        return result;
     }
   
 
