@@ -1,7 +1,7 @@
 1) Prepare the release:
 
 mvn clean install
-mvn release:prepare
+mvn release:prepare -Dresume=false
 
 2) Perform the release:
 
@@ -13,7 +13,7 @@ mvn release:perform -P release-sign-artifacts
 
 cd target/checkout
 mvn clean install
-mvn deploy -P release-sign-artifacts
+mvn deploy -P release-sign-artifacts -Dgpg.passphrase=password
 mvn site-deploy
 
 3) Promote the release:

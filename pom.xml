@@ -146,6 +146,13 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 
+		<extensions>
+		        <extension>
+		            <groupId>org.apache.maven.wagon</groupId>
+		            <artifactId>wagon-ssh</artifactId>
+		            <version>1.0-beta-6</version>
+		        </extension>
+    		</extensions>
 	
 		<resources>
 			<resource>
