@@ -79,13 +79,20 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     }
 
     public Serializable disassemble(Object value) throws HibernateException {
-        Object deepCopy = deepCopy(value);
 
-        if (!(deepCopy instanceof Serializable)) {
-            throw new SerializationException(String.format("deepCopy of %s is not serializable", value), null);
+        final Serializable result;
+        
+        if (value == null) {
+            result = null;
+        } else {
+            final Object deepCopy = deepCopy(value);
+            if (!(deepCopy instanceof Serializable)) {
+                throw new SerializationException(String.format("deepCopy of %s is not serializable", value), null);
+            }
+            result = (Serializable)deepCopy;
         }
 
-        return (Serializable) deepCopy;
+        return result;
     }
 
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
