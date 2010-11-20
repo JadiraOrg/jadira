@@ -78,6 +78,7 @@ usertype.jodatime/src/site/site.xml -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTime.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTimeAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTimeWithZone.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDurationAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsMillisLong.java -text
@@ -146,6 +147,7 @@ usertype.jodatime/src/test/resources/expected/.dbunit-comparison-files -text
 usertype.jodatime/src/test/resources/expected/dateMidnight.xml -text
 usertype.jodatime/src/test/resources/expected/dateMidnightAsString.xml -text
 usertype.jodatime/src/test/resources/expected/dateTime.xml -text
+usertype.jodatime/src/test/resources/expected/dateTimeAsString.xml -text
 usertype.jodatime/src/test/resources/expected/dateTimeWithZone.xml -text
 usertype.jodatime/src/test/resources/expected/durationAsString.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsMillisLong.xml -text
