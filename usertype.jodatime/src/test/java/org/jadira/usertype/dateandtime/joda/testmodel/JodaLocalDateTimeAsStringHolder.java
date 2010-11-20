@@ -21,15 +21,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import org.joda.time.LocalDateTime;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime;
+import org.jadira.usertype.dateandtime.joda.PersistentLocalDateTimeAsString;
+import org.joda.time.LocalDateTime;
 
 @Entity
 @Table(name = "localDateTimeAsString")
-@TypeDef(name = "testjoda_LocalDateTimeAsStringType", typeClass = PersistentLocalDateTime.class)
+@TypeDef(name = "testjoda_LocalDateTimeAsStringType", typeClass = PersistentLocalDateTimeAsString.class)
 public class JodaLocalDateTimeAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;

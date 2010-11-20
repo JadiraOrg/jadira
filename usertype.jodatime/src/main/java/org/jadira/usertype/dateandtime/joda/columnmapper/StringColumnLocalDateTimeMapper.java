@@ -24,17 +24,19 @@ public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<
     
     private static final long serialVersionUID = -6885561256539185520L;
 
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = ISODateTimeFormat.localDateOptionalTimeParser();
+    public static final DateTimeFormatter LOCAL_DATETIME_PARSER = ISODateTimeFormat.localDateOptionalTimeParser();
+    
+    public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = ISODateTimeFormat.ordinalDateTime();
     
     @Override
     public LocalDateTime fromNonNullValue(String s) { 
-        return LOCAL_DATETIME_FORMATTER.parseDateTime(s).toLocalDateTime();
+        return LOCAL_DATETIME_PARSER.parseDateTime(s).toLocalDateTime();
     }
 
     @Override
     public String toNonNullValue(LocalDateTime value) {
 
-        String formatted = LOCAL_DATETIME_FORMATTER.print(value);
+        String formatted = LOCAL_DATETIME_PRINTER.print(value);
         return formatted;
     }
 }
