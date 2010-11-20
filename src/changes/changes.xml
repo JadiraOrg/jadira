@@ -26,6 +26,16 @@
 	<body>
 	
 		<!-- types are add, fix, remove, update -->
+		<release version="1.7" date="20-11-2010" description="Bugfix Release">
+			<action dev="Chris Pheby" type="fix">Resolve issue persisting Joda LocalDateTime to String format</action>
+			<action dev="Chris Pheby" issue="3112888" type="fix">Resolve issue where Joda PersistentDateTimeWithZone cannot be restored from the database reported by Jeffrey Schneller</action>
+			<action dev="Chris Pheby" type="fix">Resolve issue saving Joda PersistentDateTimeAsString</action>
+			<action dev="Chris Pheby" type="fix">Resolve issue saving Joda PersistentDateTimeWithZone</action>
+			<action dev="Chris Pheby" type="fix">Resolve issue saving Joda PersistentDateTimeZoneAsString</action>
+			<action dev="Chris Pheby" type="fix">Bugfixes for Joda PersistentInterval</action>
+			
+		</release>
+
 		<release version="1.6" date="13-11-2010" description="Maintenance Release">
 			<action dev="Chris Pheby" type="update">Build now performed using Maven 3</action>
 			<action dev="Chris Pheby" type="update">Updated JSR 310 support to compile against JSR 310 0.6.2</action>

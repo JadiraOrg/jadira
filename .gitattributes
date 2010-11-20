@@ -112,6 +112,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/I
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/IntervalJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightHolder.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeWithZoneHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeZoneAsStringHolder.java -text
@@ -120,6 +121,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/J
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsNanosBigIntegerHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsTimestampHolder.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaIntervalHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaLocalDateAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaLocalDateHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaLocalDateTimeAsStringHolder.java -text
