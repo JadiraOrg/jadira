@@ -86,6 +86,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersist
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsNanosBigInteger.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsTimestamp.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInterval.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalDate.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalDateAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalDateTime.java -text
@@ -108,6 +109,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/D
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/DurationJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/InstantAsBigIntJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/InstantJoda.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/IntervalJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeHolder.java -text
@@ -157,6 +159,7 @@ usertype.jodatime/src/test/resources/expected/instantAsMillisLong.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsNanosBigInteger.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsString.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsTimestamp.xml -text
+usertype.jodatime/src/test/resources/expected/interval.xml -text
 usertype.jodatime/src/test/resources/expected/localDate.xml -text
 usertype.jodatime/src/test/resources/expected/localDateAsString.xml -text
 usertype.jodatime/src/test/resources/expected/localDateTime.xml -text

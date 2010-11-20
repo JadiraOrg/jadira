@@ -37,7 +37,7 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
     protected Interval fromConvertedColumns(Object[] convertedColumns) {
 
         LocalDateTime begin = (LocalDateTime) convertedColumns[0];
-        LocalDateTime end = (LocalDateTime) convertedColumns[0];
+        LocalDateTime end = (LocalDateTime) convertedColumns[1];
         
         return new Interval(begin.toDateTime(DateTimeZone.UTC), end.toDateTime(DateTimeZone.UTC));
     }
