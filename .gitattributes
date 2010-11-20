@@ -78,6 +78,7 @@ usertype.jodatime/src/site/site.xml -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTime.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTimeWithZone.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDurationAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsMillisLong.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentInstantAsNanosBigInteger.java -text
@@ -108,6 +109,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/I
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateMidnightHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeHolder.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDateTimeWithZoneHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaDurationAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsMillisLongHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/JodaInstantAsNanosBigIntegerHolder.java -text
@@ -144,6 +146,7 @@ usertype.jodatime/src/test/resources/expected/.dbunit-comparison-files -text
 usertype.jodatime/src/test/resources/expected/dateMidnight.xml -text
 usertype.jodatime/src/test/resources/expected/dateMidnightAsString.xml -text
 usertype.jodatime/src/test/resources/expected/dateTime.xml -text
+usertype.jodatime/src/test/resources/expected/dateTimeWithZone.xml -text
 usertype.jodatime/src/test/resources/expected/durationAsString.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsMillisLong.xml -text
 usertype.jodatime/src/test/resources/expected/instantAsNanosBigInteger.xml -text
