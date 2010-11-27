@@ -18,6 +18,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -28,6 +29,8 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
 
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    
     @Override
     public Instant fromNonNullString(String s) {
         return new Instant(s);
@@ -35,7 +38,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     @Override
     public Instant fromNonNullValue(Timestamp value) {
-        return LOCAL_DATETIME_FORMATTER.parseDateTime(value.toString()).toInstant();
+        return LOCAL_DATETIME_FORMATTER.withZone(databaseZone).parseDateTime(value.toString()).toInstant();
     }
 
     @Override
@@ -45,8 +48,8 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     @Override
     public Timestamp toNonNullValue(Instant value) {
-
-        String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(value);
+        
+        String formattedTimestamp = LOCAL_DATETIME_FORMATTER.withZone(databaseZone).print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
@@ -55,4 +58,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
         return timestamp;
     }
 
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
+    }
 }

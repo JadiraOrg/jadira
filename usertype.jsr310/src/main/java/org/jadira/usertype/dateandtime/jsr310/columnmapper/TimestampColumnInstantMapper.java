@@ -19,8 +19,8 @@ import java.sql.Timestamp;
 
 import javax.time.Instant;
 import javax.time.calendar.LocalDateTime;
-import javax.time.calendar.OffsetDateTime;
-import javax.time.calendar.ZoneOffset;
+import javax.time.calendar.TimeZone;
+import javax.time.calendar.ZonedDateTime;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
@@ -32,6 +32,8 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
 
+    private TimeZone databaseZone = TimeZone.UTC;
+    
     @Override
     public Instant fromNonNullString(String s) {
         return Instant.parse(s);
@@ -40,7 +42,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
     @Override
     public Instant fromNonNullValue(Timestamp value) {
         LocalDateTime d = LOCAL_DATETIME_FORMATTER.parse(value.toString()).merge().get(LocalDateTime.rule());
-        return d.atOffset(ZoneOffset.UTC).toInstant();
+        return d.atZone(databaseZone).toInstant();
     }
 
     @Override
@@ -51,9 +53,13 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
     @Override
     public Timestamp toNonNullValue(Instant value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(OffsetDateTime.ofInstant(value, ZoneOffset.UTC));
+        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(ZonedDateTime.ofInstant(value, databaseZone));
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
 
         return timestamp;
+    }
+
+    public void setDatabaseZone(TimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

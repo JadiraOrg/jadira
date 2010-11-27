@@ -26,11 +26,15 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnUtcDateTimeMapper extends AbstractTimestampColumnMapper<DateTime> {
+public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper<DateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
     public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
+
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    
+    private DateTimeZone javaZone = DateTimeZone.getDefault();
 
     @Override
     public DateTime fromNonNullString(String s) {
@@ -39,7 +43,8 @@ public class TimestampColumnUtcDateTimeMapper extends AbstractTimestampColumnMap
 
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
-        return DATETIME_FORMATTER.withZone(DateTimeZone.UTC).parseDateTime(value.toString());
+        DateTime dateTime = DATETIME_FORMATTER.withZone(databaseZone).parseDateTime(value.toString());
+        return dateTime.withZone(javaZone);
     }
 
     @Override
@@ -50,12 +55,22 @@ public class TimestampColumnUtcDateTimeMapper extends AbstractTimestampColumnMap
     @Override
     public Timestamp toNonNullValue(DateTime value) {
 
-        String formattedTimestamp = DATETIME_FORMATTER.print(value.withZone(DateTimeZone.UTC));
+        value = value.withZone(databaseZone);
+        
+        String formattedTimestamp = DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
-        
+
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
+    }
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+
+    public void setJavaZone(DateTimeZone javaZone) {
+        this.javaZone = javaZone;
     }
 }

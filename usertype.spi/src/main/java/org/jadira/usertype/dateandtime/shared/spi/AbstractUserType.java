@@ -32,14 +32,14 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> implements EnhancedUserType {
 
     private static final long serialVersionUID = -8258683760413283329L;
-    private final ColumnMapper<T, J> columnMapper;
+    private final C columnMapper;
     private final int[] sqlTypes;
 
     @SuppressWarnings("unchecked")
     public AbstractUserType() {
         
         try {
-            columnMapper = (ColumnMapper<T, J>) TypeHelper.getTypeArguments(AbstractUserType.class, getClass()).get(2).newInstance();
+            columnMapper = (C) TypeHelper.getTypeArguments(AbstractUserType.class, getClass()).get(2).newInstance();
         } catch (InstantiationException ex) {
             throw new HibernateException("Could not initialise column mapper for " + getClass(), ex);
         } catch (IllegalAccessException ex) {
@@ -48,7 +48,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         sqlTypes = new int[] { getColumnMapper().getSqlType() };
     }
     
-    public final ColumnMapper<T, J> getColumnMapper() {
+    public final C getColumnMapper() {
         return columnMapper;
     }
     

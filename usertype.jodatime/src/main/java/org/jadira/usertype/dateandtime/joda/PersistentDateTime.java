@@ -16,17 +16,38 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
+import java.util.Properties;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnUtcDateTimeMapper;
+import org.hibernate.usertype.ParameterizedType;
+import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 /**
  * Persist {@link DateTime} via Hibernate. This type is
  * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDateTime} however
  * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is persisted using the UTC timezone
+ * round down to the nearest millisecond. The type is persisted using the UTC timezone.
+ * 
+ * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
+ * value on return from the database.
  */
-public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnUtcDateTimeMapper> {
+public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
+    
+    public void setParameterValues(Properties parameters) {
+        
+        TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper)getColumnMapper();
+        
+        String databaseZone = parameters.getProperty("databaseZone");
+        if (databaseZone != null) {
+            columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+        }
+        String javaZone = parameters.getProperty("javaZone");
+        if (javaZone != null) {
+            columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+        }
+    }
 }

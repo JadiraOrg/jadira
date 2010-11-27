@@ -36,8 +36,8 @@ import org.junit.Test;
 
 public class TestPersistentDateTime extends DatabaseCapable {
 
-    private static final DateTime[] dateTimes     = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
-    private static final DateTime[] jodaDateTimes = new DateTime[] { new DateTime(2004, 2, 25, 8, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
+    private static final DateTime[] dateTimes     = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
+    private static final DateTime[] jodaDateTimes = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
 
     private static EntityManagerFactory factory;
 
@@ -86,7 +86,7 @@ public class TestPersistentDateTime extends DatabaseCapable {
             if (dateTimes[i] == null) {
             	assertNull(item.getDateTime());
             } else {
-            	assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
+            	assertEquals(dateTimes[i].withZone(DateTimeZone.forID("UTC")).toString(), item.getDateTime().toString());
             }
         }
         
@@ -94,6 +94,7 @@ public class TestPersistentDateTime extends DatabaseCapable {
         
         manager.close();
     }
+    
     
     @Test @Ignore // Joda Time offsets the value on reading it back 
     public void testRoundtripWithJodaTime() {

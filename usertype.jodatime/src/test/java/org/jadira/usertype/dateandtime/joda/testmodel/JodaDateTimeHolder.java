@@ -22,6 +22,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.joda.PersistentDateTime;
@@ -41,7 +42,8 @@ public class JodaDateTimeHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "testjoda_DateTimeType")
+    @Type(type = "testjoda_DateTimeType", parameters={@Parameter(name="databaseZone", value="UTC"), @Parameter(name="javaZone", value="UTC")})
+    
     private DateTime dateTime;
 
     public long getId() {

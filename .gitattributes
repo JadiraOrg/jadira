@@ -69,11 +69,11 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmappe
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnYearsMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimeColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimeColumnTimeOfDayMapper.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnInstantMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnTimeOfDayMapper.java -text
-usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnUtcDateTimeMapper.java -text
 usertype.jodatime/src/site/site.xml -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
