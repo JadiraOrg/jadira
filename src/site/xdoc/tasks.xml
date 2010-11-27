@@ -29,8 +29,6 @@
 		<section name="Tasks outstanding">
 			<ul>
 			<li>Add classes to persist ZonedDateTime and OffsetDateTime in the UTC zone</li>
-			<li>Allow dbzone to be driven by parameters on the usertype(s)</li>
-			<li>Allow java zone to be customisable from parameters on the usertype(s). With this change revert change from revision 91</li>
 			<li>Add version types</li>
 			</ul>
 			<p>This project will continue to evolve to provide functionality found useful for particular instances of OR mapping with Hibernate.</p>

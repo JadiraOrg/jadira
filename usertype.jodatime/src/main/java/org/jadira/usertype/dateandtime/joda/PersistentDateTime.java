@@ -29,7 +29,8 @@ import org.joda.time.DateTimeZone;
  * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDateTime} however
  * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is persisted using the UTC timezone.
+ * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the 
+ * JVM using the JVM's default zone.
  * 
  * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
