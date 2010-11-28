@@ -24,27 +24,30 @@ import javax.time.calendar.TimeZone;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnInstantMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
-import org.joda.time.DateTimeZone;
 
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained. The type is stored using UTC timezone.
  * 
- * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#of(String)} format
  * to indicate the zone of the database.
+ * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentInstantAsTimestamp extends AbstractUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
         
-        TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper)getColumnMapper();
-        
-        String databaseZone = parameters.getProperty("databaseZone");
-        if (databaseZone != null) {
-            if ("default".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(TimeZone.of(java.util.TimeZone.getDefault().getID()));
-            } else {
-                columnMapper.setDatabaseZone(TimeZone.of(databaseZone));
+        if (parameters != null) {
+            
+            TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper)getColumnMapper();
+            
+            String databaseZone = parameters.getProperty("databaseZone");
+            if (databaseZone != null) {
+                if ("jvm".equals(databaseZone)) {
+                    columnMapper.setDatabaseZone(TimeZone.of(java.util.TimeZone.getDefault().getID()));
+                } else {
+                    columnMapper.setDatabaseZone(TimeZone.of(databaseZone));
+                }
             }
         }
     }

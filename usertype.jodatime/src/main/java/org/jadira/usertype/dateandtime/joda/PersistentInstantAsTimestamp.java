@@ -30,19 +30,23 @@ import org.joda.time.Instant;
  * 
  * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
  * to indicate the zone of the database.
+ * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentInstantAsTimestamp extends AbstractUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
         
-        TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper)getColumnMapper();
-        
-        String databaseZone = parameters.getProperty("databaseZone");
-        if (databaseZone != null) {
-            if ("default".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(DateTimeZone.getDefault());
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+        if (parameters != null) {
+            
+            TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper)getColumnMapper();
+            
+            String databaseZone = parameters.getProperty("databaseZone");
+            if (databaseZone != null) {
+                if ("jvm".equals(databaseZone)) {
+                    columnMapper.setDatabaseZone(DateTimeZone.getDefault());
+                } else {
+                    columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+                }
             }
         }
     }

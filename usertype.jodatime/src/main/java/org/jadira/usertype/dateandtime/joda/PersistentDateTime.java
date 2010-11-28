@@ -35,27 +35,31 @@ import org.joda.time.DateTimeZone;
  * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
+ * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
-        
-        TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper)getColumnMapper();
-        
-        String databaseZone = parameters.getProperty("databaseZone");
-        if (databaseZone != null) {
-            if ("default".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(DateTimeZone.getDefault());
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+
+        if (parameters != null) {
+            
+            TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper)getColumnMapper();
+            
+            String databaseZone = parameters.getProperty("databaseZone");
+            if (databaseZone != null) {
+                if ("jvm".equals(databaseZone)) {
+                    columnMapper.setDatabaseZone(DateTimeZone.getDefault());
+                } else {
+                    columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+                }
             }
-        }
-        String javaZone = parameters.getProperty("javaZone");
-        if (javaZone != null) {
-            if ("default".equals(javaZone)) {
-                columnMapper.setJavaZone(DateTimeZone.getDefault());
-            } else {
-                columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+            String javaZone = parameters.getProperty("javaZone");
+            if (javaZone != null) {
+                if ("jvm".equals(javaZone)) {
+                    columnMapper.setJavaZone(DateTimeZone.getDefault());
+                } else {
+                    columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+                }
             }
         }
     }
