@@ -51,7 +51,7 @@ public class DatabaseCapable {
             File placeholder = new File(DatabaseCapable.class.getResource("/expected/.dbunit-comparison-files").getFile());
             File comparisonFile = new File(placeholder.getParentFile().getPath() + System.getProperty("file.separator") + tableName + ".xml");
 
-            writeExpectedFile(work.getDbunitConnection(), comparisonFile, tableName);
+            // writeExpectedFile(work.getDbunitConnection(), comparisonFile, tableName);
 
             IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(comparisonFile);
             ITable expectedTable = expectedDataSet.getTable(tableName);
