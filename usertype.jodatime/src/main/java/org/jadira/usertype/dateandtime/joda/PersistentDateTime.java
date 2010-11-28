@@ -44,11 +44,19 @@ public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, Ti
         
         String databaseZone = parameters.getProperty("databaseZone");
         if (databaseZone != null) {
-            columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+            if ("default".equals(databaseZone)) {
+                columnMapper.setDatabaseZone(DateTimeZone.getDefault());
+            } else {
+                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+            }
         }
         String javaZone = parameters.getProperty("javaZone");
         if (javaZone != null) {
-            columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+            if ("default".equals(javaZone)) {
+                columnMapper.setJavaZone(DateTimeZone.getDefault());
+            } else {
+                columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+            }
         }
     }
 }
