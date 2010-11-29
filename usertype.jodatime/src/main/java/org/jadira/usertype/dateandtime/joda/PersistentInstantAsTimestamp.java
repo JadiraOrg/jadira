@@ -43,7 +43,7 @@ public class PersistentInstantAsTimestamp extends AbstractUserType<Instant, Time
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
-                    columnMapper.setDatabaseZone(DateTimeZone.getDefault());
+                    columnMapper.setDatabaseZone(null);
                 } else {
                     columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
                 }

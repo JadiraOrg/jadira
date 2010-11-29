@@ -34,7 +34,7 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
     
-    private DateTimeZone javaZone = DateTimeZone.getDefault();
+    private DateTimeZone javaZone = null;
 
     @Override
     public DateTime fromNonNullString(String s) {
@@ -43,8 +43,12 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
 
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
-        DateTime dateTime = DATETIME_FORMATTER.withZone(databaseZone).parseDateTime(value.toString());
-        return dateTime.withZone(javaZone);
+        
+        DateTimeZone currentDatabaseZone = databaseZone == null ? DateTimeZone.getDefault() : databaseZone;
+        DateTimeZone currentJavaZone = javaZone == null ? DateTimeZone.getDefault() : javaZone;
+
+        DateTime dateTime = DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString());
+        return dateTime.withZone(currentJavaZone);
     }
 
     @Override
@@ -55,7 +59,9 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
     @Override
     public Timestamp toNonNullValue(DateTime value) {
 
-        value = value.withZone(databaseZone);
+        DateTimeZone currentDatabaseZone = databaseZone == null ? DateTimeZone.getDefault() : databaseZone;
+        
+        value = value.withZone(currentDatabaseZone);
         
         String formattedTimestamp = DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {

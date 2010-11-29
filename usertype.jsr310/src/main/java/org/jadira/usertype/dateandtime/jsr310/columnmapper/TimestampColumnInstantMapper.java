@@ -41,8 +41,11 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     @Override
     public Instant fromNonNullValue(Timestamp value) {
+        
+        TimeZone currentDatabaseZone = databaseZone == null ? TimeZone.of(java.util.TimeZone.getDefault().getID()) : databaseZone;
+        
         LocalDateTime d = LOCAL_DATETIME_FORMATTER.parse(value.toString()).merge().get(LocalDateTime.rule());
-        return d.atZone(databaseZone).toInstant();
+        return d.atZone(currentDatabaseZone).toInstant();
     }
 
     @Override
@@ -53,7 +56,9 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
     @Override
     public Timestamp toNonNullValue(Instant value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(ZonedDateTime.ofInstant(value, databaseZone));
+        TimeZone currentDatabaseZone = databaseZone == null ? TimeZone.of(java.util.TimeZone.getDefault().getID()) : databaseZone;
+        
+        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(ZonedDateTime.ofInstant(value, currentDatabaseZone));
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
 
         return timestamp;
