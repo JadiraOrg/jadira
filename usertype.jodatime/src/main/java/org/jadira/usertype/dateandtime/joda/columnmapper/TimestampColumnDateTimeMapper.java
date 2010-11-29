@@ -44,8 +44,8 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
         
-        DateTimeZone currentDatabaseZone = databaseZone == null ? DateTimeZone.getDefault() : databaseZone;
-        DateTimeZone currentJavaZone = javaZone == null ? DateTimeZone.getDefault() : javaZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+        DateTimeZone currentJavaZone = javaZone == null ? getDefault() : javaZone;
 
         DateTime dateTime = DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString());
         return dateTime.withZone(currentJavaZone);
@@ -59,7 +59,7 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
     @Override
     public Timestamp toNonNullValue(DateTime value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? DateTimeZone.getDefault() : databaseZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
         value = value.withZone(currentDatabaseZone);
         
@@ -78,5 +78,25 @@ public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper
 
     public void setJavaZone(DateTimeZone javaZone) {
         this.javaZone = javaZone;
+    }
+    
+    private static DateTimeZone getDefault() {
+
+        DateTimeZone zone = null;
+        try {
+            try {
+                String id = System.getProperty("user.timezone");
+                if (id != null) {
+                    zone = DateTimeZone.forID(id);
+                }
+            } catch (RuntimeException ex) { }
+            if (zone == null) {
+                zone = DateTimeZone.forID(java.util.TimeZone.getDefault().getID());
+            }
+        } catch (RuntimeException ex) { }
+        if (zone == null) {
+            zone = DateTimeZone.UTC;
+        }
+        return zone;
     }
 }
