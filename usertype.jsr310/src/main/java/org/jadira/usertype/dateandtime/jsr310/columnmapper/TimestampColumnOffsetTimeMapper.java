@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
 import static org.jadira.usertype.dateandtime.jsr310.utils.ZoneHelper.getDefaultZoneOffset;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 
 import javax.time.calendar.LocalTime;
 import javax.time.calendar.OffsetTime;
@@ -25,25 +25,28 @@ import javax.time.calendar.ZoneOffset;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimeColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
 
-public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> {
+/**
+ * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
+ */
+public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapper<OffsetTime> {
 
-    private static final long serialVersionUID = 6734385103313158326L;
+    private static final long serialVersionUID = -7670411089210984705L;
 
-    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-    
+    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
     
     private ZoneOffset javaZone = null;
-    
+
     @Override
     public OffsetTime fromNonNullString(String s) {
         return OffsetTime.parse(s);
     }
 
     @Override
-    public OffsetTime fromNonNullValue(Time value) {
+    public OffsetTime fromNonNullValue(Timestamp value) {
         
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
@@ -60,13 +63,19 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
     }
 
     @Override
-    public Time toNonNullValue(OffsetTime value) {
-      
+    public Timestamp toNonNullValue(OffsetTime value) {
+        
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         
         value = value.adjustLocalTime(currentDatabaseZone);
         
-        return Time.valueOf(LOCAL_TIME_FORMATTER.print(value));
+        String formattedTimestamp = LOCAL_TIME_FORMATTER.print(value);
+        if (formattedTimestamp.endsWith(".")) {
+            formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
+        }
+
+        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
+        return timestamp;
     }
     
     public void setDatabaseZone(ZoneOffset databaseZone) {

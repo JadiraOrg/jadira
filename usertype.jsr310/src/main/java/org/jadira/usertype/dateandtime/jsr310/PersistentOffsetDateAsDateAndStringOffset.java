@@ -24,7 +24,6 @@ import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnZoneOffse
 import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
 import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
 
-
 /**
  * Persist {@link OffsetDate} via Hibernate. The offset will be stored in an extra column.
  */

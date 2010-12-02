@@ -17,56 +17,64 @@ package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
 import static org.jadira.usertype.dateandtime.jsr310.utils.ZoneHelper.getDefaultZoneOffset;
 
-import java.sql.Time;
+import java.sql.Date;
 
-import javax.time.calendar.LocalTime;
-import javax.time.calendar.OffsetTime;
+import javax.time.calendar.LocalDate;
+import javax.time.calendar.OffsetDate;
 import javax.time.calendar.ZoneOffset;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimeColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractDateColumnMapper;
 
-public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> {
+/**
+ * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
+ */
+public class DateColumnOffsetDateMapper extends AbstractDateColumnMapper<OffsetDate> {
 
-    private static final long serialVersionUID = 6734385103313158326L;
+    private static final long serialVersionUID = -7670411089210984705L;
 
-    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-    
+    public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
     
     private ZoneOffset javaZone = null;
-    
+
     @Override
-    public OffsetTime fromNonNullString(String s) {
-        return OffsetTime.parse(s);
+    public OffsetDate fromNonNullString(String s) {
+        return OffsetDate.parse(s);
     }
 
     @Override
-    public OffsetTime fromNonNullValue(Time value) {
+    public OffsetDate fromNonNullValue(Date value) {
         
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
-        
-        LocalTime localTime = LOCAL_TIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
-        
-        OffsetTime time = localTime.atOffset(currentDatabaseZone);
-        return time.adjustLocalTime(currentJavaZone);
+
+        LocalDate localDate = DATE_FORMATTER.parse(value.toString()).merge().get(LocalDate.rule());
+        OffsetDate date = localDate.atOffset(currentDatabaseZone);
+        return date.withOffset(currentJavaZone);
     }
 
     @Override
-    public String toNonNullString(OffsetTime value) {
+    public String toNonNullString(OffsetDate value) {
         return value.toString();
     }
 
     @Override
-    public Time toNonNullValue(OffsetTime value) {
-      
+    public Date toNonNullValue(OffsetDate value) {
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         
-        value = value.adjustLocalTime(currentDatabaseZone);
+        value = value.withOffset(currentDatabaseZone);
         
-        return Time.valueOf(LOCAL_TIME_FORMATTER.print(value));
+        String formattedTimestamp = DATE_FORMATTER.print(value);
+        if (formattedTimestamp.endsWith(".")) {
+            formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
+        }
+
+        final Date timestamp = Date.valueOf(formattedTimestamp);
+        return timestamp;
     }
     
     public void setDatabaseZone(ZoneOffset databaseZone) {
