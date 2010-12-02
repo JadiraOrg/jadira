@@ -32,6 +32,7 @@
 			<action dev="Chris Pheby" type="fix">Default presentation (JVM) zone for DateTime is now the JVM zone</action>
 			<action dev="Chris Pheby" type="update">Update to JSR 310 0.6.3</action>
 			<action dev="Chris Pheby" type="add">Adding initial implementation of new offsetting types for JSR 310</action>
+			<action dev="Chris Pheby" type="update">Update to Joda Time 2.0</action>
 		</release>
 
 		<release version="1.7" date="20-11-2010" description="Bugfix Release">
