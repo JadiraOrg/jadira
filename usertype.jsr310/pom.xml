@@ -71,13 +71,13 @@
 		<dependency>
 			<groupId>javax.time</groupId>
 			<artifactId>jsr-310-ri</artifactId>
-			<version>0.6.2</version> <!-- 20100212 -->
+			<version>0.6.3</version> <!-- 20100212 -->
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>javax.time</groupId>
 			<artifactId>TZDB-all</artifactId> <!-- ZoneRuleInfo-TZDB -->
-			<version>0.6.2</version> <!-- 2009b -->
+			<version>0.6.3</version> <!-- 2009b -->
 			<scope>test</scope>
 		</dependency>		
 		

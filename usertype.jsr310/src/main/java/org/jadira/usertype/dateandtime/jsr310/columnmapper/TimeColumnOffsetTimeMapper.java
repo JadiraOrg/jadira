@@ -51,7 +51,7 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
         LocalTime localTime = LOCAL_TIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
         
         OffsetTime time = localTime.atOffset(currentDatabaseZone);
-        return time.adjustLocalTime(currentJavaZone);
+        return time.withOffsetSameInstant(currentJavaZone);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
       
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         
-        value = value.adjustLocalTime(currentDatabaseZone);
+        value = value.withOffsetSameInstant(currentDatabaseZone);
         
         return Time.valueOf(LOCAL_TIME_FORMATTER.print(value));
     }

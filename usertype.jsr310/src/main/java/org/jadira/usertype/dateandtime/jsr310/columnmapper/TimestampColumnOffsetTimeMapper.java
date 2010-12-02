@@ -54,7 +54,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         LocalTime localTime = LOCAL_TIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
         
         OffsetTime time = localTime.atOffset(currentDatabaseZone);
-        return time.adjustLocalTime(currentJavaZone);
+        return time.withOffsetSameInstant(currentJavaZone);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         
-        value = value.adjustLocalTime(currentDatabaseZone);
+        value = value.withOffsetSameInstant(currentDatabaseZone);
         
         String formattedTimestamp = LOCAL_TIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
