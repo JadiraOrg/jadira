@@ -26,10 +26,12 @@
 	<body>
 	
 		<!-- types are add, fix, remove, update -->
-		<release version="1.8" date="TBC" description="Custom Handling of Database and JVM timezones">
+		<release version="1.8" date="02-12-2010" description="Custom Handling of Database and JVM timezones">
 			<action dev="Chris Pheby" type="add">For DateTime and Instant types stored as Timestamp, the database timezone can be driven by parameters on the usertype(s)</action>
 			<action dev="Chris Pheby" type="add">For DateTime stored as Timestamp allow the JVM (presentation) zone can be customised from parameters on the usertype</action>
 			<action dev="Chris Pheby" type="fix">Default presentation (JVM) zone for DateTime is now the JVM zone</action>
+			<action dev="Chris Pheby" type="update">Update to JSR 310 0.6.3</action>
+			<action dev="Chris Pheby" type="add">Adding initial implementation of new offsetting types for JSR 310</action>
 		</release>
 
 		<release version="1.7" date="20-11-2010" description="Bugfix Release">
