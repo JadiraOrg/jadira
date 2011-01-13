@@ -30,7 +30,8 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     private static final long serialVersionUID = 1921591625617366103L;
     
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("'0001-01-01' HH:mm:ss'.").appendFractionOfSecond(0, 9).toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
     
     @Override
     public TimeOfDay fromNonNullString(String s) {
@@ -39,7 +40,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     @Override
     public TimeOfDay fromNonNullValue(Timestamp value) {
-        final LocalTime localTime = LOCAL_DATETIME_FORMATTER.parseDateTime(value.toString()).toLocalTime();
+        final LocalTime localTime = LOCAL_DATETIME_PARSER.parseDateTime(value.toString()).toLocalTime();
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }
@@ -52,7 +53,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(TimeOfDay value) {
 
-        String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(value.toLocalTime());
+        String formattedTimestamp = LOCAL_DATETIME_PRINTER.print(value.toLocalTime());
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

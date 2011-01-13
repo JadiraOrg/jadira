@@ -28,8 +28,9 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     private static final long serialVersionUID = 1921591625617366103L;
     
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
-    
+    public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
+     
     @Override
     public LocalTime fromNonNullString(String s) {
         return LocalTime.parse(s);
@@ -37,7 +38,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     @Override
     public LocalTime fromNonNullValue(Timestamp value) {
-        return LOCAL_DATETIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
+        return LOCAL_DATETIME_PARSER.parse(value.toString()).merge().get(LocalTime.rule());
     }
 
     @Override
@@ -48,7 +49,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print((LocalTime) value);
+        final String formattedTimestamp = LOCAL_DATETIME_PRINTER.print((LocalTime) value);
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
 
         return timestamp;

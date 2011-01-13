@@ -26,6 +26,10 @@
 	<body>
 	
 		<!-- types are add, fix, remove, update -->
+		<release version="1.9" date="TBC" description="Bugfix Release">
+			<action dev="Chris Pheby" issue="3140659" type="fix">Improve robustness of mappings of Time types to Timestamps</action>
+		</release>
+		
 		<release version="1.8" date="02-12-2010" description="Custom Handling of Database and JVM timezones">
 			<action dev="Chris Pheby" type="add">For DateTime and Instant types stored as Timestamp, the database timezone can be driven by parameters on the usertype(s)</action>
 			<action dev="Chris Pheby" type="add">For DateTime stored as Timestamp allow the JVM (presentation) zone can be customised from parameters on the usertype</action>

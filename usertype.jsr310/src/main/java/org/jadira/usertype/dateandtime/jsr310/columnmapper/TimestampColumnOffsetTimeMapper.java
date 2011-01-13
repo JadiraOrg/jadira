@@ -34,7 +34,8 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
 
     private static final long serialVersionUID = -7670411089210984705L;
 
-    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
+    public static final DateTimeFormatter LOCAL_TIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
+    public static final DateTimeFormatter LOCAL_TIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
 
     private ZoneOffset databaseZone = ZoneOffset.UTC;
     
@@ -51,7 +52,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
         
-        LocalTime localTime = LOCAL_TIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
+        LocalTime localTime = LOCAL_TIME_PARSER.parse(value.toString()).merge().get(LocalTime.rule());
         
         OffsetTime time = localTime.atOffset(currentDatabaseZone);
         return time.withOffsetSameInstant(currentJavaZone);
@@ -69,7 +70,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         
         value = value.withOffsetSameInstant(currentDatabaseZone);
         
-        String formattedTimestamp = LOCAL_TIME_FORMATTER.print(value);
+        String formattedTimestamp = LOCAL_TIME_PRINTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
