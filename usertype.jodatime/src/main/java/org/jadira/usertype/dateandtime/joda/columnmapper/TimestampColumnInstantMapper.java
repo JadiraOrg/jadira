@@ -17,13 +17,13 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<Instant> {
+public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -65,7 +65,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<
 
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
-    }  
+    }
     
     private static DateTimeZone getDefault() {
 

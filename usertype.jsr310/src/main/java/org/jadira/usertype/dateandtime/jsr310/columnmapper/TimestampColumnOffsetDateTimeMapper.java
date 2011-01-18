@@ -25,12 +25,12 @@ import javax.time.calendar.ZoneOffset;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnOffsetDateTimeMapper extends AbstractTimestampColumnMapper<OffsetDateTime> {
+public class TimestampColumnOffsetDateTimeMapper extends AbstractVersionableTimestampColumnMapper<OffsetDateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 

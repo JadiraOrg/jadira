@@ -22,7 +22,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.type.TimestampType;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
-public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> {
+public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> implements ColumnMapper<T, Timestamp> {
 
     private static final long serialVersionUID = -3070239764121234482L;
 

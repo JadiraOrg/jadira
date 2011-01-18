@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
@@ -26,7 +26,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnDateTimeMapper extends AbstractTimestampColumnMapper<DateTime> {
+public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampColumnMapper<DateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 

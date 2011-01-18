@@ -24,9 +24,9 @@ import javax.time.calendar.ZonedDateTime;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 
-public class TimestampColumnInstantMapper extends AbstractTimestampColumnMapper<Instant> {
+public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 

@@ -15,10 +15,10 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractLongColumnMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableLongColumnMapper;
 import org.joda.time.Instant;
 
-public class LongColumnInstantMapper extends AbstractLongColumnMapper<Instant> {
+public class LongColumnInstantMapper extends AbstractVersionableLongColumnMapper<Instant> {
 
     private static final long serialVersionUID = 8408450977695192938L;
 

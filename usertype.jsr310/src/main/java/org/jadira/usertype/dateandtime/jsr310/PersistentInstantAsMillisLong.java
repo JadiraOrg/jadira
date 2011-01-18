@@ -17,9 +17,8 @@ package org.jadira.usertype.dateandtime.jsr310;
 
 import javax.time.Instant;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
-
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.LongColumnInstantMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 
 /**
  * Persist {@link Instant} via Hibernate using milliseconds of the day. This type is
@@ -29,5 +28,10 @@ import org.jadira.usertype.dateandtime.jsr310.columnmapper.LongColumnInstantMapp
  * round down to the nearest millisecond.
  * @see PersistentInstantAsNanosLong
  */
-public class PersistentInstantAsMillisLong extends AbstractUserType<Instant, Long, LongColumnInstantMapper> {
+public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<Instant, Long, LongColumnInstantMapper> {
+    
+    @Override
+    public int compare(Object o1, Object o2) {
+        return ((Instant)o1).compareTo((Instant)o2);
+    }
 }

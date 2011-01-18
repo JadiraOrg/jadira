@@ -20,7 +20,7 @@ import java.util.Properties;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -37,10 +37,12 @@ import org.joda.time.DateTimeZone;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
+public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
 
+        super.setParameterValues(parameters);
+        
         if (parameters != null) {
             
             TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper)getColumnMapper();
@@ -62,5 +64,10 @@ public class PersistentDateTime extends AbstractUserType<DateTime, Timestamp, Ti
                 }
             }
         }
+    }
+    
+    @Override
+    public int compare(Object o1, Object o2) {
+        return ((DateTime)o1).compareTo((DateTime)o2);
     }
 }

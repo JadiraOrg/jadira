@@ -23,7 +23,7 @@ import javax.time.calendar.ZonedDateTime;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnZonedDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 
 /**
  * Persist {@link ZonedDateTime} via Hibernate. This type is
@@ -38,13 +38,15 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentZonedDateTime extends AbstractUserType<ZonedDateTime, Timestamp, TimestampColumnZonedDateTimeMapper> implements ParameterizedType {
+public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDateTime, Timestamp, TimestampColumnZonedDateTimeMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
 
+        super.setParameterValues(parameters);
+        
         if (parameters != null) {
             
-            TimestampColumnZonedDateTimeMapper columnMapper = (TimestampColumnZonedDateTimeMapper)getColumnMapper();
+            TimestampColumnZonedDateTimeMapper columnMapper = getColumnMapper();
             
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
@@ -63,5 +65,10 @@ public class PersistentZonedDateTime extends AbstractUserType<ZonedDateTime, Tim
                 }
             }
         }
+    }
+    
+    @Override
+    public int compare(Object o1, Object o2) {
+        return ((ZonedDateTime)o1).compareTo((ZonedDateTime)o2);
     }
 }

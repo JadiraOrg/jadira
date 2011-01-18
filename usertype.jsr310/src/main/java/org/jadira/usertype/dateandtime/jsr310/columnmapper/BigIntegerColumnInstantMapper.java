@@ -17,10 +17,11 @@ package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
 import java.math.BigInteger;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractBigIntegerColumnMapper;
 import javax.time.Instant;
 
-public class BigIntegerColumnInstantMapper extends AbstractBigIntegerColumnMapper<Instant> {
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableBigIntegerColumnMapper;
+
+public class BigIntegerColumnInstantMapper extends AbstractVersionableBigIntegerColumnMapper<Instant> {
 
     private static final long serialVersionUID = 2647692721818989190L;
 

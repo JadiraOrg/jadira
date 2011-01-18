@@ -20,7 +20,7 @@ import java.util.Properties;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 
@@ -32,9 +32,11 @@ import org.joda.time.Instant;
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentInstantAsTimestamp extends AbstractUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
+public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
     
     public void setParameterValues(Properties parameters) {
+        
+        super.setParameterValues(parameters);
         
         if (parameters != null) {
             
@@ -49,5 +51,10 @@ public class PersistentInstantAsTimestamp extends AbstractUserType<Instant, Time
                 }
             }
         }
+    }
+
+    @Override
+    public int compare(Object o1, Object o2) {
+        return ((Instant)o1).compareTo((Instant)o2);
     }
 }

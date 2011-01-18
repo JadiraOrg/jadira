@@ -362,7 +362,15 @@ usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractSt
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimeColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimestampColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableBigIntegerColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableLongColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableTimestampColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/ColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/DbTimestampSeed.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/JvmTimestampSeed.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/Seed.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/VersionableColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/AbstractLocationSafeUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeDateType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimeType.java -text
