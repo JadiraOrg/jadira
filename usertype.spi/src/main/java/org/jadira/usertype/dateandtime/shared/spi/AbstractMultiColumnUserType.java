@@ -23,18 +23,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.SessionImplementor;
 import org.hibernate.type.SerializationException;
-import org.hibernate.usertype.UserType;
+import org.hibernate.type.Type;
+import org.hibernate.usertype.CompositeUserType;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
-public abstract class AbstractMultiColumnUserType<T> implements UserType, Serializable {
+public abstract class AbstractMultiColumnUserType<T> implements CompositeUserType, Serializable {
 
     private static final long serialVersionUID = -8258683760413283329L;
     
     private final int[] sqlTypes;
     
-    // The class
+    private final Type[] hibernateTypes;
+    
+//    private String[] defaultPropertyNames;
     
     public AbstractMultiColumnUserType() {
         
@@ -42,6 +46,33 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         for (int i = 0; i < sqlTypes.length; i++) {
             sqlTypes[i] = getColumnMappers()[i].getSqlType();
         }
+        
+        hibernateTypes = new Type[getColumnMappers().length];
+        for (int i = 0; i < hibernateTypes.length; i++) {
+            hibernateTypes[i] = getColumnMappers()[i].getHibernateType();
+        }
+        
+//        Map<String, Integer> nameCount = new HashMap<String, Integer>();
+//        
+//        defaultPropertyNames = new String[getColumnMappers().length];
+//        for (int i = 0; i < defaultPropertyNames.length; i++) {
+//            String className = hibernateTypes[i].getClass().getSimpleName();
+//            if (className.endsWith("Type")) {
+//                className = className.substring(0, className.length() - 4);
+//            }
+//            
+//            String name = className.toLowerCase();
+//            final Integer count;
+//            if (nameCount.containsKey(name)) {
+//                Integer oldCount = nameCount.get(name);
+//                count = oldCount.intValue() + 1;
+//                defaultPropertyNames[i] = name + count;
+//            } else {
+//                count = 1;
+//                defaultPropertyNames[i] = name;
+//            }
+//            nameCount.put(name, count);
+//        }
     }
    
 	public int[] sqlTypes() {
@@ -74,11 +105,11 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return x.hashCode();
     }
 
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
+    public Object assemble(Serializable cached, SessionImplementor session, Object owner) {
         return deepCopy(cached);
     }
 
-    public Serializable disassemble(Object value) throws HibernateException {
+    public Serializable disassemble(Object value, SessionImplementor session) { 
 
         final Serializable result;
         
@@ -95,7 +126,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
         return result;
     }
 
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
+    public Object replace(Object original, Object target, SessionImplementor session, Object owner) {
         return deepCopy(original);
     }
 
@@ -104,7 +135,7 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
+    public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
         
         Object[] convertedColumns = new Object[getColumnMappers().length];
         
@@ -137,7 +168,8 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
     protected abstract Object[] toConvertedColumns(T value);
         
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session)  throws SQLException {
+
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
@@ -162,5 +194,27 @@ public abstract class AbstractMultiColumnUserType<T> implements UserType, Serial
                 
             }
         }
+    }
+
+    public abstract String[] getPropertyNames();
+//    public String[] getPropertyNames() {
+//        return defaultPropertyNames;
+//    }
+
+    public Type[] getPropertyTypes() {
+        return hibernateTypes;
+    }
+
+    public Object getPropertyValue(Object component, int property) throws HibernateException {
+        
+        if (!returnedClass().isAssignableFrom(component.getClass())) {
+            throw new HibernateException("getPropertyValue called with incorrect class: {" + component.getClass() + "}");
+        } 
+        @SuppressWarnings("unchecked") Object[] cols = toConvertedColumns((T)component);
+        return cols[property];
+    }
+
+    public void setPropertyValue(Object component, int property, Object value) throws HibernateException {
+        throw new HibernateException("Called setPropertyValue on an immutable type {" + component.getClass() + "}");
     }
 }

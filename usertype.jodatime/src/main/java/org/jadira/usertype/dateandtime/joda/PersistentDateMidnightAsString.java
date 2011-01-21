@@ -33,6 +33,8 @@ public class PersistentDateMidnightAsString extends AbstractMultiColumnUserType<
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateMapper(), new StringColumnDateTimeZoneMapper() };
     
+    private static final String[] propertyNames = new String[]{ "date", "offset" };
+    
     @Override
     protected DateMidnight fromConvertedColumns(Object[] convertedColumns) {
 
@@ -60,5 +62,9 @@ public class PersistentDateMidnightAsString extends AbstractMultiColumnUserType<
     protected Object[] toConvertedColumns(DateMidnight value) {
 
         return new Object[] { value.toLocalDate(), value.getZone() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

@@ -33,6 +33,8 @@ public class PersistentOffsetDateAsDateAndStringOffset extends AbstractMultiColu
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnZoneOffsetMapper() };
     
+    private static final String[] propertyNames = new String[]{ "date", "offset" };
+    
     @Override
     protected OffsetDate fromConvertedColumns(Object[] convertedColumns) {
 
@@ -52,5 +54,9 @@ public class PersistentOffsetDateAsDateAndStringOffset extends AbstractMultiColu
     protected Object[] toConvertedColumns(OffsetDate value) {
 
         return new Object[] { value.toLocalDate(), value.getOffset() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

@@ -33,6 +33,8 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new TimestampColumnLocalDateTimeMapper() };
     
+    private static final String[] propertyNames = new String[]{ "begin", "end" };
+    
     @Override
     protected Interval fromConvertedColumns(Object[] convertedColumns) {
 
@@ -41,7 +43,6 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
         
         return new Interval(begin.toDateTime(DateTimeZone.UTC), end.toDateTime(DateTimeZone.UTC));
     }
-  
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
@@ -52,5 +53,9 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
     protected Object[] toConvertedColumns(Interval value) {
 
         return new Object[] { value.getStart().toLocalDateTime(), value.getEnd().toLocalDateTime() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

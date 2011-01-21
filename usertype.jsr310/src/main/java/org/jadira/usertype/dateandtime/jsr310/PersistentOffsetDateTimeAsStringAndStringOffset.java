@@ -33,6 +33,8 @@ public class PersistentOffsetDateTimeAsStringAndStringOffset extends AbstractMul
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper() };
     
+    private static final String[] propertyNames = new String[]{ "datetime", "offset" };
+    
     @Override
     protected OffsetDateTime fromConvertedColumns(Object[] convertedColumns) {
 
@@ -52,5 +54,9 @@ public class PersistentOffsetDateTimeAsStringAndStringOffset extends AbstractMul
     protected Object[] toConvertedColumns(OffsetDateTime value) {
 
         return new Object[] { value.toLocalDateTime(), value.getOffset() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

@@ -28,6 +28,8 @@
 		<!-- types are add, fix, remove, update -->
 		<release version="1.9" date="TBC" description="Bugfix Release">
 			<action dev="Chris Pheby" issue="3140659" type="fix">Improve robustness of mappings of Time types to Timestamps</action>
+			<action dev="Chris Pheby" type="add">Support @Version functionality</action>
+			<action dev="Chris Pheby" type="add">Allow usertype properties to be dereferenced in queries</action>
 		</release>
 		
 		<release version="1.8" date="02-12-2010" description="Custom Handling of Database and JVM timezones">

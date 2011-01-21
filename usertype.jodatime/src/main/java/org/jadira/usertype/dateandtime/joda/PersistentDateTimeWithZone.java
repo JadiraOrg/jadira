@@ -32,6 +32,8 @@ public class PersistentDateTimeWithZone extends AbstractMultiColumnUserType<Date
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
     
+    private static final String[] propertyNames = new String[]{ "datetime", "offset" };
+    
     @Override
     protected DateTime fromConvertedColumns(Object[] convertedColumns) {
 
@@ -59,5 +61,9 @@ public class PersistentDateTimeWithZone extends AbstractMultiColumnUserType<Date
     protected Object[] toConvertedColumns(DateTime value) {
 
         return new Object[] { value.toLocalDateTime(), value.getZone() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

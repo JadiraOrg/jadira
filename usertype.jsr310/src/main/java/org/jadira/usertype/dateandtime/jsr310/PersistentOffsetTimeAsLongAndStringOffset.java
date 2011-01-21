@@ -35,6 +35,8 @@ public class PersistentOffsetTimeAsLongAndStringOffset extends AbstractMultiColu
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new LongColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
     
+    private static final String[] propertyNames = new String[]{ "time", "offset" };
+    
     @Override
     protected OffsetTime fromConvertedColumns(Object[] convertedColumns) {
 
@@ -54,5 +56,9 @@ public class PersistentOffsetTimeAsLongAndStringOffset extends AbstractMultiColu
     protected Object[] toConvertedColumns(OffsetTime value) {
 
         return new Object[] { value.toLocalTime(), value.getOffset() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }

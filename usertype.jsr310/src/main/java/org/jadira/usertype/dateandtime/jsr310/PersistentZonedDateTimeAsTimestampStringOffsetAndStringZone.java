@@ -39,6 +39,8 @@ public class PersistentZonedDateTimeAsTimestampStringOffsetAndStringZone extends
         new TimestampColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper(), new StringColumnTimeZoneMapper() 
     };
     
+    private static final String[] propertyNames = new String[]{ "datetime", "offset", "timezone" };
+    
     @Override
     protected ZonedDateTime fromConvertedColumns(Object[] convertedColumns) {
 
@@ -49,7 +51,6 @@ public class PersistentZonedDateTimeAsTimestampStringOffsetAndStringZone extends
         return ZonedDateTime.of(OffsetDateTime.of(datePart, offset), timeZone);
     }
   
-
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
@@ -59,5 +60,9 @@ public class PersistentZonedDateTimeAsTimestampStringOffsetAndStringZone extends
     protected Object[] toConvertedColumns(ZonedDateTime value) {
 
         return new Object[] { value.toOffsetDateTime().toLocalDateTime(), value.toOffsetDateTime().getOffset(), value.getZone() };
+    }
+    
+    public String[] getPropertyNames() {
+        return propertyNames;
     }
 }
