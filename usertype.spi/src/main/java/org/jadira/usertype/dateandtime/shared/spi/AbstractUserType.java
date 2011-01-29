@@ -94,7 +94,7 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
             if (!(deepCopy instanceof Serializable)) {
                 throw new SerializationException(String.format("deepCopy of %s is not serializable", value), null);
             }
-            result = (Serializable)deepCopy;
+            result = (Serializable) deepCopy;
         }
 
         return result;
@@ -111,10 +111,10 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
     @SuppressWarnings({ "unchecked" }) 
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
         J converted;
-        if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-        	converted = (J) Hibernate36Helper.nullSafeGet(getColumnMapper(), resultSet, strings[0]);
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            converted = (J) Hibernate36Helper.nullSafeGet(getColumnMapper(), resultSet, strings[0]);
         } else {
-        	converted = (J) ((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeGet(resultSet, strings[0]);
+            converted = (J) ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeGet(resultSet, strings[0]);
         }
         
         if (converted == null) {
@@ -124,31 +124,31 @@ public abstract class AbstractUserType<T, J, C extends ColumnMapper<T, J>> imple
         return getColumnMapper().fromNonNullValue(converted);
     }
     
-	public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
         if (value == null) {
-            if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-            	Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, null, index);
+            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, null, index);
             } else {
-            	((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, null, index);
+                ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, null, index);
             }
         } else {
             @SuppressWarnings("unchecked") final T myValue = (T) value;
-            if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-            	Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
+            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
             } else {
-            	((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
+                ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
             }
             
         }
     }
     
-	public String objectToSQLString(Object object) {
+    public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);
-        if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-        	return Hibernate36Helper.nullSafeToString(getColumnMapper(), convertedObject);
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return Hibernate36Helper.nullSafeToString(getColumnMapper(), convertedObject);
         } else {
-        	return ((org.hibernate.type.NullableType)getColumnMapper().getHibernateType()).nullSafeToString(convertedObject);
+            return ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeToString(convertedObject);
         }
     }
        

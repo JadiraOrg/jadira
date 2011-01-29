@@ -69,6 +69,6 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
     
     @Override
     public int compare(Object o1, Object o2) {
-        return ((ZonedDateTime)o1).compareTo((ZonedDateTime)o2);
+        return ((ZonedDateTime) o1).compareTo((ZonedDateTime) o2);
     }
 }

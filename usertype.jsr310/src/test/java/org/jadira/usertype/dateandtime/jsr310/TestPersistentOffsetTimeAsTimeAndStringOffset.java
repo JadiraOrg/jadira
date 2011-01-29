@@ -95,9 +95,9 @@ public class TestPersistentOffsetTimeAsTimeAndStringOffset extends DatabaseCapab
     private static final class NormaliseNanosAdjuster implements TimeAdjuster {
 
         public LocalTime adjustTime(LocalTime time) {
-            if(time == null) { return null; }
+            if (time == null) { return null; }
             
-            int millis = (int)(time.getNanoOfSecond() / 1000000);
+            int millis = (int) (time.getNanoOfSecond() / 1000000);
             
             return LocalTime.of(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute(), millis * 1000000);
         }

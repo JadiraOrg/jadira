@@ -33,9 +33,9 @@ import org.joda.time.DateMidnight;
 @TypeDef(name = "testjoda_DateMidnightType", typeClass = PersistentDateMidnight.class)
 public class JodaDateMidnightHolder implements Serializable {
 
-	private static final long serialVersionUID = -1674416082110551506L;
+    private static final long serialVersionUID = -1674416082110551506L;
 
-	@Id
+    @Id
     private long id;
 
     @Column

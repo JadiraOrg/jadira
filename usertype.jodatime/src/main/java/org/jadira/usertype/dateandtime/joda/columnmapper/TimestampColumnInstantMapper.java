@@ -76,11 +76,15 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
                 if (id != null) {
                     zone = DateTimeZone.forID(id);
                 }
-            } catch (RuntimeException ex) { }
+            } catch (RuntimeException ex) {
+                zone = null;
+            }
             if (zone == null) {
                 zone = DateTimeZone.forID(java.util.TimeZone.getDefault().getID());
             }
-        } catch (RuntimeException ex) { }
+        } catch (RuntimeException ex) {
+            zone = null;
+        }
         if (zone == null) {
             zone = DateTimeZone.UTC;
         }

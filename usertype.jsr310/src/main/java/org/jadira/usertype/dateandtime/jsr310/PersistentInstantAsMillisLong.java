@@ -32,6 +32,6 @@ public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<I
     
     @Override
     public int compare(Object o1, Object o2) {
-        return ((Instant)o1).compareTo((Instant)o2);
+        return ((Instant) o1).compareTo((Instant) o2);
     }
 }

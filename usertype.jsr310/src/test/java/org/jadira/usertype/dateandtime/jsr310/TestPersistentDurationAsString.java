@@ -37,13 +37,18 @@ import org.junit.Test;
 
 public class TestPersistentDurationAsString extends DatabaseCapable {
 
-    private static final Duration[] durations = new Duration[] { Duration.ZERO, Duration.ofSeconds(30), Period.ofSeconds(30).toDuration(), Duration.between(OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).minusMonths(3).atMidnight(), OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).atMidnight()) };
+    private static final Duration[] durations = new Duration[] { 
+        Duration.ZERO, 
+        Duration.ofSeconds(30), 
+        Period.ofSeconds(30).toDuration(), 
+        Duration.between(OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).minusMonths(3).atMidnight(), OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).atMidnight()) };
     
     private static final org.joda.time.Duration[] jodaDurations = new org.joda.time.Duration[] { 
         org.joda.time.Duration.ZERO, 
         new org.joda.time.Duration(30 * 1000), 
-        new org.joda.time.Period(0, 0, 30, 0).toDurationFrom(new org.joda.time.LocalDateTime(2010,8,8, 10, 10, 10).toDateTime(org.joda.time.DateTimeZone.UTC)), 
-        new org.joda.time.Duration(new org.joda.time.DateMidnight(2010, 4, 1, org.joda.time.DateTimeZone.UTC).minusMonths(3), new org.joda.time.DateMidnight(2010, 4, 1, org.joda.time.DateTimeZone.UTC)) };
+        new org.joda.time.Period(0, 0, 30, 0).toDurationFrom(new org.joda.time.LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(org.joda.time.DateTimeZone.UTC)), 
+        new org.joda.time.Duration(new org.joda.time.DateMidnight(
+                2010, 4, 1, org.joda.time.DateTimeZone.UTC).minusMonths(3), new org.joda.time.DateMidnight(2010, 4, 1, org.joda.time.DateTimeZone.UTC)) };
 
     private static EntityManagerFactory factory;
 

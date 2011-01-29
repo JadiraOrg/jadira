@@ -24,7 +24,7 @@ public interface Seed<T> {
      * @param session The session from which this request originates.
      * @return an instance of the type
      */
-    public T getTimestamp(SessionImplementor session);
+    T getTimestamp(SessionImplementor session);
 
     /**
      * Increment the version value.
@@ -32,5 +32,5 @@ public interface Seed<T> {
      * @param current the current version value
      * @return an instance of the type T
      */
-    public T getNextTimestamp(T current, SessionImplementor session);
+    T getNextTimestamp(T current, SessionImplementor session);
 }

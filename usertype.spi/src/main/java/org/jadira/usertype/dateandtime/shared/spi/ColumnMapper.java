@@ -19,7 +19,7 @@ import org.hibernate.type.Type;
 
 public interface ColumnMapper<T, J> {
 
-	Type getHibernateType(); // Either NullableType or AbstractStandardBasicType<T>
+    Type getHibernateType(); // Either NullableType or AbstractStandardBasicType<T>
 
     int getSqlType();
 

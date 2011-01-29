@@ -19,7 +19,6 @@ import java.sql.Timestamp;
 import java.util.Properties;
 
 import javax.time.calendar.OffsetDateTime;
-import javax.time.calendar.TimeZone;
 import javax.time.calendar.ZoneOffset;
 
 import org.hibernate.usertype.ParameterizedType;
@@ -34,7 +33,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
  * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the 
  * JVM using the JVM's default zone.
  * 
- * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link javax.time.calendar.TimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
@@ -47,7 +46,7 @@ public class PersistentOffsetDateTime extends AbstractVersionableUserType<Offset
         
         if (parameters != null) {
             
-            TimestampColumnOffsetDateTimeMapper columnMapper = (TimestampColumnOffsetDateTimeMapper)getColumnMapper();
+            TimestampColumnOffsetDateTimeMapper columnMapper = (TimestampColumnOffsetDateTimeMapper) getColumnMapper();
             
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
@@ -70,6 +69,6 @@ public class PersistentOffsetDateTime extends AbstractVersionableUserType<Offset
     
     @Override
     public int compare(Object o1, Object o2) {
-        return ((OffsetDateTime)o1).compareTo((OffsetDateTime)o2);
+        return ((OffsetDateTime) o1).compareTo((OffsetDateTime) o2);
     }
 }

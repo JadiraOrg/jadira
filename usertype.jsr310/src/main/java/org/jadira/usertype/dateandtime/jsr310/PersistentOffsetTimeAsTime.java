@@ -19,7 +19,6 @@ import java.sql.Time;
 import java.util.Properties;
 
 import javax.time.calendar.OffsetTime;
-import javax.time.calendar.TimeZone;
 import javax.time.calendar.ZoneOffset;
 
 import org.hibernate.usertype.ParameterizedType;
@@ -32,7 +31,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * The type is stored using UTC timezone and presented in the 
  * JVM using the JVM's default zone.
  * 
- * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link javax.time.calendar.TimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
@@ -43,7 +42,7 @@ public class PersistentOffsetTimeAsTime extends AbstractUserType<OffsetTime, Tim
 
         if (parameters != null) {
             
-            TimeColumnOffsetTimeMapper columnMapper = (TimeColumnOffsetTimeMapper)getColumnMapper();
+            TimeColumnOffsetTimeMapper columnMapper = (TimeColumnOffsetTimeMapper) getColumnMapper();
             
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {

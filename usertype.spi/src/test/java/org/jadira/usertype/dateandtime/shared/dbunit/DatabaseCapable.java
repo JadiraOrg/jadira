@@ -16,7 +16,6 @@
 package org.jadira.usertype.dateandtime.shared.dbunit;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -26,7 +25,6 @@ import javax.persistence.EntityManager;
 
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
-import org.dbunit.database.AmbiguousTableNameException;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
@@ -43,7 +41,7 @@ public class DatabaseCapable {
     protected void verifyDatabaseTable(EntityManager manager, String tableName) throws RuntimeDatabaseUnitException {
 
         DBUnitWork work = new DBUnitWork();
-        ((Session)(manager.getDelegate())).doWork(work);
+        ((Session) (manager.getDelegate())).doWork(work);
         ITable actualTable;
         try {
             actualTable = work.getDatabaseDataSet().getTable(tableName);
@@ -58,14 +56,14 @@ public class DatabaseCapable {
             
             Assertion.assertEquals(expectedTable, actualTable);
             
-        } catch (DatabaseUnitException e) {
-            throw new RuntimeDatabaseUnitException(e);
-        } catch (IOException e) {
-            throw new RuntimeDatabaseUnitException(e);
+        } catch (DatabaseUnitException ex) {
+            throw new RuntimeDatabaseUnitException(ex);
+        } catch (IOException ex) {
+            throw new RuntimeDatabaseUnitException(ex);
         }
     }
 
-    protected void writeExpectedFile(IDatabaseConnection dbunitConnection, File outputFile, String tableName) throws AmbiguousTableNameException, IOException, DataSetException, FileNotFoundException {
+    protected void writeExpectedFile(IDatabaseConnection dbunitConnection, File outputFile, String tableName) throws IOException, DataSetException {
         QueryDataSet partialDataSet = new QueryDataSet(dbunitConnection);
         partialDataSet.addTable(tableName);
         // IDataSet export = work.getDatabaseDataSet(); // Full dataset
@@ -86,8 +84,8 @@ public class DatabaseCapable {
             try {
                 dbunitConnection = new H2Connection(connection, null);
                 databaseDataSet = dbunitConnection.createDataSet();
-            } catch (DatabaseUnitException e) {
-                throw new RuntimeException(e);
+            } catch (DatabaseUnitException ex) {
+                throw new RuntimeException(ex);
             }
         }
         

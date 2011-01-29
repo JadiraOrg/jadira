@@ -37,8 +37,14 @@ import org.junit.Test;
 
 public class TestPersistentInterval extends DatabaseCapable {
 
-    private static final Interval[] intervals     = new Interval[] { new Interval(new DateTime("1970-01-01T00:00:00.000", DateTimeZone.UTC).getMillis(), new DateTime("1970-01-12T17:46:40.000", DateTimeZone.UTC).getMillis(), DateTimeZone.forOffsetHours(4)), new Interval(1000000000, 2000000000, DateTimeZone.UTC), null };
-    private static final Interval[] jodaIntervals = new Interval[] { new Interval(new DateTime("1970-01-01T00:00:00.000", DateTimeZone.UTC).getMillis(), new DateTime("1970-01-12T17:46:40.000", DateTimeZone.UTC).getMillis(), DateTimeZone.forOffsetHours(4)), new Interval(1000000000, 2000000000, DateTimeZone.UTC), null };
+    private static final Interval[] intervals     = new Interval[] { 
+        new Interval(new DateTime("1970-01-01T00:00:00.000", DateTimeZone.UTC).getMillis(), new DateTime("1970-01-12T17:46:40.000", DateTimeZone.UTC).getMillis(), DateTimeZone.forOffsetHours(4)), 
+        new Interval(1000000000, 2000000000, DateTimeZone.UTC), 
+        null };
+    private static final Interval[] jodaIntervals = new Interval[] { 
+        new Interval(new DateTime("1970-01-01T00:00:00.000", DateTimeZone.UTC).getMillis(), new DateTime("1970-01-12T17:46:40.000", DateTimeZone.UTC).getMillis(), DateTimeZone.forOffsetHours(4)), 
+        new Interval(1000000000, 2000000000, DateTimeZone.UTC), 
+        null };
 
     private static EntityManagerFactory factory;
 

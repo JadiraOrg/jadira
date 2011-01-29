@@ -26,12 +26,12 @@ public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T
 
     private static final long serialVersionUID = -8841076386862845448L;
     
-	public final DateType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (DateType) Hibernate36Helper.getHibernateType("DATE");
-    	} else {
-    		return (DateType) Hibernate.DATE;
-    	}
+    public final DateType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (DateType) Hibernate36Helper.getHibernateType("DATE");
+        } else {
+            return (DateType) Hibernate.DATE;
+        }
     }
     
     public final int getSqlType() {

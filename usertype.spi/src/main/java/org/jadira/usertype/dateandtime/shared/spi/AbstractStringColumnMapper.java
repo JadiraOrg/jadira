@@ -29,12 +29,12 @@ public abstract class AbstractStringColumnMapper<T> extends AbstractColumnMapper
         return Types.VARCHAR;
     }
     
-	public final StringType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (StringType) Hibernate36Helper.getHibernateType("STRING");
-    	} else {
-    		return (StringType) Hibernate.STRING;
-    	}
+    public final StringType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (StringType) Hibernate36Helper.getHibernateType("STRING");
+        } else {
+            return (StringType) Hibernate.STRING;
+        }
     }
 
     

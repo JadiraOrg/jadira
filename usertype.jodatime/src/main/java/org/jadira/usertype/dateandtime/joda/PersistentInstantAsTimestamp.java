@@ -40,7 +40,7 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
         
         if (parameters != null) {
             
-            TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper)getColumnMapper();
+            TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
             
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
@@ -55,6 +55,6 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
 
     @Override
     public int compare(Object o1, Object o2) {
-        return ((Instant)o1).compareTo((Instant)o2);
+        return ((Instant) o1).compareTo((Instant) o2);
     }
 }

@@ -75,8 +75,8 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
 //        }
     }
    
-	public int[] sqlTypes() {
-    	return copyOf(sqlTypes);
+    public int[] sqlTypes() {
+        return copyOf(sqlTypes);
     }
     
     @SuppressWarnings("unchecked")
@@ -120,7 +120,7 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
             if (!(deepCopy instanceof Serializable)) {
                 throw new SerializationException(String.format("deepCopy of %s is not serializable", value), null);
             }
-            result = (Serializable)deepCopy;
+            result = (Serializable) deepCopy;
         }
 
         return result;
@@ -143,10 +143,10 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
             ColumnMapper nextMapper = getColumnMappers()[i];
             
             final Object converted;
-            if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-            	converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[i]);
+            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[i]);
             } else {
-            	converted = ((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[i]);
+                converted = ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[i]);
             }
             
             if (converted != null) {
@@ -163,7 +163,7 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
         return null;
     }
 
-	protected abstract T fromConvertedColumns(Object[] convertedColumns);
+    protected abstract T fromConvertedColumns(Object[] convertedColumns);
     
     protected abstract Object[] toConvertedColumns(T value);
         
@@ -173,10 +173,10 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
         if (value == null) {
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
-                if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index + i);
+                if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                    Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index + i);
                 } else {
-                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index + i);
+                    ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index + i);
                 }
             }
         } else {
@@ -186,10 +186,10 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
             
             for (int i = 0; i < getColumnMappers().length; i++) {
                 ColumnMapper nextMapper = getColumnMappers()[i];
-                if(Hibernate36Helper.isHibernate36ApiAvailable()) {
-                	Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
+                if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                    Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
                 } else {
-                	((org.hibernate.type.NullableType)nextMapper.getHibernateType()).nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
+                    ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
                 }
                 
             }
@@ -210,7 +210,7 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
         if (!returnedClass().isAssignableFrom(component.getClass())) {
             throw new HibernateException("getPropertyValue called with incorrect class: {" + component.getClass() + "}");
         } 
-        @SuppressWarnings("unchecked") Object[] cols = toConvertedColumns((T)component);
+        @SuppressWarnings("unchecked") Object[] cols = toConvertedColumns((T) component);
         return cols[property];
     }
 

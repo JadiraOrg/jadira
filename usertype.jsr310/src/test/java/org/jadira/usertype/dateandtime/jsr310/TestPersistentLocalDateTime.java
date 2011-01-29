@@ -36,7 +36,9 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
 
     private static final LocalDateTime[] localDateTimes = new LocalDateTime[] { LocalDateTime.of(2004, 2, 25, 12, 11, 10), LocalDateTime.of(1980, 3, 11, 13, 12, 11) };
     
-    private static final org.joda.time.LocalDateTime[] jodaLocalDateTimes = new org.joda.time.LocalDateTime[] { new org.joda.time.LocalDateTime(2004, 2, 25, 12, 11, 10), new org.joda.time.LocalDateTime(1980, 3, 11, 13, 12, 11) };
+    private static final org.joda.time.LocalDateTime[] jodaLocalDateTimes = new org.joda.time.LocalDateTime[] { 
+        new org.joda.time.LocalDateTime(2004, 2, 25, 12, 11, 10), 
+        new org.joda.time.LocalDateTime(1980, 3, 11, 13, 12, 11) };
 
     private static EntityManagerFactory factory;
 

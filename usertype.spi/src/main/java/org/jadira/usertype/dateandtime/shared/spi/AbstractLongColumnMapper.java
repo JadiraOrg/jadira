@@ -29,12 +29,12 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
         return Types.BIGINT;
     }
     
-	public final LongType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (LongType) Hibernate36Helper.getHibernateType("LONG");
-    	} else {
-    		return (LongType) Hibernate.LONG;
-    	}
+    public final LongType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (LongType) Hibernate36Helper.getHibernateType("LONG");
+        } else {
+            return (LongType) Hibernate.LONG;
+        }
     }
     
     public abstract T fromNonNullValue(Long value);

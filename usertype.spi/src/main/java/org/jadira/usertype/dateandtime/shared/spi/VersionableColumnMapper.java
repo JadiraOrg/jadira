@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
-public interface VersionableColumnMapper<T, J> extends ColumnMapper<T,J> {
+public interface VersionableColumnMapper<T, J> extends ColumnMapper<T, J> {
     
     J generateCurrentValue();
 }

@@ -33,16 +33,16 @@ import org.joda.time.DateTime;
 @TypeDef(name = "testjoda_DateTimeType", typeClass = PersistentDateTime.class)
 public class JodaDateTimeHolder implements Serializable {
 
-	private static final long serialVersionUID = -1674416082110551506L;
+    private static final long serialVersionUID = -1674416082110551506L;
 
-	@Id
+    @Id
     private long id;
 
     @Column
     private String name;
 
     @Column
-    @Type(type = "testjoda_DateTimeType", parameters={@Parameter(name="databaseZone", value="UTC"), @Parameter(name="javaZone", value="UTC")})
+    @Type(type = "testjoda_DateTimeType", parameters = {@Parameter(name = "databaseZone", value = "UTC"), @Parameter(name = "javaZone", value = "UTC") })
     
     private DateTime dateTime;
 

@@ -82,7 +82,7 @@ public abstract class AbstractLocationSafeUserType extends org.hibernate.type.Mu
         return deepCopy(cached);
     }
 
-	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
+    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
         return nullSafeGet(resultSet, names[0]);
     }
     

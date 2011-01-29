@@ -36,8 +36,14 @@ import org.junit.Test;
 
 public class TestPersistentDateTime extends DatabaseCapable {
 
-    private static final DateTime[] dateTimes     = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
-    private static final DateTime[] jodaDateTimes = new DateTime[] { new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), null };
+    private static final DateTime[] dateTimes     = new DateTime[] { 
+        new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), 
+        new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), 
+        null };
+    private static final DateTime[] jodaDateTimes = new DateTime[] { 
+        new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)), 
+        new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), 
+        null };
 
     private static EntityManagerFactory factory;
 

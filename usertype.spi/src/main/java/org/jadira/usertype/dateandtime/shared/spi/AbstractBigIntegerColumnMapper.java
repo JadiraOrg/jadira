@@ -30,12 +30,12 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
         return Types.BIGINT;
     }
     
-	public final BigIntegerType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (BigIntegerType) Hibernate36Helper.getHibernateType("BIG_INTEGER");
-    	} else {
-    		return (BigIntegerType) Hibernate.BIG_INTEGER;
-    	}
+    public final BigIntegerType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (BigIntegerType) Hibernate36Helper.getHibernateType("BIG_INTEGER");
+        } else {
+            return (BigIntegerType) Hibernate.BIG_INTEGER;
+        }
     }
     
     public abstract T fromNonNullValue(BigInteger value);

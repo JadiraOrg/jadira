@@ -45,7 +45,7 @@ public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Ti
         
         if (parameters != null) {
             
-            TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper)getColumnMapper();
+            TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper) getColumnMapper();
             
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
@@ -68,6 +68,6 @@ public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Ti
     
     @Override
     public int compare(Object o1, Object o2) {
-        return ((DateTime)o1).compareTo((DateTime)o2);
+        return ((DateTime) o1).compareTo((DateTime) o2);
     }
 }

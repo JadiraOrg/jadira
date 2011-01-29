@@ -36,8 +36,9 @@ import org.junit.Test;
 
 public class TestPersistentZonedDateTimeAsStringStringOffsetAndStringZone extends DatabaseCapable {
 
-    private static final ZonedDateTime[] zonedDateTimes = new ZonedDateTime[] { ZonedDateTime.of(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))),
-            ZonedDateTime.of(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))) };
+    private static final ZonedDateTime[] zonedDateTimes = new ZonedDateTime[] { 
+        ZonedDateTime.of(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))),
+        ZonedDateTime.of(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))) };
 
     private static EntityManagerFactory factory;
 

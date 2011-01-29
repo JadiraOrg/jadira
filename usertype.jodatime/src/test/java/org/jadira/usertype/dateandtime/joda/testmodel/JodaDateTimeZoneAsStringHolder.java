@@ -32,9 +32,9 @@ import org.joda.time.DateTimeZone;
 @TypeDef(name = "testjoda_DateTimeZoneAsStringType", typeClass = PersistentDateTimeZoneAsString.class)
 public class JodaDateTimeZoneAsStringHolder implements Serializable {
 
-	private static final long serialVersionUID = -1674416082110551506L;
+    private static final long serialVersionUID = -1674416082110551506L;
 
-	@Id
+    @Id
     private long id;
 
     @Column

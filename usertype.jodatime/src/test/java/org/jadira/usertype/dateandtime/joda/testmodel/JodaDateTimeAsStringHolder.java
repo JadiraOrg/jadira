@@ -33,9 +33,9 @@ import org.joda.time.DateTime;
 @TypeDef(name = "testjoda_DateTimeAsStringType", typeClass = PersistentDateTimeAsString.class)
 public class JodaDateTimeAsStringHolder implements Serializable {
 
-	private static final long serialVersionUID = -1674416082110551506L;
+    private static final long serialVersionUID = -1674416082110551506L;
 
-	@Id
+    @Id
     private long id;
 
     @Column

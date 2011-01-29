@@ -25,65 +25,66 @@ import org.hibernate.HibernateException;
 
 public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
 
-	private static final long serialVersionUID = -6374256465793823865L;
+    private static final long serialVersionUID = -6374256465793823865L;
 
-	@Override
-	public Timestamp deepCopyNotNull(Object value) {
-		return fromStringValue(toString(value));
-	}
+    @Override
+    public Timestamp deepCopyNotNull(Object value) {
+        return fromStringValue(toString(value));
+    }
 
-	@Override
-	public Timestamp get(ResultSet rs, String name) throws SQLException {
-		final Timestamp timestamp = rs.getTimestamp(name, getUtcCalendar());
-		return timestamp;
-	}
+    @Override
+    public Timestamp get(ResultSet rs, String name) throws SQLException {
+        final Timestamp timestamp = rs.getTimestamp(name, getUtcCalendar());
+        return timestamp;
+    }
 
-	@Override
-	public void set(PreparedStatement st, Object value, int index) throws SQLException {
-		if (!(value instanceof Timestamp)) {
-			value = deepCopy(value);
-		}
-		st.setTimestamp(index, (Timestamp) value, getUtcCalendar());
-	}
+    @Override
+    public void set(PreparedStatement st, Object value, int index) throws SQLException {
+        if (!(value instanceof Timestamp)) {
+            value = deepCopy(value);
+        }
+        st.setTimestamp(index, (Timestamp) value, getUtcCalendar());
+    }
 
-	@Override
-	public Class<Timestamp> returnedClass() {
-		return Timestamp.class;
-	}
+    @Override
+    public Class<Timestamp> returnedClass() {
+        return Timestamp.class;
+    }
 
-	@Override
-	public int sqlType() {
-		return Types.TIMESTAMP;
-	}
+    @Override
+    public int sqlType() {
+        return Types.TIMESTAMP;
+    }
 
-	@Override
-	public Timestamp fromStringValue(String stringValue) throws HibernateException {
+    @Override
+    public Timestamp fromStringValue(String stringValue) throws HibernateException {
 
-		Timestamp ts = null;
-		if (stringValue.length() == 10) {
-			try {
-				long time = java.sql.Date.valueOf(stringValue).getTime();
-				ts = new Timestamp(time);
-			} catch (IllegalArgumentException e) {
-				// Was not a java.sql.Date, let Timestamp handle this value
-			}
-		}
-		if (ts == null) {
-			ts = Timestamp.valueOf(stringValue);
-		}
+        Timestamp ts = null;
+        if (stringValue.length() == 10) {
+            try {
+                long time = java.sql.Date.valueOf(stringValue).getTime();
+                ts = new Timestamp(time);
+            } catch (IllegalArgumentException ex) {
+                // Was not a java.sql.Date, let Timestamp handle this value
+                ts = null;
+            }
+        }
+        if (ts == null) {
+            ts = Timestamp.valueOf(stringValue);
+        }
 
-		return ts;
-	}
+        return ts;
+    }
 
-	@Override
-	public String toString(Object value) throws HibernateException {
-		if (value instanceof Timestamp) {
-			((Timestamp)value).toString();
-		}
-		return new Timestamp(((java.util.Date) value).getTime()).toString();
-	}
+    @Override
+    public String toString(Object value) throws HibernateException {
+        if (value instanceof Timestamp) {
+            ((Timestamp) value).toString();
+        }
+        return new Timestamp(((java.util.Date) value).getTime()).toString();
+    }
 
-	public String getName() {
-		return "locationSafeTimestamp";
-	}
+    public String getName() {
+        return "locationSafeTimestamp";
+    }
 }

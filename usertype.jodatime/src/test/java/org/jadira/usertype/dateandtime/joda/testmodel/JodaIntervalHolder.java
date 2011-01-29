@@ -33,9 +33,9 @@ import org.joda.time.Interval;
 @TypeDef(name = "testjoda_IntervalType", typeClass = PersistentInterval.class)
 public class JodaIntervalHolder implements Serializable {
 
-	private static final long serialVersionUID = -1674416082110551506L;
+    private static final long serialVersionUID = -1674416082110551506L;
 
-	@Id
+    @Id
     private long id;
 
     @Column

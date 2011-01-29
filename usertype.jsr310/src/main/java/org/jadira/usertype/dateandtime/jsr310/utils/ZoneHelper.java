@@ -20,7 +20,8 @@ import javax.time.calendar.ZoneOffset;
 
 public class ZoneHelper {
 
-    private ZoneHelper() {}
+    private ZoneHelper() {
+    }
     
     public static ZoneOffset getDefaultZoneOffset() {
 
@@ -31,11 +32,15 @@ public class ZoneHelper {
                 if (id != null) {
                     zone = ZoneOffset.of(id);
                 }
-            } catch (RuntimeException ex) { }
-            if (zone == null) {
-               zone = ZoneOffset.ofTotalSeconds(java.util.TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 1000);
+            } catch (RuntimeException ex) {
+                zone = null;
             }
-        } catch (RuntimeException ex) { }
+            if (zone == null) {
+                zone = ZoneOffset.ofTotalSeconds(java.util.TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 1000);
+            }
+        } catch (RuntimeException ex) {
+            zone = null;
+        }
         if (zone == null) {
             zone = ZoneOffset.UTC;
         }
@@ -51,11 +56,15 @@ public class ZoneHelper {
                 if (id != null) {
                     zone = TimeZone.of(id);
                 }
-            } catch (RuntimeException ex) { }
+            } catch (RuntimeException ex) {
+                zone = null;
+            }
             if (zone == null) {
                 zone = TimeZone.of(java.util.TimeZone.getDefault().getID());
             }
-        } catch (RuntimeException ex) { }
+        } catch (RuntimeException ex) { 
+            zone = null;
+        }
         if (zone == null) {
             zone = TimeZone.UTC;
         }

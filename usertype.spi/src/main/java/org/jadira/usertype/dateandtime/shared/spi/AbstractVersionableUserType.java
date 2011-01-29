@@ -38,14 +38,14 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
                 try {
                     @SuppressWarnings("unchecked") Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class.forName(seedName);
                     seedClass = mySeedClass;
-                } catch (ClassNotFoundException e) {
+                } catch (ClassNotFoundException ex) {
                     throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be found");
                 }
                 try {
                     seed = seedClass.newInstance();
-                } catch (InstantiationException e) {
+                } catch (InstantiationException ex) {
                     throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be instantiated");
-                } catch (IllegalAccessException e) {
+                } catch (IllegalAccessException ex) {
                     throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be accessed");
                 }
             }
@@ -58,7 +58,7 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
 
     public T seed(SessionImplementor session) {
         
-        final VersionableColumnMapper<T,J> columnMapper = getColumnMapper();
+        final VersionableColumnMapper<T, J> columnMapper = getColumnMapper();
         if (seed == null) {
             return columnMapper.fromNonNullValue(columnMapper.generateCurrentValue());
         } else {

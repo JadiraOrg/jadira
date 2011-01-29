@@ -29,12 +29,12 @@ public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMappe
         return Types.INTEGER;
     }
     
-	public final IntegerType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (IntegerType) Hibernate36Helper.getHibernateType("INTEGER");
-    	} else {
-    		return (IntegerType) Hibernate.INTEGER;
-    	}
+    public final IntegerType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (IntegerType) Hibernate36Helper.getHibernateType("INTEGER");
+        } else {
+            return (IntegerType) Hibernate.INTEGER;
+        }
     }
     
     public abstract T fromNonNullValue(Integer value);

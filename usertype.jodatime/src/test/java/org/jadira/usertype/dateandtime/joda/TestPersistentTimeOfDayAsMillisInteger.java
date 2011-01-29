@@ -37,7 +37,10 @@ public class TestPersistentTimeOfDayAsMillisInteger extends DatabaseCapable {
 
     private static final TimeOfDay[] localTimes = new TimeOfDay[] { new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59, 999 / 1000000), new TimeOfDay(0, 0, 0) };
 
-    private static final org.joda.time.TimeOfDay[] jodaTimeOfDays = new org.joda.time.TimeOfDay[] { new org.joda.time.TimeOfDay(14, 2, 25), new org.joda.time.TimeOfDay(23, 59, 59, 999 / 1000000), new org.joda.time.TimeOfDay(0, 0, 0) };
+    private static final org.joda.time.TimeOfDay[] jodaTimeOfDays = new org.joda.time.TimeOfDay[] { 
+        new org.joda.time.TimeOfDay(14, 2, 25), 
+        new org.joda.time.TimeOfDay(23, 59, 59, 999 / 1000000), 
+        new org.joda.time.TimeOfDay(0, 0, 0) };
     
     private static EntityManagerFactory factory;
 

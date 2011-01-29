@@ -40,7 +40,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
     private static final Duration[] durations = new Duration[] { 
         Duration.ZERO, 
         new Duration(30 * 1000), 
-        new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010,8,8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
+        new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
         new Duration(new DateMidnight(2010, 4, 1, DateTimeZone.UTC).minusMonths(3), new DateMidnight(2010, 4, 1, DateTimeZone.UTC)) };
 
     private static EntityManagerFactory factory;

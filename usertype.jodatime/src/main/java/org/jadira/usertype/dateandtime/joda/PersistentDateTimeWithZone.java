@@ -45,7 +45,15 @@ public class PersistentDateTimeWithZone extends AbstractMultiColumnUserType<Date
         if (datePart == null) {
             result = null;
         } else {
-            result = new DateTime(datePart.getYear(), datePart.getMonthOfYear(), datePart.getDayOfMonth(), datePart.getHourOfDay(), datePart.getMinuteOfHour(), datePart.getSecondOfMinute(), datePart.getMillisOfSecond(), offset);
+            result = new DateTime(
+                    datePart.getYear(), 
+                    datePart.getMonthOfYear(), 
+                    datePart.getDayOfMonth(), 
+                    datePart.getHourOfDay(), 
+                    datePart.getMinuteOfHour(), 
+                    datePart.getSecondOfMinute(), 
+                    datePart.getMillisOfSecond(), 
+                    offset);
         }
         
         return result;

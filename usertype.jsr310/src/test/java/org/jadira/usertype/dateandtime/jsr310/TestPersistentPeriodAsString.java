@@ -152,7 +152,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
             
             Period expected = periods[i];
             long nanos = expected.getNanos();
-            nanos = (nanos / 1000000l) * 1000000l;
+            nanos = (nanos / 1000000L) * 1000000L;
             expected = expected.withNanos(nanos);
             
             assertEquals(expected, item.getPeriod());

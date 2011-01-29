@@ -26,12 +26,12 @@ public abstract class AbstractTimeColumnMapper<T> extends AbstractColumnMapper<T
 
     private static final long serialVersionUID = -3070239764121234482L;
 
-	public final TimeType getHibernateType() {
-    	if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-    		return (TimeType) Hibernate36Helper.getHibernateType("TIME");
-    	} else {
-    		return (TimeType) Hibernate.TIME;
-    	}
+    public final TimeType getHibernateType() {
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            return (TimeType) Hibernate36Helper.getHibernateType("TIME");
+        } else {
+            return (TimeType) Hibernate.TIME;
+        }
     }
     
     public final int getSqlType() {

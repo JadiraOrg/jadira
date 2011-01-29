@@ -28,18 +28,18 @@ public class DbTimestampSeed extends JvmTimestampSeed {
     public Timestamp getTimestamp(SessionImplementor session) {
         Object result = helper.seed(session);
         if (result instanceof Timestamp) {
-            return (Timestamp)result;
+            return (Timestamp) result;
         } else {
-            return new Timestamp(((Date)result).getTime());
+            return new Timestamp(((Date) result).getTime());
         }
     }
 
     public Timestamp getNextTimestamp(Timestamp current, SessionImplementor session) {
         Object result = helper.next(current, session);
         if (result instanceof Timestamp) {
-            return (Timestamp)result;
+            return (Timestamp) result;
         } else {
-            return new Timestamp(((Date)result).getTime());
+            return new Timestamp(((Date) result).getTime());
         }
     }
 }
