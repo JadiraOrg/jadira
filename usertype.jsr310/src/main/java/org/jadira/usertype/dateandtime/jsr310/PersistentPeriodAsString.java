@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.Period;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnPeriodMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
@@ -28,5 +28,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda Time will
  * round down to the nearest millisecond.
  */
-public class PersistentPeriodAsString extends AbstractUserType<Period, String, StringColumnPeriodMapper> {
+public class PersistentPeriodAsString extends AbstractSingleColumnUserType<Period, String, StringColumnPeriodMapper> {
+
+    private static final long serialVersionUID = -8895920152179319506L;
 }

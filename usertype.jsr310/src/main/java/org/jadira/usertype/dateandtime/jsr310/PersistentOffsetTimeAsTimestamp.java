@@ -23,7 +23,7 @@ import javax.time.calendar.ZoneOffset;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnOffsetTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
  * Persist {@link OffsetTime} via Hibernate using nanoseconds of the day. This uses a long value stored as nanoseconds
@@ -36,8 +36,10 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetTimeAsTimestamp extends AbstractUserType<OffsetTime, Timestamp, TimestampColumnOffsetTimeMapper> implements ParameterizedType {
-    
+public class PersistentOffsetTimeAsTimestamp extends AbstractSingleColumnUserType<OffsetTime, Timestamp, TimestampColumnOffsetTimeMapper> implements ParameterizedType {
+
+    private static final long serialVersionUID = 2629423108971922341L;
+
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {

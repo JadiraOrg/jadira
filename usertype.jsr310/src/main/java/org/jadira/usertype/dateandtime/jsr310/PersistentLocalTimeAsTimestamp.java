@@ -20,11 +20,13 @@ import java.sql.Timestamp;
 import javax.time.calendar.LocalTime;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.
  */
-public class PersistentLocalTimeAsTimestamp extends AbstractUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> {
+public class PersistentLocalTimeAsTimestamp extends AbstractSingleColumnUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> {
+
+    private static final long serialVersionUID = 526277986034021423L;
 }

@@ -23,10 +23,10 @@ import javax.time.calendar.ZoneOffset;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.DateColumnOffsetDateMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
- * Persist {@link OffsetDate} via Hibernate. The offset will be stored in an extra column.
+ * Persist {@link OffsetDate} via Hibernate.
  * When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the 
  * JVM using the JVM's default zone.
@@ -36,8 +36,10 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetDate extends AbstractUserType<OffsetDate, Date, DateColumnOffsetDateMapper> implements ParameterizedType {
-    
+public class PersistentOffsetDate extends AbstractSingleColumnUserType<OffsetDate, Date, DateColumnOffsetDateMapper> implements ParameterizedType {
+
+    private static final long serialVersionUID = 3168687813811832036L;
+
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {

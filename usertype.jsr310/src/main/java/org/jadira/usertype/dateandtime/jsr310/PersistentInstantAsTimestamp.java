@@ -34,7 +34,9 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
  * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
-    
+
+    private static final long serialVersionUID = -1184009888235202420L;
+
     public void setParameterValues(Properties parameters) {
         
         super.setParameterValues(parameters);

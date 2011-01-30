@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Time;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.LocalTime;
 
 
@@ -29,5 +29,7 @@ import org.joda.time.LocalTime;
  * down will be offset from GMT due to its use of {@link java.sql.Time#setTime(long)}. This class is not affected by this
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes.
  */
-public class PersistentLocalTime extends AbstractUserType<LocalTime, Time, TimeColumnLocalTimeMapper> {
+public class PersistentLocalTime extends AbstractSingleColumnUserType<LocalTime, Time, TimeColumnLocalTimeMapper> {
+
+    private static final long serialVersionUID = 3987595078868454461L;
 }

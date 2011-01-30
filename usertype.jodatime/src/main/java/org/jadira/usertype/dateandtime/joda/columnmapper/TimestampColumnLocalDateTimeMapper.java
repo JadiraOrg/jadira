@@ -17,16 +17,13 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
+import org.jadira.usertype.dateandtime.joda.util.Formatter;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
 import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
 public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnMapper<LocalDateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
-
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
 
     @Override
     public LocalDateTime fromNonNullString(String s) {
@@ -35,7 +32,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
 
     @Override
     public LocalDateTime fromNonNullValue(Timestamp value) {
-        return LOCAL_DATETIME_FORMATTER.parseDateTime(value.toString()).toLocalDateTime();
+        return Formatter.LOCAL_DATETIME_FORMATTER.parseDateTime(value.toString()).toLocalDateTime();
     }
 
     @Override
@@ -46,7 +43,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     @Override
     public Timestamp toNonNullValue(LocalDateTime value) {
 
-        String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(value);
+        String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

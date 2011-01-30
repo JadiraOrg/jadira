@@ -33,7 +33,9 @@ import org.joda.time.Instant;
  * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
-    
+
+    private static final long serialVersionUID = -1402055314572075132L;
+
     public void setParameterValues(Properties parameters) {
         
         super.setParameterValues(parameters);

@@ -23,6 +23,8 @@ import org.hibernate.type.DbTimestampType;
 
 public class DbTimestampSeed extends JvmTimestampSeed {
 
+    private static final long serialVersionUID = 5223082239565556715L;
+
     private final DbTimestampType helper = new DbTimestampType();
     
     public Timestamp getTimestamp(SessionImplementor session) {

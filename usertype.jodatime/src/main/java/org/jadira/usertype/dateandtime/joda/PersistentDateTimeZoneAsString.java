@@ -16,11 +16,13 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.DateTimeZone;
 
 /**
  * Maps a {@link DateTimeZone} to and from String for Hibernate.
  */
-public class PersistentDateTimeZoneAsString extends AbstractUserType<DateTimeZone, String, StringColumnDateTimeZoneMapper> {
+public class PersistentDateTimeZoneAsString extends AbstractSingleColumnUserType<DateTimeZone, String, StringColumnDateTimeZoneMapper> {
+
+    private static final long serialVersionUID = -8759152453256338787L;
 }

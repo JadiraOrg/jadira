@@ -39,7 +39,9 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
  * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDateTime, Timestamp, TimestampColumnZonedDateTimeMapper> implements ParameterizedType {
-    
+
+    private static final long serialVersionUID = -917119312070336022L;
+
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

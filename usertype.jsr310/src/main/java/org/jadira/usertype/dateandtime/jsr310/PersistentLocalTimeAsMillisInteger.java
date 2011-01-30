@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.LocalTime;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.IntegerColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
@@ -29,5 +29,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * round down to the nearest millisecond.
  * @see PersistentLocalTimeAsNanosLong
  */
-public class PersistentLocalTimeAsMillisInteger extends AbstractUserType<LocalTime, Integer, IntegerColumnLocalTimeMapper> {
+public class PersistentLocalTimeAsMillisInteger extends AbstractSingleColumnUserType<LocalTime, Integer, IntegerColumnLocalTimeMapper> {
+
+    private static final long serialVersionUID = 5231874917398959855L;
 }

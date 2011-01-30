@@ -38,7 +38,9 @@ import org.joda.time.DateTimeZone;
  * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
-    
+
+    private static final long serialVersionUID = -6656619988954550389L;
+
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

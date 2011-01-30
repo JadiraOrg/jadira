@@ -23,7 +23,7 @@ import javax.time.calendar.ZoneOffset;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimeColumnOffsetTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
  * Persist {@link OffsetTime} via Hibernate. This uses java.sql.Time and the time datatype of your database. You
@@ -36,8 +36,10 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetTimeAsTime extends AbstractUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType {
-    
+public class PersistentOffsetTimeAsTime extends AbstractSingleColumnUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType {
+
+    private static final long serialVersionUID = 5138742305537333265L;
+
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {

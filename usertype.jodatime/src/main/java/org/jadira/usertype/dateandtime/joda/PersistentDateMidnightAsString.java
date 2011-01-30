@@ -15,56 +15,28 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnLocalDateMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
-import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
-
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
+import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnLocalDateMapper;
+import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
+import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
 
 /**
- * Persist {@link DateMidnight} via Hibernate. The offset will be stored in an extra column.
+ * Persist {@link org.joda.time.DateMidnight} via Hibernate. The offset will be stored in an extra column.
  */
-public class PersistentDateMidnightAsString extends AbstractMultiColumnUserType<DateMidnight> {
+public class PersistentDateMidnightAsString extends AbstractMultiColumnDateMidnight {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateMapper(), new StringColumnDateTimeZoneMapper() };
     
     private static final String[] propertyNames = new String[]{ "date", "offset" };
-    
-    @Override
-    protected DateMidnight fromConvertedColumns(Object[] convertedColumns) {
-
-        LocalDate datePart = (LocalDate) convertedColumns[0];
-        DateTimeZone offset = (DateTimeZone) convertedColumns[1];
-        
-        final DateMidnight result;
-        
-        if (datePart == null) {
-            result = null;
-        } else {
-            result = new DateMidnight(datePart.getYear(), datePart.getMonthOfYear(), datePart.getDayOfMonth(), offset);
-        }
-        
-        return result;
-    }
-  
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
-
-    @Override
-    protected Object[] toConvertedColumns(DateMidnight value) {
-
-        return new Object[] { value.toLocalDate(), value.getZone() };
-    }
     
     public String[] getPropertyNames() {
-        return propertyNames;
+        return ArrayHelper.copyOf(propertyNames);
     }
 }

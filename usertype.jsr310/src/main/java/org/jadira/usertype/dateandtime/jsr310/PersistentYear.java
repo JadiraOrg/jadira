@@ -18,11 +18,13 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.Year;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.IntegerColumnYearMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
  * Persist {@link Year} via Hibernate using integer value.
  */
-public class PersistentYear extends AbstractUserType<Year, Integer, IntegerColumnYearMapper> {
+public class PersistentYear extends AbstractSingleColumnUserType<Year, Integer, IntegerColumnYearMapper> {
+
+    private static final long serialVersionUID = 4694981953643179773L;
 }

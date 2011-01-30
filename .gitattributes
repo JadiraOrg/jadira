@@ -18,6 +18,8 @@ src/site/xdoc/userguide.xml -text
 /suppressions.xml -text
 usertype.jodatime/maven-eclipse.xml -text
 usertype.jodatime/pom.xml -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateMidnight.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateTime.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnight.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnightAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTime.java -text
@@ -74,6 +76,8 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmappe
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnTimeOfDayMapper.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/util/Formatter.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/util/ZoneHelper.java -text
 usertype.jodatime/src/site/site.xml -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
@@ -348,6 +352,7 @@ usertype.jsr310/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.jsr310/src/test/resources/log4j.properties -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/arrayutils/ArrayHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/Hibernate36Helper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ReflectionException.java -text
@@ -358,6 +363,7 @@ usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractDa
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractMultiColumnUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractSingleColumnUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractStringColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimeColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimestampColumnMapper.java -text

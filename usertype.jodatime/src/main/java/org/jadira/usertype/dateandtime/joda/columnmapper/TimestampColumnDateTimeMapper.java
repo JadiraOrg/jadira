@@ -17,6 +17,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -44,8 +45,8 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
         
-        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-        DateTimeZone currentJavaZone = javaZone == null ? getDefault() : javaZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+        DateTimeZone currentJavaZone = javaZone == null ? ZoneHelper.getDefault() : javaZone;
 
         DateTime dateTime = DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString());
         return dateTime.withZone(currentJavaZone);
@@ -59,7 +60,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     @Override
     public Timestamp toNonNullValue(DateTime value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
         value = value.withZone(currentDatabaseZone);
         
@@ -78,29 +79,5 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 
     public void setJavaZone(DateTimeZone javaZone) {
         this.javaZone = javaZone;
-    }
-    
-    private static DateTimeZone getDefault() {
-
-        DateTimeZone zone = null;
-        try {
-            try {
-                String id = System.getProperty("user.timezone");
-                if (id != null) {
-                    zone = DateTimeZone.forID(id);
-                }
-            } catch (RuntimeException ex) {
-                zone = null;
-            }
-            if (zone == null) {
-                zone = DateTimeZone.forID(java.util.TimeZone.getDefault().getID());
-            }
-        } catch (RuntimeException ex) {
-            zone = null;
-        }
-        if (zone == null) {
-            zone = DateTimeZone.UTC;
-        }
-        return zone;
     }
 }

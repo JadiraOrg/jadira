@@ -21,31 +21,27 @@ public class ReflectionException extends RuntimeException {
 
     private static final long serialVersionUID = 338232184843559586L;
 
-    public ReflectionException(NoSuchMethodException ex) {
-        super(ex.getMessage(), ex);
-    }
-
     public ReflectionException(String string, SecurityException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 
     public ReflectionException(String string, NoSuchFieldException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 
     public ReflectionException(String string, IllegalArgumentException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 
     public ReflectionException(String string, IllegalAccessException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 
     public ReflectionException(String string, NoSuchMethodException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 
     public ReflectionException(String string, InvocationTargetException ex) {
-        super(ex.getMessage(), ex);
+        super(string, ex);
     }
 }

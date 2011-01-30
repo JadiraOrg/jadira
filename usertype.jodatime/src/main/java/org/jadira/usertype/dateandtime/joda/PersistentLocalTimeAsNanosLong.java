@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.LongColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.LocalTime;
 
 /**
@@ -25,5 +25,7 @@ import org.joda.time.LocalTime;
  * absolute value. For compatibility use {@link PersistentLocalTimeAsMillisInteger}
  * @see PersistentLocalTimeAsMillisInteger
  */
-public class PersistentLocalTimeAsNanosLong extends AbstractUserType<LocalTime, Long, LongColumnLocalTimeMapper> {
+public class PersistentLocalTimeAsNanosLong extends AbstractSingleColumnUserType<LocalTime, Long, LongColumnLocalTimeMapper> {
+
+    private static final long serialVersionUID = 3702092567614579725L;
 }

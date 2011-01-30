@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.Duration;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnDurationMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
@@ -28,5 +28,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  */
-public class PersistentDurationAsString extends AbstractUserType<Duration, String, StringColumnDurationMapper> {
+public class PersistentDurationAsString extends AbstractSingleColumnUserType<Duration, String, StringColumnDurationMapper> {
+
+    private static final long serialVersionUID = -778504731510459403L;
 }

@@ -18,12 +18,14 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.LocalTime;
 
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.
  */
-public class PersistentLocalTimeAsTimestamp extends AbstractUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> {
+public class PersistentLocalTimeAsTimestamp extends AbstractSingleColumnUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> {
+
+    private static final long serialVersionUID = 3612572629922632710L;
 }

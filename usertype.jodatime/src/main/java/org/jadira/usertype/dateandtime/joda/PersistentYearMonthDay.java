@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Date;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnYearMonthDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.YearMonthDay;
 
 /**
@@ -26,5 +26,7 @@ import org.joda.time.YearMonthDay;
  * representation with {@link org.joda.time.contrib.hibernate.PersistentYearMonthDay}
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
  */
-public class PersistentYearMonthDay extends AbstractUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> {
+public class PersistentYearMonthDay extends AbstractSingleColumnUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> {
+
+    private static final long serialVersionUID = 1335449768378509861L;
 }

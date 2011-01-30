@@ -15,11 +15,14 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import org.hibernate.engine.SessionImplementor;
 
-public class JvmTimestampSeed implements Seed<Timestamp> {
+public class JvmTimestampSeed implements Seed<Timestamp>, Serializable {
+
+    private static final long serialVersionUID = -5960197971311717694L;
 
     public Timestamp getTimestamp(SessionImplementor session) {
         return new Timestamp(System.currentTimeMillis());

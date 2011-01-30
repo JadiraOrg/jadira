@@ -16,11 +16,13 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.Instant;
 
 /**
  * Persist {@link Instant} via Hibernate.
  */
-public class PersistentInstantAsString extends AbstractUserType<Instant, String, StringColumnInstantMapper> {
+public class PersistentInstantAsString extends AbstractSingleColumnUserType<Instant, String, StringColumnInstantMapper> {
+
+    private static final long serialVersionUID = 899460930052042931L;
 }

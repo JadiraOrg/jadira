@@ -20,13 +20,15 @@ import java.sql.Date;
 import javax.time.calendar.LocalDate;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.DateColumnLocalDateMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
  * representation with {@link org.joda.time.contrib.hibernate.PersistentLocalDate}
  */
-public class PersistentLocalDate extends AbstractUserType<LocalDate, Date, DateColumnLocalDateMapper> {
+public class PersistentLocalDate extends AbstractSingleColumnUserType<LocalDate, Date, DateColumnLocalDateMapper> {
+
+    private static final long serialVersionUID = 5362933224614493534L;
 }
 

@@ -18,11 +18,13 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.LocalDateTime;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
  * Persist {@link LocalDateTime} via Hibernate.
  */
-public class PersistentLocalDateTimeAsString extends AbstractUserType<LocalDateTime, String, StringColumnLocalDateTimeMapper> {
+public class PersistentLocalDateTimeAsString extends AbstractSingleColumnUserType<LocalDateTime, String, StringColumnLocalDateTimeMapper> {
+
+    private static final long serialVersionUID = 4865444142792602978L;
 }

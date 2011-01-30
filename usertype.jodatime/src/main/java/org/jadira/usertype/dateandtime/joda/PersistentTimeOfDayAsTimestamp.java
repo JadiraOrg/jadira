@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.TimeOfDay;
 
 /**
@@ -26,5 +26,7 @@ import org.joda.time.TimeOfDay;
  * be retained.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */
-public class PersistentTimeOfDayAsTimestamp extends AbstractUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> {
+public class PersistentTimeOfDayAsTimestamp extends AbstractSingleColumnUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> {
+
+    private static final long serialVersionUID = -2642237430338499187L;
 }

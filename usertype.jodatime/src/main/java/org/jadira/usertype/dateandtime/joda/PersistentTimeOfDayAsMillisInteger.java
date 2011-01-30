@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.IntegerColumnTimeOfDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.TimeOfDay;
 
 /**
@@ -28,5 +28,7 @@ import org.joda.time.TimeOfDay;
  * @see PersistentTimeOfDayAsNanosLong
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.TimeOfDay} and {@link PersistentTimeOfDayAsTimestampMillisInteger}
  */
-public class PersistentTimeOfDayAsMillisInteger extends AbstractUserType<TimeOfDay, Integer, IntegerColumnTimeOfDayMapper> {
+public class PersistentTimeOfDayAsMillisInteger extends AbstractSingleColumnUserType<TimeOfDay, Integer, IntegerColumnTimeOfDayMapper> {
+
+    private static final long serialVersionUID = 8004469513294309138L;
 }

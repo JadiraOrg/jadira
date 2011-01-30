@@ -18,10 +18,12 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.TimeZone;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnTimeZoneMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
  * Maps a {@link TimeZone} to and from String for Hibernate.
  */
-public class PersistentTimeZoneAsString extends AbstractUserType<TimeZone, String, StringColumnTimeZoneMapper> {
+public class PersistentTimeZoneAsString extends AbstractSingleColumnUserType<TimeZone, String, StringColumnTimeZoneMapper> {
+
+    private static final long serialVersionUID = -4510322446163655815L;
 }

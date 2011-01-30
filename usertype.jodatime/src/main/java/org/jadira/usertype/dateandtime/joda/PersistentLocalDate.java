@@ -18,12 +18,14 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Date;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.LocalDate;
 
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
  * representation with {@link org.joda.time.contrib.hibernate.PersistentLocalDate}
  */
-public class PersistentLocalDate extends AbstractUserType<LocalDate, Date, DateColumnLocalDateMapper> {
+public class PersistentLocalDate extends AbstractSingleColumnUserType<LocalDate, Date, DateColumnLocalDateMapper> {
+
+    private static final long serialVersionUID = 7662921887727340316L;
 }

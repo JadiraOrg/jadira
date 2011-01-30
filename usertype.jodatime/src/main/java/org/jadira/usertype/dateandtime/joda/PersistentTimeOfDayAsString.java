@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnTimeOfDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.TimeOfDay;
 
 /**
@@ -27,5 +27,7 @@ import org.joda.time.TimeOfDay;
  * round down to the nearest millisecond.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsString}
  */
-public class PersistentTimeOfDayAsString extends AbstractUserType<TimeOfDay, String, StringColumnTimeOfDayMapper> {
+public class PersistentTimeOfDayAsString extends AbstractSingleColumnUserType<TimeOfDay, String, StringColumnTimeOfDayMapper> {
+
+    private static final long serialVersionUID = -6895579990780796242L;
 }

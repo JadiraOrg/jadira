@@ -17,17 +17,15 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
+import org.jadira.usertype.dateandtime.joda.util.Formatter;
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
 public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> {
 
     private static final long serialVersionUID = -7670411089210984705L;
-
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
     
@@ -39,9 +37,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Instant fromNonNullValue(Timestamp value) {
         
-        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        return LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
+        return Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
     }
 
     @Override
@@ -52,9 +50,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Timestamp toNonNullValue(Instant value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        String formattedTimestamp = LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).print(value);
+        String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
@@ -65,29 +63,5 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
-    }
-    
-    private static DateTimeZone getDefault() {
-
-        DateTimeZone zone = null;
-        try {
-            try {
-                String id = System.getProperty("user.timezone");
-                if (id != null) {
-                    zone = DateTimeZone.forID(id);
-                }
-            } catch (RuntimeException ex) {
-                zone = null;
-            }
-            if (zone == null) {
-                zone = DateTimeZone.forID(java.util.TimeZone.getDefault().getID());
-            }
-        } catch (RuntimeException ex) {
-            zone = null;
-        }
-        if (zone == null) {
-            zone = DateTimeZone.UTC;
-        }
-        return zone;
     }
 }

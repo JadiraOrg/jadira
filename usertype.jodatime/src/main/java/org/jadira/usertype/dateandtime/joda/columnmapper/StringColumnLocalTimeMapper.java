@@ -15,26 +15,13 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
+import org.jadira.usertype.dateandtime.joda.util.Formatter;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
 import org.joda.time.LocalTime;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
 public class StringColumnLocalTimeMapper extends AbstractStringColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = -6885561256539185520L;
-
-    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder()
-        .appendHourOfDay(2)
-        .appendLiteral(':').appendMinuteOfHour(2)
-        .appendLiteral(':').appendSecondOfMinute(2)
-        .appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFractionOfSecond(3, 9).toParser())
-        .toFormatter();
-    
-    public static final DateTimeFormatter LOCAL_TIME_NOSECONDS_FORMATTER = new DateTimeFormatterBuilder()
-        .appendHourOfDay(2)
-        .appendLiteral(':').appendMinuteOfHour(2)
-        .toFormatter();
     
     @Override
     public LocalTime fromNonNullValue(String s) {
@@ -45,9 +32,9 @@ public class StringColumnLocalTimeMapper extends AbstractStringColumnMapper<Loca
     public String toNonNullValue(LocalTime value) {
         if (value.getMillisOfSecond() == 0) {
             if (value.getMinuteOfHour() == 0) {
-                return LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
+                return Formatter.LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
             }
-            return LOCAL_TIME_FORMATTER.print(value);
+            return Formatter.LOCAL_TIME_FORMATTER.print(value);
         } else {
             return value.toString();
         }

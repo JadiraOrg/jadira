@@ -18,11 +18,13 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.YearMonth;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnYearMonthMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
  * Maps a {@link YearMonth} to and from String for Hibernate.
  */
-public class PersistentYearMonthAsString extends AbstractUserType<YearMonth, String, StringColumnYearMonthMapper> {
+public class PersistentYearMonthAsString extends AbstractSingleColumnUserType<YearMonth, String, StringColumnYearMonthMapper> {
+
+    private static final long serialVersionUID = 2203287045641899191L;
 }

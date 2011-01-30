@@ -29,6 +29,8 @@ import org.joda.time.Instant;
  */
 public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<Instant, Long, LongColumnInstantMapper> {
 
+    private static final long serialVersionUID = 2654706404517200613L;
+
     @Override
     public int compare(Object o1, Object o2) {
         return ((Instant) o1).compareTo((Instant) o2);

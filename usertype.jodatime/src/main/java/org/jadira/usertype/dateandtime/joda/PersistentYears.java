@@ -16,11 +16,13 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.IntegerColumnYearsMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.Years;
 
 /**
  * Persist {@link Years} via Hibernate using integer value.
  */
-public class PersistentYears extends AbstractUserType<Years, Integer, IntegerColumnYearsMapper> {
+public class PersistentYears extends AbstractSingleColumnUserType<Years, Integer, IntegerColumnYearsMapper> {
+
+    private static final long serialVersionUID = 6344511081714826983L;
 }

@@ -15,10 +15,9 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
-import org.joda.time.TimeOfDay;
-
 import org.jadira.usertype.dateandtime.joda.columnmapper.LongColumnTimeOfDayMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with
@@ -27,5 +26,7 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.LongColumnTimeOfDayMapp
  * @see PersistentLocalTimeAsMillisInteger
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsNanosLong}
  */
-public class PersistentTimeOfDayAsNanosLong extends AbstractUserType<TimeOfDay, Long, LongColumnTimeOfDayMapper> {
+public class PersistentTimeOfDayAsNanosLong extends AbstractSingleColumnUserType<TimeOfDay, Long, LongColumnTimeOfDayMapper> {
+
+    private static final long serialVersionUID = 8364584846390296447L;
 }

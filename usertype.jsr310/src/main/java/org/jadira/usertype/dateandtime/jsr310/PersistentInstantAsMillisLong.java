@@ -29,7 +29,9 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
  * @see PersistentInstantAsNanosLong
  */
 public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<Instant, Long, LongColumnInstantMapper> {
-    
+
+    private static final long serialVersionUID = 3793471253953101728L;
+
     @Override
     public int compare(Object o1, Object o2) {
         return ((Instant) o1).compareTo((Instant) o2);

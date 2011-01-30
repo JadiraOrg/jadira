@@ -18,11 +18,13 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.MonthDay;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnMonthDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
  * Persist {@link MonthDay} via Hibernate.
  */
-public class PersistentMonthDayAsString extends AbstractUserType<MonthDay, String, StringColumnMonthDayMapper> {
+public class PersistentMonthDayAsString extends AbstractSingleColumnUserType<MonthDay, String, StringColumnMonthDayMapper> {
+
+    private static final long serialVersionUID = 5686457807800307458L;
 }

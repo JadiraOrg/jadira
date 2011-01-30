@@ -16,12 +16,14 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnYearMonthDayMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 import org.joda.time.YearMonthDay;
 
 /**
  * Persist {@link YearMonthDay} as a String via Hibernate.
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
  */
-public class PersistentYearMonthDayAsString extends AbstractUserType<YearMonthDay, String, StringColumnYearMonthDayMapper> {
+public class PersistentYearMonthDayAsString extends AbstractSingleColumnUserType<YearMonthDay, String, StringColumnYearMonthDayMapper> {
+
+    private static final long serialVersionUID = 5718541406675274613L;
 }

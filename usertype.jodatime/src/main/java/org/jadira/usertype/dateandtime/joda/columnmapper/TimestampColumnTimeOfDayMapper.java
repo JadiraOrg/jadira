@@ -17,11 +17,10 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
+import org.jadira.usertype.dateandtime.joda.util.Formatter;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
 import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeFormatterBuilder;
 
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsTimestamp}
@@ -30,9 +29,6 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     private static final long serialVersionUID = 1921591625617366103L;
     
-    public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
-    public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
-    
     @Override
     public TimeOfDay fromNonNullString(String s) {
         return new TimeOfDay(s);
@@ -40,7 +36,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     @Override
     public TimeOfDay fromNonNullValue(Timestamp value) {
-        final LocalTime localTime = LOCAL_DATETIME_PARSER.parseDateTime(value.toString()).toLocalTime();
+        final LocalTime localTime = Formatter.LOCAL_DATETIME_PARSER.parseDateTime(value.toString()).toLocalTime();
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }
@@ -53,7 +49,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(TimeOfDay value) {
 
-        String formattedTimestamp = LOCAL_DATETIME_PRINTER.print(value.toLocalTime());
+        String formattedTimestamp = Formatter.LOCAL_DATETIME_PRINTER.print(value.toLocalTime());
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

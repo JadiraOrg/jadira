@@ -18,10 +18,12 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.ZoneOffset;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnZoneOffsetMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 /**
  * Maps a {@link ZoneOffset} to and from String for Hibernate.
  */
-public class PersistentZoneOffsetAsString extends AbstractUserType<ZoneOffset, String, StringColumnZoneOffsetMapper> {
+public class PersistentZoneOffsetAsString extends AbstractSingleColumnUserType<ZoneOffset, String, StringColumnZoneOffsetMapper> {
+
+    private static final long serialVersionUID = 6025957718355515493L;
 }

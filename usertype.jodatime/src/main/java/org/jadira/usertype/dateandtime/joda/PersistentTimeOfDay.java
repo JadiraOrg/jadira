@@ -17,10 +17,9 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Time;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
-import org.joda.time.TimeOfDay;
-
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnTimeOfDayMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate as a SQL TIME datatype - note that sub-second values will not
@@ -30,5 +29,7 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnTimeOfDayMapp
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTime}
  */
-public class PersistentTimeOfDay extends AbstractUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> {
+public class PersistentTimeOfDay extends AbstractSingleColumnUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> {
+
+    private static final long serialVersionUID = -7674573524546389213L;
 }

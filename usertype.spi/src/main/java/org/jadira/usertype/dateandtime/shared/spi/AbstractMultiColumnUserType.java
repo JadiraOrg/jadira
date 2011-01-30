@@ -24,13 +24,13 @@ import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.SessionImplementor;
-import org.hibernate.type.SerializationException;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
+import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
-public abstract class AbstractMultiColumnUserType<T> implements CompositeUserType, Serializable {
+public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType implements CompositeUserType, Serializable {
 
     private static final long serialVersionUID = -8258683760413283329L;
     
@@ -85,54 +85,6 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
     }
     
     protected abstract ColumnMapper<?, ?>[] getColumnMappers();
-    
-    public final boolean isMutable() {
-        return false;
-    }
-    
-    public boolean equals(Object x, Object y) throws HibernateException {
-        if (x == y) {
-            return true;
-        }
-        if ((x == null) || (y == null)) {
-            return false;
-        }
-        return x.equals(y);
-    }
-
-    public int hashCode(Object x) throws HibernateException {
-        assert (x != null);
-        return x.hashCode();
-    }
-
-    public Object assemble(Serializable cached, SessionImplementor session, Object owner) {
-        return deepCopy(cached);
-    }
-
-    public Serializable disassemble(Object value, SessionImplementor session) { 
-
-        final Serializable result;
-        
-        if (value == null) {
-            result = null;
-        } else {
-            final Object deepCopy = deepCopy(value);
-            if (!(deepCopy instanceof Serializable)) {
-                throw new SerializationException(String.format("deepCopy of %s is not serializable", value), null);
-            }
-            result = (Serializable) deepCopy;
-        }
-
-        return result;
-    }
-
-    public Object replace(Object original, Object target, SessionImplementor session, Object owner) {
-        return deepCopy(original);
-    }
-
-    public Object deepCopy(Object value) throws HibernateException {
-        return value;
-    }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
@@ -202,7 +154,7 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
 //    }
 
     public Type[] getPropertyTypes() {
-        return hibernateTypes;
+        return ArrayHelper.copyOf(hibernateTypes);
     }
 
     public Object getPropertyValue(Object component, int property) throws HibernateException {
@@ -216,5 +168,17 @@ public abstract class AbstractMultiColumnUserType<T> implements CompositeUserTyp
 
     public void setPropertyValue(Object component, int property, Object value) throws HibernateException {
         throw new HibernateException("Called setPropertyValue on an immutable type {" + component.getClass() + "}");
+    }
+    
+    public Serializable disassemble(Object value, SessionImplementor session) throws HibernateException {
+        return super.disassemble(value);
+    }
+
+    public Object assemble(Serializable cached, SessionImplementor session, Object owner) throws HibernateException {
+        return super.assemble(cached, owner);
+    }
+
+    public Object replace(Object original, Object target, SessionImplementor session, Object owner) throws HibernateException {
+        return super.replace(original, target, owner);
     }
 }

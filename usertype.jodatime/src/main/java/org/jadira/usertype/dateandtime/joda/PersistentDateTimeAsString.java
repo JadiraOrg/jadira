@@ -17,61 +17,26 @@ package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
+import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
 import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
 
 /**
- * Persist {@link DateTime} via Hibernate. The offset will be stored in an extra column.
+ * Persist {@link org.joda.time.DateTime} via Hibernate. The offset will be stored in an extra column.
  */
-public class PersistentDateTimeAsString extends AbstractMultiColumnUserType<DateTime> {
+public class PersistentDateTimeAsString extends AbstractMultiColumnDateTime {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
     
     private static final String[] propertyNames = new String[]{ "datetime", "offset" };
-    
-    @Override
-    protected DateTime fromConvertedColumns(Object[] convertedColumns) {
-
-        LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
-        DateTimeZone offset = (DateTimeZone) convertedColumns[1];
-        
-        final DateTime result;
-        
-        if (datePart == null) {
-            result = null;
-        } else {
-            result = new DateTime(
-                    datePart.getYear(), 
-                    datePart.getMonthOfYear(), 
-                    datePart.getDayOfMonth(), 
-                    datePart.getHourOfDay(), 
-                    datePart.getMinuteOfHour(), 
-                    datePart.getSecondOfMinute(), 
-                    datePart.getMillisOfSecond(), 
-                    offset);
-        }
-        
-        return result;
-    }
-  
-
+      
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
     }
 
-    @Override
-    protected Object[] toConvertedColumns(DateTime value) {
-
-        return new Object[] { value.toLocalDateTime(), value.getZone() };
-    }
-    
     public String[] getPropertyNames() {
-        return propertyNames;
+        return ArrayHelper.copyOf(propertyNames);
     }
 }

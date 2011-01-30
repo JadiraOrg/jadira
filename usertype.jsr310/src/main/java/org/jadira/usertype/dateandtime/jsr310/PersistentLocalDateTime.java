@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import javax.time.calendar.LocalDateTime;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 
 
 /**
@@ -30,5 +30,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractUserType;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  */
-public class PersistentLocalDateTime extends AbstractUserType<LocalDateTime, Timestamp, TimestampColumnLocalDateTimeMapper> {
+public class PersistentLocalDateTime extends AbstractSingleColumnUserType<LocalDateTime, Timestamp, TimestampColumnLocalDateTimeMapper> {
+
+    private static final long serialVersionUID = -521354449832270272L;
 }
