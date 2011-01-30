@@ -26,7 +26,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
-import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
@@ -154,7 +153,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 //    }
 
     public Type[] getPropertyTypes() {
-        return ArrayHelper.copyOf(hibernateTypes);
+        return copyOf(hibernateTypes);
     }
 
     public Object getPropertyValue(Object component, int property) throws HibernateException {

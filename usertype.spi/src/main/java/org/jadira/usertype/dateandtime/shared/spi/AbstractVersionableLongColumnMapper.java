@@ -26,9 +26,9 @@ public abstract class AbstractVersionableLongColumnMapper<T> extends AbstractLon
             @SuppressWarnings("unchecked") T current = (T) TypeHelper.getTypeArguments(AbstractVersionableLongColumnMapper.class, this.getClass()).get(0).newInstance();
             return toNonNullValue(current);
         } catch (InstantiationException ex) {
-            throw new IllegalStateException("Cannot construct versionable type value", ex);
+            throw new IllegalStateException("Cannot construct versionable Long value", ex);
         } catch (IllegalAccessException ex) {
-            throw new IllegalStateException("Cannot access versionable type value", ex);
+            throw new IllegalStateException("Cannot access versionable Long value", ex);
         }
     }
 }

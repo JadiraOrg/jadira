@@ -28,9 +28,9 @@ public abstract class AbstractVersionableBigIntegerColumnMapper<T> extends Abstr
             @SuppressWarnings("unchecked") T current = (T) TypeHelper.getTypeArguments(AbstractVersionableBigIntegerColumnMapper.class, this.getClass()).get(0).newInstance();
             return toNonNullValue(current);
         } catch (InstantiationException ex) {
-            throw new IllegalStateException("Cannot construct versionable type value", ex);
+            throw new IllegalStateException("Cannot construct versionable BigInteger value", ex);
         } catch (IllegalAccessException ex) {
-            throw new IllegalStateException("Cannot access versionable type value", ex);
+            throw new IllegalStateException("Cannot access versionable BigInteger value", ex);
         }
     }
 }

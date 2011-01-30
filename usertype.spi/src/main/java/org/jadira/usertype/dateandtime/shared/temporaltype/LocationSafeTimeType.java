@@ -65,7 +65,7 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
         try {
             return new Time(new SimpleDateFormat(TIME_FORMAT).parse(xml).getTime());
         } catch (ParseException ex) {
-            throw new HibernateException("could not parse XML", ex);
+            throw new HibernateException("could not parse XML Time value", ex);
         }
     }
     

@@ -89,7 +89,6 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
             } else {
                 ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
             }
-            
         }
     }
     

@@ -54,16 +54,16 @@ public final class Hibernate36Helper {
             Field field = getStandardBasicTypesClass().getField(name);
             return (Type) field.get(null);
         } catch (SecurityException ex) {
-            throw new ReflectionException("Problem retrieving Hibernate type {"
+            throw new ReflectionException("Problem with permissions for accessing field for retrieving Hibernate type {"
                     + name + "}: " + ex.getMessage(), ex);
         } catch (NoSuchFieldException ex) {
             throw new ReflectionException("Problem retrieving Hibernate type {"
                     + name + "}: " + ex.getMessage(), ex);
         } catch (IllegalArgumentException ex) {
-            throw new ReflectionException("Problem retrieving Hibernate type {"
+            throw new ReflectionException("Incorrect argument supplied when retrieving Hibernate type {"
                     + name + "}: " + ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
-            throw new ReflectionException("Problem retrieving Hibernate type {"
+            throw new ReflectionException("Problem accessing field for Hibernate type {"
                     + name + "}: " + ex.getMessage(), ex);
         }
     }

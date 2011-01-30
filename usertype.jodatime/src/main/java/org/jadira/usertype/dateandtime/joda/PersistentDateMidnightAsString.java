@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnLocalDateMapper;
-import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils;
 import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
 
 /**
@@ -37,6 +37,6 @@ public class PersistentDateMidnightAsString extends AbstractMultiColumnDateMidni
     }
     
     public String[] getPropertyNames() {
-        return ArrayHelper.copyOf(propertyNames);
+        return ArrayUtils.copyOf(propertyNames);
     }
 }

@@ -29,15 +29,15 @@ public class DbTimestampSeed extends JvmTimestampSeed {
     
     public Timestamp getTimestamp(SessionImplementor session) {
         Object result = helper.seed(session);
-        if (result instanceof Timestamp) {
-            return (Timestamp) result;
-        } else {
-            return new Timestamp(((Date) result).getTime());
-        }
+        return convertResult(result);
     }
 
     public Timestamp getNextTimestamp(Timestamp current, SessionImplementor session) {
         Object result = helper.next(current, session);
+        return convertResult(result);
+    }
+    
+    private Timestamp convertResult(Object result) {
         if (result instanceof Timestamp) {
             return (Timestamp) result;
         } else {

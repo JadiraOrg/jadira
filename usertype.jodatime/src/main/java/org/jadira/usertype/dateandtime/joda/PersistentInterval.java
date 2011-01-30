@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.arrayutils.ArrayHelper;
+import org.jadira.usertype.dateandtime.shared.reflectionutils.ArrayUtils;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
 import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
 import org.joda.time.DateTimeZone;
@@ -58,6 +58,6 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
     
     public String[] getPropertyNames() {
         
-        return ArrayHelper.copyOf(propertyNames);
+        return ArrayUtils.copyOf(propertyNames);
     }
 }
