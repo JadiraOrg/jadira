@@ -94,13 +94,13 @@ public final class Hibernate36Helper {
                     new Object[] { preparedStatement, object, index, NO_WRAPPER_OPTIONS });
         } catch (IllegalArgumentException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
         } catch (InvocationTargetException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
         }
     }
 
@@ -115,15 +115,15 @@ public final class Hibernate36Helper {
                         mapper.getHibernateType(), new Object[] { object });
             } catch (IllegalArgumentException ex) {
                 throw new ReflectionException(
-                        "Problem invoking nullSafeGet Method: "
+                        "Problem invoking nullSafeToString Method: "
                                 + ex.getMessage(), ex);
             } catch (IllegalAccessException ex) {
                 throw new ReflectionException(
-                        "Problem invoking nullSafeGet Method: "
+                        "Problem invoking nullSafeToString Method: "
                                 + ex.getMessage(), ex);
             } catch (InvocationTargetException ex) {
                 throw new ReflectionException(
-                        "Problem invoking nullSafeGet Method: "
+                        "Problem invoking nullSafeToString Method: "
                                 + ex.getMessage(), ex);
             }
         }
@@ -205,11 +205,11 @@ public final class Hibernate36Helper {
             return method;
         } catch (SecurityException ex) {
             throw new ReflectionException(
-                    "Problem retrieving nullSafeGet Method: " + ex.getMessage(),
+                    "Problem retrieving nullSafeSet Method: " + ex.getMessage(),
                     ex);
         } catch (NoSuchMethodException ex) {
             throw new ReflectionException(
-                    "Problem retrieving nullSafeGet Method: " + ex.getMessage(),
+                    "Problem retrieving nullSafeSet Method: " + ex.getMessage(),
                     ex);
         }
     }
