@@ -25,8 +25,8 @@ public abstract class AbstractVersionableBigIntegerColumnMapper<T> extends Abstr
     
     public BigInteger generateCurrentValue() {
         try {
-            @SuppressWarnings("unchecked") T current = (T) TypeHelper.getTypeArguments(AbstractVersionableBigIntegerColumnMapper.class, this.getClass()).get(0).newInstance();
-            return toNonNullValue(current);
+            @SuppressWarnings("unchecked") T bigInteger = (T) TypeHelper.getTypeArguments(AbstractVersionableBigIntegerColumnMapper.class, this.getClass()).get(0).newInstance();
+            return toNonNullValue(bigInteger);
         } catch (InstantiationException ex) {
             throw new IllegalStateException("Cannot construct versionable BigInteger value", ex);
         } catch (IllegalAccessException ex) {

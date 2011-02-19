@@ -23,8 +23,8 @@ public abstract class AbstractVersionableLongColumnMapper<T> extends AbstractLon
     
     public Long generateCurrentValue() {
         try {
-            @SuppressWarnings("unchecked") T current = (T) TypeHelper.getTypeArguments(AbstractVersionableLongColumnMapper.class, this.getClass()).get(0).newInstance();
-            return toNonNullValue(current);
+            @SuppressWarnings("unchecked") T longValue = (T) TypeHelper.getTypeArguments(AbstractVersionableLongColumnMapper.class, this.getClass()).get(0).newInstance();
+            return toNonNullValue(longValue);
         } catch (InstantiationException ex) {
             throw new IllegalStateException("Cannot construct versionable Long value", ex);
         } catch (IllegalAccessException ex) {
