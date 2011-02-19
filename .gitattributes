@@ -3,6 +3,7 @@
 /README.txt -text
 /RELEASE-NOTES.txt -text
 /checkstyle.xml -text
+/dictionary.txt -text
 /howto_release.txt -text
 /pom.xml -text
 src/changes/changes.xml -text
