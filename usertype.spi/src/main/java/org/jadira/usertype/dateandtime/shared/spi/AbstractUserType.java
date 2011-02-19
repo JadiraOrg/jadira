@@ -43,8 +43,8 @@ public abstract class AbstractUserType implements Serializable {
         return x.hashCode();
     }
 
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
-        return deepCopy(cached);
+    public Object assemble(Serializable cachedValue, Object owner) throws HibernateException {
+        return deepCopy(cachedValue);
     }
 
     public Serializable disassemble(Object value) throws HibernateException {
@@ -64,8 +64,8 @@ public abstract class AbstractUserType implements Serializable {
         return result;
     }
 
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
-        return deepCopy(original);
+    public Object replace(Object originalValue, Object target, Object owner) throws HibernateException {
+        return deepCopy(originalValue);
     }
 
     public Object deepCopy(Object value) throws HibernateException {

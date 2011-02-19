@@ -15,7 +15,6 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
-import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
 public abstract class AbstractVersionableLongColumnMapper<T> extends AbstractLongColumnMapper<T> implements VersionableColumnMapper<T, Long> {
 
@@ -23,7 +22,7 @@ public abstract class AbstractVersionableLongColumnMapper<T> extends AbstractLon
     
     public Long generateCurrentValue() {
         try {
-            @SuppressWarnings("unchecked") T longValue = (T) TypeHelper.getTypeArguments(AbstractVersionableLongColumnMapper.class, this.getClass()).get(0).newInstance();
+            T longValue = (T) returnedClass().newInstance();
             return toNonNullValue(longValue);
         } catch (InstantiationException ex) {
             throw new IllegalStateException("Cannot construct versionable Long value", ex);

@@ -76,19 +76,19 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     }
     
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
+
+        final J transformedValue;
         if (value == null) {
-            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, null, index);
-            } else {
-                ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, null, index);
-            }
+            transformedValue = null;
         } else {
-            @SuppressWarnings("unchecked") final T myValue = (T) value;
-            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
-            } else {
-                ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, getColumnMapper().toNonNullValue(myValue), index);
-            }
+            @SuppressWarnings("unchecked") T myValue = (T) value;
+            transformedValue = getColumnMapper().toNonNullValue(myValue);
+        }
+        
+        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+            Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, transformedValue, index);
+        } else {
+            ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, transformedValue, index);
         }
     }
     

@@ -50,58 +50,21 @@ public final class Hibernate36Helper {
     
     public static Type getHibernateType(String name) {
 
-        try {
-            Field field = getStandardBasicTypesClass().getField(name);
-            return (Type) field.get(null);
-        } catch (SecurityException ex) {
-            throw new ReflectionException("Problem with permissions for accessing field for retrieving Hibernate type {"
-                    + name + "}: " + ex.getMessage(), ex);
-        } catch (NoSuchFieldException ex) {
-            throw new ReflectionException("Problem retrieving Hibernate type {"
-                    + name + "}: " + ex.getMessage(), ex);
-        } catch (IllegalArgumentException ex) {
-            throw new ReflectionException("Incorrect argument supplied when retrieving Hibernate type {"
-                    + name + "}: " + ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            throw new ReflectionException("Problem accessing field for Hibernate type {"
-                    + name + "}: " + ex.getMessage(), ex);
-        }
+        return (Type) readField(getStandardBasicTypesClass(), name, false);
     }
 
     public static Object nullSafeGet(ColumnMapper<?, ?> mapper,
             ResultSet resultSet, String string) {
 
-        try {
-            return NULL_SAFE_GET_METHOD.invoke(mapper.getHibernateType(),
+        return invokeMethod(NULL_SAFE_GET_METHOD, mapper.getHibernateType(),
                     new Object[] { resultSet, string, NO_WRAPPER_OPTIONS });
-        } catch (IllegalArgumentException ex) {
-            throw new ReflectionException(
-                    "Problem with argument for nullSafeGet Method: " + ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            throw new ReflectionException(
-                    "Problem accessing nullSafeGet Method: " + ex.getMessage(), ex);
-        } catch (InvocationTargetException ex) {
-            throw new ReflectionException(
-                    "Problem with target for nullSafeGet Method: " + ex.getMessage(), ex);
-        }
     }
 
     public static void nullSafeSet(ColumnMapper<?, ?> mapper,
             PreparedStatement preparedStatement, Object object, int index) {
 
-        try {
-            NULL_SAFE_SET_METHOD.invoke(mapper.getHibernateType(),
+        invokeMethod(NULL_SAFE_SET_METHOD, mapper.getHibernateType(),
                     new Object[] { preparedStatement, object, index, NO_WRAPPER_OPTIONS });
-        } catch (IllegalArgumentException ex) {
-            throw new ReflectionException(
-                    "Problem with argument for nullSafeSet Method: " + ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            throw new ReflectionException(
-                    "Problem accessing nullSafeSet Method: " + ex.getMessage(), ex);
-        } catch (InvocationTargetException ex) {
-            throw new ReflectionException(
-                    "Problem with target for nullSafeSet Method: " + ex.getMessage(), ex);
-        }
     }
 
     public static String nullSafeToString(ColumnMapper<?, ?> mapper,
@@ -110,62 +73,28 @@ public final class Hibernate36Helper {
         if (object == null) {
             return null;
         } else {
-            try {
-                return (String) TOSTRING_METHOD.invoke(
-                        mapper.getHibernateType(), new Object[] { object });
-            } catch (IllegalArgumentException ex) {
-                throw new ReflectionException(
-                        "Problem invoking nullSafeToString Method: "
-                                + ex.getMessage(), ex);
-            } catch (IllegalAccessException ex) {
-                throw new ReflectionException(
-                        "Problem invoking nullSafeToString Method: "
-                                + ex.getMessage(), ex);
-            } catch (InvocationTargetException ex) {
-                throw new ReflectionException(
-                        "Problem invoking nullSafeToString Method: "
-                                + ex.getMessage(), ex);
-            }
+            return (String) invokeMethod(TOSTRING_METHOD, mapper.getHibernateType(), new Object[] { object });
         }
     }
 
     private static Class<?> getAbstractStandardBasicTypeClass() {
 
-        try {
-            return Class
-                    .forName("org.hibernatex.typex.AbstractStandardBasicType");
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
+        return safeClassForName("org.hibernatex.typex.AbstractStandardBasicType");
     }
 
     private static Class<?> getAbstractSingleColumnStandardBasicTypeClass() {
 
-        try {
-            return Class
-                    .forName("org.hibernatex.typex.AbstractSingleColumnStandardBasicType");
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
+        return safeClassForName("org.hibernatex.typex.AbstractSingleColumnStandardBasicType");
     }
 
     private static Class<?> getStandardBasicTypesClass() {
 
-        try {
-            return Class.forName("org.hibernatex.typex.StandardBasicTypes");
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
+        return safeClassForName("org.hibernatex.typex.StandardBasicTypes");
     }
 
     private static Class<?> getWrapperOptionsClass() {
 
-        try {
-            return Class
-                    .forName("org.hibernatex.typex.descriptor.WrapperOptions");
-        } catch (ClassNotFoundException ex) {
-            return null;
-        }
+        return safeClassForName("org.hibernatex.typex.descriptor.WrapperOptions");
     }
 
     private static Method getNullSafeGetMethod() {
@@ -174,21 +103,7 @@ public final class Hibernate36Helper {
             return null;
         }
 
-        try {
-            Method method = ABSTRACT_STANDARD_BASIC_TYPE_CLASS
-                    .getDeclaredMethod("nullSafeGet", new Class[] { ResultSet.class, String.class, WRAPPER_OPTIONS_CLASS });
-            method.setAccessible(true);
-
-            return method;
-        } catch (SecurityException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving nullSafeGet Method: " + ex.getMessage(),
-                    ex);
-        } catch (NoSuchMethodException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving nullSafeGet Method: " + ex.getMessage(),
-                    ex);
-        }
+        return obtainDeclaredMethod(ABSTRACT_STANDARD_BASIC_TYPE_CLASS, "nullSafeGet", new Class[] { ResultSet.class, String.class, WRAPPER_OPTIONS_CLASS });
     }
 
     private static Method getNullSafeSetMethod() {
@@ -197,21 +112,7 @@ public final class Hibernate36Helper {
             return null;
         }
 
-        try {
-            Method method = ABSTRACT_STANDARD_BASIC_TYPE_CLASS
-                    .getDeclaredMethod("nullSafeSet", new Class[] { PreparedStatement.class, Object.class, Integer.TYPE, WRAPPER_OPTIONS_CLASS });
-            method.setAccessible(true);
-
-            return method;
-        } catch (SecurityException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving nullSafeSet Method: " + ex.getMessage(),
-                    ex);
-        } catch (NoSuchMethodException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving nullSafeSet Method: " + ex.getMessage(),
-                    ex);
-        }
+        return obtainDeclaredMethod(ABSTRACT_STANDARD_BASIC_TYPE_CLASS, "nullSafeSet", new Class[] { PreparedStatement.class, Object.class, Integer.TYPE, WRAPPER_OPTIONS_CLASS });
     }
 
     private static Method getToStringMethod() {
@@ -220,16 +121,7 @@ public final class Hibernate36Helper {
             return null;
         }
 
-        try {
-            return ABSTRACT_STANDARD_BASIC_TYPE_CLASS.getMethod("toString",
-                    new Class[] { Object.class });
-        } catch (SecurityException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving toString Method: " + ex.getMessage(), ex);
-        } catch (NoSuchMethodException ex) {
-            throw new ReflectionException(
-                    "Problem retrieving toString Method: " + ex.getMessage(), ex);
-        }
+        return obtainDeclaredMethod(ABSTRACT_STANDARD_BASIC_TYPE_CLASS, "toString", new Class[] { Object.class });
     }
 
     private static Object getNoWrapperOptions() {
@@ -237,25 +129,72 @@ public final class Hibernate36Helper {
         if (ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS == null) {
             return null;
         }
+        
+        return readField(ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS, "NO_OPTIONS", true);
+    }
+
+    private static Class<?> safeClassForName(String className) {
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException ex) {
+            return null;
+        }
+    }
+    
+    private static Method obtainDeclaredMethod(Class<?> clazz, String methodName, Class<?>... params) {
 
         try {
-            Field field = ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS
-                    .getDeclaredField("NO_OPTIONS");
-            field.setAccessible(true);
-
-            return field.get(null);
-        } catch (SecurityException ex) {
+            final Method method = clazz.getMethod(methodName, params);
+            method.setAccessible(true);
+            return method;
+            
+        } catch (SecurityException ex1) {
             throw new ReflectionException(
-                    "Problem with permissions for retrieving NoWrapperOptions: " + ex.getMessage(), ex);
-        } catch (NoSuchFieldException ex) {
+                    "Problem accessing " + methodName + " Method: " + ex1.getMessage(), ex1);
+        } catch (NoSuchMethodException ex2) {
             throw new ReflectionException(
-                    "Problem retrieving NoWrapperOptions: " + ex.getMessage(), ex);
-        } catch (IllegalArgumentException ex) {
-            throw new ReflectionException(
-                    "Incorrect argument supplied when retrieving NoWrapperOptions: " + ex.getMessage(), ex);
-        } catch (IllegalAccessException ex) {
-            throw new ReflectionException(
-                    "Problem accessing field for NoWrapperOptions: " + ex.getMessage(), ex);
+                    "Problem retrieving " + methodName + " Method: " + ex2.getMessage(), ex2);
         }
+
+    }
+
+    private static Object invokeMethod(Method method, Object target, Object... params) {
+        try {
+            return method.invoke(target, params);
+        } catch (IllegalArgumentException ex1) {
+            throw new ReflectionException(
+                    "Problem with argument for " + method.getName() + " Method: "
+                            + ex1.getMessage(), ex1);
+        } catch (IllegalAccessException ex2) {
+            throw new ReflectionException(
+                    "Problem accessing " + method.getName() + " Method: "
+                            + ex2.getMessage(), ex2);
+        } catch (InvocationTargetException ex3) {
+            throw new ReflectionException(
+                    "Problem invoking " + method.getName() + " Method: "
+                            + ex3.getMessage(), ex3);
+        }
+    }
+    
+    private static Object readField(Class<?> clazz, String fieldName, boolean isDeclared) {
+        
+        try {
+            final Field field; 
+            if (isDeclared) {
+                field = clazz.getDeclaredField(fieldName);
+            } else {
+                field = clazz.getField(fieldName);
+            }
+            field.setAccessible(true);
+            return field.get(null);
+        } catch (SecurityException ex1) {
+            throw new ReflectionException("Problem reading Field " + fieldName + ": " + ex1.getMessage(), ex1);
+        } catch (IllegalArgumentException ex2) {
+            throw new ReflectionException("Incorrect argument supplied when reading Field " + fieldName + ": " + ex2.getMessage(), ex2);
+        } catch (IllegalAccessException ex3) {
+            throw new ReflectionException("Problem accessing Field " + fieldName + ": " + ex3.getMessage(), ex3);
+        } catch (NoSuchFieldException ex3) {
+            throw new ReflectionException("Problem obtaining Field instance " + fieldName + ": " + ex3.getMessage(), ex3);
+        } 
     }
 }

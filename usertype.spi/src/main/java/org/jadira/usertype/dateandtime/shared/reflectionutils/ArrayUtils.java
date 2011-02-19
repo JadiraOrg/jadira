@@ -29,120 +29,120 @@ public class ArrayUtils {
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param objectArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static <U> U[] copyOf(U[] original) {
+    public static <U> U[] copyOf(U[] objectArray) {
         
-    	Class<?> arrayClass = original.getClass();
+    	Class<?> arrayClass = objectArray.getClass();
         @SuppressWarnings("unchecked") Class<U> componentClass = (Class<U>) arrayClass.getComponentType();
         
-        @SuppressWarnings("unchecked") U[] copy = (U[]) Array.newInstance(componentClass, original.length);
-        System.arraycopy(original, 0, copy, 0, original.length);
+        @SuppressWarnings("unchecked") U[] copy = (U[]) Array.newInstance(componentClass, objectArray.length);
+        System.arraycopy(objectArray, 0, copy, 0, objectArray.length);
         return copy;
     }
     
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of ints
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param intArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static int[] copyOf(int[] original) {
+    public static int[] copyOf(int[] intArray) {
         
-        int[] copy = new int[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+        int[] copy = new int[intArray.length];
+        System.arraycopy(intArray, 0, copy, 0, intArray.length);
         return copy;
     }
 
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of short
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param shortArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static short[] copyOf(short[] original) {
+    public static short[] copyOf(short[] shortArray) {
         
-    	short[] copy = new short[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	short[] copy = new short[shortArray.length];
+        System.arraycopy(shortArray, 0, copy, 0, shortArray.length);
         return copy;
     }
     
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of long
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param longArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static long[] copyOf(long[] original) {
+    public static long[] copyOf(long[] longArray) {
         
-    	long[] copy = new long[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	long[] copy = new long[longArray.length];
+        System.arraycopy(longArray, 0, copy, 0, longArray.length);
         return copy;
     }
 
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of byte
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param byteArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static byte[] copyOf(byte[] original) {
+    public static byte[] copyOf(byte[] byteArray) {
         
-    	byte[] copy = new byte[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	byte[] copy = new byte[byteArray.length];
+        System.arraycopy(byteArray, 0, copy, 0, byteArray.length);
         return copy;
     }
     
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of char
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param charArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static char[] copyOf(char[] original) {
+    public static char[] copyOf(char[] charArray) {
         
-    	char[] copy = new char[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	char[] copy = new char[charArray.length];
+        System.arraycopy(charArray, 0, copy, 0, charArray.length);
         return copy;
     }
     
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of float
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param floatArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static float[] copyOf(float[] original) {
+    public static float[] copyOf(float[] floatArray) {
         
-    	float[] copy = new float[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	float[] copy = new float[floatArray.length];
+        System.arraycopy(floatArray, 0, copy, 0, floatArray.length);
         return copy;
     }
 
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of double
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param doubleArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static double[] copyOf(double[] original) {
+    public static double[] copyOf(double[] doubleArray) {
         
-    	double[] copy = new double[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	double[] copy = new double[doubleArray.length];
+        System.arraycopy(doubleArray, 0, copy, 0, doubleArray.length);
         return copy;
     }
 
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of boolean
 	 * @param <U> The type of input array
-	 * @param original The array to copy
+	 * @param booleanArray The array to copy
 	 * @return A copy of the input, of component type <U>
 	 */
-    public static boolean[] copyOf(boolean[] original) {
+    public static boolean[] copyOf(boolean[] booleanArray) {
         
-    	boolean[] copy = new boolean[original.length];
-        System.arraycopy(original, 0, copy, 0, original.length);
+    	boolean[] copy = new boolean[booleanArray.length];
+        System.arraycopy(booleanArray, 0, copy, 0, booleanArray.length);
         return copy;
     }
 }

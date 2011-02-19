@@ -17,15 +17,13 @@ package org.jadira.usertype.dateandtime.shared.spi;
 
 import java.math.BigInteger;
 
-import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
-
 public abstract class AbstractVersionableBigIntegerColumnMapper<T> extends AbstractBigIntegerColumnMapper<T> implements VersionableColumnMapper<T, BigInteger> {
 
     private static final long serialVersionUID = -1406891387234804017L;
     
     public BigInteger generateCurrentValue() {
         try {
-            @SuppressWarnings("unchecked") T bigInteger = (T) TypeHelper.getTypeArguments(AbstractVersionableBigIntegerColumnMapper.class, this.getClass()).get(0).newInstance();
+            T bigInteger = (T) returnedClass().newInstance();
             return toNonNullValue(bigInteger);
         } catch (InstantiationException ex) {
             throw new IllegalStateException("Cannot construct versionable BigInteger value", ex);

@@ -90,18 +90,18 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
         
         Object[] convertedColumns = new Object[getColumnMappers().length];
         
-        for (int i = 0; i < getColumnMappers().length; i++) {
-            ColumnMapper nextMapper = getColumnMappers()[i];
+        for (int getIndex = 0; getIndex < getColumnMappers().length; getIndex++) {
+            ColumnMapper nextMapper = getColumnMappers()[getIndex];
             
             final Object converted;
             if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[i]);
+                converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[getIndex]);
             } else {
-                converted = ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[i]);
+                converted = ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[getIndex]);
             }
             
             if (converted != null) {
-                convertedColumns[i] = nextMapper.fromNonNullValue(converted);
+                convertedColumns[getIndex] = nextMapper.fromNonNullValue(converted);
             }
         }
         
@@ -118,31 +118,30 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     
     protected abstract Object[] toConvertedColumns(T value);
         
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session)  throws SQLException {
+    @SuppressWarnings("unchecked")
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
-        if (value == null) {
-            for (int i = 0; i < getColumnMappers().length; i++) {
-                ColumnMapper<?, ?> nextMapper = getColumnMappers()[i];
-                if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                    Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, null, index + i);
-                } else {
-                    ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, null, index + i);
-                }
-            }
-        } else {
-            
+        final Object[] valuesToSet = new Object[getColumnMappers().length];
+
+        if (value != null) {
+
             final T myValue = (T) value;
             Object[] convertedColumns = toConvertedColumns(myValue);
-            
-            for (int i = 0; i < getColumnMappers().length; i++) {
-                ColumnMapper nextMapper = getColumnMappers()[i];
-                if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                    Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
-                } else {
-                    ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, nextMapper.toNonNullValue(convertedColumns[i]), index + i);
-                }
-                
+
+            for (int cIdx = 0; cIdx < valuesToSet.length; cIdx++) {
+
+                @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[cIdx];
+                valuesToSet[cIdx] = nextMapper.toNonNullValue(convertedColumns[cIdx]);
+            }
+        }
+
+        for (int setIndex = 0; setIndex < valuesToSet.length; setIndex++) {
+
+            @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[setIndex];
+            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
+                Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, valuesToSet[setIndex], index + setIndex);
+            } else {
+                ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex);
             }
         }
     }

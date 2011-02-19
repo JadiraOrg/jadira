@@ -39,11 +39,11 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
     }
 
     @Override
-    public void set(PreparedStatement st, Object value, int index) throws SQLException {
-        if (!(value instanceof Timestamp)) {
-            value = deepCopy(value);
+    public void set(PreparedStatement st, Object timestampValue, int index) throws SQLException {
+        if (!(timestampValue instanceof Timestamp)) {
+            timestampValue = deepCopy(timestampValue);
         }
-        st.setTimestamp(index, (Timestamp) value, getUtcCalendar());
+        st.setTimestamp(index, (Timestamp) timestampValue, getUtcCalendar());
     }
 
     @Override
@@ -77,11 +77,11 @@ public class LocationSafeTimestampType extends AbstractLocationSafeUserType {
     }
 
     @Override
-    public String toString(Object value) throws HibernateException {
-        if (value instanceof Timestamp) {
-            ((Timestamp) value).toString();
+    public String toString(Object timestampValue) throws HibernateException {
+        if (timestampValue instanceof Timestamp) {
+            ((Timestamp) timestampValue).toString();
         }
-        return new Timestamp(((java.util.Date) value).getTime()).toString();
+        return new Timestamp(((java.util.Date) timestampValue).getTime()).toString();
     }
 
     public String getName() {

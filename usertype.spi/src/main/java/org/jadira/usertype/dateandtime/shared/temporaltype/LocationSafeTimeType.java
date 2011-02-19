@@ -43,11 +43,11 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
     }
 
     @Override
-    public void set(PreparedStatement st, Object value, int index) throws SQLException {
-        if (!(value instanceof Time)) {                
-            value = deepCopy(value);
+    public void set(PreparedStatement st, Object timeValue, int index) throws SQLException {
+        if (!(timeValue instanceof Time)) {                
+            timeValue = deepCopy(timeValue);
         }
-        st.setTime(index, (Time) value);
+        st.setTime(index, (Time) timeValue);
     }
 
     @Override
@@ -70,8 +70,8 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
     }
     
     @Override
-    public String toString(Object value) throws HibernateException {
-        return '\'' + new Time( ( (java.util.Date) value ).getTime() ).toString() + '\'';
+    public String toString(Object timeValue) throws HibernateException {
+        return '\'' + new Time( ( (java.util.Date) timeValue ).getTime() ).toString() + '\'';
     }
 
     public String getName() {

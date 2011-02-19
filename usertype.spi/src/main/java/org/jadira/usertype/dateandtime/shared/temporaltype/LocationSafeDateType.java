@@ -59,8 +59,8 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
     }
     
     @Override
-    public String toString(Object value) throws HibernateException {
-        return new SimpleDateFormat(DATE_FORMAT).format((java.util.Date) value);
+    public String toString(Object dateValue) throws HibernateException {
+        return new SimpleDateFormat(DATE_FORMAT).format((java.util.Date) dateValue);
     }
 
     public String getName() {
