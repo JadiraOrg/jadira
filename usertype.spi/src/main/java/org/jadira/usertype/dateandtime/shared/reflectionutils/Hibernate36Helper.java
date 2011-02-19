@@ -76,13 +76,13 @@ public final class Hibernate36Helper {
                     new Object[] { resultSet, string, NO_WRAPPER_OPTIONS });
         } catch (IllegalArgumentException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem with argument for nullSafeGet Method: " + ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem accessing nullSafeGet Method: " + ex.getMessage(), ex);
         } catch (InvocationTargetException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeGet Method: " + ex.getMessage(), ex);
+                    "Problem with target for nullSafeGet Method: " + ex.getMessage(), ex);
         }
     }
 
@@ -94,13 +94,13 @@ public final class Hibernate36Helper {
                     new Object[] { preparedStatement, object, index, NO_WRAPPER_OPTIONS });
         } catch (IllegalArgumentException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
+                    "Problem with argument for nullSafeSet Method: " + ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
+                    "Problem accessing nullSafeSet Method: " + ex.getMessage(), ex);
         } catch (InvocationTargetException ex) {
             throw new ReflectionException(
-                    "Problem invoking nullSafeSet Method: " + ex.getMessage(), ex);
+                    "Problem with target for nullSafeSet Method: " + ex.getMessage(), ex);
         }
     }
 
@@ -246,16 +246,16 @@ public final class Hibernate36Helper {
             return field.get(null);
         } catch (SecurityException ex) {
             throw new ReflectionException(
-                    "Problem retrieving NoWrapperOptions: " + ex.getMessage(), ex);
+                    "Problem with permissions for retrieving NoWrapperOptions: " + ex.getMessage(), ex);
         } catch (NoSuchFieldException ex) {
             throw new ReflectionException(
                     "Problem retrieving NoWrapperOptions: " + ex.getMessage(), ex);
         } catch (IllegalArgumentException ex) {
             throw new ReflectionException(
-                    "Problem retrieving NoWrapperOptions: " + ex.getMessage(), ex);
+                    "Incorrect argument supplied when retrieving NoWrapperOptions: " + ex.getMessage(), ex);
         } catch (IllegalAccessException ex) {
             throw new ReflectionException(
-                    "Problem retrieving NoWrapperOptions: " + ex.getMessage(), ex);
+                    "Problem accessing field for NoWrapperOptions: " + ex.getMessage(), ex);
         }
     }
 }
