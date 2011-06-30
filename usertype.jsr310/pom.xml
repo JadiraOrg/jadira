@@ -159,7 +159,7 @@
 		        <extension>
 		            <groupId>org.apache.maven.wagon</groupId>
 		            <artifactId>wagon-ssh</artifactId>
-		            <version>1.0-beta-6</version>
+		            <version>1.0-beta-7</version>
 		        </extension>
     		</extensions>
 	
@@ -210,12 +210,6 @@
 			<id>sonatype-nexus-staging</id>
 			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 			<name>Nexus Release Repository</name>
-		</repository>
-		<repository>
-			<id>jboss.repo</id>
-			<name>JBoss Maven repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
-			<layout>default</layout>
 		</repository>		
 	</repositories>
 
