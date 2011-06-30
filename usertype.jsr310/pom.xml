@@ -211,20 +211,12 @@
 			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 			<name>Nexus Release Repository</name>
 		</repository>
-		
 		<repository>
 			<id>jboss.repo</id>
 			<name>JBoss Maven repository</name>
 			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 			<layout>default</layout>
 		</repository>		
-		<repository>
-			<id>jboss.thirdparty.repo</id>
-			<name>JBoss Thirdparty Releases Maven repository</name>
-			<url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases/</url>
-			<layout>default</layout>
-		</repository>
-		
 	</repositories>
 
 </project>
