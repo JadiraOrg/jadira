@@ -79,22 +79,22 @@ public final class Hibernate36Helper {
 
     private static Class<?> getAbstractStandardBasicTypeClass() {
 
-        return safeClassForName("org.hibernatex.typex.AbstractStandardBasicType");
+        return safeClassForName("org.hibernate.type.AbstractStandardBasicType");
     }
 
     private static Class<?> getAbstractSingleColumnStandardBasicTypeClass() {
 
-        return safeClassForName("org.hibernatex.typex.AbstractSingleColumnStandardBasicType");
+        return safeClassForName("org.hibernate.type.AbstractSingleColumnStandardBasicType");
     }
 
     private static Class<?> getStandardBasicTypesClass() {
 
-        return safeClassForName("org.hibernatex.typex.StandardBasicTypes");
+        return safeClassForName("org.hibernate.type.StandardBasicTypes");
     }
 
     private static Class<?> getWrapperOptionsClass() {
 
-        return safeClassForName("org.hibernatex.typex.descriptor.WrapperOptions");
+        return safeClassForName("org.hibernate.type.descriptor.WrapperOptions");
     }
 
     private static Method getNullSafeGetMethod() {
@@ -144,7 +144,7 @@ public final class Hibernate36Helper {
     private static Method obtainDeclaredMethod(Class<?> clazz, String methodName, Class<?>... params) {
 
         try {
-            final Method method = clazz.getMethod(methodName, params);
+            final Method method = clazz.getDeclaredMethod(methodName, params);
             method.setAccessible(true);
             return method;
             
