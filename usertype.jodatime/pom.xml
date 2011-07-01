@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.usertype</groupId>
 		<artifactId>usertype.parent</artifactId>
-		<version>1.9-SNAPSHOT</version>
+		<version>1.9</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
@@ -31,7 +31,7 @@
 	<artifactId>usertype.jodatime</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.9-SNAPSHOT</version>
+	<version>1.9</version>
 
 	<name>User Type for Joda Time with Hibernate</name>
 	<description>Classes utilising Joda Time that add Hibernate support</description>
