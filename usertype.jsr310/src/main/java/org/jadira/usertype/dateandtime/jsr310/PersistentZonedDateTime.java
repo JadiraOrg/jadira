@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,9 +30,9 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
  * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDateTime} however
  * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the 
+ * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the
  * JVM using the JVM's default zone.
- * 
+ *
  * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
@@ -45,11 +45,11 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);
-        
+
         if (parameters != null) {
-            
+
             TimestampColumnZonedDateTimeMapper columnMapper = getColumnMapper();
-            
+
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
@@ -68,7 +68,7 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
             }
         }
     }
-    
+
     @Override
     public int compare(Object o1, Object o2) {
         return ((ZonedDateTime) o1).compareTo((ZonedDateTime) o2);

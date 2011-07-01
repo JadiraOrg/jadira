@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ public class TestPersistentOffsetTimeAsTimeAndStringOffset extends DatabaseCapab
     private static final OffsetTime[] offsetTimes = new OffsetTime[] { OffsetTime.of(12, 10, 31, ZoneOffset.UTC), OffsetTime.of(23, 7, 43, 120, ZoneOffset.ofHours(2)) };
 
     private static final TimeAdjuster NORMALISE_NANOS = new NormaliseNanosAdjuster();
-    
+
     private static EntityManagerFactory factory;
 
     @BeforeClass
@@ -86,19 +86,19 @@ public class TestPersistentOffsetTimeAsTimeAndStringOffset extends DatabaseCapab
             assertEquals("test_" + i, item.getName());
             assertEquals(offsetTimes[i].with(NORMALISE_NANOS), item.getOffsetTime());
         }
-        
+
         verifyDatabaseTable(manager, OffsetTimeAsTimeAndStringOffsetHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-       
+
     private static final class NormaliseNanosAdjuster implements TimeAdjuster {
 
         public LocalTime adjustTime(LocalTime time) {
             if (time == null) { return null; }
-            
+
             int millis = (int) (time.getNanoOfSecond() / 1000000);
-            
+
             return LocalTime.of(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute(), millis * 1000000);
         }
     }

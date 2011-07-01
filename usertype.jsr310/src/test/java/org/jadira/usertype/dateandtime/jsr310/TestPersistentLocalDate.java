@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import org.junit.Test;
 public class TestPersistentLocalDate extends DatabaseCapable {
 
     private static final LocalDate[] localDates = new LocalDate[] { LocalDate.of(2004, 2, 25), LocalDate.of(1980, 3, 11) };
-    
+
     private static final org.joda.time.LocalDate[] jodaLocalDates = new org.joda.time.LocalDate[] { new org.joda.time.LocalDate(2004, 2, 25), new org.joda.time.LocalDate(1980, 3, 11) };
 
     private static EntityManagerFactory factory;
@@ -54,9 +54,9 @@ public class TestPersistentLocalDate extends DatabaseCapable {
     public void testPersist() {
 
         EntityManager manager = factory.createEntityManager();
-        
+
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < localDates.length; i++) {
 
             LocalDateHolder item = new LocalDateHolder();
@@ -68,13 +68,13 @@ public class TestPersistentLocalDate extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDates.length; i++) {
 
             LocalDateHolder item = manager.find(LocalDateHolder.class, Long.valueOf(i));
@@ -84,16 +84,16 @@ public class TestPersistentLocalDate extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
+
         verifyDatabaseTable(manager, LocalDateHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-    
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -102,7 +102,7 @@ public class TestPersistentLocalDate extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
 
         for (int i = 0; i < localDates.length; i++) {
@@ -116,13 +116,13 @@ public class TestPersistentLocalDate extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDates.length; i++) {
 
             LocalDateHolder item = manager.find(LocalDateHolder.class, Long.valueOf(i));
@@ -132,7 +132,7 @@ public class TestPersistentLocalDate extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
+
         manager.close();
     }
 }

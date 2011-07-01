@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     private static final long serialVersionUID = -7670411089210984705L;
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
-    
+
     @Override
     public Instant fromNonNullString(String s) {
         return new Instant(s);
@@ -36,9 +36,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     @Override
     public Instant fromNonNullValue(Timestamp value) {
-        
+
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         return Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
     }
 
@@ -51,12 +51,12 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     public Timestamp toNonNullValue(Instant value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
-        
+
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }

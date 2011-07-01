@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,9 +28,9 @@ public class PersistentDateTimeAsString extends AbstractMultiColumnDateTime {
     private static final long serialVersionUID = 1364221029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
-    
+
     private static final String[] propertyNames = new String[]{ "datetime", "offset" };
-      
+
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;

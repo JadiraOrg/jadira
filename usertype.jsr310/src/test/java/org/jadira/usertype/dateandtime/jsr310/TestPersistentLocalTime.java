@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -38,13 +38,13 @@ public class TestPersistentLocalTime extends DatabaseCapable {
 
     private static final LocalTime[] localTimes = new LocalTime[] { LocalTime.of(14, 2, 25), LocalTime.of(23, 59, 59, 999), LocalTime.of(0, 0, 0) };
 
-    private static final org.joda.time.LocalTime[] jodaLocalTimes = new org.joda.time.LocalTime[] { 
-        new org.joda.time.LocalTime(14, 2, 25), 
-        new org.joda.time.LocalTime(23, 59, 59, 999), 
+    private static final org.joda.time.LocalTime[] jodaLocalTimes = new org.joda.time.LocalTime[] {
+        new org.joda.time.LocalTime(14, 2, 25),
+        new org.joda.time.LocalTime(23, 59, 59, 999),
         new org.joda.time.LocalTime(0, 0, 0) };
 
     private static final TimeAdjuster NORMALISE_NANOS = new NormaliseNanosAdjuster();
-    
+
     private static EntityManagerFactory factory;
 
     @BeforeClass
@@ -75,13 +75,13 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localTimes.length; i++) {
 
             LocalTimeHolder item = manager.find(LocalTimeHolder.class, Long.valueOf(i));
@@ -91,16 +91,16 @@ public class TestPersistentLocalTime extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i].with(NORMALISE_NANOS), item.getLocalTime());
         }
-        
+
         verifyDatabaseTable(manager, LocalTimeHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-    
+
     @Test
     @Ignore // This test will fail due to Joda Time Hibernate defect
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -109,9 +109,9 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < localTimes.length; i++) {
 
             LocalTimeAsTimeJoda item = new LocalTimeAsTimeJoda();
@@ -123,13 +123,13 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localTimes.length; i++) {
 
             LocalTimeHolder item = manager.find(LocalTimeHolder.class, Long.valueOf(i));
@@ -141,12 +141,12 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         }
         manager.close();
     }
-    
+
     @Test
     @SuppressWarnings("deprecation")
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTimeOfDay() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -155,9 +155,9 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         LocalTimeHolder item = new LocalTimeHolder();
         item.setId(1);
         item.setName("test_nanos1");
@@ -165,13 +165,13 @@ public class TestPersistentLocalTime extends DatabaseCapable {
 
         manager.persist(item);
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         TimeOfDayAsTimeJoda jodaItem = manager.find(TimeOfDayAsTimeJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
@@ -180,11 +180,11 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         assertEquals(new org.joda.time.TimeOfDay(10, 10, 10), jodaItem.getTimeOfDay());
 
         manager.close();
-        
+
         manager = factory.createEntityManager();
 
         item = manager.find(LocalTimeHolder.class, Long.valueOf(1));
- 
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());
@@ -192,14 +192,14 @@ public class TestPersistentLocalTime extends DatabaseCapable {
 
         manager.close();
     }
-    
+
     private static final class NormaliseNanosAdjuster implements TimeAdjuster {
 
         public LocalTime adjustTime(LocalTime time) {
             if (time == null) { return null; }
-            
+
             int millis = (int) (time.getNanoOfSecond() / 1000000);
-            
+
             return LocalTime.of(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute(), millis * 1000000);
         }
     }

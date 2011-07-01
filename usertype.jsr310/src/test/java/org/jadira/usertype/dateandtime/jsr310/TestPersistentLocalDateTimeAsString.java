@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ import org.junit.Test;
 public class TestPersistentLocalDateTimeAsString extends DatabaseCapable {
 
     private static final LocalDateTime[] localDateTimes = new LocalDateTime[] { LocalDateTime.of(2004, 2, 25, 12, 11, 10), LocalDateTime.of(1980, 3, 11, 13, 12, 11) };
-    
+
     private static EntityManagerFactory factory;
 
     @BeforeClass
@@ -64,13 +64,13 @@ public class TestPersistentLocalDateTimeAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDateTimes.length; i++) {
 
             LocalDateTimeAsStringHolder item = manager.find(LocalDateTimeAsStringHolder.class, Long.valueOf(i));
@@ -80,9 +80,9 @@ public class TestPersistentLocalDateTimeAsString extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localDateTimes[i], item.getLocalDateTime());
         }
-        
+
         verifyDatabaseTable(manager, LocalDateTimeAsStringHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }

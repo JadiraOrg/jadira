@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -53,9 +53,9 @@ public class DatabaseCapable {
 
             IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(comparisonFile);
             ITable expectedTable = expectedDataSet.getTable(tableName);
-            
+
             Assertion.assertEquals(expectedTable, actualTable);
-            
+
         } catch (DatabaseUnitException ex) {
             throw new RuntimeDatabaseUnitException(ex);
         } catch (IOException ex) {
@@ -70,11 +70,11 @@ public class DatabaseCapable {
 
         FlatXmlDataSet.write(partialDataSet, new FileOutputStream(outputFile));
     }
-        
+
     protected static class DBUnitWork implements Work {
 
         IDatabaseConnection dbunitConnection;
-        
+
         private IDataSet databaseDataSet;
 
         public DBUnitWork() {
@@ -88,11 +88,11 @@ public class DatabaseCapable {
                 throw new RuntimeException(ex);
             }
         }
-        
+
         public IDataSet getDatabaseDataSet() {
             return databaseDataSet;
         }
-        
+
         public IDatabaseConnection getDbunitConnection() {
             return dbunitConnection;
         }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
     public static final DateTimeFormatter LOCAL_TIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
 
     private ZoneOffset databaseZone = ZoneOffset.UTC;
-    
+
     private ZoneOffset javaZone = null;
 
     @Override
@@ -48,12 +48,12 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
 
     @Override
     public OffsetTime fromNonNullValue(Timestamp value) {
-        
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
-        
+
         LocalTime localTime = LOCAL_TIME_PARSER.parse(value.toString()).merge().get(LocalTime.rule());
-        
+
         OffsetTime time = localTime.atOffset(currentDatabaseZone);
         return time.withOffsetSameInstant(currentJavaZone);
     }
@@ -65,11 +65,11 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
 
     @Override
     public Timestamp toNonNullValue(OffsetTime value) {
-        
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
-        
+
         value = value.withOffsetSameInstant(currentDatabaseZone);
-        
+
         String formattedTimestamp = LOCAL_TIME_PRINTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
@@ -78,7 +78,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }
-    
+
     public void setDatabaseZone(ZoneOffset databaseZone) {
         this.databaseZone = databaseZone;
     }

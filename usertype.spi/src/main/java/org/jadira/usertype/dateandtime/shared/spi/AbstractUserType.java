@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public abstract class AbstractUserType implements Serializable {
     public final boolean isMutable() {
         return false;
     }
-    
+
     public boolean equals(Object x, Object y) throws HibernateException {
         if (x == y) {
             return true;
@@ -50,7 +50,7 @@ public abstract class AbstractUserType implements Serializable {
     public Serializable disassemble(Object value) throws HibernateException {
 
         final Serializable result;
-        
+
         if (value == null) {
             result = null;
         } else {

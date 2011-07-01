@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
 
     public static final DateTimeFormatter INSTANT_FORMATTER = new DateTimeFormatterBuilder()
         .appendPattern("yyyy-MM-ddTHH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendPattern("ffn").toFormatter()).appendLiteral('Z').toFormatter();
-    
+
     @Override
     public Instant fromNonNullValue(String s) {
         // Instant.parse(s) is currently not yet implemented;

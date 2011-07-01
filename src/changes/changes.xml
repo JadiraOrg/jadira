@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 
-  Copyright 2010 Christopher Pheby
+  Copyright 2010, 2011 Christopher Pheby
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -26,12 +26,13 @@
 	<body>
 	
 		<!-- types are add, fix, remove, update -->
-		<release version="1.9" date="TBC" description="Bugfix Release">
+		<release version="1.9" date="01-07-2011" description="Support for @Version, querying against properties for multicolumn types and Hibernate in Maven Central">
 			<action dev="Chris Pheby" issue="3140659" type="fix">Improve robustness of mappings of Time types to Timestamps</action>
 			<action dev="Chris Pheby" type="add">Support @Version functionality</action>
 			<action dev="Chris Pheby" type="add">Allow usertype properties to be dereferenced in queries</action>
 			<action dev="Chris Pheby" type="add">Usertype classes are now serializable</action>
 			<action dev="Chris Pheby" type="fix">Fix compatibility with the Hibernate 3.6 jar in Maven central</action>
+			<action dev="Chris Pheby" type="update">For JSR-310 restored the Joda Time roundtrip tests now Joda Time Contrib supports Hibernate 3.6</action>
 		</release>
 		
 		<release version="1.8" date="02-12-2010" description="Custom Handling of Database and JVM timezones">

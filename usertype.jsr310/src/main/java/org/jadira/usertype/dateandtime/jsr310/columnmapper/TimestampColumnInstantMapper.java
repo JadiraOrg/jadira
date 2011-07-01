@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,7 +33,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
 
     private TimeZone databaseZone = TimeZone.UTC;
-    
+
     @Override
     public Instant fromNonNullString(String s) {
         return Instant.parse(s);
@@ -41,9 +41,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     @Override
     public Instant fromNonNullValue(Timestamp value) {
-        
+
         TimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-        
+
         LocalDateTime d = LOCAL_DATETIME_FORMATTER.parse(value.toString()).merge().get(LocalDateTime.rule());
         return d.atZone(currentDatabaseZone).toInstant();
     }
@@ -57,7 +57,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     public Timestamp toNonNullValue(Instant value) {
 
         TimeZone currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-        
+
         final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print(ZonedDateTime.ofInstant(value, currentDatabaseZone));
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
 
@@ -67,7 +67,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     public void setDatabaseZone(TimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
-    
+
     private static TimeZone getDefault() {
 
         TimeZone zone = null;

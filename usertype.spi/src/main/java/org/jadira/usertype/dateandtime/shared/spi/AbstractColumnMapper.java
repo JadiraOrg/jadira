@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 public abstract class AbstractColumnMapper<T, J> implements Serializable, ColumnMapper<T, J> {
 
     private static final long serialVersionUID = 8169781475234949904L;
-        
+
     /* (non-Javadoc)
      * @see org.jadira.usertype.dateandtime.shared.spi.ColumnMapper#returnedClass()
      */
@@ -31,7 +31,7 @@ public abstract class AbstractColumnMapper<T, J> implements Serializable, Column
         @SuppressWarnings("unchecked")Class<T> result = (Class<T>) TypeHelper.getTypeArguments(AbstractColumnMapper.class, getClass()).get(0);
         return result;
     }
-    
+
     /* (non-Javadoc)
      * @see org.jadira.usertype.dateandtime.shared.spi.ColumnMapper#jdbcClass()
      */

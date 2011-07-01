@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class JodaDateTimeHolder implements Serializable {
 
     @Column
     @Type(type = "testjoda_DateTimeType", parameters = {@Parameter(name = "databaseZone", value = "UTC"), @Parameter(name = "javaZone", value = "UTC") })
-    
+
     private DateTime dateTime;
 
     public long getId() {

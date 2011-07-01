@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserVersionType;
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C> 
+public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C>
        implements UserVersionType, Comparator, ParameterizedType {
 
     private static final long serialVersionUID = -491420480137454209L;
@@ -31,12 +31,12 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
     private Seed<J> seed;
 
     public void setParameterValues(Properties parameters) {
-        
+
         if (parameters != null) {
-            
+
             String seedName = parameters.getProperty("seed");
             if (seedName != null) {
-                
+
                 Class<Seed<J>> seedClass;
                 try {
                     @SuppressWarnings("unchecked") Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class.forName(seedName);
@@ -56,11 +56,11 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
             seed = null;
         }
     }
-    
-    public abstract int compare(Object o1, Object o2);    
+
+    public abstract int compare(Object o1, Object o2);
 
     public T seed(SessionImplementor session) {
-        
+
         final VersionableColumnMapper<T, J> columnMapper = getColumnMapper();
         if (seed == null) {
             return columnMapper.fromNonNullValue(columnMapper.generateCurrentValue());

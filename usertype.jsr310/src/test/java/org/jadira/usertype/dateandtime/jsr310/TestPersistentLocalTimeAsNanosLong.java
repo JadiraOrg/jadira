@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -65,13 +65,13 @@ public class TestPersistentLocalTimeAsNanosLong extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localTimes.length; i++) {
 
             LocalTimeAsNanosLongHolder item = manager.find(LocalTimeAsNanosLongHolder.class, Long.valueOf(i));
@@ -81,9 +81,9 @@ public class TestPersistentLocalTimeAsNanosLong extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i], item.getLocalTime());
         }
-        
+
         verifyDatabaseTable(manager, LocalTimeAsNanosLongHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }

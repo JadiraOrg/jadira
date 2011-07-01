@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -35,9 +35,9 @@ import org.junit.Test;
 public class TestPersistentLocalDateTime extends DatabaseCapable {
 
     private static final LocalDateTime[] localDateTimes = new LocalDateTime[] { LocalDateTime.of(2004, 2, 25, 12, 11, 10), LocalDateTime.of(1980, 3, 11, 13, 12, 11) };
-    
-    private static final org.joda.time.LocalDateTime[] jodaLocalDateTimes = new org.joda.time.LocalDateTime[] { 
-        new org.joda.time.LocalDateTime(2004, 2, 25, 12, 11, 10), 
+
+    private static final org.joda.time.LocalDateTime[] jodaLocalDateTimes = new org.joda.time.LocalDateTime[] {
+        new org.joda.time.LocalDateTime(2004, 2, 25, 12, 11, 10),
         new org.joda.time.LocalDateTime(1980, 3, 11, 13, 12, 11) };
 
     private static EntityManagerFactory factory;
@@ -70,13 +70,13 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDateTimes.length; i++) {
 
             LocalDateTimeHolder item = manager.find(LocalDateTimeHolder.class, Long.valueOf(i));
@@ -86,16 +86,16 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localDateTimes[i], item.getLocalDateTime());
         }
-        
+
         verifyDatabaseTable(manager, LocalDateTimeHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-    
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -104,9 +104,9 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < localDateTimes.length; i++) {
 
             LocalDateTimeJoda item = new LocalDateTimeJoda();
@@ -118,13 +118,13 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDateTimes.length; i++) {
 
             LocalDateTimeHolder item = manager.find(LocalDateTimeHolder.class, Long.valueOf(i));
@@ -136,10 +136,10 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         }
         manager.close();
     }
-    
+
     @Test @Ignore // Nanos are not properly supported by JodaTime type
     public void testNanosWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -148,9 +148,9 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         LocalDateTimeHolder item = new LocalDateTimeHolder();
         item.setId(1);
         item.setName("test_nanos1");
@@ -158,13 +158,13 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
 
         manager.persist(item);
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         LocalDateTimeJoda jodaItem = manager.find(LocalDateTimeJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
@@ -173,11 +173,11 @@ public class TestPersistentLocalDateTime extends DatabaseCapable {
         assertEquals(new org.joda.time.LocalDateTime(2010, 8, 1, 10, 10, 10, 111), jodaItem.getLocalDateTime());
 
         manager.close();
-        
+
         manager = factory.createEntityManager();
 
         item = manager.find(LocalDateTimeHolder.class, Long.valueOf(1));
- 
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());

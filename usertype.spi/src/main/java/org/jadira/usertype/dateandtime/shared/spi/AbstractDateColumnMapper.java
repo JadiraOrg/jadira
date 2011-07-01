@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T, Date> {
 
     private static final long serialVersionUID = -8841076386862845448L;
-    
+
     public final DateType getHibernateType() {
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
             return (DateType) Hibernate36Helper.getHibernateType("DATE");
@@ -33,16 +33,16 @@ public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T
             return (DateType) Hibernate.DATE;
         }
     }
-    
+
     public final int getSqlType() {
         return Types.DATE;
     }
-    
+
     public abstract T fromNonNullValue(Date value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract Date toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

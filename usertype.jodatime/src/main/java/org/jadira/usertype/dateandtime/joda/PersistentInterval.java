@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,15 +33,15 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
     private static final long serialVersionUID = 1364221029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new TimestampColumnLocalDateTimeMapper() };
-    
+
     private static final String[] propertyNames = new String[]{ "begin", "end" };
-    
+
     @Override
     protected Interval fromConvertedColumns(Object[] convertedColumns) {
 
         LocalDateTime begin = (LocalDateTime) convertedColumns[0];
         LocalDateTime end = (LocalDateTime) convertedColumns[1];
-        
+
         return new Interval(begin.toDateTime(DateTimeZone.UTC), end.toDateTime(DateTimeZone.UTC));
     }
 
@@ -55,9 +55,9 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
 
         return new Object[] { value.getStart().toLocalDateTime(), value.getEnd().toLocalDateTime() };
     }
-    
+
     public String[] getPropertyNames() {
-        
+
         return ArrayUtils.copyOf(propertyNames);
     }
 }

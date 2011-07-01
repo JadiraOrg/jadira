@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
     public final int getSqlType() {
         return Types.BIGINT;
     }
-    
+
     public final BigIntegerType getHibernateType() {
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
             return (BigIntegerType) Hibernate36Helper.getHibernateType("BIG_INTEGER");
@@ -37,12 +37,12 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
             return (BigIntegerType) Hibernate.BIG_INTEGER;
         }
     }
-    
+
     public abstract T fromNonNullValue(BigInteger value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract BigInteger toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ public class DateColumnOffsetDateMapper extends AbstractDateColumnMapper<OffsetD
     public static final DateTimeFormatter DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
     private ZoneOffset databaseZone = ZoneOffset.UTC;
-    
+
     private ZoneOffset javaZone = null;
 
     @Override
@@ -47,7 +47,7 @@ public class DateColumnOffsetDateMapper extends AbstractDateColumnMapper<OffsetD
 
     @Override
     public OffsetDate fromNonNullValue(Date value) {
-        
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
 
@@ -65,9 +65,9 @@ public class DateColumnOffsetDateMapper extends AbstractDateColumnMapper<OffsetD
     public Date toNonNullValue(OffsetDate value) {
 
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
-        
+
         value = value.withOffset(currentDatabaseZone);
-        
+
         String formattedTimestamp = DATE_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
@@ -76,7 +76,7 @@ public class DateColumnOffsetDateMapper extends AbstractDateColumnMapper<OffsetD
         final Date timestamp = Date.valueOf(formattedTimestamp);
         return timestamp;
     }
-    
+
     public void setDatabaseZone(ZoneOffset databaseZone) {
         this.databaseZone = databaseZone;
     }

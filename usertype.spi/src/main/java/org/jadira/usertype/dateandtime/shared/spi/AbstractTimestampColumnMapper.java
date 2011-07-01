@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,16 +33,16 @@ public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMap
             return (TimestampType) Hibernate.TIMESTAMP;
         }
     }
-    
+
     public final int getSqlType() {
         return Types.TIMESTAMP;
     }
-        
+
     public abstract T fromNonNullValue(Timestamp value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract Timestamp toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class ZonedDateTimeAsTimestampStringOffsetAndStringZoneHolder implements 
     @Columns(columns = { @Column(name = "MY_DATE"), @Column(name = "MY_OFFSET"), @Column(name = "MY_ZONE") })
     @Type(type = "test_ZonedDateTimeAsTimestampStringOffsetAndStringZoneType")
     private ZonedDateTime zonedDateTime;
-    
+
     public long getId() {
         return id;
     }

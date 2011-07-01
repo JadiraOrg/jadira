@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -39,26 +39,26 @@ import org.junit.Test;
 
 public class TestPersistentPeriodAsString extends DatabaseCapable {
 
-    private static final Period[] periods = new Period[] { 
-        Period.ofDays(2), 
-        Period.ofSeconds(30), 
-        Period.ofMonths(3), 
-        Period.ofSeconds(30), 
-        Period.of(4, 35, 40, 141, 0, 0, 0), 
+    private static final Period[] periods = new Period[] {
+        Period.ofDays(2),
+        Period.ofSeconds(30),
+        Period.ofMonths(3),
+        Period.ofSeconds(30),
+        Period.of(4, 35, 40, 141, 0, 0, 0),
         Period.of(28, 10, 2, 2, 4, 35, 40000000),
         Period.of(28, 10, 0, 16, 4, 35, 40000000)
     };
 
-    private static final org.joda.time.Period[] jodaPeriods = new org.joda.time.Period[] { 
-        org.joda.time.Period.days(2), 
-        org.joda.time.Period.seconds(30), 
-        org.joda.time.Period.months(3), 
-        org.joda.time.Period.seconds(30), 
-        new org.joda.time.Period(4, 35, 0, 40, 141, 0, 0, 0), 
+    private static final org.joda.time.Period[] jodaPeriods = new org.joda.time.Period[] {
+        org.joda.time.Period.days(2),
+        org.joda.time.Period.seconds(30),
+        org.joda.time.Period.months(3),
+        org.joda.time.Period.seconds(30),
+        new org.joda.time.Period(4, 35, 0, 40, 141, 0, 0, 0),
         new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 40),
         new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40)
     };
-    
+
     private static EntityManagerFactory factory;
 
     @BeforeClass
@@ -71,7 +71,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         factory.close();
     }
 
-    @Test    
+    @Test
     public void testPersist() throws SQLException, IOException {
 
         EntityManager manager = factory.createEntityManager();
@@ -87,15 +87,15 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-            
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < periods.length; i++) {
-            
+
             PeriodAsStringHolder item = manager.find(PeriodAsStringHolder.class, Long.valueOf(i));
 
             Assert.assertNotNull(item);
@@ -103,16 +103,16 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
             Assert.assertEquals("test_" + i, item.getName());
             Assert.assertEquals(periods[i], item.getPeriod());
         }
-      
+
         verifyDatabaseTable(manager, PeriodAsStringHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-        
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -121,9 +121,9 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < periods.length; i++) {
 
             PeriodJoda item = new PeriodJoda();
@@ -135,13 +135,13 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < periods.length; i++) {
 
             PeriodAsStringHolder item = manager.find(PeriodAsStringHolder.class, Long.valueOf(i));
@@ -149,21 +149,21 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            
+
             Period expected = periods[i];
             long nanos = expected.getNanos();
             nanos = (nanos / 1000000L) * 1000000L;
             expected = expected.withNanos(nanos);
-            
+
             assertEquals(expected, item.getPeriod());
         }
         manager.close();
     }
-    
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -172,9 +172,9 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         PeriodAsStringHolder item = new PeriodAsStringHolder();
         item.setId(1);
         item.setName("test_nanos1");
@@ -182,13 +182,13 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
 
         manager.persist(item);
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         PeriodJoda jodaItem = manager.find(PeriodJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
@@ -197,11 +197,11 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         assertEquals(new org.joda.time.Period(0, 0, 0, 111), jodaItem.getPeriod());
 
         manager.close();
-        
+
         manager = factory.createEntityManager();
 
         item = manager.find(PeriodAsStringHolder.class, Long.valueOf(1));
- 
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());

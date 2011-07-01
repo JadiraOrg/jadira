@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,9 +33,9 @@ public abstract class AbstractLocationSafeUserType extends org.hibernate.type.Mu
     public final int[] sqlTypes() {
         return new int[] { sqlType() };
     }
-    
+
     protected final Calendar getUtcCalendar() {
-        
+
         final Calendar utcCalendar = Calendar.getInstance();
         utcCalendar.setTimeZone(TimeZone.getTimeZone("UTC"));
         return utcCalendar;
@@ -48,28 +48,28 @@ public abstract class AbstractLocationSafeUserType extends org.hibernate.type.Mu
     public boolean equals(Object x, Object y) {
         return (x == null) ? (y == null) : x.equals(y);
     }
-    
+
     @Override
     public int getHashCode(Object x, EntityMode entityMode) {
         return x.hashCode();
     }
-    
+
     public int hashCode(Object x)  throws HibernateException {
         return x.hashCode();
     }
 
     @Override
     public abstract int sqlType();
-    
+
     public abstract Class<?> returnedClass();
 
     @SuppressWarnings("rawtypes") public Class getReturnedClass() {
         return returnedClass();
     }
-    
+
     @Override
     protected abstract Object deepCopyNotNull(Object value) throws HibernateException;
-    
+
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return deepCopy(original);
     }
@@ -77,7 +77,7 @@ public abstract class AbstractLocationSafeUserType extends org.hibernate.type.Mu
     public Serializable disassemble(Object value) throws HibernateException {
         return (Serializable) deepCopy(value);
     }
- 
+
     public Object assemble(Serializable cached, Object owner) throws HibernateException {
         return deepCopy(cached);
     }
@@ -85,10 +85,10 @@ public abstract class AbstractLocationSafeUserType extends org.hibernate.type.Mu
     public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException {
         return nullSafeGet(resultSet, names[0]);
     }
-    
+
     @Override
     public void set(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
-        if (!(value instanceof java.sql.Date)) {                
+        if (!(value instanceof java.sql.Date)) {
             value = deepCopy(value);
         }
         st.setDate(index, (java.sql.Date) value, getUtcCalendar());

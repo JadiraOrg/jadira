@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -26,7 +26,7 @@ public class DbTimestampSeed extends JvmTimestampSeed {
     private static final long serialVersionUID = 5223082239565556715L;
 
     private final DbTimestampType helper = new DbTimestampType();
-    
+
     public Timestamp getTimestamp(SessionImplementor session) {
         Object result = helper.seed(session);
         return convertResult(result);
@@ -36,7 +36,7 @@ public class DbTimestampSeed extends JvmTimestampSeed {
         Object result = helper.next(current, session);
         return convertResult(result);
     }
-    
+
     private Timestamp convertResult(Object result) {
         if (result instanceof Timestamp) {
             return (Timestamp) result;

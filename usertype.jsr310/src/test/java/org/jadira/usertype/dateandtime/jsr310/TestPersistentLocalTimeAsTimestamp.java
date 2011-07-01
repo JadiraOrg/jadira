@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -65,13 +65,13 @@ public class TestPersistentLocalTimeAsTimestamp extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localTimes.length; i++) {
 
             LocalTimeAsTimestampHolder item = manager.find(LocalTimeAsTimestampHolder.class, Long.valueOf(i));
@@ -81,19 +81,19 @@ public class TestPersistentLocalTimeAsTimestamp extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i], item.getLocalTime());
         }
-        
+
         verifyDatabaseTable(manager, LocalTimeAsTimestampHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-        
+
 //    private static final class NormaliseNanosAdjuster implements TimeAdjuster {
 //
 //        public LocalTime adjustTime(LocalTime time) {
 //            if(time == null) { return null; }
-//            
+//
 //            int millis = (int)(time.getNanoOfSecond() / 1000000);
-//            
+//
 //            return LocalTime.of(time.getHourOfDay(), time.getMinuteOfHour(), time.getSecondOfMinute(), millis * 1000000);
 //        }
 //    }

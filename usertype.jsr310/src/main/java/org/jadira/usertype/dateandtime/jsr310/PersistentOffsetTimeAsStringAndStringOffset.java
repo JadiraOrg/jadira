@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,18 +33,18 @@ public class PersistentOffsetTimeAsStringAndStringOffset extends AbstractMultiCo
     private static final long serialVersionUID = 1364221029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
-    
+
     private static final String[] propertyNames = new String[]{ "time", "offset" };
-    
+
     @Override
     protected OffsetTime fromConvertedColumns(Object[] convertedColumns) {
 
         LocalTime datePart = (LocalTime) convertedColumns[0];
         ZoneOffset offset = (ZoneOffset) convertedColumns[1];
-        
+
         return OffsetTime.of(datePart, offset);
     }
-  
+
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
@@ -56,7 +56,7 @@ public class PersistentOffsetTimeAsStringAndStringOffset extends AbstractMultiCo
 
         return new Object[] { value.toLocalTime(), value.getOffset() };
     }
-    
+
     public String[] getPropertyNames() {
         return propertyNames;
     }

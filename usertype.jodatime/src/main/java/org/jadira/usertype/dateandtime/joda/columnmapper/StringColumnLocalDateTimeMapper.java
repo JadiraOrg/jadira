@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,15 +21,15 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
 public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<LocalDateTime> {
-    
+
     private static final long serialVersionUID = -6885561256539185520L;
 
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = ISODateTimeFormat.localDateOptionalTimeParser();
-    
+
     public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = ISODateTimeFormat.ordinalDateTime();
-    
+
     @Override
-    public LocalDateTime fromNonNullValue(String s) { 
+    public LocalDateTime fromNonNullValue(String s) {
         return LOCAL_DATETIME_PARSER.parseDateTime(s).toLocalDateTime();
     }
 

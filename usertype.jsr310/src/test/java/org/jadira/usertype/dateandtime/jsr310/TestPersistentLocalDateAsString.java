@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -66,13 +66,13 @@ public class TestPersistentLocalDateAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < localDates.length; i++) {
 
             LocalDateAsStringHolder item = manager.find(LocalDateAsStringHolder.class, Long.valueOf(i));
@@ -82,9 +82,9 @@ public class TestPersistentLocalDateAsString extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
+
         verifyDatabaseTable(manager, LocalDateAsStringHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }

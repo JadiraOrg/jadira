@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
 import org.joda.time.DateTimeZone;
 
 public class StringColumnDateTimeZoneMapper extends AbstractStringColumnMapper<DateTimeZone> {
-    
+
     private static final long serialVersionUID = 4205713919952452881L;
 
     @Override

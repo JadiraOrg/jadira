@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
         .appendLiteral(':').appendSecondOfMinute(2)
         .appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFractionOfSecond(3, 9).toParser())
         .appendTimeZoneOffset("Z", true, 2, 4).toFormatter();
-    
+
     @Override
-    public Instant fromNonNullValue(String s) { 
+    public Instant fromNonNullValue(String s) {
         return LOCAL_DATETIME_FORMATTER.parseDateTime(s).toInstant();
     }
 

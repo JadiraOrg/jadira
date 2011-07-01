@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
     private static final long serialVersionUID = 4610718111031354395L;
 
     private static final String TIME_FORMAT = "HH:mm:ss";
-    
+
     @Override
     public java.sql.Time deepCopyNotNull(Object value) {
         return new java.sql.Time(((Date) value).getTime());
@@ -44,7 +44,7 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
 
     @Override
     public void set(PreparedStatement st, Object timeValue, int index) throws SQLException {
-        if (!(timeValue instanceof Time)) {                
+        if (!(timeValue instanceof Time)) {
             timeValue = deepCopy(timeValue);
         }
         st.setTime(index, (Time) timeValue);
@@ -59,7 +59,7 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
     public int sqlType() {
         return Types.TIME;
     }
-    
+
     @Override
     public Time fromStringValue(String xml) throws HibernateException {
         try {
@@ -68,7 +68,7 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
             throw new HibernateException("could not parse XML Time value", ex);
         }
     }
-    
+
     @Override
     public String toString(Object timeValue) throws HibernateException {
         return '\'' + new Time( ( (java.util.Date) timeValue ).getTime() ).toString() + '\'';
@@ -78,4 +78,3 @@ public class LocationSafeTimeType extends AbstractLocationSafeUserType {
         return "locationSafeTime";
     }
 }
- 

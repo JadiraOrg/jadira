@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the Licensex.
@@ -32,7 +32,7 @@ public final class Hibernate36Helper {
 
     protected static final Class<?> ABSTRACT_STANDARD_BASIC_TYPE_CLASS = getAbstractStandardBasicTypeClass();
     protected static final boolean USE_STANDARD_BASIC_TYPE_API = ABSTRACT_STANDARD_BASIC_TYPE_CLASS == null ? false : true;
-    
+
     protected static final Class<?> ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS = getAbstractSingleColumnStandardBasicTypeClass();
     protected static final Class<?> STANDARD_BASIC_TYPES_CLASS = getStandardBasicTypesClass();
     protected static final Class<?> WRAPPER_OPTIONS_CLASS = getWrapperOptionsClass();
@@ -47,7 +47,7 @@ public final class Hibernate36Helper {
     public static boolean isHibernate36ApiAvailable() {
         return USE_STANDARD_BASIC_TYPE_API;
     }
-    
+
     public static Type getHibernateType(String name) {
 
         return (Type) readField(getStandardBasicTypesClass(), name, false);
@@ -129,7 +129,7 @@ public final class Hibernate36Helper {
         if (ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS == null) {
             return null;
         }
-        
+
         return readField(ABSTRACT_SINGLE_COLUMN_STANDARD_BASIC_TYPE_CLASS, "NO_OPTIONS", true);
     }
 
@@ -140,14 +140,14 @@ public final class Hibernate36Helper {
             return null;
         }
     }
-    
+
     private static Method obtainDeclaredMethod(Class<?> clazz, String methodName, Class<?>... params) {
 
         try {
             final Method method = clazz.getDeclaredMethod(methodName, params);
             method.setAccessible(true);
             return method;
-            
+
         } catch (SecurityException ex1) {
             throw new ReflectionException(
                     "Problem accessing " + methodName + " Method: " + ex1.getMessage(), ex1);
@@ -175,11 +175,11 @@ public final class Hibernate36Helper {
                             + ex3.getMessage(), ex3);
         }
     }
-    
+
     private static Object readField(Class<?> clazz, String fieldName, boolean isDeclared) {
-        
+
         try {
-            final Field field; 
+            final Field field;
             if (isDeclared) {
                 field = clazz.getDeclaredField(fieldName);
             } else {
@@ -195,6 +195,6 @@ public final class Hibernate36Helper {
             throw new ReflectionException("Problem accessing Field " + fieldName + ": " + ex3.getMessage(), ex3);
         } catch (NoSuchFieldException ex3) {
             throw new ReflectionException("Problem obtaining Field instance " + fieldName + ": " + ex3.getMessage(), ex3);
-        } 
+        }
     }
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,23 +29,23 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
 
         LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
         DateTimeZone offset = (DateTimeZone) convertedColumns[1];
-        
+
         final DateTime result;
-        
+
         if (datePart == null) {
             result = null;
         } else {
             result = new DateTime(
-                    datePart.getYear(), 
-                    datePart.getMonthOfYear(), 
-                    datePart.getDayOfMonth(), 
-                    datePart.getHourOfDay(), 
-                    datePart.getMinuteOfHour(), 
-                    datePart.getSecondOfMinute(), 
-                    datePart.getMillisOfSecond(), 
+                    datePart.getYear(),
+                    datePart.getMonthOfYear(),
+                    datePart.getDayOfMonth(),
+                    datePart.getHourOfDay(),
+                    datePart.getMinuteOfHour(),
+                    datePart.getSecondOfMinute(),
+                    datePart.getMillisOfSecond(),
                     offset);
         }
-        
+
         return result;
     }
 
@@ -53,5 +53,5 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
     protected Object[] toConvertedColumns(DateTime value) {
 
         return new Object[] { value.toLocalDateTime(), value.getZone() };
-    }    
+    }
 }

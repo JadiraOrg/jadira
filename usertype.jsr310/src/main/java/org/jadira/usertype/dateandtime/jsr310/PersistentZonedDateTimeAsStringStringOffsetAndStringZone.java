@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,19 +36,19 @@ public class PersistentZonedDateTimeAsStringStringOffsetAndStringZone extends Ab
     private static final long serialVersionUID = -1335371912886315820L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper(), new StringColumnTimeZoneMapper() };
-    
+
     private static final String[] propertyNames = new String[]{ "datetime", "offset", "timezone" };
-    
+
     @Override
     protected ZonedDateTime fromConvertedColumns(Object[] convertedColumns) {
 
         LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
         ZoneOffset offset = (ZoneOffset) convertedColumns[1];
         TimeZone timeZone = (TimeZone) convertedColumns[2];
-        
+
         return ZonedDateTime.of(OffsetDateTime.of(datePart, offset), timeZone);
     }
-  
+
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
@@ -59,7 +59,7 @@ public class PersistentZonedDateTimeAsStringStringOffsetAndStringZone extends Ab
 
         return new Object[] { value.toOffsetDateTime().toLocalDateTime(), value.toOffsetDateTime().getOffset(), value.getZone() };
     }
-    
+
     public String[] getPropertyNames() {
         return propertyNames;
     }

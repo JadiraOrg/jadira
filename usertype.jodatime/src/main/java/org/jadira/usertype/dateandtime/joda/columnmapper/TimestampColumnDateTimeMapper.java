@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss'.'").appendFractionOfSecond(0, 9).toFormatter();
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
-    
+
     private DateTimeZone javaZone = null;
 
     @Override
@@ -44,7 +44,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
-        
+
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         DateTimeZone currentJavaZone = javaZone == null ? ZoneHelper.getDefault() : javaZone;
 
@@ -61,9 +61,9 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     public Timestamp toNonNullValue(DateTime value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         value = value.withZone(currentDatabaseZone);
-        
+
         String formattedTimestamp = DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
@@ -72,7 +72,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }
-    
+
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }

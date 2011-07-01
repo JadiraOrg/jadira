@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,16 +37,16 @@ import org.junit.Test;
 
 public class TestPersistentDurationAsString extends DatabaseCapable {
 
-    private static final Duration[] durations = new Duration[] { 
-        Duration.ZERO, 
-        Duration.ofSeconds(30), 
-        Period.ofSeconds(30).toDuration(), 
+    private static final Duration[] durations = new Duration[] {
+        Duration.ZERO,
+        Duration.ofSeconds(30),
+        Period.ofSeconds(30).toDuration(),
         Duration.between(OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).minusMonths(3).atMidnight(), OffsetDate.of(2010, 4, 1, ZoneOffset.UTC).atMidnight()) };
-    
-    private static final org.joda.time.Duration[] jodaDurations = new org.joda.time.Duration[] { 
-        org.joda.time.Duration.ZERO, 
-        new org.joda.time.Duration(30 * 1000), 
-        new org.joda.time.Period(0, 0, 30, 0).toDurationFrom(new org.joda.time.LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(org.joda.time.DateTimeZone.UTC)), 
+
+    private static final org.joda.time.Duration[] jodaDurations = new org.joda.time.Duration[] {
+        org.joda.time.Duration.ZERO,
+        new org.joda.time.Duration(30 * 1000),
+        new org.joda.time.Period(0, 0, 30, 0).toDurationFrom(new org.joda.time.LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(org.joda.time.DateTimeZone.UTC)),
         new org.joda.time.Duration(new org.joda.time.DateMidnight(
                 2010, 4, 1, org.joda.time.DateTimeZone.UTC).minusMonths(3), new org.joda.time.DateMidnight(2010, 4, 1, org.joda.time.DateTimeZone.UTC)) };
 
@@ -68,7 +68,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < durations.length; i++) {
 
             DurationAsStringHolder item = new DurationAsStringHolder();
@@ -80,15 +80,15 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
 
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < durations.length; i++) {
-            
+
             DurationAsStringHolder item = manager.find(DurationAsStringHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
@@ -98,14 +98,14 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
 
         verifyDatabaseTable(manager, DurationAsStringHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-    
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -114,9 +114,9 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         for (int i = 0; i < durations.length; i++) {
 
             DurationJoda item = new DurationJoda();
@@ -128,13 +128,13 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < durations.length; i++) {
 
             DurationAsStringHolder item = manager.find(DurationAsStringHolder.class, Long.valueOf(i));
@@ -145,9 +145,9 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
             assertEquals(durations[i], item.getDuration());
         }
         manager.close();
-        
+
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < durations.length; i++) {
 
             DurationJoda item = manager.find(DurationJoda.class, Long.valueOf(i));
@@ -159,11 +159,11 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
         manager.close();
     }
-    
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -172,9 +172,9 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         DurationAsStringHolder item = new DurationAsStringHolder();
         item.setId(1);
         item.setName("test_nanos1");
@@ -182,13 +182,13 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
 
         manager.persist(item);
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         DurationJoda jodaItem = manager.find(DurationJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
@@ -197,11 +197,11 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         assertEquals(new org.joda.time.Duration(0), jodaItem.getDuration());
 
         manager.close();
-        
+
         manager = factory.createEntityManager();
 
         item = manager.find(DurationAsStringHolder.class, Long.valueOf(1));
- 
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());

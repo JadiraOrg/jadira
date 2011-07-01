@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -30,13 +30,13 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<T, J>> extends AbstractUserType implements EnhancedUserType, Serializable {
 
     private static final long serialVersionUID = -8258683760413283329L;
-    
+
     private final C columnMapper;
     private final int[] sqlTypes;
 
     @SuppressWarnings("unchecked")
     public AbstractSingleColumnUserType() {
-        
+
         try {
             columnMapper = (C) TypeHelper.getTypeArguments(AbstractSingleColumnUserType.class, getClass()).get(2).newInstance();
         } catch (InstantiationException ex) {
@@ -46,20 +46,20 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         }
         sqlTypes = new int[] { getColumnMapper().getSqlType() };
     }
-    
+
     public final C getColumnMapper() {
         return columnMapper;
     }
-    
+
     public Class<T> returnedClass() {
         return getColumnMapper().returnedClass();
     }
-    
+
     public final int[] sqlTypes() {
         return copyOf(sqlTypes);
     }
-    
-    @SuppressWarnings({ "unchecked" }) 
+
+    @SuppressWarnings({ "unchecked" })
     public T nullSafeGet(ResultSet resultSet, String[] strings, Object object) throws HibernateException, SQLException {
         J converted;
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
@@ -67,14 +67,14 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         } else {
             converted = (J) ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeGet(resultSet, strings[0]);
         }
-        
+
         if (converted == null) {
             return null;
         }
 
         return getColumnMapper().fromNonNullValue(converted);
     }
-    
+
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index) throws HibernateException, SQLException {
 
         final J transformedValue;
@@ -84,14 +84,14 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
             @SuppressWarnings("unchecked") T myValue = (T) value;
             transformedValue = getColumnMapper().toNonNullValue(myValue);
         }
-        
+
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
             Hibernate36Helper.nullSafeSet(getColumnMapper(), preparedStatement, transformedValue, index);
         } else {
             ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeSet(preparedStatement, transformedValue, index);
         }
     }
-    
+
     public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);
@@ -101,7 +101,7 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
             return ((org.hibernate.type.NullableType) getColumnMapper().getHibernateType()).nullSafeToString(convertedObject);
         }
     }
-       
+
     public String toXMLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         return getColumnMapper().toNonNullString(myObject);

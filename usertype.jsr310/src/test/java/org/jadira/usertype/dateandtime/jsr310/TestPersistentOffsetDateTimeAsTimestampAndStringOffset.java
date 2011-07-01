@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -83,9 +83,9 @@ public class TestPersistentOffsetDateTimeAsTimestampAndStringOffset extends Data
             assertEquals("test_" + i, item.getName());
             assertEquals(offsetDateTimes[i], item.getOffsetDateTime());
         }
-        
+
         verifyDatabaseTable(manager, OffsetDateTimeAsTimestampAndStringOffsetHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,9 +28,9 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 /**
  * Persist {@link OffsetTime} via Hibernate using nanoseconds of the day. This uses a long value stored as nanoseconds
  * in the database.
- * The type is stored using UTC timezone and presented in the 
+ * The type is stored using UTC timezone and presented in the
  * JVM using the JVM's default zone.
- * 
+ *
  * Alternatively provide the 'databaseZone' parameter in the {@link javax.time.calendar.TimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
@@ -43,9 +43,9 @@ public class PersistentOffsetTimeAsTimestamp extends AbstractSingleColumnUserTyp
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {
-            
+
             TimestampColumnOffsetTimeMapper columnMapper = (TimestampColumnOffsetTimeMapper) getColumnMapper();
-            
+
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {

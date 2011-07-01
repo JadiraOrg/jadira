@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -24,11 +24,11 @@ import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T, Long> {
 
     private static final long serialVersionUID = 6892220362704239520L;
-    
+
     public final int getSqlType() {
         return Types.BIGINT;
     }
-    
+
     public final LongType getHibernateType() {
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
             return (LongType) Hibernate36Helper.getHibernateType("LONG");
@@ -36,12 +36,12 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
             return (LongType) Hibernate.LONG;
         }
     }
-    
+
     public abstract T fromNonNullValue(Long value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract Long toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

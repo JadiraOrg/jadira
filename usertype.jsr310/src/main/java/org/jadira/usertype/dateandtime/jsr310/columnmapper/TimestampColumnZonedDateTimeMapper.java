@@ -1,5 +1,5 @@
 /*
-;po;. *  Copyright 2010 Christopher Pheby
+;po;. *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
     public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
 
     private TimeZone databaseZone = TimeZone.UTC;
-    
+
     private TimeZone javaZone = null;
 
     @Override
@@ -47,7 +47,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
 
     @Override
     public ZonedDateTime fromNonNullValue(Timestamp value) {
-        
+
         TimeZone currentDatabaseZone = databaseZone == null ? getDefaultTimeZone() : databaseZone;
         TimeZone currentJavaZone = javaZone == null ? getDefaultTimeZone() : javaZone;
 
@@ -65,9 +65,9 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
     public Timestamp toNonNullValue(ZonedDateTime value) {
 
         TimeZone currentDatabaseZone = databaseZone == null ? getDefaultTimeZone() : databaseZone;
-        
+
         value = value.withZoneSameInstant(currentDatabaseZone);
-        
+
         String formattedTimestamp = DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
@@ -76,7 +76,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }
-    
+
     public void setDatabaseZone(TimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }

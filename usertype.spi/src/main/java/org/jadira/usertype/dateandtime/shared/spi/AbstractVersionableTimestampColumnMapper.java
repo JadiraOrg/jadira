@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 public abstract class AbstractVersionableTimestampColumnMapper<T> extends AbstractTimestampColumnMapper<T> implements VersionableColumnMapper<T, Timestamp> {
 
     private static final long serialVersionUID = -1406891387234804017L;
-    
+
     public Timestamp generateCurrentValue() {
         return new Timestamp(System.currentTimeMillis());
     }

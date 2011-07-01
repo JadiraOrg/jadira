@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ public class ZoneHelper {
 
     private ZoneHelper() {
     }
-    
+
     public static ZoneOffset getDefaultZoneOffset() {
 
         ZoneOffset zone = null;
@@ -46,7 +46,7 @@ public class ZoneHelper {
         }
         return zone;
     }
-        
+
     public static TimeZone getDefaultTimeZone() {
 
         TimeZone zone = null;
@@ -62,7 +62,7 @@ public class ZoneHelper {
             if (zone == null) {
                 zone = TimeZone.of(java.util.TimeZone.getDefault().getID());
             }
-        } catch (RuntimeException ex) { 
+        } catch (RuntimeException ex) {
             zone = null;
         }
         if (zone == null) {

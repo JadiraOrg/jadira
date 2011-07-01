@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ public class StringColumnLocalDateMapper extends AbstractStringColumnMapper<Loca
     private static final long serialVersionUID = -6885561256539185520L;
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = ISODateTimeFormat.date();
-    
+
     @Override
-    public LocalDate fromNonNullValue(String s) { 
+    public LocalDate fromNonNullValue(String s) {
         return LOCAL_DATE_FORMATTER.parseDateTime(s).toLocalDate();
     }
 

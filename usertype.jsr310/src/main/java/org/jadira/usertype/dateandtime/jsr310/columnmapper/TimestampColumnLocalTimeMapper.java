@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,10 +27,10 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
 public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 1921591625617366103L;
-    
+
     public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
-     
+
     @Override
     public LocalTime fromNonNullString(String s) {
         return LocalTime.parse(s);

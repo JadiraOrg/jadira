@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,15 +33,15 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static <U> U[] copyOf(U[] objectArray) {
-        
+
     	Class<?> arrayClass = objectArray.getClass();
         @SuppressWarnings("unchecked") Class<U> componentClass = (Class<U>) arrayClass.getComponentType();
-        
+
         @SuppressWarnings("unchecked") U[] copy = (U[]) Array.newInstance(componentClass, objectArray.length);
         System.arraycopy(objectArray, 0, copy, 0, objectArray.length);
         return copy;
     }
-    
+
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of ints
 	 * @param <U> The type of input array
@@ -49,7 +49,7 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static int[] copyOf(int[] intArray) {
-        
+
         int[] copy = new int[intArray.length];
         System.arraycopy(intArray, 0, copy, 0, intArray.length);
         return copy;
@@ -62,12 +62,12 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static short[] copyOf(short[] shortArray) {
-        
+
     	short[] copy = new short[shortArray.length];
         System.arraycopy(shortArray, 0, copy, 0, shortArray.length);
         return copy;
     }
-    
+
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of long
 	 * @param <U> The type of input array
@@ -75,7 +75,7 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static long[] copyOf(long[] longArray) {
-        
+
     	long[] copy = new long[longArray.length];
         System.arraycopy(longArray, 0, copy, 0, longArray.length);
         return copy;
@@ -88,12 +88,12 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static byte[] copyOf(byte[] byteArray) {
-        
+
     	byte[] copy = new byte[byteArray.length];
         System.arraycopy(byteArray, 0, copy, 0, byteArray.length);
         return copy;
     }
-    
+
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of char
 	 * @param <U> The type of input array
@@ -101,12 +101,12 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static char[] copyOf(char[] charArray) {
-        
+
     	char[] copy = new char[charArray.length];
         System.arraycopy(charArray, 0, copy, 0, charArray.length);
         return copy;
     }
-    
+
 	/**
 	 * This method does a similar job to JSE 6.0's Arrays.copyOf() method and overloads the method for use with arrays of float
 	 * @param <U> The type of input array
@@ -114,7 +114,7 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static float[] copyOf(float[] floatArray) {
-        
+
     	float[] copy = new float[floatArray.length];
         System.arraycopy(floatArray, 0, copy, 0, floatArray.length);
         return copy;
@@ -127,7 +127,7 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static double[] copyOf(double[] doubleArray) {
-        
+
     	double[] copy = new double[doubleArray.length];
         System.arraycopy(doubleArray, 0, copy, 0, doubleArray.length);
         return copy;
@@ -140,7 +140,7 @@ public class ArrayUtils {
 	 * @return A copy of the input, of component type <U>
 	 */
     public static boolean[] copyOf(boolean[] booleanArray) {
-        
+
     	boolean[] copy = new boolean[booleanArray.length];
         System.arraycopy(booleanArray, 0, copy, 0, booleanArray.length);
         return copy;

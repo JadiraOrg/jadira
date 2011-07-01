@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ public class StringColumnYearMapper extends AbstractStringColumnMapper<Year> {
     private static final long serialVersionUID = -7158493703736747997L;
 
     public static final DateTimeFormatter YEAR_FORMATTER = new DateTimeFormatterBuilder().appendPattern("MMM").toFormatter();
-    
+
     @Override
     public Year fromNonNullValue(String value) {
         return Year.of(YEAR_FORMATTER.parse(value).merge().get(Year.rule()));

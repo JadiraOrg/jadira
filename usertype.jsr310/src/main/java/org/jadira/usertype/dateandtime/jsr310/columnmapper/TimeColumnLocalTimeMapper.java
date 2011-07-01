@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,7 +29,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     private static final long serialVersionUID = 6734385103313158326L;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-    
+
     @Override
     public LocalTime fromNonNullString(String s) {
         return LocalTime.parse(s);

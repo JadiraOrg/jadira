@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -33,16 +33,16 @@ public abstract class AbstractTimeColumnMapper<T> extends AbstractColumnMapper<T
             return (TimeType) Hibernate.TIME;
         }
     }
-    
+
     public final int getSqlType() {
         return Types.TIME;
     }
-    
+
     public abstract T fromNonNullValue(Time value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract Time toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMappe
     public final int getSqlType() {
         return Types.INTEGER;
     }
-    
+
     public final IntegerType getHibernateType() {
         if (Hibernate36Helper.isHibernate36ApiAvailable()) {
             return (IntegerType) Hibernate36Helper.getHibernateType("INTEGER");
@@ -36,12 +36,12 @@ public abstract class AbstractIntegerColumnMapper<T> extends AbstractColumnMappe
             return (IntegerType) Hibernate.INTEGER;
         }
     }
-    
+
     public abstract T fromNonNullValue(Integer value);
-    
+
     public abstract T fromNonNullString(String s);
 
     public abstract Integer toNonNullValue(T value);
-    
+
     public abstract String toNonNullString(T value);
 }

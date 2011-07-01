@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained. The type is stored using UTC timezone.
- * 
+ *
  * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#of(String)} format
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
@@ -38,13 +38,13 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
     private static final long serialVersionUID = -1184009888235202420L;
 
     public void setParameterValues(Properties parameters) {
-        
+
         super.setParameterValues(parameters);
-        
+
         if (parameters != null) {
-            
+
             TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
-            
+
             String databaseZone = parameters.getProperty("databaseZone");
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
@@ -55,7 +55,7 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
             }
         }
     }
-    
+
     @Override
     public int compare(Object o1, Object o2) {
         return ((Instant) o1).compareTo((Instant) o2);

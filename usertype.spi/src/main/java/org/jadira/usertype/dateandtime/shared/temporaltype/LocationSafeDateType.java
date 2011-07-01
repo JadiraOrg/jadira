@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
     private static final long serialVersionUID = 3750449908655738619L;
 
     private static final String DATE_FORMAT = "dd MMMM yyyy";
-    
+
     @Override
     public java.sql.Date deepCopyNotNull(Object value) {
         return new java.sql.Date(((java.util.Date) value).getTime());
@@ -57,7 +57,7 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
             throw new HibernateException("could not parse XML Date value", ex);
         }
     }
-    
+
     @Override
     public String toString(Object dateValue) throws HibernateException {
         return new SimpleDateFormat(DATE_FORMAT).format((java.util.Date) dateValue);
@@ -67,4 +67,3 @@ public class LocationSafeDateType extends AbstractLocationSafeUserType {
         return "locationSafeDate";
     }
 }
- 

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -34,13 +34,13 @@ public abstract class AbstractMultiColumnDateMidnight extends AbstractMultiColum
         DateTimeZone offset = (DateTimeZone) convertedColumns[1];
 
         final DateMidnight result;
-        
+
         if (datePart == null) {
             result = null;
         } else {
             result = new DateMidnight(datePart.getYear(), datePart.getMonthOfYear(), datePart.getDayOfMonth(), offset);
         }
-        
+
         return result;
     }
 

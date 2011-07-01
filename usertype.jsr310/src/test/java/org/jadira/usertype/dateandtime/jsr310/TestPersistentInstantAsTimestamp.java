@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -42,8 +42,8 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
     private static final Instant[] instants = new Instant[] { Instant.of(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760000000, ZoneOffset.of("Z"))),
             Instant.of(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.of("+02:00"))) };
 
-    private static final org.joda.time.Instant[] jodaInstants = 
-        new org.joda.time.Instant[] { 
+    private static final org.joda.time.Instant[] jodaInstants =
+        new org.joda.time.Instant[] {
             new org.joda.time.DateTime(2004, 2, 25, 17, 3, 45, 760, DateTimeZone.UTC).toInstant(),
             new org.joda.time.DateTime(1980, 3, 11, 2, 3, 45, 0, DateTimeZone.forID("+02:00")).toInstant() };
 
@@ -93,16 +93,16 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(instants[i], item.getInstant());
         }
-        
+
         verifyDatabaseTable(manager, InstantAsTimestampHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
-        
+
     @Test
     @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -111,7 +111,7 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
 
         for (int i = 0; i < instants.length; i++) {
@@ -125,13 +125,13 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < instants.length; i++) {
 
             InstantAsTimestampHolder item = manager.find(InstantAsTimestampHolder.class, Long.valueOf(i));
@@ -141,13 +141,13 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(instants[i], item.getInstant());
         }
-        
+
         manager.close();
     }
-        
+
     @Test @Ignore
     public void testNanosWithJodaTime() {
-        
+
         EntityManager manager = factory.createEntityManager();
 
         manager.getTransaction().begin();
@@ -156,9 +156,9 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
         }
         manager.flush();
         manager.getTransaction().commit();
-        
+
         manager.getTransaction().begin();
-        
+
         InstantAsTimestampHolder item = new InstantAsTimestampHolder();
         item.setId(1);
         item.setName("test_nanos1");
@@ -166,13 +166,13 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
 
         manager.persist(item);
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         InstantJoda jodaItem = manager.find(InstantJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
@@ -181,11 +181,11 @@ public class TestPersistentInstantAsTimestamp extends DatabaseCapable {
         assertEquals(new org.joda.time.DateTime(2010, 8, 1, 10, 10, 10, 111, DateTimeZone.UTC).toInstant(), jodaItem.getInstant());
 
         manager.close();
-        
+
         manager = factory.createEntityManager();
 
         item = manager.find(InstantAsTimestampHolder.class, Long.valueOf(1));
- 
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());

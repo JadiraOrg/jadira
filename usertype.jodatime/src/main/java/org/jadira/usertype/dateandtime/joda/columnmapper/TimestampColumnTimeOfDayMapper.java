@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import org.joda.time.TimeOfDay;
 public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = 1921591625617366103L;
-    
+
     @Override
     public TimeOfDay fromNonNullString(String s) {
         return new TimeOfDay(s);
@@ -53,7 +53,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
-        
+
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }

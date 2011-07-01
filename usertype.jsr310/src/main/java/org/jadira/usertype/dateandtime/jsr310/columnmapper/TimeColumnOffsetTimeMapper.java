@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -32,11 +32,11 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
     private static final long serialVersionUID = 6734385103313158326L;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-    
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
-    
+
     private ZoneOffset javaZone = null;
-    
+
     @Override
     public OffsetTime fromNonNullString(String s) {
         return OffsetTime.parse(s);
@@ -44,12 +44,12 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     @Override
     public OffsetTime fromNonNullValue(Time value) {
-        
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
-        
+
         LocalTime localTime = LOCAL_TIME_FORMATTER.parse(value.toString()).merge().get(LocalTime.rule());
-        
+
         OffsetTime time = localTime.atOffset(currentDatabaseZone);
         return time.withOffsetSameInstant(currentJavaZone);
     }
@@ -61,14 +61,14 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     @Override
     public Time toNonNullValue(OffsetTime value) {
-      
+
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
-        
+
         value = value.withOffsetSameInstant(currentDatabaseZone);
-        
+
         return Time.valueOf(LOCAL_TIME_FORMATTER.print(value));
     }
-    
+
     public void setDatabaseZone(ZoneOffset databaseZone) {
         this.databaseZone = databaseZone;
     }

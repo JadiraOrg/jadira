@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ import org.junit.Test;
 
 public class TestPersistentZonedDateAsTimestampStringOffsetAndStringZoneTime extends DatabaseCapable {
 
-    private static final ZonedDateTime[] zonedDateTimes = new ZonedDateTime[] { 
+    private static final ZonedDateTime[] zonedDateTimes = new ZonedDateTime[] {
         ZonedDateTime.of(OffsetDateTime.of(2004, 2, 25, 17, 3, 45, 760, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))),
         ZonedDateTime.of(OffsetDateTime.of(1980, 3, 11, 2, 3, 45, 0, ZoneOffset.ofHours(2)), TimeZone.of(ZoneOffset.ofHours(2))) };
 
@@ -86,9 +86,9 @@ public class TestPersistentZonedDateAsTimestampStringOffsetAndStringZoneTime ext
             assertEquals("test_" + i, item.getName());
             assertEquals(zonedDateTimes[i], item.getZonedDateTime());
         }
-        
+
         verifyDatabaseTable(manager, ZonedDateTimeAsTimestampStringOffsetAndStringZoneHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }
