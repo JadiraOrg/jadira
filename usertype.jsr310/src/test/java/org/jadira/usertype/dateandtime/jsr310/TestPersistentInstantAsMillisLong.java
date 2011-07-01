@@ -101,7 +101,6 @@ public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
     }
 
     @Test
-    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testRoundtripWithJodaTime() {
 
         EntityManager manager = factory.createEntityManager();
@@ -147,7 +146,6 @@ public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
     }
 
     @Test
-    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTime() {
 
         EntityManager manager = factory.createEntityManager();

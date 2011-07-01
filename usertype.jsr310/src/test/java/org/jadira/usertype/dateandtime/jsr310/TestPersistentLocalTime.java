@@ -144,7 +144,6 @@ public class TestPersistentLocalTime extends DatabaseCapable {
 
     @Test
     @SuppressWarnings("deprecation")
-    @Ignore // Joda Time Contrib is not compatible with Hibernate 3.6
     public void testNanosWithJodaTimeOfDay() {
 
         EntityManager manager = factory.createEntityManager();
