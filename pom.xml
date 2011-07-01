@@ -87,18 +87,18 @@
   		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
   	  	<site>
   	  	  	<id>usertype.sourceforge.net</id>
-  	  	  	<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs</url>
+  	  	  	<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs</url>
   	  	  	<name>Usertype Maven Site</name>
   	  	</site>
   	  	<!-- Old Sourceforge Repository
 		<repository>
 			<id>usertype.sourceforge.net.m2-repo</id>
-			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo</url>
+			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo</url>
 			<name>Usertype Maven 2 Repository</name>
   		</repository> 
   		<snapshotRepository>
   			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
-  			<url>scp://shell.sourceforge.net/home/groups/u/us/usertype/htdocs/m2-repo-snapshots</url>
+  			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo-snapshots</url>
   			<name>Usertype Maven 2 Snapshots Repository</name>
   		</snapshotRepository> -->
 		<repository>
