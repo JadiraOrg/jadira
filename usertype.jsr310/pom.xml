@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.usertype</groupId>
 		<artifactId>usertype.parent</artifactId>
-		<version>1.9</version>
+		<version>2.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -31,7 +31,7 @@
 	<artifactId>usertype.jsr310</artifactId>
 	<packaging>jar</packaging>
 
-	<version>1.9</version>
+	<version>2.0-SNAPSHOT</version>
 
 	<name>User Type for JSR310 with Hibernate</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
