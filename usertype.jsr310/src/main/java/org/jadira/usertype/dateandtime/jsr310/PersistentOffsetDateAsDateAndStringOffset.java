@@ -56,6 +56,7 @@ public class PersistentOffsetDateAsDateAndStringOffset extends AbstractMultiColu
         return new Object[] { value.toLocalDate(), value.getOffset() };
     }
 
+    @Override
     public String[] getPropertyNames() {
         return propertyNames;
     }

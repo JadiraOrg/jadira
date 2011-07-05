@@ -20,6 +20,7 @@ public abstract class AbstractVersionableLongColumnMapper<T> extends AbstractLon
 
     private static final long serialVersionUID = -1406891387234804017L;
 
+    @Override
     public Long generateCurrentValue() {
         try {
             T longValue = (T) returnedClass().newInstance();

@@ -36,6 +36,7 @@ public class PersistentDateMidnightAsString extends AbstractMultiColumnDateMidni
         return columnMappers;
     }
 
+    @Override
     public String[] getPropertyNames() {
         return ArrayUtils.copyOf(propertyNames);
     }

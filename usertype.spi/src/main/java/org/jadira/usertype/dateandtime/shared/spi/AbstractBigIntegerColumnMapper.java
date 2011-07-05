@@ -25,19 +25,25 @@ public abstract class AbstractBigIntegerColumnMapper<T> extends AbstractColumnMa
 
     private static final long serialVersionUID = 1702998875351962961L;
 
+    @Override
     public final int getSqlType() {
         return Types.BIGINT;
     }
 
+    @Override
     public final BigIntegerType getHibernateType() {
     	return StandardBasicTypes.BIG_INTEGER;
     }
 
+    @Override
     public abstract T fromNonNullValue(BigInteger value);
 
+    @Override
     public abstract T fromNonNullString(String s);
 
+    @Override
     public abstract BigInteger toNonNullValue(T value);
 
+    @Override
     public abstract String toNonNullString(T value);
 }

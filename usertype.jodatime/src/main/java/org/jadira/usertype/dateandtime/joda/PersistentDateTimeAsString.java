@@ -36,6 +36,7 @@ public class PersistentDateTimeAsString extends AbstractMultiColumnDateTime {
         return columnMappers;
     }
 
+    @Override
     public String[] getPropertyNames() {
         return ArrayUtils.copyOf(propertyNames);
     }

@@ -42,6 +42,7 @@ public class PersistentOffsetDateTime extends AbstractVersionableUserType<Offset
 
     private static final long serialVersionUID = 9030422333054503794L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

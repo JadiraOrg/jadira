@@ -24,19 +24,25 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
 
     private static final long serialVersionUID = 6892220362704239520L;
 
+    @Override
     public final int getSqlType() {
         return Types.BIGINT;
     }
 
+    @Override
     public final LongType getHibernateType() {
     	return StandardBasicTypes.LONG;
     }
 
+    @Override
     public abstract T fromNonNullValue(Long value);
 
+    @Override
     public abstract T fromNonNullString(String s);
 
+    @Override
     public abstract Long toNonNullValue(T value);
 
+    @Override
     public abstract String toNonNullString(T value);
 }

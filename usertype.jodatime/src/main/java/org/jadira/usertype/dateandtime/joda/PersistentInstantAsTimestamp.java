@@ -36,6 +36,7 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
 
     private static final long serialVersionUID = -1402055314572075132L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

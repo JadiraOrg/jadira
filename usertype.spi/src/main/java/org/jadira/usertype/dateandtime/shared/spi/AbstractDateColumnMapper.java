@@ -25,19 +25,25 @@ public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T
 
     private static final long serialVersionUID = -8841076386862845448L;
 
+    @Override
     public final DateType getHibernateType() {
         return StandardBasicTypes.DATE;
     }
 
+    @Override
     public final int getSqlType() {
         return Types.DATE;
     }
 
+    @Override
     public abstract T fromNonNullValue(Date value);
 
+    @Override
     public abstract T fromNonNullString(String s);
 
+    @Override
     public abstract Date toNonNullValue(T value);
 
+    @Override
     public abstract String toNonNullString(T value);
 }

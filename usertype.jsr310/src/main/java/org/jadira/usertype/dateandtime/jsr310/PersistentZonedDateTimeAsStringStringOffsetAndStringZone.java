@@ -60,6 +60,7 @@ public class PersistentZonedDateTimeAsStringStringOffsetAndStringZone extends Ab
         return new Object[] { value.toOffsetDateTime().toLocalDateTime(), value.toOffsetDateTime().getOffset(), value.getZone() };
     }
 
+    @Override
     public String[] getPropertyNames() {
         return propertyNames;
     }

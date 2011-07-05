@@ -78,6 +78,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     }
 
     @SuppressWarnings("unchecked")
+    @Override
     public Class<T> returnedClass() {
         return (Class<T>) TypeHelper.getTypeArguments(AbstractMultiColumnUserType.class, getClass()).get(0);
     }
@@ -85,6 +86,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     protected abstract ColumnMapper<?, ?>[] getColumnMappers();
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Override
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
 
         Object[] convertedColumns = new Object[getColumnMappers().length];
@@ -113,6 +115,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     protected abstract Object[] toConvertedColumns(T value);
 
     @SuppressWarnings("unchecked")
+    @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
         final Object[] valuesToSet = new Object[getColumnMappers().length];
@@ -136,15 +139,18 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
         }
     }
 
+    @Override
     public abstract String[] getPropertyNames();
 //    public String[] getPropertyNames() {
 //        return defaultPropertyNames;
 //    }
 
+    @Override
     public Type[] getPropertyTypes() {
         return copyOf(hibernateTypes);
     }
 
+    @Override
     public Object getPropertyValue(Object component, int property) throws HibernateException {
 
         if (!returnedClass().isAssignableFrom(component.getClass())) {
@@ -154,18 +160,22 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
         return cols[property];
     }
 
+    @Override
     public void setPropertyValue(Object component, int property, Object value) throws HibernateException {
         throw new HibernateException("Called setPropertyValue on an immutable type {" + component.getClass() + "}");
     }
 
+    @Override
     public Serializable disassemble(Object value, SessionImplementor session) throws HibernateException {
         return super.disassemble(value);
     }
 
+    @Override
     public Object assemble(Serializable cached, SessionImplementor session, Object owner) throws HibernateException {
         return super.assemble(cached, owner);
     }
 
+    @Override
     public Object replace(Object original, Object target, SessionImplementor session, Object owner) throws HibernateException {
         return super.replace(original, target, owner);
     }

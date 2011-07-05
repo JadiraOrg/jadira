@@ -21,6 +21,7 @@ public abstract class AbstractVersionableTimestampColumnMapper<T> extends Abstra
 
     private static final long serialVersionUID = -1406891387234804017L;
 
+    @Override
     public Timestamp generateCurrentValue() {
         return new Timestamp(System.currentTimeMillis());
     }

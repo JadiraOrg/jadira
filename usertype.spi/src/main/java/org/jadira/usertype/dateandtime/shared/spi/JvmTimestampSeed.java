@@ -24,10 +24,12 @@ public class JvmTimestampSeed implements Seed<Timestamp>, Serializable {
 
     private static final long serialVersionUID = -5960197971311717694L;
 
+    @Override
     public Timestamp getTimestamp(SessionImplementor session) {
         return new Timestamp(System.currentTimeMillis());
     }
 
+    @Override
     public Timestamp getNextTimestamp(Timestamp current, SessionImplementor session) {
         return new Timestamp(System.currentTimeMillis());
     }

@@ -57,6 +57,7 @@ public class PersistentOffsetDateTimeAsTimestampAndStringOffset extends Abstract
         return new Object[] { value.toLocalDateTime(), value.getOffset() };
     }
 
+    @Override
     public String[] getPropertyNames() {
         return propertyNames;
     }

@@ -56,6 +56,7 @@ public class PersistentInterval extends AbstractMultiColumnUserType<Interval> {
         return new Object[] { value.getStart().toLocalDateTime(), value.getEnd().toLocalDateTime() };
     }
 
+    @Override
     public String[] getPropertyNames() {
 
         return ArrayUtils.copyOf(propertyNames);

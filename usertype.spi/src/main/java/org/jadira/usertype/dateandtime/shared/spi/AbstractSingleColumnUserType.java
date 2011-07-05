@@ -24,7 +24,6 @@ import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.type.AbstractStandardBasicType;
 import org.hibernate.usertype.EnhancedUserType;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
@@ -52,15 +51,18 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         return columnMapper;
     }
 
+    @Override
     public Class<T> returnedClass() {
         return getColumnMapper().returnedClass();
     }
 
+    @Override
     public final int[] sqlTypes() {
         return copyOf(sqlTypes);
     }
 
     @SuppressWarnings({ "unchecked" })
+    @Override
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
         J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
 
@@ -71,6 +73,7 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         return getColumnMapper().fromNonNullValue(converted);
     }
 
+    @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
         final J transformedValue;
@@ -84,21 +87,21 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
     }
 
+    @Override
     public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);
-
-        @SuppressWarnings("unchecked") 
-        final AbstractStandardBasicType<J> hibernateType = ((AbstractStandardBasicType<J>) getColumnMapper().getHibernateType());
         
-        return hibernateType.toString(convertedObject);
+        return getColumnMapper().getHibernateType().toString(convertedObject);
     }
 
+    @Override
     public String toXMLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         return getColumnMapper().toNonNullString(myObject);
     }
 
+    @Override
     public T fromXMLString(String string) {
         return getColumnMapper().fromNonNullString(string);
     }

@@ -42,6 +42,7 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
 
     private static final long serialVersionUID = -917119312070336022L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

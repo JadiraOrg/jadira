@@ -30,6 +30,7 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
 
     private Seed<J> seed;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {
@@ -57,8 +58,10 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
         }
     }
 
+    @Override
     public abstract int compare(Object o1, Object o2);
 
+    @Override
     public T seed(SessionImplementor session) {
 
         final VersionableColumnMapper<T, J> columnMapper = getColumnMapper();
@@ -69,6 +72,7 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
         }
     }
 
+    @Override
     public T next(Object current, SessionImplementor session) {
         return seed(session);
     }

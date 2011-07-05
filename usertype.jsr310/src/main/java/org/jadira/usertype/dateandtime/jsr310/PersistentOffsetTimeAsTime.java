@@ -40,6 +40,7 @@ public class PersistentOffsetTimeAsTime extends AbstractSingleColumnUserType<Off
 
     private static final long serialVersionUID = 5138742305537333265L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {

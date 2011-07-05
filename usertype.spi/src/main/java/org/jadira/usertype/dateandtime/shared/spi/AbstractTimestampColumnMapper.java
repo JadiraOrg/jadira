@@ -25,19 +25,25 @@ public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMap
 
     private static final long serialVersionUID = -3070239764121234482L;
 
+    @Override
     public final TimestampType getHibernateType() {
     	return StandardBasicTypes.TIMESTAMP;
     }
 
+    @Override
     public final int getSqlType() {
         return Types.TIMESTAMP;
     }
 
+    @Override
     public abstract T fromNonNullValue(Timestamp value);
 
+    @Override
     public abstract T fromNonNullString(String s);
 
+    @Override
     public abstract Timestamp toNonNullValue(T value);
 
+    @Override
     public abstract String toNonNullString(T value);
 }

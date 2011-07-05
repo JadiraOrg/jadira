@@ -57,6 +57,7 @@ public class PersistentOffsetTimeAsTimestampAndStringOffset extends AbstractMult
         return new Object[] { value.toLocalTime(), value.getOffset() };
     }
 
+    @Override
     public String[] getPropertyNames() {
         return propertyNames;
     }

@@ -21,6 +21,7 @@ public abstract class AbstractVersionableBigIntegerColumnMapper<T> extends Abstr
 
     private static final long serialVersionUID = -1406891387234804017L;
 
+    @Override
     public BigInteger generateCurrentValue() {
         try {
             T bigInteger = (T) returnedClass().newInstance();

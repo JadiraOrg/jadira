@@ -41,6 +41,7 @@ public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Ti
 
     private static final long serialVersionUID = -6656619988954550389L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         super.setParameterValues(parameters);

@@ -37,8 +37,11 @@ public class LocationSafeDateTypeDescriptor extends DateTypeDescriptor {
 		};
 	}
 	
+	@Override
 	public <X> ValueExtractor<X> getExtractor(final JavaTypeDescriptor<X> javaTypeDescriptor) {
-		return new BasicExtractor<X>( javaTypeDescriptor, this ) {
+		
+		return new BasicExtractor<X>(javaTypeDescriptor, this) {
+			
 			@Override
 			protected X doExtract(ResultSet rs, String name, WrapperOptions options) throws SQLException {
 				return javaTypeDescriptor.wrap(rs.getDate(name, getUtcCalendar()), options);

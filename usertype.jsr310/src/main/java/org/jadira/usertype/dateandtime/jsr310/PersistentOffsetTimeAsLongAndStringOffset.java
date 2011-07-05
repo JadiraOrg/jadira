@@ -58,6 +58,7 @@ public class PersistentOffsetTimeAsLongAndStringOffset extends AbstractMultiColu
         return new Object[] { value.toLocalTime(), value.getOffset() };
     }
 
+    @Override
     public String[] getPropertyNames() {
         return propertyNames;
     }

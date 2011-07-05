@@ -40,6 +40,7 @@ public class PersistentOffsetDate extends AbstractSingleColumnUserType<OffsetDat
 
     private static final long serialVersionUID = 3168687813811832036L;
 
+    @Override
     public void setParameterValues(Properties parameters) {
 
         if (parameters != null) {

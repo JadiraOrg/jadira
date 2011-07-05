@@ -27,11 +27,13 @@ public class DbTimestampSeed extends JvmTimestampSeed {
 
     private final DbTimestampType helper = new DbTimestampType();
 
+    @Override
     public Timestamp getTimestamp(SessionImplementor session) {
         Object result = helper.seed(session);
         return convertResult(result);
     }
 
+    @Override
     public Timestamp getNextTimestamp(Timestamp current, SessionImplementor session) {
         Object result = helper.next(current, session);
         return convertResult(result);
