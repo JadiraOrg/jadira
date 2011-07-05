@@ -102,7 +102,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         manager.close();
     }
 
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
 
         EntityManager manager = factory.createEntityManager();
@@ -159,7 +159,7 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         manager.close();
     }
 
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testNanosWithJodaTime() {
 
         EntityManager manager = factory.createEntityManager();

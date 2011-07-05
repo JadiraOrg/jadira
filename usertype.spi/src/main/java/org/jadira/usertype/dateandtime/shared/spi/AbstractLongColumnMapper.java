@@ -17,9 +17,8 @@ package org.jadira.usertype.dateandtime.shared.spi;
 
 import java.sql.Types;
 
-import org.hibernate.Hibernate;
 import org.hibernate.type.LongType;
-import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
+import org.hibernate.type.StandardBasicTypes;
 
 public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T, Long> {
 
@@ -30,11 +29,7 @@ public abstract class AbstractLongColumnMapper<T> extends AbstractColumnMapper<T
     }
 
     public final LongType getHibernateType() {
-        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-            return (LongType) Hibernate36Helper.getHibernateType("LONG");
-        } else {
-            return (LongType) Hibernate.LONG;
-        }
+    	return StandardBasicTypes.LONG;
     }
 
     public abstract T fromNonNullValue(Long value);

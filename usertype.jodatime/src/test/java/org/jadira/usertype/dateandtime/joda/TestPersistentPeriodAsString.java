@@ -34,6 +34,7 @@ import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.joda.time.Period;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPersistentPeriodAsString extends DatabaseCapable {
@@ -108,7 +109,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         manager.close();
     }
         
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
@@ -153,7 +154,7 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
         manager.close();
     }
     
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testMillisWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

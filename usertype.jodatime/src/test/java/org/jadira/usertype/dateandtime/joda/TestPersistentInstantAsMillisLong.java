@@ -31,6 +31,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
@@ -93,7 +94,7 @@ public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
         manager.close();
     }
     
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();
@@ -138,7 +139,7 @@ public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
         manager.close();
     }
         
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testNanosWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

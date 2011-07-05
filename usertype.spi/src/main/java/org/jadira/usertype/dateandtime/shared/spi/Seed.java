@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.shared.spi;
 
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 
 public interface Seed<T> {
 

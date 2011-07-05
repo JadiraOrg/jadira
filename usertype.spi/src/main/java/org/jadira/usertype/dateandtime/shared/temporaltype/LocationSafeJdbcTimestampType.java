@@ -16,18 +16,18 @@
 package org.jadira.usertype.dateandtime.shared.temporaltype;
 
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
-import org.hibernate.type.descriptor.java.DateTypeDescriptor;
+import org.hibernate.type.descriptor.java.JdbcTimestampTypeDescriptor;
 
-public class LocationSafeDateType extends AbstractSingleColumnStandardBasicType<java.util.Date> {
+public class LocationSafeJdbcTimestampType extends AbstractSingleColumnStandardBasicType<java.util.Date> {
 
-    private static final long serialVersionUID = 3750449908655738619L;
+	private static final long serialVersionUID = 8893755992255179183L;
 
-    public LocationSafeDateType() {
-    	super(org.jadira.usertype.dateandtime.shared.temporaltype.descriptor.sql.LocationSafeDateTypeDescriptor.INSTANCE, DateTypeDescriptor.INSTANCE);
+	public LocationSafeJdbcTimestampType() {
+    	super(org.jadira.usertype.dateandtime.shared.temporaltype.descriptor.sql.LocationSafeTimestampTypeDescriptor.INSTANCE, JdbcTimestampTypeDescriptor.INSTANCE);
     }
 
     @Override
     public String getName() {
-        return "locationSafeDate";
+        return "locationSafeTimestamp";
     }
 }

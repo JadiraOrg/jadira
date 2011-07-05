@@ -17,9 +17,8 @@ package org.jadira.usertype.dateandtime.shared.spi;
 
 import java.sql.Types;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.StringType;
-import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractStringColumnMapper<T> extends AbstractColumnMapper<T, String> {
 
@@ -30,11 +29,7 @@ public abstract class AbstractStringColumnMapper<T> extends AbstractColumnMapper
     }
 
     public final StringType getHibernateType() {
-        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-            return (StringType) Hibernate36Helper.getHibernateType("STRING");
-        } else {
-            return (StringType) Hibernate.STRING;
-        }
+    	return StandardBasicTypes.STRING;
     }
 
 

@@ -354,7 +354,6 @@ usertype.jsr310/src/test/resources/log4j.properties -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
-usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/Hibernate36Helper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ReflectionException.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigIntegerColumnMapper.java -text
@@ -377,10 +376,12 @@ usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/DbTimestam
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/JvmTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/Seed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/VersionableColumnMapper.java -text
-usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/AbstractLocationSafeUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeDateType.java -text
-usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimeType.java -text
-usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeTimestampType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeJdbcTimeType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/LocationSafeJdbcTimestampType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/descriptor/sql/LocationSafeDateTypeDescriptor.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/descriptor/sql/LocationSafeTimeTypeDescriptor.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/temporaltype/descriptor/sql/LocationSafeTimestampTypeDescriptor.java -text
 usertype.spi/src/site/site.xml -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/DatabaseCapable.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/RuntimeDatabaseUnitException.java -text

@@ -18,20 +18,15 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.sql.Timestamp;
 import java.sql.Types;
 
-import org.hibernate.Hibernate;
+import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.TimestampType;
-import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 
 public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> implements ColumnMapper<T, Timestamp> {
 
     private static final long serialVersionUID = -3070239764121234482L;
 
     public final TimestampType getHibernateType() {
-        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-            return (TimestampType) Hibernate36Helper.getHibernateType("TIMESTAMP");
-        } else {
-            return (TimestampType) Hibernate.TIMESTAMP;
-        }
+    	return StandardBasicTypes.TIMESTAMP;
     }
 
     public final int getSqlType() {

@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 
 public class JvmTimestampSeed implements Seed<Timestamp>, Serializable {
 

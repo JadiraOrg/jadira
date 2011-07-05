@@ -142,7 +142,7 @@ public class TestPersistentLocalTime extends DatabaseCapable {
         manager.close();
     }
 
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     @SuppressWarnings("deprecation")
     public void testNanosWithJodaTimeOfDay() {
 

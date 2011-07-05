@@ -23,10 +23,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
-import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
 import org.jadira.usertype.dateandtime.shared.reflectionutils.TypeHelper;
 
 public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType implements CompositeUserType, Serializable {
@@ -93,12 +92,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
         for (int getIndex = 0; getIndex < getColumnMappers().length; getIndex++) {
             ColumnMapper nextMapper = getColumnMappers()[getIndex];
 
-            final Object converted;
-            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                converted = Hibernate36Helper.nullSafeGet(nextMapper, resultSet, strings[getIndex]);
-            } else {
-                converted = ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeGet(resultSet, strings[getIndex]);
-            }
+            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[getIndex], session, object);
 
             if (converted != null) {
                 convertedColumns[getIndex] = nextMapper.fromNonNullValue(converted);
@@ -138,11 +132,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
         for (int setIndex = 0; setIndex < valuesToSet.length; setIndex++) {
 
             @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[setIndex];
-            if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-                Hibernate36Helper.nullSafeSet(nextMapper, preparedStatement, valuesToSet[setIndex], index + setIndex);
-            } else {
-                ((org.hibernate.type.NullableType) nextMapper.getHibernateType()).nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex);
-            }
+            nextMapper.getHibernateType().nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex, session);
         }
     }
 

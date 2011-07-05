@@ -85,12 +85,10 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>3.6.5.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.5.Final</version>
 		</dependency>
 		<dependency>
   			<groupId>org.apache.geronimo.specs</groupId>
@@ -130,18 +128,7 @@
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time-hibernate</artifactId>
-			<version>1.3</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.hibernate</groupId>
-					<artifactId>hibernate</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>joda-time</groupId>
-					<artifactId>joda-time</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		
 		<dependency>
@@ -165,8 +152,7 @@
 		
 	</dependencies>
 
-	<build>
-	
+	<build>	
 		<extensions>
 		        <extension>
 		            <groupId>org.apache.maven.wagon</groupId>
@@ -174,47 +160,6 @@
 		            <version>1.0-beta-7</version>
 		        </extension>
     		</extensions>
-	
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-toolchains-plugin</artifactId>
-				<version>1.0</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>toolchain</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<toolchains>
-						<jdk>
-							<version>6.0</version>
-							<vendor>sun</vendor>
-						</jdk>
-					</toolchains>
-			 	 </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<verbose>true</verbose>
-					<fork>true</fork>
-					<source>1.6</source>
-					<target>1.6</target>
-					<compilerArgument>-g</compilerArgument>
-					<encoding>${project.build.sourceEncoding}</encoding> 
-					<charset>${project.build.sourceEncoding}</charset>
-					<debug>true</debug>
-					<optimize>true</optimize>
-					<showDeprecations>true</showDeprecations>
-				</configuration>
-			</plugin>
-		</plugins>			
 	</build>
 
 	<repositories>

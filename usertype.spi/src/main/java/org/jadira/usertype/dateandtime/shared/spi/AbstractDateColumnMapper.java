@@ -18,20 +18,15 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.sql.Date;
 import java.sql.Types;
 
-import org.hibernate.Hibernate;
 import org.hibernate.type.DateType;
-import org.jadira.usertype.dateandtime.shared.reflectionutils.Hibernate36Helper;
+import org.hibernate.type.StandardBasicTypes;
 
 public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T, Date> {
 
     private static final long serialVersionUID = -8841076386862845448L;
 
     public final DateType getHibernateType() {
-        if (Hibernate36Helper.isHibernate36ApiAvailable()) {
-            return (DateType) Hibernate36Helper.getHibernateType("DATE");
-        } else {
-            return (DateType) Hibernate.DATE;
-        }
+        return StandardBasicTypes.DATE;
     }
 
     public final int getSqlType() {

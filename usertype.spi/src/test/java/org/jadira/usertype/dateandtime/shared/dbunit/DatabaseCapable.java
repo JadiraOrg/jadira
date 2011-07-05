@@ -38,63 +38,59 @@ import org.hibernate.jdbc.Work;
 
 public class DatabaseCapable {
 
-    protected void verifyDatabaseTable(EntityManager manager, String tableName) throws RuntimeDatabaseUnitException {
+	protected void verifyDatabaseTable(EntityManager manager, final String tableName) throws RuntimeDatabaseUnitException {
 
-        DBUnitWork work = new DBUnitWork();
-        ((Session) (manager.getDelegate())).doWork(work);
-        ITable actualTable;
-        try {
-            actualTable = work.getDatabaseDataSet().getTable(tableName);
+		((Session) (manager.getDelegate())).doWork(new Work() {
 
-            File placeholder = new File(DatabaseCapable.class.getResource("/expected/.dbunit-comparison-files").getFile());
-            File comparisonFile = new File(placeholder.getParentFile().getPath() + System.getProperty("file.separator") + tableName + ".xml");
+			@Override
+			public void execute(Connection connection) throws SQLException {
 
-            // writeExpectedFile(work.getDbunitConnection(), comparisonFile, tableName);
+				IDataSet databaseDataSet;
+				try {
+					H2Connection dbunitConnection = new H2Connection(
+							connection, null);
+					databaseDataSet = dbunitConnection.createDataSet();
+				} catch (DatabaseUnitException ex) {
+					throw new RuntimeException(ex);
+				}
 
-            IDataSet expectedDataSet = new FlatXmlDataSetBuilder().build(comparisonFile);
-            ITable expectedTable = expectedDataSet.getTable(tableName);
+				ITable actualTable;
+				try {
+					actualTable = databaseDataSet.getTable(tableName);
 
-            Assertion.assertEquals(expectedTable, actualTable);
+					File placeholder = new File(DatabaseCapable.class
+							.getResource("/expected/.dbunit-comparison-files")
+							.getFile());
+					File comparisonFile = new File(placeholder.getParentFile()
+							.getPath()
+							+ System.getProperty("file.separator")
+							+ tableName + ".xml");
 
-        } catch (DatabaseUnitException ex) {
-            throw new RuntimeDatabaseUnitException(ex);
-        } catch (IOException ex) {
-            throw new RuntimeDatabaseUnitException(ex);
-        }
-    }
+					// writeExpectedFile(work.getDbunitConnection(), comparisonFile, tableName);
 
-    protected void writeExpectedFile(IDatabaseConnection dbunitConnection, File outputFile, String tableName) throws IOException, DataSetException {
-        QueryDataSet partialDataSet = new QueryDataSet(dbunitConnection);
-        partialDataSet.addTable(tableName);
-        // IDataSet export = work.getDatabaseDataSet(); // Full dataset
+					IDataSet expectedDataSet = new FlatXmlDataSetBuilder()
+							.build(comparisonFile);
+					ITable expectedTable = expectedDataSet.getTable(tableName);
 
-        FlatXmlDataSet.write(partialDataSet, new FileOutputStream(outputFile));
-    }
+					Assertion.assertEquals(expectedTable, actualTable);
 
-    protected static class DBUnitWork implements Work {
+				} catch (DatabaseUnitException ex) {
+					throw new RuntimeDatabaseUnitException(ex);
+				} catch (IOException ex) {
+					throw new RuntimeDatabaseUnitException(ex);
+				}
+			}
+		});
 
-        IDatabaseConnection dbunitConnection;
+	}
 
-        private IDataSet databaseDataSet;
+	protected void writeExpectedFile(IDatabaseConnection dbunitConnection,
+			File outputFile, String tableName) throws IOException,
+			DataSetException {
+		QueryDataSet partialDataSet = new QueryDataSet(dbunitConnection);
+		partialDataSet.addTable(tableName);
+		// IDataSet export = work.getDatabaseDataSet(); // Full dataset
 
-        public DBUnitWork() {
-        }
-
-        public void execute(Connection connection) throws SQLException {
-            try {
-                dbunitConnection = new H2Connection(connection, null);
-                databaseDataSet = dbunitConnection.createDataSet();
-            } catch (DatabaseUnitException ex) {
-                throw new RuntimeException(ex);
-            }
-        }
-
-        public IDataSet getDatabaseDataSet() {
-            return databaseDataSet;
-        }
-
-        public IDatabaseConnection getDbunitConnection() {
-            return dbunitConnection;
-        }
-    }
+		FlatXmlDataSet.write(partialDataSet, new FileOutputStream(outputFile));
+	}
 }

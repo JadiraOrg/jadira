@@ -29,6 +29,7 @@ import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.joda.time.YearMonthDay;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 @SuppressWarnings("deprecation")
@@ -90,7 +91,7 @@ public class TestPersistentYearMonthDay extends DatabaseCapable {
         manager.close();
     }
     
-    @Test
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
         
         EntityManager manager = factory.createEntityManager();

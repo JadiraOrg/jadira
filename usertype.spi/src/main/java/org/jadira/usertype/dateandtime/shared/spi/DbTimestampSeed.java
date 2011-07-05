@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import org.hibernate.engine.SessionImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.DbTimestampType;
 
 public class DbTimestampSeed extends JvmTimestampSeed {
