@@ -207,7 +207,7 @@
 									<version>3.0.3</version>
 								</requireMavenVersion>
 								<requireJavaVersion>
-									<version>1.5.0</version>
+									<version>1.6.0</version>
 								</requireJavaVersion>
 								<bannedDependencies>
 									<excludes>
@@ -306,15 +306,14 @@
 				<configuration>
 					<linksource>true</linksource>
 					<links>
-						<link>http://download.oracle.com/javase/1.5.0/docs/api/</link>
-						<!-- <link>http://download.oracle.com/javase/6/docs/api/</link> -->
+						<link>http://download.oracle.com/javase/6/docs/api/</link>
 					</links>
 					<encoding>UTF-8</encoding>
-					<doclet>gr.spinellis.umlgraph.doclet.UmlGraphDoc</doclet>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
 					<docletArtifact>
-						<groupId>gr.spinellis</groupId>
-						<artifactId>UmlGraph</artifactId>
-						<version>4.6</version>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
 					</docletArtifact>
 					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
 					<reportSets>
