@@ -29,7 +29,7 @@ public class PersistentDateMidnight extends AbstractMultiColumnDateMidnight {
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnDateTimeZoneMapper() };
 
-    private static final String[] propertyNames = new String[]{ "date", "offset" };
+    private static final String[] propertyNames = new String[] { "date", "offset" };
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
