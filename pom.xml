@@ -608,7 +608,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>4.0.0.Beta2</version>
+				<version>4.0.0.Beta3</version>
 				<optional>true</optional>
 				<exclusions>
 					<exclusion>
@@ -620,7 +620,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>4.0.0.Beta2</version>
+				<version>4.0.0.Beta3</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
