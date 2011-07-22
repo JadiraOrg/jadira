@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>User Type - Licensing</title>
+		<title>Usertype - Licensing</title>
 		<author>Chris Pheby</author>
 	</properties>
 
@@ -28,7 +28,7 @@
 
 		<section name="License information">
 			<p>
-				User Type is released under the business-friendly <a href="license.html">Apache 2.0 license</a>.
+				Usertype is released under the business-friendly <a href="license.html">Apache 2.0 license</a>.
 			</p>
 		</section>
 

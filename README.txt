@@ -1,4 +1,4 @@
-User Type
+Usertype
 ================================================
 
 User Types and classes for use with Hibernate. Includes user types for use with the javax.time 

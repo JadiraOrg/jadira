@@ -33,7 +33,7 @@
 
 	<version>2.1-SNAPSHOT</version>
 
-	<name>User Type for JSR310 with Hibernate</name>
+	<name>Usertype for JSR310 with Hibernate</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
   	
   	<distributionManagement>

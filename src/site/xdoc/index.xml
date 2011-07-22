@@ -20,13 +20,13 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>User Type - Home</title>
+		<title>Usertype - Home</title>
 		<author>Chris Pheby</author>
 	</properties>
 
 	<body>
 
-		<section name="User Type">
+		<section name="Usertype">
 			<p>
 User Types and classes for use with Hibernate. Includes user types for use with the javax.time 
 classes included in the early review draft of JSR 310 as well as for Joda Time. Where possible these types are compatible 

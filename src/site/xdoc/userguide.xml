@@ -20,14 +20,14 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>User Type - Manual</title>
+		<title>Usertype - Manual</title>
 		<author>Chris Pheby</author>
 	</properties>
 	
 	<body>
 
 		<section name="Introduction">
-			<p>User Type can persist both JSR 310 and Joda Time based dates and times to a database using
+			<p>Usertype can persist both JSR 310 and Joda Time based dates and times to a database using
 				Hibernate.</p>
 			<p>This project lets early adopters of JSR 310 also make use of
 				Hibernate and for users of Joda Time provides a forward migration path</p>

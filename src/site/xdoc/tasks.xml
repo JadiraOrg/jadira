@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>User Type - Tasks</title>
+		<title>Usertype - Tasks</title>
 		<author>Chris Pheby</author>
 	</properties>
 
@@ -28,7 +28,7 @@
 
 		<section name="Tasks outstanding">
 			<ul>
-			<li>Add version types</li>
+			<li>No current items outstanding</li>
 			</ul>
 			<p>This project will continue to evolve to provide functionality found useful for particular instances of OR mapping with Hibernate.</p>
 			<p>Additionally, as the JSR 310 standard progresses and new snapshot releases are published, new releases of this project will also be made.</p>
