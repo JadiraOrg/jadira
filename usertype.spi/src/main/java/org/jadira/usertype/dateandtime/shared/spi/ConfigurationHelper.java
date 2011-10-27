@@ -29,7 +29,7 @@ public class ConfigurationHelper {
 	
     private ConfigurationHelper() {
     }
-
+    
     public static String getProperty(String key) {
     	
     	SessionFactory current = currentSessionFactory.get();

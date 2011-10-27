@@ -41,42 +41,40 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		String javaZone = configuration.getProperty(DEFAULT_JAVAZONE_KEY);
 		String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
 		String seed = configuration.getProperty(DEFAULT_SEED_KEY);
-
-		Properties properties = configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed);
-
+		configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed);
+		
 		if (isEnabled != null && Boolean.valueOf(isEnabled)) {
-			autoRegisterUsertypes(configuration, isEnabled, properties);
+			autoRegisterUsertypes(configuration, isEnabled);
 		}
 	}
 
-	private void autoRegisterUsertypes(Configuration configuration, String isEnabled, Properties properties) {
+	private void autoRegisterUsertypes(Configuration configuration, String isEnabled) {
 		
 		for(UserType next : getUserTypes()) {
 
-			registerType(configuration, next, properties);
+			registerType(configuration, next);
 		}
 		
 		for(CompositeUserType next : getCompositeUserTypes()) {
 
-			registerType(configuration, next, properties);
+			registerType(configuration, next);
 		}
 	}
 
-	private Properties configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed) {
+	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed) {
 		Properties properties = new Properties();
 		if (databaseZone != null) { properties.put("databaseZone", databaseZone); }
 		if (javaZone != null) { properties.put("javaZone", javaZone); }
 		if (seed != null) { properties.put("seed", seed); }
 		ConfigurationHelper.configureDefaultProperties(sessionFactory, properties);
-		return properties;
 	}
 
-	private void registerType(Configuration configuration, CompositeUserType type, Properties props) {
+	private void registerType(Configuration configuration, CompositeUserType type) {
 		String className = type.returnedClass().getName();
 		configuration.registerTypeOverride(type, new String[] {className});
 	}
 	
-	private void registerType(Configuration configuration, UserType type, Properties props) {
+	private void registerType(Configuration configuration, UserType type) {
 		String className = type.returnedClass().getName();
 		configuration.registerTypeOverride(type, new String[] {className});
 	}

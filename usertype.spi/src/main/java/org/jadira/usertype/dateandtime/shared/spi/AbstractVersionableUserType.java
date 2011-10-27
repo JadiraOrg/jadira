@@ -18,47 +18,65 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.util.Comparator;
 import java.util.Properties;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserVersionType;
 
 @SuppressWarnings("rawtypes")
 public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C>
-       implements UserVersionType, Comparator, ParameterizedType {
+       implements UserVersionType, Comparator, ParameterizedType, IntegratorConfiguredType {
     	
     private static final long serialVersionUID = -491420480137454209L;
 
     private Seed<J> seed;
 
+    private Properties parameterValues;
+    
     @Override
     public void setParameterValues(Properties parameters) {
+    	this.parameterValues = parameters;
+    }
+    
+    protected Properties getParameterValues() {
+    	return parameterValues;
+    }
 
-		String seedName = parameters.getProperty("seed");
-		if (seedName == null) {
-			seedName = ConfigurationHelper.getProperty("seed");
-		}
-		if (seedName != null) {
+    @Override
+	public void applyConfiguration(SessionFactory sessionFactory) {
+    	
+    	if (seed == null) {
 
-			Class<Seed<J>> seedClass;
-			try {
-				@SuppressWarnings("unchecked")
-				Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class
-						.forName(seedName);
-				seedClass = mySeedClass;
-			} catch (ClassNotFoundException ex) {
-				throw new IllegalStateException("Referenced seed class {"
-						+ seedName + "} cannot be found");
+    		String seedName = null;
+			if (getParameterValues() != null) {
+				seedName = getParameterValues().getProperty("seed");
 			}
-			try {
-				seed = seedClass.newInstance();
-			} catch (InstantiationException ex) {
-				throw new IllegalStateException("Referenced seed class {"
-						+ seedName + "} cannot be instantiated");
-			} catch (IllegalAccessException ex) {
-				throw new IllegalStateException("Referenced seed class {"
-						+ seedName + "} cannot be accessed");
+			if (seedName == null) {
+				seedName = ConfigurationHelper.getProperty("seed");
 			}
-		}
+			if (seedName != null) {
+	
+				Class<Seed<J>> seedClass;
+				try {
+					@SuppressWarnings("unchecked")
+					Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class
+							.forName(seedName);
+					seedClass = mySeedClass;
+				} catch (ClassNotFoundException ex) {
+					throw new IllegalStateException("Referenced seed class {"
+							+ seedName + "} cannot be found");
+				}
+				try {
+					seed = seedClass.newInstance();
+				} catch (InstantiationException ex) {
+					throw new IllegalStateException("Referenced seed class {"
+							+ seedName + "} cannot be instantiated");
+				} catch (IllegalAccessException ex) {
+					throw new IllegalStateException("Referenced seed class {"
+							+ seedName + "} cannot be accessed");
+				}
+			}
+    	}
     }
 
     @Override

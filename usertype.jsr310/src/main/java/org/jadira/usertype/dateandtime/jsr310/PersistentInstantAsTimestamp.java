@@ -16,15 +16,16 @@
 package org.jadira.usertype.dateandtime.jsr310;
 
 import java.sql.Timestamp;
-import java.util.Properties;
 
 import javax.time.Instant;
 import javax.time.calendar.TimeZone;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnInstantMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
+import org.jadira.usertype.dateandtime.shared.spi.IntegratorConfiguredType;
 
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
@@ -34,30 +35,30 @@ import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType {
+public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -1184009888235202420L;
 
-    @Override
-    public void setParameterValues(Properties parameters) {
+	@Override
+	public void applyConfiguration(SessionFactory sessionFactory) {
+		
+		super.applyConfiguration(sessionFactory);
 
-        super.setParameterValues(parameters);
+        TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
 
-        if (parameters != null) {
-
-            TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
-
-            String databaseZone = parameters.getProperty("databaseZone");
-    		if (databaseZone == null) {
-    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-    		}
-    		
-            if (databaseZone != null) {
-                if ("jvm".equals(databaseZone)) {
-                    columnMapper.setDatabaseZone(null);
-                } else {
-                    columnMapper.setDatabaseZone(TimeZone.of(databaseZone));
-                }
+        String databaseZone = null;
+        if (getParameterValues() != null) {
+        	databaseZone = getParameterValues().getProperty("databaseZone");
+        }
+		if (databaseZone == null) {
+			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+		}
+		
+        if (databaseZone != null) {
+            if ("jvm".equals(databaseZone)) {
+                columnMapper.setDatabaseZone(null);
+            } else {
+                columnMapper.setDatabaseZone(TimeZone.of(databaseZone));
             }
         }
     }

@@ -27,9 +27,9 @@
     
 			<!-- Integrator and globalised configuration functionality  -->
 			
-			<!-- <property name="hibernate.usertype.enableIntegrator" value="true" /> -->
-			<!-- <property name="hibernate.usertype.javaZone" value="UTC" /> -->
-			<!-- <property name="hibernate.usertype.databaseZone" value="UTC" /> -->
+			<!-- <property name="jadira.usertype.autoRegisterUserTypes" value="true" /> -->
+			<!-- <property name="jadira.usertype.javaZone" value="UTC" /> -->
+			<!-- <property name="jadira.usertype.databaseZone" value="UTC" /> -->
 			
 		</properties>
 	</persistence-unit>

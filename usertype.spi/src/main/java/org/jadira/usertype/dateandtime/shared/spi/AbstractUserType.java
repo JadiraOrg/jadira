@@ -79,6 +79,9 @@ public abstract class AbstractUserType implements Serializable {
      */
     public void beforeNullSafeOperation(SessionImplementor session) {
     	ConfigurationHelper.setCurrentSessionFactory(session.getFactory());
+    	if (this instanceof IntegratorConfiguredType) {
+    		((IntegratorConfiguredType)this).applyConfiguration(session.getFactory());
+    	}
     }
     
     /**

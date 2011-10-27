@@ -16,12 +16,13 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
-import java.util.Properties;
 
+import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
 import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
+import org.jadira.usertype.dateandtime.shared.spi.IntegratorConfiguredType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -38,49 +39,52 @@ import org.joda.time.DateTimeZone;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType {
+public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -6656619988954550389L;
-
-    @Override
-    public void setParameterValues(Properties parameters) {
-
-        super.setParameterValues(parameters);
-
-        if (parameters != null) {
-
-            TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper) getColumnMapper();
-
-            String databaseZone = parameters.getProperty("databaseZone");
-    		if (databaseZone == null) {
-    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-    		}
-    		
-            if (databaseZone != null) {
-                if ("jvm".equals(databaseZone)) {
-                    columnMapper.setDatabaseZone(null);
-                } else {
-                    columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-                }
-            }
-            
-            String javaZone = parameters.getProperty("javaZone");
-    		if (javaZone == null) {
-    			javaZone = ConfigurationHelper.getProperty("javaZone");
-    		}
-    		
-            if (javaZone != null) {
-                if ("jvm".equals(javaZone)) {
-                    columnMapper.setJavaZone(null);
-                } else {
-                    columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
-                }
-            }
-        }
-    }
 
     @Override
     public int compare(Object o1, Object o2) {
         return ((DateTime) o1).compareTo((DateTime) o2);
     }
+
+	@Override
+	public void applyConfiguration(SessionFactory sessionFactory) {
+		
+		super.applyConfiguration(sessionFactory);
+
+        TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper) getColumnMapper();
+
+        String databaseZone = null;
+        if (getParameterValues() != null) {
+        	databaseZone = getParameterValues().getProperty("databaseZone");
+        }
+		if (databaseZone == null) {
+			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+		}
+		
+        if (databaseZone != null) {
+            if ("jvm".equals(databaseZone)) {
+                columnMapper.setDatabaseZone(null);
+            } else {
+                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
+            }
+        }
+        
+        String javaZone = null;
+        if (getParameterValues() != null) {
+        	javaZone = getParameterValues().getProperty("javaZone");
+        }
+		if (javaZone == null) {
+			javaZone = ConfigurationHelper.getProperty("javaZone");
+		}
+		
+        if (javaZone != null) {
+            if ("jvm".equals(javaZone)) {
+                columnMapper.setJavaZone(null);
+            } else {
+                columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
+            }
+        }
+	}
 }
