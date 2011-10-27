@@ -24,6 +24,7 @@ import javax.time.calendar.ZonedDateTime;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnZonedDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 
 /**
  * Persist {@link ZonedDateTime} via Hibernate. This type is
@@ -52,6 +53,10 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
             TimestampColumnZonedDateTimeMapper columnMapper = getColumnMapper();
 
             String databaseZone = parameters.getProperty("databaseZone");
+    		if (databaseZone == null) {
+    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+    		}
+    		
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
                     columnMapper.setDatabaseZone(null);
@@ -59,7 +64,12 @@ public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDa
                     columnMapper.setDatabaseZone(TimeZone.of(databaseZone));
                 }
             }
+
             String javaZone = parameters.getProperty("javaZone");
+    		if (javaZone == null) {
+    			javaZone = ConfigurationHelper.getProperty("javaZone");
+    		}
+    		
             if (javaZone != null) {
                 if ("jvm".equals(javaZone)) {
                     columnMapper.setJavaZone(null);

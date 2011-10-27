@@ -24,6 +24,7 @@ import javax.time.calendar.ZoneOffset;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnOffsetDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 
 /**
  * Persist {@link OffsetDateTime} via Hibernate. This type is
@@ -52,6 +53,10 @@ public class PersistentOffsetDateTime extends AbstractVersionableUserType<Offset
             TimestampColumnOffsetDateTimeMapper columnMapper = (TimestampColumnOffsetDateTimeMapper) getColumnMapper();
 
             String databaseZone = parameters.getProperty("databaseZone");
+    		if (databaseZone == null) {
+    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+    		}
+    		
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
                     columnMapper.setDatabaseZone(null);
@@ -59,7 +64,12 @@ public class PersistentOffsetDateTime extends AbstractVersionableUserType<Offset
                     columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
                 }
             }
+
             String javaZone = parameters.getProperty("javaZone");
+    		if (javaZone == null) {
+    			javaZone = ConfigurationHelper.getProperty("javaZone");
+    		}
+    		
             if (javaZone != null) {
                 if ("jvm".equals(javaZone)) {
                     columnMapper.setJavaZone(null);

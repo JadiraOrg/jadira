@@ -64,27 +64,43 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     @SuppressWarnings({ "unchecked" })
     @Override
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
-        J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
+        
 
-        if (converted == null) {
-            return null;
-        }
-
-        return getColumnMapper().fromNonNullValue(converted);
+    	beforeNullSafeOperation(session);
+    	
+    	try {
+	    	J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
+	
+	        if (converted == null) {
+	            return null;
+	        }
+	
+	        return getColumnMapper().fromNonNullValue(converted);
+	        
+    	} finally {
+    		afterNullSafeOperation(session);
+    	}
     }
 
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
-        final J transformedValue;
-        if (value == null) {
-            transformedValue = null;
-        } else {
-            @SuppressWarnings("unchecked") T myValue = (T) value;
-            transformedValue = getColumnMapper().toNonNullValue(myValue);
-        }
-
-        getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
+    	beforeNullSafeOperation(session);
+    	
+    	try {
+	        final J transformedValue;
+	        if (value == null) {
+	            transformedValue = null;
+	        } else {
+	            @SuppressWarnings("unchecked") T myValue = (T) value;
+	            transformedValue = getColumnMapper().toNonNullValue(myValue);
+	        }
+	
+	        getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
+	        
+    	} finally {
+    		afterNullSafeOperation(session);
+    	}
     }
 
     @Override

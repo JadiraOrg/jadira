@@ -77,8 +77,10 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmappe
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnTimeOfDayMapper.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/integrator/UserTypeJodaHibernateIntegrator.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/util/Formatter.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/util/ZoneHelper.java -text
+usertype.jodatime/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.jodatime/src/site/site.xml -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
@@ -246,7 +248,9 @@ usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/columnmappe
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/columnmapper/TimestampColumnOffsetDateTimeMapper.java -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/columnmapper/TimestampColumnOffsetTimeMapper.java -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/columnmapper/TimestampColumnZonedDateTimeMapper.java -text
+usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/integrator/UserTypeJsr310HibernateIntegrator.java -text
 usertype.jsr310/src/main/java/org/jadira/usertype/dateandtime/jsr310/utils/ZoneHelper.java -text
+usertype.jsr310/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.jsr310/src/site/site.xml -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersistentDurationAsString.java -text
 usertype.jsr310/src/test/java/org/jadira/usertype/dateandtime/jsr310/TestPersistentInstantAsMillisLong.java -text
@@ -367,11 +371,13 @@ usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractSt
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimeColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractTimestampColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractUserTypeHibernateIntegrator.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableTimestampColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractVersionableUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/ColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/ConfigurationHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/DbTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/JvmTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/Seed.java -text

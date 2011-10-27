@@ -18,6 +18,7 @@ package org.jadira.usertype.dateandtime.shared.spi;
 import java.io.Serializable;
 
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.SerializationException;
 
 public abstract class AbstractUserType implements Serializable {
@@ -70,5 +71,22 @@ public abstract class AbstractUserType implements Serializable {
 
     public Object deepCopy(Object value) throws HibernateException {
         return value;
+    }
+    
+    /**
+     * Included to allow session state to be applied to the user type
+     * @param session The session
+     */
+    public void beforeNullSafeOperation(SessionImplementor session) {
+    	ConfigurationHelper.setCurrentSessionFactory(session.getFactory());
+    }
+    
+    /**
+     * Included to allow session state to be disassociated from the user type.
+     * This should be called from a finally block for surety.
+     * @param session The session
+     */
+    public void afterNullSafeOperation(SessionImplementor session) {
+    	ConfigurationHelper.setCurrentSessionFactory(null);
     }
 }

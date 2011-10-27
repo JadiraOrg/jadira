@@ -21,6 +21,7 @@ import java.util.Properties;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
@@ -51,6 +52,10 @@ public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Ti
             TimestampColumnDateTimeMapper columnMapper = (TimestampColumnDateTimeMapper) getColumnMapper();
 
             String databaseZone = parameters.getProperty("databaseZone");
+    		if (databaseZone == null) {
+    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+    		}
+    		
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
                     columnMapper.setDatabaseZone(null);
@@ -58,7 +63,12 @@ public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Ti
                     columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
                 }
             }
+            
             String javaZone = parameters.getProperty("javaZone");
+    		if (javaZone == null) {
+    			javaZone = ConfigurationHelper.getProperty("javaZone");
+    		}
+    		
             if (javaZone != null) {
                 if ("jvm".equals(javaZone)) {
                     columnMapper.setJavaZone(null);

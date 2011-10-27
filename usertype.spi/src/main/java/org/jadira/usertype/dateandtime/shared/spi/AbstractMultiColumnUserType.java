@@ -89,25 +89,32 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     @Override
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
 
-        Object[] convertedColumns = new Object[getColumnMappers().length];
-
-        for (int getIndex = 0; getIndex < getColumnMappers().length; getIndex++) {
-            ColumnMapper nextMapper = getColumnMappers()[getIndex];
-
-            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[getIndex], session, object);
-
-            if (converted != null) {
-                convertedColumns[getIndex] = nextMapper.fromNonNullValue(converted);
-            }
-        }
-
-        for (int i = 0; i < convertedColumns.length; i++) {
-            if (convertedColumns[i] != null) {
-                return fromConvertedColumns(convertedColumns);
-            }
-        }
-
-        return null;
+    	beforeNullSafeOperation(session);
+    	
+    	try {
+	        Object[] convertedColumns = new Object[getColumnMappers().length];
+	
+	        for (int getIndex = 0; getIndex < getColumnMappers().length; getIndex++) {
+	            ColumnMapper nextMapper = getColumnMappers()[getIndex];
+	
+	            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[getIndex], session, object);
+	
+	            if (converted != null) {
+	                convertedColumns[getIndex] = nextMapper.fromNonNullValue(converted);
+	            }
+	        }
+	
+	        for (int i = 0; i < convertedColumns.length; i++) {
+	            if (convertedColumns[i] != null) {
+	                return fromConvertedColumns(convertedColumns);
+	            }
+	        }
+	
+	        return null;
+	        
+    	} finally {
+    		afterNullSafeOperation(session);
+    	}
     }
 
     protected abstract T fromConvertedColumns(Object[] convertedColumns);
@@ -118,25 +125,32 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
-        final Object[] valuesToSet = new Object[getColumnMappers().length];
-
-        if (value != null) {
-
-            final T myValue = (T) value;
-            Object[] convertedColumns = toConvertedColumns(myValue);
-
-            for (int cIdx = 0; cIdx < valuesToSet.length; cIdx++) {
-
-                @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[cIdx];
-                valuesToSet[cIdx] = nextMapper.toNonNullValue(convertedColumns[cIdx]);
-            }
-        }
-
-        for (int setIndex = 0; setIndex < valuesToSet.length; setIndex++) {
-
-            @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[setIndex];
-            nextMapper.getHibernateType().nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex, session);
-        }
+    	beforeNullSafeOperation(session);
+    	
+    	try {
+	        final Object[] valuesToSet = new Object[getColumnMappers().length];
+	
+	        if (value != null) {
+	
+	            final T myValue = (T) value;
+	            Object[] convertedColumns = toConvertedColumns(myValue);
+	
+	            for (int cIdx = 0; cIdx < valuesToSet.length; cIdx++) {
+	
+	                @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[cIdx];
+	                valuesToSet[cIdx] = nextMapper.toNonNullValue(convertedColumns[cIdx]);
+	            }
+	        }
+	
+	        for (int setIndex = 0; setIndex < valuesToSet.length; setIndex++) {
+	
+	            @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[setIndex];
+	            nextMapper.getHibernateType().nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex, session);
+	        }
+	        
+		} finally {
+			afterNullSafeOperation(session);
+		}
     }
 
     @Override

@@ -24,6 +24,13 @@
 			<!--  Following two properties are standardised by JPA 2.0 so replaced with javax... in Hibernate 3.5+ -->
       		<property name="hibernate.connection.url" value="jdbc:h2:mem:jpaTest"/>
       		<property name="hibernate.connection.driver_class" value="org.h2.Driver"/>
+    
+			<!-- Integrator and globalised configuration functionality  -->
+			
+			<!-- <property name="hibernate.usertype.enableIntegrator" value="true" /> -->
+			<!-- <property name="hibernate.usertype.javaZone" value="UTC" /> -->
+			<!-- <property name="hibernate.usertype.databaseZone" value="UTC" /> -->
+			
 		</properties>
 	</persistence-unit>
 

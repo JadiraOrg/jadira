@@ -24,6 +24,7 @@ import javax.time.calendar.ZoneOffset;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.DateColumnOffsetDateMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 
 /**
  * Persist {@link OffsetDate} via Hibernate.
@@ -39,30 +40,36 @@ import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
 public class PersistentOffsetDate extends AbstractSingleColumnUserType<OffsetDate, Date, DateColumnOffsetDateMapper> implements ParameterizedType {
 
     private static final long serialVersionUID = 3168687813811832036L;
-
+    
     @Override
     public void setParameterValues(Properties parameters) {
 
-        if (parameters != null) {
+		DateColumnOffsetDateMapper columnMapper = (DateColumnOffsetDateMapper) getColumnMapper();
 
-            DateColumnOffsetDateMapper columnMapper = (DateColumnOffsetDateMapper) getColumnMapper();
+		String databaseZone = parameters.getProperty("databaseZone");
+		if (databaseZone == null) {
+			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+		}
 
-            String databaseZone = parameters.getProperty("databaseZone");
-            if (databaseZone != null) {
-                if ("jvm".equals(databaseZone)) {
-                    columnMapper.setDatabaseZone(null);
-                } else {
-                    columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-                }
-            }
-            String javaZone = parameters.getProperty("javaZone");
-            if (javaZone != null) {
-                if ("jvm".equals(javaZone)) {
-                    columnMapper.setJavaZone(null);
-                } else {
-                    columnMapper.setJavaZone(ZoneOffset.of(javaZone));
-                }
-            }
-        }
+		if (databaseZone != null) {
+			if ("jvm".equals(databaseZone)) {
+				columnMapper.setDatabaseZone(null);
+			} else {
+				columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
+			}
+		}
+
+		String javaZone = parameters.getProperty("javaZone");
+		if (javaZone == null) {
+			javaZone = ConfigurationHelper.getProperty("javaZone");
+		}
+
+		if (javaZone != null) {
+			if ("jvm".equals(javaZone)) {
+				columnMapper.setJavaZone(null);
+			} else {
+				columnMapper.setJavaZone(ZoneOffset.of(javaZone));
+			}
+		}
     }
 }

@@ -24,6 +24,7 @@ import javax.time.calendar.ZoneOffset;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnOffsetTimeMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 
 /**
  * Persist {@link OffsetTime} via Hibernate using nanoseconds of the day. This uses a long value stored as nanoseconds
@@ -43,26 +44,32 @@ public class PersistentOffsetTimeAsTimestamp extends AbstractSingleColumnUserTyp
     @Override
     public void setParameterValues(Properties parameters) {
 
-        if (parameters != null) {
+		TimestampColumnOffsetTimeMapper columnMapper = (TimestampColumnOffsetTimeMapper) getColumnMapper();
 
-            TimestampColumnOffsetTimeMapper columnMapper = (TimestampColumnOffsetTimeMapper) getColumnMapper();
+		String databaseZone = parameters.getProperty("databaseZone");
+		if (databaseZone == null) {
+			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+		}
 
-            String databaseZone = parameters.getProperty("databaseZone");
-            if (databaseZone != null) {
-                if ("jvm".equals(databaseZone)) {
-                    columnMapper.setDatabaseZone(null);
-                } else {
-                    columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-                }
-            }
-            String javaZone = parameters.getProperty("javaZone");
-            if (javaZone != null) {
-                if ("jvm".equals(javaZone)) {
-                    columnMapper.setJavaZone(null);
-                } else {
-                    columnMapper.setJavaZone(ZoneOffset.of(javaZone));
-                }
-            }
-        }
+		if (databaseZone != null) {
+			if ("jvm".equals(databaseZone)) {
+				columnMapper.setDatabaseZone(null);
+			} else {
+				columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
+			}
+		}
+
+		String javaZone = parameters.getProperty("javaZone");
+		if (javaZone == null) {
+			javaZone = ConfigurationHelper.getProperty("javaZone");
+		}
+
+		if (javaZone != null) {
+			if ("jvm".equals(javaZone)) {
+				columnMapper.setJavaZone(null);
+			} else {
+				columnMapper.setJavaZone(ZoneOffset.of(javaZone));
+			}
+		}
     }
 }

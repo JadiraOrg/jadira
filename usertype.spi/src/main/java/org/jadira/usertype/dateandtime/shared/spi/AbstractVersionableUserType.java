@@ -25,7 +25,7 @@ import org.hibernate.usertype.UserVersionType;
 @SuppressWarnings("rawtypes")
 public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C>
        implements UserVersionType, Comparator, ParameterizedType {
-
+    	
     private static final long serialVersionUID = -491420480137454209L;
 
     private Seed<J> seed;
@@ -33,29 +33,32 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
     @Override
     public void setParameterValues(Properties parameters) {
 
-        if (parameters != null) {
+		String seedName = parameters.getProperty("seed");
+		if (seedName == null) {
+			seedName = ConfigurationHelper.getProperty("seed");
+		}
+		if (seedName != null) {
 
-            String seedName = parameters.getProperty("seed");
-            if (seedName != null) {
-
-                Class<Seed<J>> seedClass;
-                try {
-                    @SuppressWarnings("unchecked") Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class.forName(seedName);
-                    seedClass = mySeedClass;
-                } catch (ClassNotFoundException ex) {
-                    throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be found");
-                }
-                try {
-                    seed = seedClass.newInstance();
-                } catch (InstantiationException ex) {
-                    throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be instantiated");
-                } catch (IllegalAccessException ex) {
-                    throw new IllegalStateException("Referenced seed class {" + seedName + "} cannot be accessed");
-                }
-            }
-        } else {
-            seed = null;
-        }
+			Class<Seed<J>> seedClass;
+			try {
+				@SuppressWarnings("unchecked")
+				Class<Seed<J>> mySeedClass = (Class<Seed<J>>) Class
+						.forName(seedName);
+				seedClass = mySeedClass;
+			} catch (ClassNotFoundException ex) {
+				throw new IllegalStateException("Referenced seed class {"
+						+ seedName + "} cannot be found");
+			}
+			try {
+				seed = seedClass.newInstance();
+			} catch (InstantiationException ex) {
+				throw new IllegalStateException("Referenced seed class {"
+						+ seedName + "} cannot be instantiated");
+			} catch (IllegalAccessException ex) {
+				throw new IllegalStateException("Referenced seed class {"
+						+ seedName + "} cannot be accessed");
+			}
+		}
     }
 
     @Override

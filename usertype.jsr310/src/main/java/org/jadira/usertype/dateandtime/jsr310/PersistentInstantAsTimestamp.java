@@ -24,6 +24,7 @@ import javax.time.calendar.TimeZone;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnInstantMapper;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
 
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
@@ -47,6 +48,10 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
             TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
 
             String databaseZone = parameters.getProperty("databaseZone");
+    		if (databaseZone == null) {
+    			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+    		}
+    		
             if (databaseZone != null) {
                 if ("jvm".equals(databaseZone)) {
                     columnMapper.setDatabaseZone(null);

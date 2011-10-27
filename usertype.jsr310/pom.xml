@@ -27,11 +27,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.jadira.usertype</groupId>
 	<artifactId>usertype.jsr310</artifactId>
 	<packaging>jar</packaging>
-
-	<version>2.1-SNAPSHOT</version>
 
 	<name>Usertype for JSR310 with Hibernate</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
@@ -77,7 +74,7 @@
 		</dependency>
 		<dependency>
 			<groupId>javax.time</groupId>
-			<artifactId>TZDB-all</artifactId> <!-- ZoneRuleInfo-TZDB -->
+			<artifactId>jsr-310-TZDB-all</artifactId> <!-- ZoneRuleInfo-TZDB -->
 			<version>0.6.3</version> <!-- 2009b -->
 			<scope>test</scope>
 		</dependency>		
