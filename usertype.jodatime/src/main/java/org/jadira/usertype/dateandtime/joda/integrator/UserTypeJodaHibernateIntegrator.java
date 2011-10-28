@@ -25,6 +25,7 @@ import org.jadira.usertype.dateandtime.joda.PersistentInstantAsTimestamp;
 import org.jadira.usertype.dateandtime.joda.PersistentInterval;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalDate;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalTime;
+import org.jadira.usertype.dateandtime.joda.PersistentMonthDayAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentPeriodAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentYears;
 import org.jadira.usertype.dateandtime.shared.spi.AbstractUserTypeHibernateIntegrator;
@@ -38,6 +39,7 @@ public class UserTypeJodaHibernateIntegrator extends AbstractUserTypeHibernateIn
 		new PersistentInstantAsTimestamp(),
 		new PersistentLocalDate(),
 		new PersistentLocalTime(),
+		new PersistentMonthDayAsString(),
 		new PersistentPeriodAsString(),
 		new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
 		new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),

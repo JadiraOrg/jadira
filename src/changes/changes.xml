@@ -30,6 +30,7 @@
 		<release version="2.1" date="TBC" description="Support for Hibernate 4 RC 4">
 			<action dev="Chris Pheby" type="update">Global registration of configuration parameters</action>
 			<action dev="Chris Pheby" type="update">Auto registration of user types. Based on suggestion by Dominic domi1980@gmail.com</action>
+			<action dev="Chris Pheby" type="update">Adding support for Joda Time 2's MonthDay type</action>
 		</release>
 		
 		<release version="2.0" date="07-07-2011" description="Support for Hibernate 4 Beta 2">

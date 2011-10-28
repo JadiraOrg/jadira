@@ -42,6 +42,7 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentL
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsNanosLong.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsTimestamp.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentMonthDayAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentPeriodAsString.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentTimeOfDay.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentTimeOfDayAsMillisInteger.java -text
@@ -66,6 +67,7 @@ usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmappe
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnLocalDateMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnLocalDateTimeMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnLocalTimeMapper.java -text
+usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnMonthDayMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnPeriodMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnTimeOfDayMapper.java -text
 usertype.jodatime/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnYearMonthDayMapper.java -text
@@ -103,6 +105,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersist
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsNanosLong.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsTimestamp.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentMonthDayAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentPeriodAsString.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentTimeOfDay.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentTimeOfDayAsMillisInteger.java -text
@@ -143,6 +146,7 @@ usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/L
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalDateTimeJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalTimeAsStringJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalTimeExactJoda.java -text
+usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/MonthDayAsStringHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/PeriodJoda.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/TimeOfDayAsMillisIntegerHolder.java -text
 usertype.jodatime/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/TimeOfDayAsNanosLongHolder.java -text
