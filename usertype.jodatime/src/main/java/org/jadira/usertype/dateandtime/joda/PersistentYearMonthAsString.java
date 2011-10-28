@@ -13,23 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.jsr310.columnmapper;
+package org.jadira.usertype.dateandtime.joda;
 
-import javax.time.calendar.YearMonth;
+import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnYearMonthMapper;
+import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.joda.time.YearMonth;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+/**
+ * Maps a {@link YearMonth} to and from String for Hibernate.
+ */
+public class PersistentYearMonthAsString extends AbstractSingleColumnUserType<YearMonth, String, StringColumnYearMonthMapper> {
 
-public class StringColumnYearMonthMapper extends AbstractStringColumnMapper<YearMonth> {
-
-    private static final long serialVersionUID = 982411452349850753L;
-
-    @Override
-    public YearMonth fromNonNullValue(String s) {
-        return YearMonth.parse(s);
-    }
-
-    @Override
-    public String toNonNullValue(YearMonth value) {
-        return value.toString();
-    }
+    private static final long serialVersionUID = 2203287045641899191L;
 }

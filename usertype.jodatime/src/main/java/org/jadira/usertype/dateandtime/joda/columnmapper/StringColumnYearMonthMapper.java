@@ -13,11 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.jsr310.columnmapper;
-
-import javax.time.calendar.YearMonth;
+package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+import org.joda.time.YearMonth;
 
 public class StringColumnYearMonthMapper extends AbstractStringColumnMapper<YearMonth> {
 
