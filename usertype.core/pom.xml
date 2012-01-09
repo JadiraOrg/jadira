@@ -49,6 +49,11 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-money</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 			<optional>true</optional>
