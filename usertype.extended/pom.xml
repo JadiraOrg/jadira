@@ -27,7 +27,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>usertype.jsr310</artifactId>
+	<artifactId>usertype.extended</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Usertype for JSR310 with Hibernate</name>
@@ -135,7 +135,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
-			<artifactId>usertype.jodatime</artifactId>
+			<artifactId>usertype.core</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>

@@ -732,8 +732,8 @@
 
 	<modules>
 		<module>usertype.spi</module>
-		<module>usertype.jodatime</module>
-		<module>usertype.jsr310</module>
+		<module>usertype.core</module>
+		<module>usertype.extended</module>
 	</modules>
 	
 </project>
