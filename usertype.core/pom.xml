@@ -85,6 +85,11 @@
 		</dependency>
 		
 		<dependency>
+			<groupId>org.joda</groupId>
+			<artifactId>joda-money</artifactId>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
 			<version>${project.version}</version>

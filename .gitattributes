@@ -84,6 +84,15 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/Ti
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/integrator/UserTypeJodaHibernateIntegrator.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/Formatter.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/ZoneHelper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/BigDecimalColumnBigMoneyMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/BigDecimalColumnMoneyMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/IntegerColumnCurrencyUnitMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/LongColumnBigMoneyMajorMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/LongColumnBigMoneyMinorMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/LongColumnMoneyMajorMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/LongColumnMoneyMinorMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/StringColumnCurrencyMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/StringColumnCurrencyUnitMapper.java -text
 usertype.core/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.core/src/site/site.xml -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
