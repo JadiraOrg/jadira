@@ -368,6 +368,7 @@ usertype.spi/pom.xml -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ArrayUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/ReflectionException.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/reflectionutils/TypeHelper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigDecimalColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/dateandtime/shared/spi/AbstractDateColumnMapper.java -text
