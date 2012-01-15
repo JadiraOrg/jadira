@@ -33,7 +33,7 @@ import org.jadira.usertype.dateandtime.jsr310.PersistentYear;
 import org.jadira.usertype.dateandtime.jsr310.PersistentYearMonthAsString;
 import org.jadira.usertype.dateandtime.jsr310.PersistentZoneOffsetAsString;
 import org.jadira.usertype.dateandtime.jsr310.PersistentZonedDateTime;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserTypeHibernateIntegrator;
+import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
 
 public class UserTypeJsr310HibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 

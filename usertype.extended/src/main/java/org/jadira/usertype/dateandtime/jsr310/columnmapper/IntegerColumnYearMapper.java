@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
 import javax.time.calendar.Year;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractIntegerColumnMapper;
 
 
 public class IntegerColumnYearMapper extends AbstractIntegerColumnMapper<Year> {

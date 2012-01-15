@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.Instant;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.LongColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 
 /**
  * Persist {@link Instant} via Hibernate using milliseconds of the day. This type is

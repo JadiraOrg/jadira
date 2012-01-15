@@ -15,7 +15,8 @@
  */
 package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
+
 import javax.time.Instant;
 import javax.time.calendar.LocalDateTime;
 import javax.time.calendar.ZoneOffset;

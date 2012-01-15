@@ -21,8 +21,8 @@ import javax.time.calendar.ZoneOffset;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnLocalTimeMapper;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnZoneOffsetMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
-import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
+import org.jadira.usertype.spi.shared.ColumnMapper;
 
 /**
  * Persist {@link OffsetTime} via Hibernate using nanoseconds of the day. This uses a long value stored as nanoseconds

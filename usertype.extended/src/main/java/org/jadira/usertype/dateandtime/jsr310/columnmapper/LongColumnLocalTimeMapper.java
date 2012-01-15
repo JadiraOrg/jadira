@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.jsr310.columnmapper;
 
 import javax.time.calendar.LocalTime;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractLongColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 
 
 public class LongColumnLocalTimeMapper extends AbstractLongColumnMapper<LocalTime> {

@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.jsr310;
 import javax.time.calendar.Period;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnPeriodMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 
 
 /**

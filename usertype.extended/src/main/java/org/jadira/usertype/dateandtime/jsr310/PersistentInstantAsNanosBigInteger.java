@@ -20,7 +20,7 @@ import java.math.BigInteger;
 import javax.time.Instant;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.BigIntegerColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 
 /**
  * Persist {@link Instant} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with

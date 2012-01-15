@@ -19,7 +19,7 @@ import javax.time.calendar.Year;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 
 
 public class StringColumnYearMapper extends AbstractStringColumnMapper<Year> {

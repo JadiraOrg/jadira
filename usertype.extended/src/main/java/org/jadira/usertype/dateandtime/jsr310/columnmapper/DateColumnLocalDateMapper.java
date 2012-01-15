@@ -21,7 +21,7 @@ import javax.time.calendar.LocalDate;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractDateColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 
 
 public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> {

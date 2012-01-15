@@ -20,7 +20,7 @@ import java.sql.Time;
 import javax.time.calendar.LocalTime;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimeColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 
 
 /**

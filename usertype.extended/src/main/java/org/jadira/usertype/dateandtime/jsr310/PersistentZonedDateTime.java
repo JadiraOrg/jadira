@@ -23,9 +23,9 @@ import javax.time.calendar.ZonedDateTime;
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.TimestampColumnZonedDateTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
-import org.jadira.usertype.dateandtime.shared.spi.ConfigurationHelper;
-import org.jadira.usertype.dateandtime.shared.spi.IntegratorConfiguredType;
+import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.ConfigurationHelper;
+import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
  * Persist {@link ZonedDateTime} via Hibernate. This type is

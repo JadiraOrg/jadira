@@ -19,7 +19,7 @@ import java.math.BigInteger;
 
 import javax.time.Instant;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableBigIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractVersionableBigIntegerColumnMapper;
 
 public class BigIntegerColumnInstantMapper extends AbstractVersionableBigIntegerColumnMapper<Instant> {
 

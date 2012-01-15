@@ -25,7 +25,7 @@ import javax.time.calendar.ZoneOffset;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value

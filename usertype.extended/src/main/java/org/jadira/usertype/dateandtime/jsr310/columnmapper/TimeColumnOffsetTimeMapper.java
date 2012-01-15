@@ -25,7 +25,7 @@ import javax.time.calendar.ZoneOffset;
 import javax.time.calendar.format.DateTimeFormatter;
 import javax.time.calendar.format.DateTimeFormatterBuilder;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimeColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 
 public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> {
 

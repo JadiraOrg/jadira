@@ -21,8 +21,8 @@ import javax.time.calendar.ZoneOffset;
 
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.dateandtime.jsr310.columnmapper.StringColumnZoneOffsetMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
-import org.jadira.usertype.dateandtime.shared.spi.ColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
+import org.jadira.usertype.spi.shared.ColumnMapper;
 
 /**
  * Persist {@link OffsetDate} via Hibernate. The offset will be stored in an extra column.
