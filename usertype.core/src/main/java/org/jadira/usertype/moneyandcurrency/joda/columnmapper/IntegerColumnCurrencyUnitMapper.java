@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractIntegerColumnMapper;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.IllegalCurrencyException;
 

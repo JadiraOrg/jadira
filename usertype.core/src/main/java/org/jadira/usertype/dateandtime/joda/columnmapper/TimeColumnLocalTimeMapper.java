@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractTimeColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;

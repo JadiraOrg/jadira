@@ -1,1 +1,2 @@
-org.jadira.usertype.dateandtime.joda.integrator.UserTypeJodaHibernateIntegrator
+org.jadira.usertype.dateandtime.joda.integrator.UserTypeJodaTimeHibernateIntegrator
+org.jadira.usertype.moneyandcurrency.joda.integrator.UserTypeJodaMoneyHibernateIntegrator

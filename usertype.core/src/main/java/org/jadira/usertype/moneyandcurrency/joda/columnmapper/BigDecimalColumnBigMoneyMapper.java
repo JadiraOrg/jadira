@@ -17,23 +17,27 @@ package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
 
 import java.math.BigDecimal;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractBigDecimalColumnMapper;
+import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfiguredColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractBigDecimalColumnMapper;
 import org.joda.money.BigMoney;
 import org.joda.money.CurrencyUnit;
 
-public class BigDecimalColumnBigMoneyMapper extends AbstractBigDecimalColumnMapper<BigMoney> {
+public class BigDecimalColumnBigMoneyMapper extends AbstractBigDecimalColumnMapper<BigMoney> implements CurrencyUnitConfiguredColumnMapper<BigMoney, BigDecimal> {
 
     private static final long serialVersionUID = 4205713919952452881L;
 	
-    private CurrencyUnit currency;
+    private CurrencyUnit currencyUnit;
 
     @Override
     public BigMoney fromNonNullValue(BigDecimal val) {
-        return BigMoney.of(currency, val);
+        return BigMoney.of(currencyUnit, val);
     }
 
     @Override
     public BigDecimal toNonNullValue(BigMoney value) {
+    	if (!currencyUnit.equals(value.getCurrencyUnit())) {
+    		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrencyUnit());
+    	}
         return BigMoney.of(value).getAmount();
     }
 
@@ -47,7 +51,8 @@ public class BigDecimalColumnBigMoneyMapper extends AbstractBigDecimalColumnMapp
 		return value.toString();
 	}
 	
-    public void setCurrency(CurrencyUnit currency) {
-        this.currency = currency;
+	@Override
+    public void setCurrencyUnit(CurrencyUnit currencyUnit) {
+        this.currencyUnit = currencyUnit;
     }
 }

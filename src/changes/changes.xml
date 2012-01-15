@@ -27,14 +27,16 @@
 		
 		<!-- types are add, fix, remove, update -->
 		
-		<release version="2.1" date="TBC" description="Support for Hibernate 4 Final">
+		<release version="3.0.0.CR1" date="TBC" description="Support for Hibernate 4.0.1 Final and Joda Money 0.6; Autoregistration">
 			<action dev="Chris Pheby" type="update">Renamed module from usertype.jodatime to usertype.core</action>
 			<action dev="Chris Pheby" type="update">Renamed module from usertype.jsr310 to usertype.extended</action>
 			<action dev="Chris Pheby" type="update">Global registration of configuration parameters</action>
 			<action dev="Chris Pheby" type="update">Auto registration of user types. Based on suggestion by Dominic domi1980@gmail.com</action>
 			<action dev="Chris Pheby" type="update">Added support for Joda Time 2's MonthDay type</action>
 			<action dev="Chris Pheby" type="update">Added support for Joda Time 2's YearMonth type</action>
-			<action dev="Chris Pheby" type="update">Updated to Hibernate 4 Final</action>
+			<action dev="Chris Pheby" type="update">Added support for Joda Money 0.6</action>
+			<action dev="Chris Pheby" type="update">Renamed the Legacy JDK Temporal Usertype classes</action>
+			<action dev="Chris Pheby" type="update">Updated to Hibernate 4.0.1 Final</action>
 		</release>
 		
 		<release version="2.0" date="07-07-2011" description="Support for Hibernate 4 Beta 2">

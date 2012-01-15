@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.joda.time.DateTimeZone;
 
 public class StringColumnDateTimeZoneMapper extends AbstractStringColumnMapper<DateTimeZone> {

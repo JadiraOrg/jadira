@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableLongColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractVersionableLongColumnMapper;
 import org.joda.time.Instant;
 
 public class LongColumnInstantMapper extends AbstractVersionableLongColumnMapper<Instant> {

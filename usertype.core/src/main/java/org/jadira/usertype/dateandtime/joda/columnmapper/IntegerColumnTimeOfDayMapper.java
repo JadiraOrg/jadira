@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractIntegerColumnMapper;
 import org.joda.time.TimeOfDay;
 
 /**

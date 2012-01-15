@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalTimeMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.joda.time.LocalTime;
 
 /**

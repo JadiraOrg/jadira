@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;

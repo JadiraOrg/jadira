@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;

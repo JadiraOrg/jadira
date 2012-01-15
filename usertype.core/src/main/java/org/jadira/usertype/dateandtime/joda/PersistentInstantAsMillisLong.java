@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.LongColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 import org.joda.time.Instant;
 
 /**

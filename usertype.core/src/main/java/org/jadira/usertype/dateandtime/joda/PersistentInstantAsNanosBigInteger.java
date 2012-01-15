@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import java.math.BigInteger;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.BigIntegerColumnInstantMapper;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 import org.joda.time.Instant;
 
 /**

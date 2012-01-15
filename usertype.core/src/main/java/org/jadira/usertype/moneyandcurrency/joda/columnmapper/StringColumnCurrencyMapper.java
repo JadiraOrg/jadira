@@ -17,7 +17,7 @@ package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
 
 import java.util.Currency;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractStringColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 
 public class StringColumnCurrencyMapper extends AbstractStringColumnMapper<Currency> {
 

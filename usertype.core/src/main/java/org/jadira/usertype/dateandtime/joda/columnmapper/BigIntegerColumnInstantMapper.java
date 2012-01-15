@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.math.BigInteger;
 
-import org.jadira.usertype.dateandtime.shared.spi.AbstractVersionableBigIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractVersionableBigIntegerColumnMapper;
 import org.joda.time.Instant;
 
 public class BigIntegerColumnInstantMapper extends AbstractVersionableBigIntegerColumnMapper<Instant> {

@@ -28,28 +28,41 @@ import org.jadira.usertype.dateandtime.joda.PersistentLocalTime;
 import org.jadira.usertype.dateandtime.joda.PersistentMonthDayAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentPeriodAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentYears;
-import org.jadira.usertype.dateandtime.shared.spi.AbstractUserTypeHibernateIntegrator;
+import org.jadira.usertype.spi.reflectionutils.ClassLoaderUtils;
+import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
 
-public class UserTypeJodaHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
+@SuppressWarnings("deprecation")
+public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
-	@SuppressWarnings("deprecation")
-	private static final UserType[] USER_TYPES = new UserType[]{
-		new PersistentDateTime(),
-		new PersistentDurationAsString(),
-		new PersistentInstantAsTimestamp(),
-		new PersistentLocalDate(),
-		new PersistentLocalTime(),
-		new PersistentMonthDayAsString(),
-		new PersistentPeriodAsString(),
-		new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
-		new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),
-		new PersistentYears(),
-	};
+	private static UserType[] USER_TYPES;
+	private static CompositeUserType[] COMPOSITE_USER_TYPES;
 
-	private static final CompositeUserType[] COMPOSITE_USER_TYPES = new CompositeUserType[]{
-		new PersistentDateMidnight(),
-		new PersistentInterval(),
-	};
+	static {
+		
+		try {
+			Class.forName("org.joda.time.DateTime", false, ClassLoaderUtils.getClassLoader());
+			
+			USER_TYPES = new UserType[] {
+				new PersistentDateTime(),
+				new PersistentDurationAsString(),
+				new PersistentInstantAsTimestamp(),
+				new PersistentLocalDate(),
+				new PersistentLocalTime(),
+				new PersistentMonthDayAsString(),
+				new PersistentPeriodAsString(),
+				new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
+				new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),
+				new PersistentYears(),
+			};
+			COMPOSITE_USER_TYPES = new CompositeUserType[] {
+				new PersistentDateMidnight(),
+				new PersistentInterval(),
+			};
+		} catch (ClassNotFoundException e) {
+			USER_TYPES = new UserType[]{};
+			COMPOSITE_USER_TYPES = new CompositeUserType[]{};
+		}
+	}
 	
 	/**
 	 * {@inheritDoc}
