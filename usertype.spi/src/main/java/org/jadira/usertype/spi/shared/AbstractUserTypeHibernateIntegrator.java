@@ -32,6 +32,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	private static final String DEFAULT_JAVAZONE_KEY = "jadira.usertype.javaZone";	
 	private static final String DEFAULT_DATABASEZONE_KEY = "jadira.usertype.databaseZone";
 	private static final String DEFAULT_SEED_KEY = "jadira.usertype.seed";
+	private static final String DEFAULT_CURRENCYCODE_KEY = "jadira.usertype.currencyCode";
 	
 	public void integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
 		
@@ -41,7 +42,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		String javaZone = configuration.getProperty(DEFAULT_JAVAZONE_KEY);
 		String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
 		String seed = configuration.getProperty(DEFAULT_SEED_KEY);
-		configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed);
+		String currencyCode = configuration.getProperty(DEFAULT_CURRENCYCODE_KEY);
+		configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode);
 		
 		if (isEnabled != null && Boolean.valueOf(isEnabled)) {
 			autoRegisterUsertypes(configuration, isEnabled);
@@ -61,11 +63,12 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		}
 	}
 
-	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed) {
+	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed, String currencyCode) {
 		Properties properties = new Properties();
 		if (databaseZone != null) { properties.put("databaseZone", databaseZone); }
 		if (javaZone != null) { properties.put("javaZone", javaZone); }
 		if (seed != null) { properties.put("seed", seed); }
+		if (seed != null) { properties.put("currencyCode", currencyCode); }
 		ConfigurationHelper.configureDefaultProperties(sessionFactory, properties);
 	}
 

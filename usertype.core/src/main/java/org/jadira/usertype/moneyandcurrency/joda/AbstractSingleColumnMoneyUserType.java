@@ -57,7 +57,7 @@ public abstract class AbstractSingleColumnMoneyUserType<T, J, C extends ColumnMa
 				currencyString = parameterValues.getProperty("currencyCode");
 			}
 			if (currencyString == null) {
-				currencyString = ConfigurationHelper.getProperty("defaultCurrencyCode");
+				currencyString = ConfigurationHelper.getProperty("currencyCode");
 			}
 			if (currencyString != null) {
 

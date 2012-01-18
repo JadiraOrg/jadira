@@ -204,8 +204,11 @@ usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearM
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearMonthDayHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearMonthDayJoda.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearsHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/TestPersistentBigMoneyAmount.java -text
+usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/BigMoneyAmountHolder.java -text
 usertype.core/src/test/resources/META-INF/persistence.xml -text
 usertype.core/src/test/resources/expected/.dbunit-comparison-files -text
+usertype.core/src/test/resources/expected/bigMoneyAmount.xml -text
 usertype.core/src/test/resources/expected/dateMidnight.xml -text
 usertype.core/src/test/resources/expected/dateMidnightAsString.xml -text
 usertype.core/src/test/resources/expected/dateTime.xml -text

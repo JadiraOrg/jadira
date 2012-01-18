@@ -40,14 +40,15 @@ public class DatabaseCapable {
 
 	protected void verifyDatabaseTable(EntityManager manager, final String tableName) throws RuntimeDatabaseUnitException {
 
-		((Session) (manager.getDelegate())).doWork(new Work() {
+		Work work = new Work() {
 
 			@Override
 			public void execute(Connection connection) throws SQLException {
 
+				H2Connection dbunitConnection;
 				IDataSet databaseDataSet;
 				try {
-					H2Connection dbunitConnection = new H2Connection(
+					dbunitConnection = new H2Connection(
 							connection, null);
 					databaseDataSet = dbunitConnection.createDataSet();
 				} catch (DatabaseUnitException ex) {
@@ -66,7 +67,7 @@ public class DatabaseCapable {
 							+ System.getProperty("file.separator")
 							+ tableName + ".xml");
 
-					// writeExpectedFile(work.getDbunitConnection(), comparisonFile, tableName);
+					//writeExpectedFile(dbunitConnection, comparisonFile, tableName);
 
 					IDataSet expectedDataSet = new FlatXmlDataSetBuilder()
 							.build(comparisonFile);
@@ -80,7 +81,9 @@ public class DatabaseCapable {
 					throw new RuntimeDatabaseUnitException(ex);
 				}
 			}
-		});
+		};
+		
+		((Session) (manager.getDelegate())).doWork(work);
 
 	}
 

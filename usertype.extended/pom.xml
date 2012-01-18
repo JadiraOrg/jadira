@@ -52,7 +52,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.8</version>
 				<configuration>
 					<configLocation>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/checkstyle.xml?revision=119&amp;content-type=text%2Fplain</configLocation>
 					<encoding>${project.build.sourceEncoding}</encoding> 
@@ -154,7 +154,7 @@
 		        <extension>
 		            <groupId>org.apache.maven.wagon</groupId>
 		            <artifactId>wagon-ssh</artifactId>
-		            <version>1.0-beta-7</version>
+		            <version>2.2</version>
 		        </extension>
     		</extensions>
 	</build>
