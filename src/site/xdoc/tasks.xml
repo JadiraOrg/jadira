@@ -28,7 +28,10 @@
 
 		<section name="Tasks outstanding">
 			<ul>
-			<li>No current items outstanding</li>
+			<li>Addition of support for JAXB Bindings for the existing mapped types</li>
+			<li>Refactor of the support for the JDK Date and Calendar classes</li>
+			<li>PhoneNumber type</li>
+			<li>Address type</li>
 			</ul>
 			<p>This project will continue to evolve to provide functionality found useful for particular instances of OR mapping with Hibernate.</p>
 			<p>Additionally, as the JSR 310 standard progresses and new snapshot releases are published, new releases of this project will also be made.</p>
