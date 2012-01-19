@@ -4,4 +4,5 @@
   <moneyMinorAmountAndCurrency ID="1" MY_CURRENCY="USD" MY_AMOUNT="10010" NAME="test_1"/>
   <moneyMinorAmountAndCurrency ID="2" MY_CURRENCY="EUR" MY_AMOUNT="99" NAME="test_2"/>
   <moneyMinorAmountAndCurrency ID="3" MY_CURRENCY="EUR" MY_AMOUNT="-99" NAME="test_3"/>
+  <moneyMinorAmountAndCurrency ID="4" NAME="test_4"/>
 </dataset>

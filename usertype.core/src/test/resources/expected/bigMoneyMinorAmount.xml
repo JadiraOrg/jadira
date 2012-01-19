@@ -3,4 +3,5 @@
   <bigMoneyMinorAmount ID="0" BIGMONEY="10000" NAME="test_0"/>
   <bigMoneyMinorAmount ID="1" BIGMONEY="10010" NAME="test_1"/>
   <bigMoneyMinorAmount ID="2" BIGMONEY="99" NAME="test_2"/>
+  <bigMoneyMinorAmount ID="3" NAME="test_3"/>
 </dataset>

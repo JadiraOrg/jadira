@@ -4,4 +4,5 @@
   <currency ID="1" CURRENCY="USD" NAME="test_1"/>
   <currency ID="2" CURRENCY="GBP" NAME="test_2"/>
   <currency ID="3" CURRENCY="SAR" NAME="test_3"/>
+  <currency ID="4" NAME="test_4"/>
 </dataset>

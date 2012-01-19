@@ -35,7 +35,7 @@ import org.junit.Test;
 
 public class TestPersistentBigMoneyMajorAmount extends DatabaseCapable {
 
-    private static final BigMoney[] bigMoneys     = new BigMoney[] { BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99") };
+    private static final BigMoney[] bigMoneys     = new BigMoney[] { BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99"), null };
 
     private static EntityManagerFactory factory;
 

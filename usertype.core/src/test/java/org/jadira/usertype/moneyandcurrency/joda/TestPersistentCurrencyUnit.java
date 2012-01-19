@@ -34,7 +34,7 @@ import org.junit.Test;
 
 public class TestPersistentCurrencyUnit extends DatabaseCapable {
 
-    private static final CurrencyUnit[] currencies     = new CurrencyUnit[] { CurrencyUnit.EUR, CurrencyUnit.USD, CurrencyUnit.GBP, CurrencyUnit.getInstance("SAR") };
+    private static final CurrencyUnit[] currencies     = new CurrencyUnit[] { CurrencyUnit.EUR, CurrencyUnit.USD, CurrencyUnit.GBP, CurrencyUnit.getInstance("SAR"), null };
 
     private static EntityManagerFactory factory;
 

@@ -4,4 +4,5 @@
   <bigMoneyMinorAmountAndCurrencyAsInteger ID="1" MY_CURRENCY="840" MY_AMOUNT="10010" NAME="test_1"/>
   <bigMoneyMinorAmountAndCurrencyAsInteger ID="2" MY_CURRENCY="978" MY_AMOUNT="99" NAME="test_2"/>
   <bigMoneyMinorAmountAndCurrencyAsInteger ID="3" MY_CURRENCY="978" MY_AMOUNT="-99" NAME="test_3"/>
+  <bigMoneyMinorAmountAndCurrencyAsInteger ID="4" NAME="test_4"/>
 </dataset>

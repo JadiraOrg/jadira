@@ -35,7 +35,7 @@ import org.junit.Test;
 
 public class TestPersistentMoneyMajorAmountAndCurrency extends DatabaseCapable {
 
-    private static final Money[] moneys     = new Money[] { Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("EUR 0.99"), Money.parse("EUR -0.99") };
+    private static final Money[] moneys     = new Money[] { Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("EUR 0.99"), Money.parse("EUR -0.99"), null };
 
     private static EntityManagerFactory factory;
 
