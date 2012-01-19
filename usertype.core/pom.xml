@@ -30,8 +30,8 @@
 	<artifactId>usertype.core</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Usertype for Joda Time with Hibernate</name>
-	<description>Classes utilising Joda Time that add Hibernate support</description>
+	<name>Usertype Core (supporting Joda Time and Joda Money with Hibernate)</name>
+	<description>Classes utilising Joda Time and Joda Money that add Hibernate support</description>
   		
 	<dependencies>
 		<dependency>

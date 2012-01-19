@@ -30,7 +30,7 @@
 	<artifactId>usertype.extended</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Usertype for JSR310 with Hibernate</name>
+	<name>Usertype Extended (supporting JSR 310 with Hibernate)</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
   	
   	<distributionManagement>
