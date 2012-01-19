@@ -25,7 +25,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.jadira.usertype.moneyandcurrency.joda.testmodel.CurrencyHolder;
 import org.jadira.usertype.moneyandcurrency.joda.testmodel.CurrencyUnitHolder;
 import org.joda.money.CurrencyUnit;
 import org.junit.AfterClass;
@@ -87,7 +86,7 @@ public class TestPersistentCurrencyUnit extends DatabaseCapable {
             }
         }
         
-        verifyDatabaseTable(manager, CurrencyHolder.class.getAnnotation(Table.class).name());
+        verifyDatabaseTable(manager, CurrencyUnitHolder.class.getAnnotation(Table.class).name());
         
         manager.close();
     }

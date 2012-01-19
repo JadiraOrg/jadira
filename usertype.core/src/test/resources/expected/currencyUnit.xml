@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <currencyUnit ID="0" CURRENCYUNIT="EUR" NAME="test_0"/>
+  <currencyUnit ID="1" CURRENCYUNIT="USD" NAME="test_1"/>
+  <currencyUnit ID="2" CURRENCYUNIT="GBP" NAME="test_2"/>
+  <currencyUnit ID="3" CURRENCYUNIT="SAR" NAME="test_3"/>
+  <currencyUnit ID="4" NAME="test_4"/>
+</dataset>
