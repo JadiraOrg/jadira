@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <bigMoney ID="0" BIGMONEY="100.00" NAME="test_0"/>
-  <bigMoney ID="1" BIGMONEY="100.10" NAME="test_1"/>
-  <bigMoney ID="2" BIGMONEY="0.99" NAME="test_2"/>
+  <bigMoneyAmount ID="0" BIGMONEY="100.00" NAME="test_0"/>
+  <bigMoneyAmount ID="1" BIGMONEY="100.10" NAME="test_1"/>
+  <bigMoneyAmount ID="2" BIGMONEY="0.99" NAME="test_2"/>
 </dataset>

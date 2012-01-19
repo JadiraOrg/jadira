@@ -28,7 +28,11 @@ public class LongColumnBigMoneyMajorMapper extends AbstractLongColumnMapper<BigM
 
     @Override
     public BigMoney fromNonNullValue(Long value) {
-        return BigMoney.ofMajor(currencyUnit, value);
+        BigMoney theMoney = BigMoney.ofMajor(currencyUnit, value);
+        if (theMoney.getScale() < currencyUnit.getDecimalPlaces()) {
+        	theMoney = theMoney.withCurrencyScale();
+        }
+        return theMoney;
     }
 
     @Override

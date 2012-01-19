@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <bigMoneyMajorAmountAndCurrency ID="0" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_0"/>
+  <bigMoneyMajorAmountAndCurrency ID="1" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_1"/>
+  <bigMoneyMajorAmountAndCurrency ID="2" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_2"/>
+  <bigMoneyMajorAmountAndCurrency ID="3" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_3"/>
+</dataset>

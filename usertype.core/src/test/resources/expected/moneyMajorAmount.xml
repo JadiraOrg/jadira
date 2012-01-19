@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <moneyMajorAmount ID="0" MONEY="100" NAME="test_0"/>
+  <moneyMajorAmount ID="1" MONEY="100" NAME="test_1"/>
+  <moneyMajorAmount ID="2" MONEY="0" NAME="test_2"/>
+</dataset>

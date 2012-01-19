@@ -43,9 +43,13 @@ public class PersistentBigMoneyMajorAmountAndCurrency extends AbstractMultiColum
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         Long amountMajorPart = (Long) convertedColumns[1];
-        BigMoney money = BigMoney.ofMajor(currencyUnitPart, amountMajorPart);
 
-        return money;
+        BigMoney theMoney = BigMoney.ofMajor(currencyUnitPart, amountMajorPart);
+        if (theMoney.getScale() < currencyUnitPart.getDecimalPlaces()) {
+        	theMoney = theMoney.withCurrencyScale();
+        }
+
+        return theMoney;
     }
 
     @Override
