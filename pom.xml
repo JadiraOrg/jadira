@@ -735,6 +735,7 @@
 	</dependencyManagement>
 
 	<modules>
+		<module>cdt</module>
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>

@@ -3,6 +3,10 @@
 /.externalToolBuilders
 /.project
 /.settings
+cdt/.classpath
+cdt/.project
+cdt/.settings
+cdt/target
 /release.properties
 /target
 usertype.core/*.checkstyle
