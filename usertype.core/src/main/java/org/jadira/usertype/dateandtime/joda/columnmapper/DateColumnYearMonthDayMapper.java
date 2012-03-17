@@ -38,7 +38,7 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 
     @Override
     public YearMonthDay fromNonNullValue(Date value) {
-        return LOCAL_DATE_FORMATTER.parseDateTime(value.toString()).toYearMonthDay();
+        return new YearMonthDay(value.toString());
     }
 
     @Override
