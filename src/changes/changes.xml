@@ -27,7 +27,7 @@
 		
 		<!-- types are add, fix, remove, update -->
 		
-		<release version="3.0.0.CR1" date="TBC" description="Support for LibPhoneNumber; bugfixes">
+		<release version="3.0.0.CR2" date="TBC" description="Support for LibPhoneNumber; bugfixes">
 			<action dev="Chris Pheby" type="fix">Fix behaviour for Joda LocalDate with some historical (and potentially future) dates where timezone changes occurred. Issue and resolution proposed by Paul Middelkoop</action>
 			<action dev="Chris Pheby" type="fix">Fix behaviour where a manually set default Joda DateTimeZone is ignored. See http://jira.grails.org/browse/GPJODATIME-25</action>
 		</release>
@@ -46,6 +46,10 @@
 		
 		<release version="2.0" date="07-07-2011" description="Support for Hibernate 4 Beta 2">
 			<action dev="Chris Pheby" type="update">Initial release supporting Hibernate 4. Thanks for initial patch from Matt Drees.</action>
+		</release>
+
+		<release version="1.9.1" date="18-03-2012" description="Fix for LocalDate defect">
+			<action dev="Chris Pheby" type="fix">Fix behaviour for Joda LocalDate with some historical (and potentially future) dates where timezone changes occurred. Issue and resolution proposed by Paul Middelkoop</action>
 		</release>
 		
 		<release version="1.9" date="01-07-2011" description="Support for @Version, querying against properties for multicolumn types and Hibernate in Maven Central">
