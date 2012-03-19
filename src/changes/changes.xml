@@ -44,6 +44,10 @@
 			<action dev="Chris Pheby" type="update">Updated to Hibernate 4.0.1 Final</action>
 		</release>
 		
+		<release version="2.0.1" date="19-03-2012" description="Fix for LocalDate defect">
+			<action dev="Chris Pheby" type="fix">Fix behaviour for Joda LocalDate with some historical (and potentially future) dates where timezone changes occurred. Issue and resolution proposed by Paul Middelkoop</action>
+		</release>
+		
 		<release version="2.0" date="07-07-2011" description="Support for Hibernate 4 Beta 2">
 			<action dev="Chris Pheby" type="update">Initial release supporting Hibernate 4. Thanks for initial patch from Matt Drees.</action>
 		</release>
