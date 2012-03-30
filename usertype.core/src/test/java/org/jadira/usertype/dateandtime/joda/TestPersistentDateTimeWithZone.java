@@ -16,14 +16,17 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 
+import org.hamcrest.core.IsEqual;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeWithZoneHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.joda.time.DateTime;
@@ -94,4 +97,42 @@ public class TestPersistentDateTimeWithZone extends DatabaseCapable {
         
         manager.close();
     }
+    
+	@Test // Added to investigate http://sourceforge.net/mailarchive/message.php?msg_id=29056453
+	public void testDST() {
+
+		DateTimeZone tz = DateTimeZone.forID("Europe/Berlin");
+		assertFalse(tz.isFixed());
+		DateTime dt = new DateTime(2010, 10, 31, 1, 0, 0, tz);
+
+		EntityManager manager = factory.createEntityManager();
+
+		for (int i = 0; i < 5; i++) {
+
+			System.out.println("Saving: " + dt);
+
+			manager.getTransaction().begin();
+
+			JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
+			item.setId(i + 10);
+			item.setName("test_" + i);
+			item.setDateTime(dt);
+
+			manager.persist(item);
+			manager.flush();
+			manager.getTransaction().commit();
+
+			JodaDateTimeWithZoneHolder readItem = manager.find(
+					JodaDateTimeWithZoneHolder.class, Long.valueOf(i) + 10);
+
+			System.out.println("ReadItem: " + readItem.getDateTime());
+
+			assertThat("For record {" + i + "}", dt,
+					IsEqual.equalTo(readItem.getDateTime()));
+
+			dt = dt.plusHours(1);
+		}
+		manager.close();
+	}
+
 }
