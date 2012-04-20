@@ -68,7 +68,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		if (databaseZone != null) { properties.put("databaseZone", databaseZone); }
 		if (javaZone != null) { properties.put("javaZone", javaZone); }
 		if (seed != null) { properties.put("seed", seed); }
-		if (seed != null) { properties.put("currencyCode", currencyCode); }
+		if (currencyCode != null) { properties.put("currencyCode", currencyCode); }
 		ConfigurationHelper.configureDefaultProperties(sessionFactory, properties);
 	}
 

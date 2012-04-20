@@ -63,7 +63,7 @@ public abstract class AbstractSingleColumnMoneyUserType<T, J, C extends ColumnMa
 
 				currencyUnit = CurrencyUnit.of(currencyString);
 			} else {
-				throw new IllegalStateException(getClass().getSimpleName() + " requires currencyCode to be defined as a parameter, or the defaultCurrencyCode Hibernate property to be defined");
+				throw new IllegalStateException(getClass().getSimpleName() + " requires currencyCode to be defined as a parameter, or the jadira.usertype.currencyCode Hibernate property to be defined");
 			}
     	}
     	columnMapper.setCurrencyUnit(currencyUnit);
