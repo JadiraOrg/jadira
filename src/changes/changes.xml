@@ -31,6 +31,8 @@
 			<action dev="Chris Pheby" type="fix">Fix behaviour for Joda LocalDate with some historical (and potentially future) dates where timezone changes occurred. Issue and resolution proposed by Paul Middelkoop</action>
 			<action dev="Chris Pheby" type="fix">Fix behaviour where a manually set default Joda DateTimeZone is ignored. See http://jira.grails.org/browse/GPJODATIME-25</action>
 			<action dev="Chris Pheby" type="fix">Fix error where the default currency code test is wrong, requiring 'seed' to be defined unnecessarily. Issue reported by Marty Pitt</action>
+			<action dev="Chris Pheby" type="fix">Address use of components in criteria queries. Reported by Aaron Harshbarger</action>
+			<action dev="Chris Pheby" type="fix">Add convenience constructors to mappers so they can be used more easily outside of the user types.</action>
 		</release>
 		
 		<release version="3.0.0.CR1" date="19-01-2012" description="Support for Hibernate 4.0.1 Final and Joda Money 0.6; Autoregistration">
