@@ -21,16 +21,22 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.hamcrest.core.IsEqual;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeWithZoneHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -54,7 +60,7 @@ public class TestPersistentDateTimeWithZone extends DatabaseCapable {
         factory.close();
     }
 
-    @Test
+	@Test
     public void testPersist() {
 
         EntityManager manager = factory.createEntityManager();
@@ -75,6 +81,12 @@ public class TestPersistentDateTimeWithZone extends DatabaseCapable {
         
         manager.getTransaction().commit();
         
+        Criteria criteria = ((Session)(manager.getDelegate())).createCriteria(JodaDateTimeWithZoneHolder.class); 
+        criteria.setCacheable(true); 
+        criteria.add(Restrictions.le("dateTime.datetime", new DateTime()));     
+        @SuppressWarnings({ "unused", "unchecked" })
+		List<JodaDateTimeWithZoneHolder> result = (List<JodaDateTimeWithZoneHolder>) criteria.list(); 
+
         manager.close();
 
         manager = factory.createEntityManager();
@@ -95,6 +107,13 @@ public class TestPersistentDateTimeWithZone extends DatabaseCapable {
         
         verifyDatabaseTable(manager, JodaDateTimeWithZoneHolder.class.getAnnotation(Table.class).name());
         
+		// Ensure use of criteria does not throw exception
+        Criteria criteria = ((Session)(manager.getDelegate())).createCriteria(JodaDateTimeWithZoneHolder.class); 
+        criteria.setCacheable(true); 
+        criteria.add(Restrictions.le("dateTime.datetime", new LocalDateTime()));     
+        @SuppressWarnings({ "unused", "unchecked" })
+		List<JodaDateTimeWithZoneHolder> result = (List<JodaDateTimeWithZoneHolder>) criteria.list(); 
+
         manager.close();
     }
     

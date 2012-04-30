@@ -481,6 +481,7 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractDateColumnMapp
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractMultiColumnUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractParameterizedUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractSingleColumnUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractStringColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractTimeColumnMapper.java -text
@@ -492,6 +493,7 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractVersionableLon
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractVersionableTimestampColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractVersionableUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ColumnMapperSingleColumnTypeAdapter.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ConfigurationHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/DbTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/IntegratorConfiguredType.java -text

@@ -18,6 +18,8 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Date;
 
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.YearMonthDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -27,18 +29,32 @@ import org.joda.time.format.DateTimeFormatterBuilder;
  */
 public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearMonthDay> {
 
-    private static final long serialVersionUID = 6734385103313158326L;
+	private static final long serialVersionUID = 5399269707841091964L;
 
-    public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
+	public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    
+    public DateColumnYearMonthDayMapper() {
+    }
+    
+    public DateColumnYearMonthDayMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public YearMonthDay fromNonNullString(String s) {
         return new YearMonthDay(s);
     }
-
+    
     @Override
     public YearMonthDay fromNonNullValue(Date value) {
-        return new YearMonthDay(value.toString());
+    	if (databaseZone == null) {
+    		return new YearMonthDay(value.toString());
+    	} else {
+    		DateTime referenceDateTime = new DateTime(value.toString(), databaseZone);
+    		return referenceDateTime.toYearMonthDay();
+    	}
     }
 
     @Override
@@ -48,6 +64,15 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 
     @Override
     public Date toNonNullValue(YearMonthDay value) {
-        return Date.valueOf(LOCAL_DATE_FORMATTER.print((YearMonthDay) value));
+        if (databaseZone==null) {
+        	return Date.valueOf(LOCAL_DATE_FORMATTER.print((YearMonthDay) value));
+        }
+
+        DateTime referenceDateTime = value.toLocalDate().toDateTimeAtStartOfDay(databaseZone);        
+        return new Date(referenceDateTime.getMillis());
+    }
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

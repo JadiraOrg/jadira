@@ -16,7 +16,6 @@
 package org.jadira.usertype.spi.shared;
 
 import java.util.Comparator;
-import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -24,24 +23,13 @@ import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserVersionType;
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C>
+public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractParameterizedUserType<T, J, C>
        implements UserVersionType, Comparator, ParameterizedType, IntegratorConfiguredType {
-    	
-    private static final long serialVersionUID = -491420480137454209L;
 
-    private Seed<J> seed;
+	private static final long serialVersionUID = -8127535032447082933L;
 
-    private Properties parameterValues;
+	private Seed<J> seed;
     
-    @Override
-    public void setParameterValues(Properties parameters) {
-    	this.parameterValues = parameters;
-    }
-    
-    protected Properties getParameterValues() {
-    	return parameterValues;
-    }
-
     @Override
 	public void applyConfiguration(SessionFactory sessionFactory) {
     	

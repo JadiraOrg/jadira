@@ -29,6 +29,13 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
 
+    public TimestampColumnInstantMapper() {
+    }
+    
+    public TimestampColumnInstantMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public Instant fromNonNullString(String s) {
         return new Instant(s);

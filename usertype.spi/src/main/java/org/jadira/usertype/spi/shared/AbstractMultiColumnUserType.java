@@ -38,7 +38,8 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
 //    private String[] defaultPropertyNames;
 
-    public AbstractMultiColumnUserType() {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public AbstractMultiColumnUserType() {
 
         sqlTypes = new int[getColumnMappers().length];
         for (int i = 0; i < sqlTypes.length; i++) {
@@ -47,7 +48,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
         hibernateTypes = new Type[getColumnMappers().length];
         for (int i = 0; i < hibernateTypes.length; i++) {
-            hibernateTypes[i] = getColumnMappers()[i].getHibernateType();
+            hibernateTypes[i] = new ColumnMapperSingleColumnTypeAdapter(getColumnMappers()[i]);
         }
 
 //        Map<String, Integer> nameCount = new HashMap<String, Integer>();

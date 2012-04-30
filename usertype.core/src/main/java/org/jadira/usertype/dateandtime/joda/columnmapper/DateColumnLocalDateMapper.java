@@ -18,6 +18,8 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Date;
 
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -28,6 +30,15 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    
+    public DateColumnLocalDateMapper() {
+    }
+    
+    public DateColumnLocalDateMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public LocalDate fromNonNullString(String s) {
         return new LocalDate(s);
@@ -35,7 +46,12 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     @Override
     public LocalDate fromNonNullValue(Date value) {
-        return new LocalDate(value.toString());
+    	if (databaseZone == null) {
+    		return new LocalDate(value.toString());
+    	} else {
+    		DateTime referenceDateTime = new DateTime(value.toString(), databaseZone);
+    		return referenceDateTime.toLocalDate();
+    	}
     }
 
     @Override
@@ -45,6 +61,15 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     @Override
     public Date toNonNullValue(LocalDate value) {
-        return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
+        if (databaseZone==null) {
+        	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
+        }
+
+        DateTime referenceDateTime = value.toDateTimeAtStartOfDay(databaseZone);        
+        return new Date(referenceDateTime.getMillis());
+    }
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

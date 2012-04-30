@@ -37,6 +37,14 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 
     private DateTimeZone javaZone = null;
 
+    public TimestampColumnDateTimeMapper() {
+    }
+    
+    public TimestampColumnDateTimeMapper(DateTimeZone databaseZone, DateTimeZone javaZone) {
+    	this.databaseZone = databaseZone;
+    	this.javaZone = javaZone;
+    }
+    
     @Override
     public DateTime fromNonNullString(String s) {
         return new DateTime(s);
