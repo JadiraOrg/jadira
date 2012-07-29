@@ -48,7 +48,7 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
         }
         
         // Handling DST rollover
-        if (offset.getOffsetDateTimeZone() != null &&
+        if (result != null && offset.getOffsetDateTimeZone() != null &&
         		offset.getStandardDateTimeZone().getOffset(result) > offset.getOffsetDateTimeZone().getOffset(result)) {
         	return result.withLaterOffsetAtOverlap();
         }

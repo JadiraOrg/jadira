@@ -43,7 +43,7 @@ public abstract class AbstractMultiColumnDateMidnight extends AbstractMultiColum
         }
         
         // Handling DST rollover
-        if (offset.getOffsetDateTimeZone() != null &&
+        if (datePart != null && offset.getOffsetDateTimeZone() != null &&
         		offset.getStandardDateTimeZone().getOffset(result) > offset.getOffsetDateTimeZone().getOffset(result)) {
         	return new DateMidnight(datePart.getYear(), datePart.getMonthOfYear(), datePart.getDayOfMonth(), offset.getOffsetDateTimeZone());
         }
