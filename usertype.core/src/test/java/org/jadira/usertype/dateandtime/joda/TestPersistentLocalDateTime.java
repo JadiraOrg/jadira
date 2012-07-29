@@ -30,10 +30,6 @@ public class TestPersistentLocalDateTime extends AbstractDatabaseTest<JodaLocalD
     private static final LocalDateTime[] localDateTimes = new LocalDateTime[]{new LocalDateTime(2004, 2, 25, 12, 11, 10), new LocalDateTime(1980, 3, 11, 13, 12, 11)};
     private static final LocalDateTime[] jodaLocalDateTimes = new LocalDateTime[]{new LocalDateTime(2004, 2, 25, 12, 11, 10), new LocalDateTime(1980, 3, 11, 13, 12, 11)};
 
-    public TestPersistentLocalDateTime() {
-        super(JodaLocalDateTimeHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localDateTimes.length; i++) {

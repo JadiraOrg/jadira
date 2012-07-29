@@ -28,10 +28,6 @@ public class TestPersistentMoneyMajorAmount extends AbstractDatabaseTest<MoneyMa
 
     private static final Money[] moneys = new Money[]{Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("USD 0.99"), null};
 
-    public TestPersistentMoneyMajorAmount() {
-        super(MoneyMajorAmountHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < moneys.length; i++) {

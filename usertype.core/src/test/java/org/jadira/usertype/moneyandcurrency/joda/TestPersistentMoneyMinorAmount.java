@@ -26,10 +26,6 @@ public class TestPersistentMoneyMinorAmount extends AbstractDatabaseTest<MoneyMi
 
     private static final Money[] moneys = new Money[]{Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("USD 0.99"), null};
 
-    public TestPersistentMoneyMinorAmount() {
-        super(MoneyMinorAmountHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < moneys.length; i++) {

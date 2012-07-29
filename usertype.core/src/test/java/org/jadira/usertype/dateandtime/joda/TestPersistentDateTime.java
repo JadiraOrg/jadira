@@ -37,10 +37,6 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
             new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
             null};
 
-    public TestPersistentDateTime() {
-        super(JodaDateTimeHolder.class);
-    }
-
     @Test
     public void testPersist() {
 
@@ -56,7 +52,7 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
 
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeHolder item = find((long) i);
+            JodaDateTimeHolder item = find(JodaDateTimeHolder.class, i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -85,7 +81,7 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
         }
 
         for (int i = 0; i < dateTimes.length; i++) {
-            JodaDateTimeHolder item = find((long) i);
+            JodaDateTimeHolder item = find(JodaDateTimeHolder.class, i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -111,7 +107,7 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
 
             persist(item);
 
-            JodaDateTimeHolder readItem = find((long) i);
+            JodaDateTimeHolder readItem = find(JodaDateTimeHolder.class, i);
 
             System.out.println("ReadItem: " + readItem.getDateTime());
 
@@ -120,7 +116,7 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
             dt = dt.plusHours(1);
         }
     }
-
+    
     @Test
     public void testDSTWinterToSummer() {
 
@@ -139,11 +135,11 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
 
             persist(item);
 
-            JodaDateTimeHolder readItem = find((long) i);
+            JodaDateTimeHolder readItem = find(JodaDateTimeHolder.class, i);
 
             System.out.println("ReadItem: " + readItem.getDateTime());
 
-            assertThat("For record {" + i + "}", dt.getMillis(), IsEqual.equalTo(readItem.getDateTime().getMillis()));
+            assertThat("For record {" + i + "}", readItem.getDateTime(), IsEqual.equalTo(dt.withZone(DateTimeZone.UTC)));
 
             dt = dt.plusHours(1);
         }

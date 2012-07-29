@@ -50,11 +50,7 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
             new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 40),
             new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40)
     };
-
-    public TestPersistentPeriodAsString() {
-        super(JodaPeriodAsStringHolder.class);
-    }
-
+    
     @Test
     public void testPersist() throws SQLException, IOException {
         for (int i = 0; i < periods.length; i++) {

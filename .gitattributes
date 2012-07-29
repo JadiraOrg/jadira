@@ -472,7 +472,9 @@ usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ArrayUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ClassLoaderUtils.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/JavaTimeZoneWorkaroundHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionException.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigDecimalColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigIntegerColumnMapper.java -text

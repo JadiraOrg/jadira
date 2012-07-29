@@ -28,10 +28,6 @@ public class TestPersistentTimeOfDayAsTimestamp extends AbstractDatabaseTest<Tim
 
     private static final TimeOfDay[] localTimes = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 58), new TimeOfDay(0, 0, 0)};
 
-    public TestPersistentTimeOfDayAsTimestamp() {
-        super(TimeOfDayAsTimestampHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

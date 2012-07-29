@@ -30,10 +30,6 @@ public class TestPersistentDateTimeAsString extends AbstractDatabaseTest<JodaDat
             new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
             null};
 
-    public TestPersistentDateTimeAsString() {
-        super(JodaDateTimeAsStringHolder.class);
-    }
-
     @Test
     public void testPersist() {
 
@@ -50,7 +46,7 @@ public class TestPersistentDateTimeAsString extends AbstractDatabaseTest<JodaDat
 
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeAsStringHolder item = find((long) i);
+            JodaDateTimeAsStringHolder item = find(JodaDateTimeAsStringHolder.class, i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());

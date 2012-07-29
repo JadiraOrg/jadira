@@ -32,10 +32,6 @@ public class TestPersistentYearMonthDay extends AbstractDatabaseTest<YearMonthDa
 
     private static final YearMonthDay[] jodaYearMonthDays = new YearMonthDay[]{new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11)};
 
-    public TestPersistentYearMonthDay() {
-        super(YearMonthDayHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localDates.length; i++) {

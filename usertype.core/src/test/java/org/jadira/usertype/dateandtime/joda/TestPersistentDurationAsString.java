@@ -15,6 +15,11 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import javax.persistence.EntityManager;
+
 import org.jadira.usertype.dateandtime.joda.testmodel.DurationJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDurationAsStringHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
@@ -26,24 +31,17 @@ import org.joda.time.Period;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDurationAsStringHolder> {
 
-    private static final Duration[] durations = new Duration[]{
-            Duration.ZERO,
-            new Duration(30 * 1000),
-            new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)),
-            new Duration(new DateMidnight(2010, 4, 1, DateTimeZone.UTC).minusMonths(3), new DateMidnight(2010, 4, 1, DateTimeZone.UTC))};
-
-    public TestPersistentDurationAsString() {
-        super(JodaDurationAsStringHolder.class);
-    }
-
+    private static final Duration[] durations = new Duration[] { 
+        Duration.ZERO, 
+        new Duration(30 * 1000), 
+        new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
+        new Duration(new DateMidnight(2010, 4, 1, DateTimeZone.UTC).minusMonths(3), new DateMidnight(2010, 4, 1, DateTimeZone.UTC)) };
+    
     @Test
     public void testPersist() {
-
+        
         for (int i = 0; i < durations.length; i++) {
 
             JodaDurationAsStringHolder item = new JodaDurationAsStringHolder();
@@ -54,10 +52,9 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
             persist(item);
         }
 
-
         for (int i = 0; i < durations.length; i++) {
-
-            JodaDurationAsStringHolder item = find((long) i);
+            
+            JodaDurationAsStringHolder item = find(JodaDurationAsStringHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -67,12 +64,23 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
 
         verifyDatabaseTable();
     }
-
-    @Test
-    @Ignore // Joda Time Contrib does not support Hibernate 4 yet
+    
+    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
+        
+        EntityManager manager = factory.createEntityManager();
 
+        manager.getTransaction().begin();
         for (int i = 0; i < durations.length; i++) {
+            manager.remove(manager.find(JodaDurationAsStringHolder.class, Long.valueOf(i)));
+        }
+        manager.flush();
+        manager.getTransaction().commit();
+
+        manager.clear(); // Clear the persistence context to ensure that the entity is not loaded from session cache.
+                
+        for (int i = 0; i < durations.length; i++) {
+
             DurationJoda item = new DurationJoda();
             item.setId(i);
             item.setName("test_" + i);
@@ -81,23 +89,15 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
             persist(item);
         }
 
+
         for (int i = 0; i < durations.length; i++) {
-            JodaDurationAsStringHolder item = find((long) i);
+
+            JodaDurationAsStringHolder item = find(JodaDurationAsStringHolder.class, i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
-            assertEquals("test_" + i, item.getName());
-            assertEquals(durations[i], item.getDuration());
         }
 
-
-        for (int i = 0; i < durations.length; i++) {
-            DurationJoda item = find(DurationJoda.class, (long) i);
-
-            assertNotNull(item);
-            assertEquals(i, item.getId());
-            assertEquals("test_" + i, item.getName());
-            assertEquals(durations[i], item.getDuration());
-        }
+        verifyDatabaseTable();
     }
 }

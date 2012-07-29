@@ -27,10 +27,6 @@ public class TestPersistentLocalTimeAsTimestamp extends AbstractDatabaseTest<Jod
 
     private static final LocalTime[] localTimes = new LocalTime[]{new LocalTime(14, 2, 25), new LocalTime(23, 59, 59, 999), new LocalTime(0, 0, 0)};
 
-    public TestPersistentLocalTimeAsTimestamp() {
-        super(JodaLocalTimeAsTimestampHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

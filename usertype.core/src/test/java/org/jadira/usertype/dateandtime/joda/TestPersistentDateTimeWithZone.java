@@ -15,33 +15,25 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
 import org.hamcrest.core.IsEqual;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeWithZoneHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDateTime;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDateTimeWithZoneHolder> {
 
-    private static final DateTime[] dateTimes = new DateTime[]{
-            new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC),
-            new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
-            null};
-
-    public TestPersistentDateTimeWithZone() {
-        super(JodaDateTimeWithZoneHolder.class);
-    }
+    private static final DateTime[] dateTimes = new DateTime[] { 
+        new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), 
+        new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), 
+        null };
 
     @Test
     public void testPersist() {
@@ -56,112 +48,50 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
             persist(item);
         }
 
-
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeWithZoneHolder item = find((long) i);
+            JodaDateTimeWithZoneHolder item = find(JodaDateTimeWithZoneHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (dateTimes[i] == null) {
-                assertNull(item.getDateTime());
+            	assertNull(item.getDateTime());
             } else {
-                assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
+            	assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
             }
         }
-
+        
         verifyDatabaseTable();
     }
+    
+	@Test // Added to investigate http://sourceforge.net/mailarchive/message.php?msg_id=29056453
+	public void testDST() {
 
-    @Test
-    @Ignore
-    public void testReadWithCriteria() {
+		DateTimeZone tz = DateTimeZone.forID("Europe/Berlin");
+		assertFalse(tz.isFixed());
+		DateTime dt = new DateTime(2010, 10, 31, 1, 0, 0, tz);
 
-        for (int i = 0; i < dateTimes.length; i++) {
+		for (int i = 0; i < 5; i++) {
 
-            JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
-            item.setId(i);
-            item.setName("test_" + i);
-            item.setDateTime(dateTimes[i]);
+			System.out.println("Saving: " + dt);
 
-            persist(item);
-        }
+			JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
+			item.setId(i + 10);
+			item.setName("test_" + i);
+			item.setDateTime(dt);
 
-        EntityManager manager = factory.createEntityManager();
+			persist(item);
 
-        Criteria criteria = ((Session) (manager.getDelegate())).createCriteria(JodaDateTimeWithZoneHolder.class);
-        criteria.setCacheable(true);
-        criteria.add(Restrictions.le("dateTime.datetime", new DateTime()));
-        @SuppressWarnings({"unused", "unchecked"})
-        List<JodaDateTimeWithZoneHolder> result = (List<JodaDateTimeWithZoneHolder>) criteria.list();
+			JodaDateTimeWithZoneHolder readItem = find(JodaDateTimeWithZoneHolder.class, Long.valueOf(i) + 10);
 
-        manager.close();
+			System.out.println("ReadItem: " + readItem.getDateTime());
 
-        manager = factory.createEntityManager();
+			assertThat("For record {" + i + "}", dt,
+					IsEqual.equalTo(readItem.getDateTime()));
 
-        // Ensure use of criteria does not throw exception
-        criteria = ((Session) (manager.getDelegate())).createCriteria(JodaDateTimeWithZoneHolder.class);
-        criteria.setCacheable(true);
-        criteria.add(Restrictions.le("dateTime.datetime", new LocalDateTime()));
-        @SuppressWarnings({"unused", "unchecked"})
-        List<JodaDateTimeWithZoneHolder> result2 = (List<JodaDateTimeWithZoneHolder>) criteria.list();
+			dt = dt.plusHours(1);
+		}
+	}
 
-        manager.close();
-    }
-
-    @Test // Added to investigate http://sourceforge.net/mailarchive/message.php?msg_id=29056453
-    public void testDSTSummerToWinter() {
-
-        DateTimeZone tz = DateTimeZone.forID("Europe/Berlin");
-        assertFalse(tz.isFixed());
-        DateTime dt = new DateTime(2010, 10, 31, 1, 0, 0, tz);
-
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Saving: " + dt);
-
-            JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
-            item.setId(i);
-            item.setName("test_" + i);
-            item.setDateTime(dt);
-
-            persist(item);
-
-            JodaDateTimeWithZoneHolder readItem = find((long) i);
-
-            System.out.println("ReadItem: " + readItem.getDateTime());
-
-            assertThat("For record {" + i + "}", dt, IsEqual.equalTo(readItem.getDateTime()));
-
-            dt = dt.plusHours(1);
-        }
-    }
-
-    @Test
-    public void testDSTWinterToSummer() {
-
-        DateTimeZone tz = DateTimeZone.forID("Europe/Berlin");
-        assertFalse(tz.isFixed());
-        DateTime dt = new DateTime(2010, 3, 28, 1, 0, 0, tz);
-
-        for (int i = 0; i < 5; i++) {
-
-            System.out.println("Saving: " + dt);
-
-            JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
-            item.setId(i);
-            item.setName("test_" + i);
-            item.setDateTime(dt);
-
-            persist(item);
-
-            JodaDateTimeWithZoneHolder readItem = find((long) i);
-
-            System.out.println("ReadItem: " + readItem.getDateTime());
-
-            assertThat("For record {" + i + "}", dt, IsEqual.equalTo(readItem.getDateTime()));
-
-            dt = dt.plusHours(1);
-        }
-    }
 }

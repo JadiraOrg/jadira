@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-
 package org.jadira.usertype.dateandtime.shared.dbunit;
 
+import org.jadira.usertype.spi.reflectionutils.TypeHelper;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -29,7 +29,7 @@ import java.io.Serializable;
 /**
  * This abstract parent test class bundles several method needed for database relevant tests:
  * <ul>
- * <li>Create/detroy the entity manager factory before/after class</li>
+ * <li>Create/destroy the entity manager factory before/after class</li>
  * <li>Clear the database table before each test</li>
  * <li>Provides methods to</li>
  * <ul>
@@ -47,8 +47,9 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
 
     private Class<T> tableType;
 
-    public AbstractDatabaseTest(Class<T> tableType) {
-        this.tableType = tableType;
+    @SuppressWarnings("unchecked")
+	public AbstractDatabaseTest() {
+        this.tableType = (Class<T>) TypeHelper.getTypeArguments(AbstractDatabaseTest.class, this.getClass()).get(0);
     }
 
     @BeforeClass
@@ -57,7 +58,7 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
     }
 
     @Before
-    public void clearTable() {
+    public void clearTableUnderTest() {
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
 
@@ -71,7 +72,7 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
         factory.close();
     }
 
-    protected <ENTITY extends Serializable> ENTITY persist(ENTITY item) {
+    protected <E extends Serializable> E persist(E item) {
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
         manager.persist(item);
@@ -85,10 +86,10 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
         return find(tableType, id);
     }
 
-    protected <ENTITY extends Serializable> ENTITY find(Class<ENTITY> entityType, long id) {
+    protected <E extends Serializable> E find(Class<E> entityType, long id) {
         EntityManager manager = factory.createEntityManager();
         manager.getTransaction().begin();
-        ENTITY item = manager.find(entityType, id);
+        E item = manager.find(entityType, id);
         manager.getTransaction().commit();
         manager.close();
 

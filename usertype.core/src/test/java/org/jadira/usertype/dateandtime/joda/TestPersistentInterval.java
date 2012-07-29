@@ -37,10 +37,6 @@ public class TestPersistentInterval extends AbstractDatabaseTest<JodaIntervalHol
             new Interval(1000000000, 2000000000, DateTimeZone.UTC),
             null};
 
-    public TestPersistentInterval() {
-        super(JodaIntervalHolder.class);
-    }
-
     @Test
     public void testPersist() {
 

@@ -35,10 +35,6 @@ public class TestPersistentTimeOfDayAsMillisInteger extends AbstractDatabaseTest
             new org.joda.time.TimeOfDay(23, 59, 59, 999 / 1000000),
             new org.joda.time.TimeOfDay(0, 0, 0)};
 
-    public TestPersistentTimeOfDayAsMillisInteger() {
-        super(TimeOfDayAsMillisIntegerHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

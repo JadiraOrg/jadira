@@ -16,10 +16,12 @@
 package org.jadira.usertype.spi.shared;
 
 import java.io.Serializable;
+import java.util.TimeZone;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.SerializationException;
+import org.jadira.usertype.spi.reflectionutils.JavaTimeZoneWorkaroundHelper;
 
 public abstract class AbstractUserType implements Serializable {
 
@@ -78,6 +80,9 @@ public abstract class AbstractUserType implements Serializable {
      * @param session The session
      */
     public void beforeNullSafeOperation(SessionImplementor session) {
+    	
+    	JavaTimeZoneWorkaroundHelper.setTimeZone(TimeZone.getTimeZone("GMT"));
+    	
     	ConfigurationHelper.setCurrentSessionFactory(session.getFactory());
     	if (this instanceof IntegratorConfiguredType) {
     		((IntegratorConfiguredType)this).applyConfiguration(session.getFactory());
@@ -91,5 +96,7 @@ public abstract class AbstractUserType implements Serializable {
      */
     public void afterNullSafeOperation(SessionImplementor session) {
     	ConfigurationHelper.setCurrentSessionFactory(null);
+    	
+    	JavaTimeZoneWorkaroundHelper.unsetTimeZone();
     }
 }

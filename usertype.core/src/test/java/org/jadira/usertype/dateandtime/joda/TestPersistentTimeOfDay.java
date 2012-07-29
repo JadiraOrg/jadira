@@ -32,10 +32,6 @@ public class TestPersistentTimeOfDay extends AbstractDatabaseTest<TimeOfDayHolde
 
     private static final TimeOfDay[] jodaTimeOfDays = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59), new TimeOfDay(0, 0, 0)};
 
-    public TestPersistentTimeOfDay() {
-        super(TimeOfDayHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

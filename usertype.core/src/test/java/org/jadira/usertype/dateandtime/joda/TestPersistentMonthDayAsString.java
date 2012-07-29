@@ -27,10 +27,6 @@ public class TestPersistentMonthDayAsString extends AbstractDatabaseTest<MonthDa
 
     private static final MonthDay[] monthDays = new MonthDay[]{new MonthDay(1, 1), new MonthDay(2, 29), new MonthDay(12, 31)};
 
-    public TestPersistentMonthDayAsString() {
-        super(MonthDayAsStringHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < monthDays.length; i++) {

@@ -26,10 +26,6 @@ public class TestPersistentBigMoneyAmountAndCurrencyAsInteger extends AbstractDa
 
     private static final BigMoney[] bigMoneys = new BigMoney[]{BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("EUR 0.99"), BigMoney.parse("EUR -0.99"), null};
 
-    public TestPersistentBigMoneyAmountAndCurrencyAsInteger() {
-        super(BigMoneyAmountAndCurrencyAsIntegerHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < bigMoneys.length; i++) {

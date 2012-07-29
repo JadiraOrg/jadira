@@ -15,31 +15,20 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.jadira.usertype.dateandtime.joda.testmodel.YearsHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.Years;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Table;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
 public class TestPersistentYears extends AbstractDatabaseTest<YearsHolder> {
 
     private static final Years[] years = new Years[]{Years.years(1), Years.years(2010), Years.years(1999)};
 
-    public TestPersistentYears() {
-        super(YearsHolder.class);
-    }
-
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
 
         for (int i = 0; i < years.length; i++) {
 
@@ -48,20 +37,12 @@ public class TestPersistentYears extends AbstractDatabaseTest<YearsHolder> {
             item.setName("test_" + i);
             item.setYear(years[i]);
 
-            manager.persist(item);
+            persist(item);
         }
-
-        manager.flush();
-
-        manager.getTransaction().commit();
-
-        manager.close();
-
-        manager = factory.createEntityManager();
 
         for (int i = 0; i < years.length; i++) {
 
-            YearsHolder item = manager.find(YearsHolder.class, Long.valueOf(i));
+            YearsHolder item = find(YearsHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -69,8 +50,6 @@ public class TestPersistentYears extends AbstractDatabaseTest<YearsHolder> {
             assertEquals(years[i], item.getYear());
         }
 
-        verifyDatabaseTable(manager, YearsHolder.class.getAnnotation(Table.class).name());
-
-        manager.close();
+        verifyDatabaseTable();
     }
 }

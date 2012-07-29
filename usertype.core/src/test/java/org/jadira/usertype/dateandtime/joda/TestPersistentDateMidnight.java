@@ -15,21 +15,19 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateMidnightHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class TestPersistentDateMidnight extends AbstractDatabaseTest<JodaDateMidnightHolder> {
 
     private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};
-
-    public TestPersistentDateMidnight() {
-        super(JodaDateMidnightHolder.class);
-    }
 
     @Test
     public void testPersist() {
@@ -44,7 +42,7 @@ public class TestPersistentDateMidnight extends AbstractDatabaseTest<JodaDateMid
 
         for (int i = 0; i < dateMidnights.length; i++) {
 
-            JodaDateMidnightHolder item = find((long) i);
+            JodaDateMidnightHolder item = find(JodaDateMidnightHolder.class, i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());

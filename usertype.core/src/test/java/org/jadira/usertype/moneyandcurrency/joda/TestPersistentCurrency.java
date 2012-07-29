@@ -27,10 +27,6 @@ public class TestPersistentCurrency extends AbstractDatabaseTest<CurrencyHolder>
 
     private static final Currency[] currencies = new Currency[]{Currency.getInstance("EUR"), Currency.getInstance("USD"), Currency.getInstance("GBP"), Currency.getInstance("SAR"), null};
 
-    public TestPersistentCurrency() {
-        super(CurrencyHolder.class);
-    }
-
     @Test
     public void testPersist() {
         for (int i = 0; i < currencies.length; i++) {
