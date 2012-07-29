@@ -74,7 +74,7 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
 
 		for (int i = 0; i < 5; i++) {
 
-			System.out.println("Saving: " + dt);
+			System.err.println("Saving: " + dt);
 
 			JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
 			item.setId(i + 10);
@@ -85,7 +85,7 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
 
 			JodaDateTimeWithZoneHolder readItem = find(JodaDateTimeWithZoneHolder.class, Long.valueOf(i) + 10);
 
-			System.out.println("ReadItem: " + readItem.getDateTime());
+			System.err.println("ReadItem: " + readItem.getDateTime());
 
 			assertThat("For record {" + i + "}", dt,
 					IsEqual.equalTo(readItem.getDateTime()));

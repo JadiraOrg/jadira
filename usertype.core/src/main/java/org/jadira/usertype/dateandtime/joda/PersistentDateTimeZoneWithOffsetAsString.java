@@ -13,22 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.joda.columnmapper;
+package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
+import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
+import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
+import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.joda.time.DateTimeZone;
 
-public class StringColumnDateTimeZoneMapper extends AbstractStringColumnMapper<DateTimeZone> {
+/**
+ * Maps a {@link DateTimeZone} to and from String for Hibernate.
+ */
+public class PersistentDateTimeZoneWithOffsetAsString extends AbstractSingleColumnUserType<DateTimeZoneWithOffset, String, StringColumnDateTimeZoneWithOffsetMapper> {
 
-    private static final long serialVersionUID = 4205713919952452881L;
-
-    @Override
-    public DateTimeZone fromNonNullValue(String s) {
-        return DateTimeZone.forID(s);
-    }
-
-    @Override
-    public String toNonNullValue(DateTimeZone value) {
-    	return value.toString();
-    }
+    private static final long serialVersionUID = -8759152453256338787L;
 }

@@ -15,6 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -28,7 +29,7 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
     protected DateTime fromConvertedColumns(Object[] convertedColumns) {
 
         LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
-        DateTimeZone offset = (DateTimeZone) convertedColumns[1];
+        DateTimeZoneWithOffset offset = (DateTimeZoneWithOffset) convertedColumns[1];
 
         final DateTime result;
 
@@ -43,7 +44,13 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
                     datePart.getMinuteOfHour(),
                     datePart.getSecondOfMinute(),
                     datePart.getMillisOfSecond(),
-                    offset);
+                    offset.getStandardDateTimeZone());
+        }
+        
+        // Handling DST rollover
+        if (offset.getOffsetDateTimeZone() != null &&
+        		offset.getStandardDateTimeZone().getOffset(result) > offset.getOffsetDateTimeZone().getOffset(result)) {
+        	return result.withLaterOffsetAtOverlap();
         }
 
         return result;
@@ -52,6 +59,6 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
     @Override
     protected Object[] toConvertedColumns(DateTime value) {
 
-        return new Object[] { value.toLocalDateTime(), value.getZone() };
+        return new Object[] { value.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
     }
 }

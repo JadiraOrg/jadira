@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
+import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
 import org.jadira.usertype.spi.reflectionutils.ArrayUtils;
 import org.jadira.usertype.spi.shared.ColumnMapper;
@@ -27,7 +27,7 @@ public class PersistentDateTimeWithZone extends AbstractMultiColumnDateTime {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
+    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
 
     private static final String[] propertyNames = new String[]{ "datetime", "offset" };
 

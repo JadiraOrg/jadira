@@ -67,7 +67,7 @@ public class DatabaseCapable {
 							+ System.getProperty("file.separator")
 							+ tableName + ".xml");
 
-					//writeExpectedFile(dbunitConnection, comparisonFile, tableName);
+					writeExpectedFile(dbunitConnection, comparisonFile, tableName);
 
 					IDataSet expectedDataSet = new FlatXmlDataSetBuilder()
 							.build(comparisonFile);

@@ -35,6 +35,7 @@
 			<action dev="Chris Pheby" type="fix">Add convenience constructors to mappers so they can be used more easily outside of the user types.</action>
 			<action dev="Chris Pheby" type="fix">Workaround issue where JDK uses the VM Timezone for constructing Java SQL Types. Caused issue reported by Jörg Eichhorn</action>
 			<action dev="Chris Pheby" type="fix">Apply zoning to PersistentLocalDate and PersistentYearMonthDay.</action>
+			<action dev="Chris Pheby" type="fix">Store offset for non-fixed zones to better support DST rollovers.</action>
 		</release>
 		
 		<release version="3.0.0.CR1" date="19-01-2012" description="Support for Hibernate 4.0.1 Final and Joda Money 0.6; Autoregistration">

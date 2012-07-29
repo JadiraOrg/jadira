@@ -27,6 +27,7 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateT
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeWithZone.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeZoneAsString.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateTimeZoneWithOffsetAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDurationAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentInstantAsMillisLong.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentInstantAsNanosBigInteger.java -text
@@ -63,6 +64,7 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/Lo
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/LongColumnLocalTimeMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/LongColumnTimeOfDayMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnDateTimeZoneMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnDateTimeZoneWithOffsetMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnDurationMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnInstantMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/StringColumnLocalDateMapper.java -text
@@ -82,6 +84,7 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/Ti
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnLocalTimeMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/TimestampColumnTimeOfDayMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/integrator/UserTypeJodaTimeHibernateIntegrator.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/DateTimeZoneWithOffset.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/Formatter.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/ZoneHelper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/LocationSafeDateType.java -text

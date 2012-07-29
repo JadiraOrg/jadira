@@ -15,20 +15,21 @@
  */
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
+import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
-import org.joda.time.DateTimeZone;
 
-public class StringColumnDateTimeZoneMapper extends AbstractStringColumnMapper<DateTimeZone> {
+public class StringColumnDateTimeZoneWithOffsetMapper extends AbstractStringColumnMapper<DateTimeZoneWithOffset> {
 
     private static final long serialVersionUID = 4205713919952452881L;
 
     @Override
-    public DateTimeZone fromNonNullValue(String s) {
-        return DateTimeZone.forID(s);
+    public DateTimeZoneWithOffset fromNonNullValue(String s) {
+        return new DateTimeZoneWithOffset(s);
     }
 
     @Override
-    public String toNonNullValue(DateTimeZone value) {
+    public String toNonNullValue(DateTimeZoneWithOffset value) {
+    	System.err.println(value.toString());
     	return value.toString();
     }
 }
