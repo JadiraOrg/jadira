@@ -15,79 +15,46 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.joda.testmodel.BigMoneyMinorAmountHolder;
 import org.joda.money.BigMoney;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentBigMoneyMinorAmount extends DatabaseCapable {
+import static org.junit.Assert.*;
 
-    private static final BigMoney[] bigMoneys     = new BigMoney[] { BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99"), null };
+public class TestPersistentBigMoneyMinorAmount extends AbstractDatabaseTest<BigMoneyMinorAmountHolder> {
 
-    private static EntityManagerFactory factory;
+    private static final BigMoney[] bigMoneys = new BigMoney[]{BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99"), null};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentBigMoneyMinorAmount() {
+        super(BigMoneyMinorAmountHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < bigMoneys.length; i++) {
-
             BigMoneyMinorAmountHolder item = new BigMoneyMinorAmountHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setBigMoney(bigMoneys[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < bigMoneys.length; i++) {
 
-            BigMoneyMinorAmountHolder item = manager.find(BigMoneyMinorAmountHolder.class, Long.valueOf(i));
+            BigMoneyMinorAmountHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (bigMoneys[i] == null) {
-            	assertNull(item.getBigMoney());
+                assertNull(item.getBigMoney());
             } else {
-            	assertEquals(bigMoneys[i].toString(), item.getBigMoney().toString());
+                assertEquals(bigMoneys[i].toString(), item.getBigMoney().toString());
             }
         }
-        
-        verifyDatabaseTable(manager, BigMoneyMinorAmountHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

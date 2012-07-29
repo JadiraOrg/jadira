@@ -15,45 +15,25 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthDayAsStringHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.YearMonthDay;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
-import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthDayAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.YearMonthDay;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 @SuppressWarnings("deprecation")
-public class TestPersistentYearMonthDayAsString extends DatabaseCapable {
+public class TestPersistentYearMonthDayAsString extends AbstractDatabaseTest<YearMonthDayAsStringHolder> {
 
-    private static final YearMonthDay[] localDates = new YearMonthDay[] { new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11) };
+    private static final YearMonthDay[] localDates = new YearMonthDay[]{new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11)};
 
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentYearMonthDayAsString() {
+        super(YearMonthDayAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < localDates.length; i++) {
             YearMonthDay writeReadTime = localDates[i];
 
@@ -62,29 +42,18 @@ public class TestPersistentYearMonthDayAsString extends DatabaseCapable {
             item.setName("test_" + i);
             item.setLocalDate(writeReadTime);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localDates.length; i++) {
-
-            YearMonthDayAsStringHolder item = manager.find(YearMonthDayAsStringHolder.class, Long.valueOf(i));
+            YearMonthDayAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
-        verifyDatabaseTable(manager, YearMonthDayAsStringHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

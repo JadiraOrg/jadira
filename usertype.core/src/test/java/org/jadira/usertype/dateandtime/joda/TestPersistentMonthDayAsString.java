@@ -15,65 +15,37 @@ package org.jadira.usertype.dateandtime.joda;
  *  limitations under the License.
  */
 
+import org.jadira.usertype.dateandtime.joda.testmodel.MonthDayAsStringHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.MonthDay;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
+public class TestPersistentMonthDayAsString extends AbstractDatabaseTest<MonthDayAsStringHolder> {
 
-import org.jadira.usertype.dateandtime.joda.testmodel.MonthDayAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.MonthDay;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+    private static final MonthDay[] monthDays = new MonthDay[]{new MonthDay(1, 1), new MonthDay(2, 29), new MonthDay(12, 31)};
 
-public class TestPersistentMonthDayAsString extends DatabaseCapable {
-
-    private static final MonthDay[] monthDays = new MonthDay[] { new MonthDay(1, 1), new MonthDay(2, 29), new MonthDay(12, 31) };
-
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentMonthDayAsString() {
+        super(MonthDayAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < monthDays.length; i++) {
-
             MonthDayAsStringHolder item = new MonthDayAsStringHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setMonthDay(monthDays[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-
-        manager.getTransaction().commit();
-
-        manager.close();
-
-        manager = factory.createEntityManager();
 
         for (int i = 0; i < monthDays.length; i++) {
 
-            MonthDayAsStringHolder item = manager.find(MonthDayAsStringHolder.class, Long.valueOf(i));
+            MonthDayAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -81,8 +53,6 @@ public class TestPersistentMonthDayAsString extends DatabaseCapable {
             assertEquals(monthDays[i], item.getMonthDay());
         }
 
-        verifyDatabaseTable(manager, MonthDayAsStringHolder.class.getAnnotation(Table.class).name());
-
-        manager.close();
+        verifyDatabaseTable();
     }
 }

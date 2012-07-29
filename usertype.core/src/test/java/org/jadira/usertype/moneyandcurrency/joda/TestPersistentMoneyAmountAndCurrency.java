@@ -15,79 +15,45 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.joda.testmodel.MoneyAmountAndCurrencyHolder;
 import org.joda.money.Money;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentMoneyAmountAndCurrency extends DatabaseCapable {
+import static org.junit.Assert.*;
 
-    private static final Money[] moneys     = new Money[] { Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("EUR 0.99"), Money.parse("EUR -0.99"), null };
+public class TestPersistentMoneyAmountAndCurrency extends AbstractDatabaseTest<MoneyAmountAndCurrencyHolder> {
 
-    private static EntityManagerFactory factory;
+    private static final Money[] moneys = new Money[]{Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("EUR 0.99"), Money.parse("EUR -0.99"), null};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentMoneyAmountAndCurrency() {
+        super(MoneyAmountAndCurrencyHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < moneys.length; i++) {
-
             MoneyAmountAndCurrencyHolder item = new MoneyAmountAndCurrencyHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setMoney(moneys[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < moneys.length; i++) {
-
-            MoneyAmountAndCurrencyHolder item = manager.find(MoneyAmountAndCurrencyHolder.class, Long.valueOf(i));
+            MoneyAmountAndCurrencyHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (moneys[i] == null) {
-            	assertNull(item.getMoney());
+                assertNull(item.getMoney());
             } else {
-            	assertEquals(moneys[i].toString(), item.getMoney().toString());
+                assertEquals(moneys[i].toString(), item.getMoney().toString());
             }
         }
-        
-        verifyDatabaseTable(manager, MoneyAmountAndCurrencyHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

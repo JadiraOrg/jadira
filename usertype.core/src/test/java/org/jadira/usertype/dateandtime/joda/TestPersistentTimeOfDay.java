@@ -15,173 +15,97 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.TimeOfDayAsTimeJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.TimeOfDayHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.TimeOfDay;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 @SuppressWarnings("deprecation")
-public class TestPersistentTimeOfDay extends DatabaseCapable {
+public class TestPersistentTimeOfDay extends AbstractDatabaseTest<TimeOfDayHolder> {
 
-    private static final TimeOfDay[] localTimes = new TimeOfDay[] { new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59), new TimeOfDay(0, 0, 0) };
+    private static final TimeOfDay[] localTimes = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59), new TimeOfDay(0, 0, 0)};
 
-    private static final TimeOfDay[] jodaTimeOfDays = new TimeOfDay[] { new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59), new TimeOfDay(0, 0, 0) };
+    private static final TimeOfDay[] jodaTimeOfDays = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59), new TimeOfDay(0, 0, 0)};
 
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentTimeOfDay() {
+        super(TimeOfDayHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < localTimes.length; i++) {
-
             TimeOfDayHolder item = new TimeOfDayHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setLocalTime(localTimes[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
 
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localTimes.length; i++) {
-
-            TimeOfDayHolder item = manager.find(TimeOfDayHolder.class, Long.valueOf(i));
+            TimeOfDayHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i], item.getLocalTime());
         }
-        
-        verifyDatabaseTable(manager, TimeOfDayHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
-    
-    @Test @Ignore
+
+    @Test
+    @Ignore
     public void testRoundtripWithJodaTime() {
-        
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
         for (int i = 0; i < localTimes.length; i++) {
-            manager.remove(manager.find(TimeOfDayHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-        
-        manager.getTransaction().begin();
-        
-        for (int i = 0; i < localTimes.length; i++) {
-
             TimeOfDayAsTimeJoda item = new TimeOfDayAsTimeJoda();
             item.setId(i);
             item.setName("test_" + i);
             item.setTimeOfDay(jodaTimeOfDays[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localTimes.length; i++) {
 
-            TimeOfDayHolder item = manager.find(TimeOfDayHolder.class, Long.valueOf(i));
+            TimeOfDayHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i], item.getLocalTime());
         }
-        manager.close();
     }
-    
+
     @Test
     @Ignore // This test will fail because Joda Time does not support nanosecond precision
     public void testNanosWithJodaTime() {
-        
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-        for (int i = 0; i < localTimes.length; i++) {
-            manager.remove(manager.find(TimeOfDayHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-        
-        manager.getTransaction().begin();
-        
         TimeOfDayHolder item = new TimeOfDayHolder();
         item.setId(1);
         item.setName("test_nanos1");
         item.setLocalTime(new TimeOfDay(10, 10, 10, 111444444));
 
-        manager.persist(item);
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
+        persist(item);
 
-        manager = factory.createEntityManager();
-        
-        TimeOfDayAsTimeJoda jodaItem = manager.find(TimeOfDayAsTimeJoda.class, Long.valueOf(1));
+        TimeOfDayAsTimeJoda jodaItem = find(TimeOfDayAsTimeJoda.class, (long) 1);
 
         assertNotNull(jodaItem);
         assertEquals(1, jodaItem.getId());
         assertEquals("test_nanos1", jodaItem.getName());
         assertEquals(new TimeOfDay(10, 10, 10, 0), jodaItem.getTimeOfDay());
 
-        manager.close();
-        
-        manager = factory.createEntityManager();
 
-        item = manager.find(TimeOfDayHolder.class, Long.valueOf(1));
- 
+        item = find(TimeOfDayHolder.class, Long.valueOf(1));
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());
         assertEquals(new TimeOfDay(10, 10, 10, 111444444), item.getLocalTime());
-
-        manager.close();
     }
 }

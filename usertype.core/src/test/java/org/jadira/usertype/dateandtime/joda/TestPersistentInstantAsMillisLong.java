@@ -15,176 +15,100 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.InstantAsBigIntJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaInstantAsMillisLongHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-public class TestPersistentInstantAsMillisLong extends DatabaseCapable {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-    private static final Instant[] instants = 
-        new org.joda.time.Instant[] { 
-            new org.joda.time.DateTime(2004, 2, 25, 17, 3, 45, 760, DateTimeZone.UTC).toInstant(),
-            new org.joda.time.DateTime(1980, 3, 11, 2, 3, 45, 0, DateTimeZone.forID("+02:00")).toInstant() };
+public class TestPersistentInstantAsMillisLong extends AbstractDatabaseTest<JodaInstantAsMillisLongHolder> {
 
-    
-    private static EntityManagerFactory factory;
+    private static final Instant[] instants =
+            new org.joda.time.Instant[]{
+                    new org.joda.time.DateTime(2004, 2, 25, 17, 3, 45, 760, DateTimeZone.UTC).toInstant(),
+                    new org.joda.time.DateTime(1980, 3, 11, 2, 3, 45, 0, DateTimeZone.forID("+02:00")).toInstant()};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
 
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentInstantAsMillisLong() {
+        super(JodaInstantAsMillisLongHolder.class);
     }
 
     @Test
     public void testPersist() {
 
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < instants.length; i++) {
-
             JodaInstantAsMillisLongHolder item = new JodaInstantAsMillisLongHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setInstant(instants[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-
-        manager.getTransaction().commit();
-
-        manager.close();
-
-        manager = factory.createEntityManager();
-
         for (int i = 0; i < instants.length; i++) {
-
-            JodaInstantAsMillisLongHolder item = manager.find(JodaInstantAsMillisLongHolder.class, Long.valueOf(i));
+            JodaInstantAsMillisLongHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(instants[i], item.getInstant());
         }
-        
-        verifyDatabaseTable(manager, JodaInstantAsMillisLongHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
-    
-    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
+
+    @Test
+    @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
-        
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
         for (int i = 0; i < instants.length; i++) {
-            manager.remove(manager.find(JodaInstantAsMillisLongHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-        
-        manager.getTransaction().begin();
-
-        for (int i = 0; i < instants.length; i++) {
-
             InstantAsBigIntJoda item = new InstantAsBigIntJoda();
             item.setId(i);
             item.setName("test_" + i);
             item.setInstant(instants[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < instants.length; i++) {
-
-            JodaInstantAsMillisLongHolder item = manager.find(JodaInstantAsMillisLongHolder.class, Long.valueOf(i));
+            JodaInstantAsMillisLongHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(instants[i], item.getInstant());
         }
-        
-        manager.close();
     }
-        
-    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
-    public void testNanosWithJodaTime() {
-        
-        EntityManager manager = factory.createEntityManager();
 
-        manager.getTransaction().begin();
-        for (int i = 0; i < instants.length; i++) {
-            manager.remove(manager.find(JodaInstantAsMillisLongHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-        
-        manager.getTransaction().begin();
-        
+    @Test
+    @Ignore // Joda Time Contrib does not support Hibernate 4 yet
+    public void testNanosWithJodaTime() {
         JodaInstantAsMillisLongHolder item = new JodaInstantAsMillisLongHolder();
         item.setId(1);
         item.setName("test_nanos1");
         item.setInstant(new DateTime(2010, 8, 1, 10, 10, 10, 111, DateTimeZone.UTC).toInstant());
 
-        manager.persist(item);
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
+        persist(item);
 
-        manager = factory.createEntityManager();
-        
-        InstantAsBigIntJoda jodaItem = manager.find(InstantAsBigIntJoda.class, Long.valueOf(1));
+
+        InstantAsBigIntJoda jodaItem = find(InstantAsBigIntJoda.class, Long.valueOf(1));
 
         assertNotNull(jodaItem);
         assertEquals(1, jodaItem.getId());
         assertEquals("test_nanos1", jodaItem.getName());
         assertEquals(new org.joda.time.DateTime(2010, 8, 1, 10, 10, 10, 111, DateTimeZone.UTC).toInstant(), jodaItem.getInstant());
 
-        manager.close();
-        
-        manager = factory.createEntityManager();
 
-        item = manager.find(JodaInstantAsMillisLongHolder.class, Long.valueOf(1));
- 
+        item = find(JodaInstantAsMillisLongHolder.class, Long.valueOf(1));
+
         assertNotNull(item);
         assertEquals(1, item.getId());
         assertEquals("test_nanos1", item.getName());
         assertEquals(new DateTime(2010, 8, 1, 10, 10, 10, 111, DateTimeZone.UTC).toInstant(), item.getInstant());
-
-        manager.close();
     }
 }

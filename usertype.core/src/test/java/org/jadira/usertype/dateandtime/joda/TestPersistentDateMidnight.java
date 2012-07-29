@@ -15,80 +15,47 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateMidnightHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentDateMidnight extends DatabaseCapable {
+import static org.junit.Assert.*;
 
-    private static final DateMidnight[] dateMidnights     = new DateMidnight[] { new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null };
+public class TestPersistentDateMidnight extends AbstractDatabaseTest<JodaDateMidnightHolder> {
 
-    private static EntityManagerFactory factory;
+    private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentDateMidnight() {
+        super(JodaDateMidnightHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < dateMidnights.length; i++) {
-
             JodaDateMidnightHolder item = new JodaDateMidnightHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setDateMidnight(dateMidnights[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < dateMidnights.length; i++) {
 
-            JodaDateMidnightHolder item = manager.find(JodaDateMidnightHolder.class, Long.valueOf(i));
+            JodaDateMidnightHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (dateMidnights[i] == null) {
-            	assertNull(item.getDateMidnight());
+                assertNull(item.getDateMidnight());
             } else {
-            	assertEquals(dateMidnights[i].toString(), item.getDateMidnight().toString());
+                assertEquals(dateMidnights[i].toString(), item.getDateMidnight().toString());
             }
         }
-        
-        verifyDatabaseTable(manager, JodaDateMidnightHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

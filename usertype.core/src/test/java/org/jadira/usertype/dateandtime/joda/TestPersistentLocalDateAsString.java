@@ -15,44 +15,24 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateAsStringHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.LocalDate;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
+public class TestPersistentLocalDateAsString extends AbstractDatabaseTest<JodaLocalDateAsStringHolder> {
 
-import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.LocalDate;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+    private static final LocalDate[] localDates = new LocalDate[]{new LocalDate(2004, 2, 25), new LocalDate(1980, 3, 11)};
 
-public class TestPersistentLocalDateAsString extends DatabaseCapable {
-
-    private static final LocalDate[] localDates = new LocalDate[] { new LocalDate(2004, 2, 25), new LocalDate(1980, 3, 11) };
-
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentLocalDateAsString() {
+        super(JodaLocalDateAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < localDates.length; i++) {
             LocalDate writeReadTime = localDates[i];
 
@@ -61,29 +41,20 @@ public class TestPersistentLocalDateAsString extends DatabaseCapable {
             item.setName("test_" + i);
             item.setLocalDate(writeReadTime);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
 
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localDates.length; i++) {
 
-            JodaLocalDateAsStringHolder item = manager.find(JodaLocalDateAsStringHolder.class, Long.valueOf(i));
+            JodaLocalDateAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
-        verifyDatabaseTable(manager, JodaLocalDateAsStringHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

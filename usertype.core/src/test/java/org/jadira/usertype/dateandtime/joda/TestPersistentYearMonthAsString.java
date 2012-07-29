@@ -15,65 +15,36 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthAsStringHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.YearMonth;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
+public class TestPersistentYearMonthAsString extends AbstractDatabaseTest<YearMonthAsStringHolder> {
 
-import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.YearMonth;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+    private static final YearMonth[] yearMonths = new YearMonth[]{new YearMonth(2011, 1), new YearMonth(2000, 01), new YearMonth(1999, 12)};
 
-public class TestPersistentYearMonthAsString extends DatabaseCapable {
-
-    private static final YearMonth[] yearMonths = new YearMonth[] { new YearMonth(2011, 1), new YearMonth(2000, 01), new YearMonth(1999, 12) };
-
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentYearMonthAsString() {
+        super(YearMonthAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < yearMonths.length; i++) {
-
             YearMonthAsStringHolder item = new YearMonthAsStringHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setYearMonth(yearMonths[i]);
 
-            manager.persist(item);
+            persist(item);
         }
-
-        manager.flush();
-
-        manager.getTransaction().commit();
-
-        manager.close();
-
-        manager = factory.createEntityManager();
 
         for (int i = 0; i < yearMonths.length; i++) {
 
-            YearMonthAsStringHolder item = manager.find(YearMonthAsStringHolder.class, Long.valueOf(i));
+            YearMonthAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -81,8 +52,6 @@ public class TestPersistentYearMonthAsString extends DatabaseCapable {
             assertEquals(yearMonths[i], item.getYearMonth());
         }
 
-        verifyDatabaseTable(manager, YearMonthAsStringHolder.class.getAnnotation(Table.class).name());
-
-        manager.close();
+        verifyDatabaseTable();
     }
 }

@@ -15,35 +15,23 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.YearsHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.Years;
+import org.junit.Test;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Table;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
+public class TestPersistentYears extends AbstractDatabaseTest<YearsHolder> {
 
-import org.jadira.usertype.dateandtime.joda.testmodel.YearsHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.Years;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+    private static final Years[] years = new Years[]{Years.years(1), Years.years(2010), Years.years(1999)};
 
-public class TestPersistentYears extends DatabaseCapable {
-
-    private static final Years[] years = new Years[] { Years.years(1), Years.years(2010), Years.years(1999) };
-
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentYears() {
+        super(YearsHolder.class);
     }
 
     @Test
@@ -64,13 +52,13 @@ public class TestPersistentYears extends DatabaseCapable {
         }
 
         manager.flush();
-        
+
         manager.getTransaction().commit();
-        
+
         manager.close();
 
         manager = factory.createEntityManager();
-        
+
         for (int i = 0; i < years.length; i++) {
 
             YearsHolder item = manager.find(YearsHolder.class, Long.valueOf(i));
@@ -80,9 +68,9 @@ public class TestPersistentYears extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
             assertEquals(years[i], item.getYear());
         }
-        
+
         verifyDatabaseTable(manager, YearsHolder.class.getAnnotation(Table.class).name());
-        
+
         manager.close();
     }
 }

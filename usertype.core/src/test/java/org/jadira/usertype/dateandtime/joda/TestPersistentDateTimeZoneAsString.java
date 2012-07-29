@@ -15,45 +15,23 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeZoneAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTimeZone;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentDateTimeZoneAsString extends DatabaseCapable {
+import static org.junit.Assert.*;
 
-    private static final DateTimeZone[] dateTimeZones     = new DateTimeZone[] { DateTimeZone.forOffsetHours(4), DateTimeZone.UTC, null };
+public class TestPersistentDateTimeZoneAsString extends AbstractDatabaseTest<JodaDateTimeZoneAsStringHolder> {
 
-    private static EntityManagerFactory factory;
+    private static final DateTimeZone[] dateTimeZones = new DateTimeZone[]{DateTimeZone.forOffsetHours(4), DateTimeZone.UTC, null};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentDateTimeZoneAsString() {
+        super(JodaDateTimeZoneAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < dateTimeZones.length; i++) {
 
             JodaDateTimeZoneAsStringHolder item = new JodaDateTimeZoneAsStringHolder();
@@ -61,33 +39,23 @@ public class TestPersistentDateTimeZoneAsString extends DatabaseCapable {
             item.setName("test_" + i);
             item.setDateTimeZone(dateTimeZones[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < dateTimeZones.length; i++) {
 
-            JodaDateTimeZoneAsStringHolder item = manager.find(JodaDateTimeZoneAsStringHolder.class, Long.valueOf(i));
+            JodaDateTimeZoneAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (dateTimeZones[i] == null) {
-            	assertNull(item.getDateTimeZone());
+                assertNull(item.getDateTimeZone());
             } else {
-            	assertEquals(dateTimeZones[i].toString(), item.getDateTimeZone().toString());
+                assertEquals(dateTimeZones[i].toString(), item.getDateTimeZone().toString());
             }
         }
-        
-        verifyDatabaseTable(manager, JodaDateTimeZoneAsStringHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

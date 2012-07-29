@@ -15,124 +15,71 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthDayHolder;
 import org.jadira.usertype.dateandtime.joda.testmodel.YearMonthDayJoda;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.YearMonthDay;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 @SuppressWarnings("deprecation")
-public class TestPersistentYearMonthDay extends DatabaseCapable {
+public class TestPersistentYearMonthDay extends AbstractDatabaseTest<YearMonthDayHolder> {
 
-    private static final YearMonthDay[] localDates = new YearMonthDay[] { new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11) };
-    
-    private static final YearMonthDay[] jodaYearMonthDays = new YearMonthDay[] { new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11) };
+    private static final YearMonthDay[] localDates = new YearMonthDay[]{new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11)};
 
-    private static EntityManagerFactory factory;
+    private static final YearMonthDay[] jodaYearMonthDays = new YearMonthDay[]{new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11)};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentYearMonthDay() {
+        super(YearMonthDayHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-        
-        manager.getTransaction().begin();
-        
         for (int i = 0; i < localDates.length; i++) {
-
             YearMonthDayHolder item = new YearMonthDayHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setLocalDate(localDates[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localDates.length; i++) {
 
-            YearMonthDayHolder item = manager.find(YearMonthDayHolder.class, Long.valueOf(i));
+            YearMonthDayHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
-        verifyDatabaseTable(manager, YearMonthDayHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
-    
-    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
+
+    @Test
+    @Ignore // Joda Time Contrib does not support Hibernate 4 yet
     public void testRoundtripWithJodaTime() {
-        
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
         for (int i = 0; i < localDates.length; i++) {
-            manager.remove(manager.find(YearMonthDayHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-        
-        manager.getTransaction().begin();
-
-        for (int i = 0; i < localDates.length; i++) {
-
             YearMonthDayJoda item = new YearMonthDayJoda();
             item.setId(i);
             item.setName("test_" + i);
             item.setLocalDate(jodaYearMonthDays[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localDates.length; i++) {
 
-            YearMonthDayHolder item = manager.find(YearMonthDayHolder.class, Long.valueOf(i));
+            YearMonthDayHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
-        
-        manager.close();
     }
 }

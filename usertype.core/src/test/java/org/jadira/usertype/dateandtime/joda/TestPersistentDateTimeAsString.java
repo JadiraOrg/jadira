@@ -15,48 +15,27 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentDateTimeAsString extends DatabaseCapable {
+import static org.junit.Assert.*;
 
-    private static final DateTime[] dateTimes = new DateTime[] { 
-        new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), 
-        new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), 
-        null };
+public class TestPersistentDateTimeAsString extends AbstractDatabaseTest<JodaDateTimeAsStringHolder> {
 
-    private static EntityManagerFactory factory;
+    private static final DateTime[] dateTimes = new DateTime[]{
+            new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC),
+            new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
+            null};
 
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentDateTimeAsString() {
+        super(JodaDateTimeAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
 
         for (int i = 0; i < dateTimes.length; i++) {
 
@@ -65,33 +44,24 @@ public class TestPersistentDateTimeAsString extends DatabaseCapable {
             item.setName("test_" + i);
             item.setDateTime(dateTimes[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
 
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeAsStringHolder item = manager.find(JodaDateTimeAsStringHolder.class, Long.valueOf(i));
+            JodaDateTimeAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             if (dateTimes[i] == null) {
-            	assertNull(item.getDateTime());
+                assertNull(item.getDateTime());
             } else {
-            	assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
+                assertEquals(dateTimes[i].toString(), item.getDateTime().toString());
             }
         }
-        
-        verifyDatabaseTable(manager, JodaDateTimeAsStringHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
+
+        verifyDatabaseTable();
     }
 }

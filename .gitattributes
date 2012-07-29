@@ -501,5 +501,6 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/JvmTimestampSeed.java 
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/Seed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/VersionableColumnMapper.java -text
 usertype.spi/src/site/site.xml -text
+usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/AbstractDatabaseTest.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/DatabaseCapable.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/RuntimeDatabaseUnitException.java -text

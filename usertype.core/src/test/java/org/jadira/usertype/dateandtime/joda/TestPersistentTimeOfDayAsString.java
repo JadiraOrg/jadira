@@ -15,45 +15,25 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.TimeOfDayAsStringHolder;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.TimeOfDay;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Table;
-
-import org.jadira.usertype.dateandtime.joda.testmodel.TimeOfDayAsStringHolder;
-import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.joda.time.TimeOfDay;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 @SuppressWarnings("deprecation")
-public class TestPersistentTimeOfDayAsString extends DatabaseCapable {
+public class TestPersistentTimeOfDayAsString extends AbstractDatabaseTest<TimeOfDayAsStringHolder> {
 
-    private static final TimeOfDay[] localTimes = new TimeOfDay[] { new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59, 999), new TimeOfDay(0, 0, 0) };
+    private static final TimeOfDay[] localTimes = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59, 999), new TimeOfDay(0, 0, 0)};
 
-    private static EntityManagerFactory factory;
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
+    public TestPersistentTimeOfDayAsString() {
+        super(TimeOfDayAsStringHolder.class);
     }
 
     @Test
     public void testPersist() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-
         for (int i = 0; i < localTimes.length; i++) {
 
             TimeOfDayAsStringHolder item = new TimeOfDayAsStringHolder();
@@ -61,29 +41,19 @@ public class TestPersistentTimeOfDayAsString extends DatabaseCapable {
             item.setName("test_" + i);
             item.setLocalTime(localTimes[i]);
 
-            manager.persist(item);
+            persist(item);
         }
 
-        manager.flush();
-        
-        manager.getTransaction().commit();
-        
-        manager.close();
-
-        manager = factory.createEntityManager();
-        
         for (int i = 0; i < localTimes.length; i++) {
 
-            TimeOfDayAsStringHolder item = manager.find(TimeOfDayAsStringHolder.class, Long.valueOf(i));
+            TimeOfDayAsStringHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
             assertEquals(localTimes[i], item.getLocalTime());
         }
-        
-        verifyDatabaseTable(manager, TimeOfDayAsStringHolder.class.getAnnotation(Table.class).name());
-        
-        manager.close();
-    }        
+
+        verifyDatabaseTable();
+    }
 }
