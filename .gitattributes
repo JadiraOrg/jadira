@@ -2,7 +2,6 @@
 /LICENSE.txt -text
 /README.txt -text
 /RELEASE-NOTES.txt -text
-cdt/pom.xml -text
 /checkstyle.xml -text
 /dictionary.txt -text
 /howto_release.txt -text
