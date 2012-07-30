@@ -27,7 +27,7 @@
 		
 		<!-- types are add, fix, remove, update -->
 		<release version="3.0.0.CR3" date="TBC" description="Bugfixes">
-			<action dev="Chris Pheby" type="fix">Fix for ThreadLocal Resource leak in AbstractUserTypeHibernateIntegrator, thanks to Thilo-Alexander Ginkel</action>
+			<action dev="Chris Pheby" issue="3532430" type="fix">Fix for ThreadLocal Resource leak in AbstractUserTypeHibernateIntegrator, thanks to Thilo-Alexander Ginkel</action>
 		</release>		
 		
 		<release version="3.0.0.CR2" date="29-07-2012" description="Bugfixes">
