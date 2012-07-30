@@ -36,17 +36,21 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	
 	public void integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
 		
-		ConfigurationHelper.setCurrentSessionFactory(sessionFactory);
+		try {
+			ConfigurationHelper.setCurrentSessionFactory(sessionFactory);
 		
-		String isEnabled = configuration.getProperty(REGISTER_USERTYPES_KEY); 
-		String javaZone = configuration.getProperty(DEFAULT_JAVAZONE_KEY);
-		String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
-		String seed = configuration.getProperty(DEFAULT_SEED_KEY);
-		String currencyCode = configuration.getProperty(DEFAULT_CURRENCYCODE_KEY);
-		configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode);
+			String isEnabled = configuration.getProperty(REGISTER_USERTYPES_KEY); 
+			String javaZone = configuration.getProperty(DEFAULT_JAVAZONE_KEY);
+			String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
+			String seed = configuration.getProperty(DEFAULT_SEED_KEY);
+			String currencyCode = configuration.getProperty(DEFAULT_CURRENCYCODE_KEY);
+			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode);
 		
-		if (isEnabled != null && Boolean.valueOf(isEnabled)) {
-			autoRegisterUsertypes(configuration, isEnabled);
+			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
+				autoRegisterUsertypes(configuration, isEnabled);
+			}
+		} finally {
+			ConfigurationHelper.setCurrentSessionFactory(null);
 		}
 	}
 
