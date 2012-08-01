@@ -1,0 +1,7 @@
+data: {
+    countryCodes: csv(countrynames.txt, {separator:';', trimCells:true, encoding:UTF-8, replaceHeaders:[alpha2, alpha3, numeric:n, englishShortnameGazetteer, englishShortnameReading, englishRomanizedShortnameGazetteer, englishRomanizedShortnameReading,
+    	frenchShortnameGazetteer, frenchShortnameReading, spanishShortnameGazetteer,
+    	ungegnEnglishFormalName, ungegnFrenchFormalName, ungegnSpanishFormalName, ungegnRussianCyrillicShortName, ungegnRussianCyrillicFormalName, ungegnLocalShortName, ungegnLocalFormalName,
+    	faoItalianShortNameGazetteer, faoItalianShortNameReading, faoItalianOfficialName, bgnEnglishShortNameGazetteer, bgnEnglishShortNameReading, bgnEnglishLongName, bgnLocalShortName, bgnLocalLongName,
+    	pcgnEnglishShortNameGazetteer, pcgnEnglishShortNameReading, pcgnEnglishLongName ]})
+}
