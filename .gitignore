@@ -4,6 +4,11 @@
 /.metadata
 /.project
 /.settings
+cdt/.classpath
+cdt/.externalToolBuilders
+cdt/.project
+cdt/.settings
+cdt/target
 /release.properties
 /target
 usertype.core/*.checkstyle
@@ -12,6 +17,7 @@ usertype.core/.classpath
 usertype.core/.externalToolBuilders
 usertype.core/.project
 usertype.core/.settings
+usertype.core/src/main/resources/META-INF/persistence.xml
 usertype.core/target
 usertype.extended/*.checkstyle
 usertype.extended/*.releaseBackup
@@ -19,6 +25,7 @@ usertype.extended/.classpath
 usertype.extended/.externalToolBuilders
 usertype.extended/.project
 usertype.extended/.settings
+usertype.extended/src/main/resources/META-INF/persistence.xml
 usertype.extended/target
 usertype.spi/*.checkstyle
 usertype.spi/*.releaseBackup

@@ -729,12 +729,19 @@
 				<version>0.6</version>
 				<optional>true</optional>
 			</dependency>
-
+			
+			<dependency>
+				<groupId>com.googlecode.libphonenumber</groupId>
+				<artifactId>libphonenumber</artifactId>
+				<version>4.5</version>
+			</dependency>
+			
 		</dependencies>
 
 	</dependencyManagement>
 
 	<modules>
+		<module>cdt</module>		
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
