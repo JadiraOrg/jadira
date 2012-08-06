@@ -32,6 +32,7 @@
 			<action dev="Chris Pheby" type="add">Added auto registration of Joda PersistentLocalDateTime usertype</action>
 			<action dev="Chris Pheby" type="add">Added auto registration of Joda PersistentLocalDateTime usertype</action>
 			<action dev="Chris Pheby" issue="3553024" type="fix">Fix for failure to execute in recent JDK6 and JDK7 builds. Note that under JDK6 you are recommended to use fixed JVM Timezones due to an issue with this JDK that cannot be resolved</action>
+			<action dev="Chris Pheby" type="fix">Added hashcode, equals and getters to the Offset type.</action>
 		</release>		
 		
 		<release version="3.0.0.CR2" date="29-07-2012" description="Bugfixes">
