@@ -1,4 +1,19 @@
-<@pp.changeOutputFile name="org/jadira/cdt/country/ISOCountryCodes.java" />
+<@pp.changeOutputFile name="org/jadira/cdt/country/ISOCountryCode.java" />
+/*
+ *  Copyright 2012 Christopher Pheby
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package org.jadira.cdt.country;
 
 import java.util.HashMap;
@@ -13,10 +28,10 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 * The Enum names of this enumeration themselves are represented by
 * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>
 * codes. 
-* Instance methods return country name ({@link ISOCountryCodes#getName()}), 
-* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> codes ({@link ISOCountryCodes#getAlpha3()}),
-* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> codes ({@link ISOCountryCodes#getNumeric()}),
-* <a href="http://en.wikipedia.org/wiki/E.164">and E.164 the dialling region</a> code ({@link ISOCountryCodes#getDiallingRegionCode()})
+* Instance methods return country name ({@link ISOCountryCode#getName()}), 
+* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> codes ({@link ISOCountryCode#getAlpha3()}),
+* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> codes ({@link ISOCountryCode#getNumeric()}),
+* <a href="http://en.wikipedia.org/wiki/E.164">and E.164 the dialling region</a> code ({@link ISOCountryCode#getDiallingRegionCode()})
 * Static factory methods can retrieve ISOCountryCode instances that
 * corresponds to a given code.
 * </p>
@@ -25,20 +40,20 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 * For the purpose of FMPP, all but one line of header must be removed. 
 * 
 */
-public enum ISOCountryCodes implements ISOCountryCode {
+public enum ISOCountryCode {
 
-<#list countryCodes as countryCode>
+<#list countryCode as countryCode>
     ${countryCode.alpha2}("${countryCode.englishShortnameReading}", "${countryCode.alpha3}", ${countryCode.numeric}),
 </#list>;
 
-    private static final Map<String, ISOCountryCodes> alpha3Map = new HashMap<String, ISOCountryCodes>();
-    private static final Map<Integer, ISOCountryCodes> numericMap = new HashMap<Integer, ISOCountryCodes>();
+    private static final Map<String, ISOCountryCode> alpha3Map = new HashMap<String, ISOCountryCode>();
+    private static final Map<Integer, ISOCountryCode> numericMap = new HashMap<Integer, ISOCountryCode>();
 
     private static final PhoneNumberUtil PHONE_NUMBER_UTIL = PhoneNumberUtil.getInstance();
     
     static {
     	
-        for (ISOCountryCodes next : values()) {
+        for (ISOCountryCode next : values()) {
             alpha3Map.put(next.getAlpha3(), next);
             numericMap.put(next.getNumeric(), next);
         }
@@ -48,49 +63,48 @@ public enum ISOCountryCodes implements ISOCountryCode {
     private final String alpha3;
     private final int numeric;
 
-
-    private ISOCountryCodes(String name, String alpha3, int numeric) {
+    private ISOCountryCode(String name, String alpha3, int numeric) {
         this.name = name;
         this.alpha3 = alpha3;
         this.numeric = numeric;
     }
 
-	/* (non-Javadoc)
-	 * @see org.jadira.cdt.country.ISOCountryCode#getName()
+	/**
+	 * Get the country name.
+	 * @return The country name.
 	 */
-    @Override
 	public String getName() {
         return name;
     }
 
-	/* (non-Javadoc)
-	 * @see org.jadira.cdt.country.ISOCountryCode#getAlpha2()
+	/**
+	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" >ISO 3166-1 alpha-2</a> code.
+	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> code.
 	 */
-	@Override
 	public String getAlpha2() {
 		return name();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jadira.cdt.country.ISOCountryCode#getAlpha3()
+	/**
+	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> code.
+	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">ISO 3166-1 alpha-3</a> code.
 	 */
-	@Override
 	public String getAlpha3() {
 		return alpha3;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.jadira.cdt.country.ISOCountryCode#getNumeric()
+	/**
+	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric" >ISO 3166-1 numeric</a> code.
+	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> code.
 	 */
-	@Override
 	public int getNumeric() {
 		return numeric;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.jadira.cdt.country.ISOCountryCode#getDiallingRegionCode()
+	/**
+	 * Gets the <a href="http://en.wikipedia.org/wiki/E.164">International Direct Dial</a> prefix for the country
+	 * @return
 	 */
-	@Override
 	public int getDiallingRegionCode() {
 		return PHONE_NUMBER_UTIL.getCountryCodeForRegion(this.getAlpha2());
 	}
@@ -124,7 +138,7 @@ public enum ISOCountryCodes implements ISOCountryCode {
 	 */
 	public static ISOCountryCode getByAlpha2Code(String code) {
 		try {
-			return Enum.valueOf(ISOCountryCodes.class, code);
+			return Enum.valueOf(ISOCountryCode.class, code);
 		} catch (IllegalArgumentException e) {
 			return null;
 		}
