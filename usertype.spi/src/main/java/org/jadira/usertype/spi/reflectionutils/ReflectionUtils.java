@@ -1,5 +1,6 @@
 package org.jadira.usertype.spi.reflectionutils;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ReflectPermission;
@@ -43,6 +44,19 @@ public class ReflectionUtils {
 		throw new IllegalStateException("Field (" + fieldName + ") could not be found in " + clazz.getName());
 	}
     
+	public static <A> Constructor<A> findConstructor(Class<A> clazz, Class<?>... paramTypes) {
+
+		Constructor<A> constructor;
+		try {
+			constructor = clazz.getDeclaredConstructor(paramTypes);
+		} catch (SecurityException e) {
+			throw new IllegalStateException("Constructor for (" + clazz.getName() + ") could not be accessed");
+		} catch (NoSuchMethodException e) {
+			throw new IllegalStateException("Constructor for (" + clazz.getName() + ") could not be found");
+		}
+		return constructor;
+	}
+	
 	public static Method findMethod(Class<?> clazz, String methodName, Class<?>... paramTypes) {
 
 		Class<?> typeBeingSearched = clazz;
