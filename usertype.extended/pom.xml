@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.usertype</groupId>
 		<artifactId>usertype.parent</artifactId>
-		<version>3.0.0.CR3</version>
+		<version>3.0.0.CR4-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -131,18 +131,18 @@
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.0.0.CR3</version>
+			<version>3.0.0.CR4-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.0.0.CR3</version>
+			<version>3.0.0.CR4-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.0.0.CR3</version>
+			<version>3.0.0.CR4-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
