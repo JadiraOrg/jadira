@@ -26,8 +26,8 @@
 
 	<version>3.0.0.CR3-SNAPSHOT</version>
 
-	<name>Usertype for Hibernate Parent</name>
-	<description>Classes utilising JSR 310 and Joda Time that add Hibernate support</description>
+	<name>Jadira Usertype Parent</name>
+	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
 	<url>http://usertype.sourceforge.net/</url>
 	<inceptionYear>2010</inceptionYear>
 
@@ -59,8 +59,8 @@
 	</mailingLists>
 	
 	<issueManagement>
-		<system>sourceforge</system>
-		<url>http://sourceforge.net/tracker/?group_id=318316</url>
+		<system>JIRA</system>
+    		<url>https://jadira.atlassian.net/BrowseProject.jspa?id=1</url>
 	</issueManagement>
 
 	<licenses>
@@ -430,16 +430,20 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId> 
 							<artifactId>maven-changes-plugin</artifactId> 
-							<version>2.6</version> 
+							<version>2.7.1</version> 
 							<reportSets>
 								<reportSet>
 									<reports>
 										<report>changes-report</report> 
+										<report>jira-report</report>
 									</reports>
 								</reportSet>
 							</reportSets>
 							<configuration>
-								<issueLinkTemplate>http://sourceforge.net/support/tracker.php?aid=%ISSUE%</issueLinkTemplate>
+								<issueManagementSystems>
+									<issueManagementSystem>changes.xml</issueManagementSystem>
+									<issueManagementSystem>JIRA</issueManagementSystem>
+          						</issueManagementSystems>
 							</configuration>
 						</plugin>
 						<plugin>
