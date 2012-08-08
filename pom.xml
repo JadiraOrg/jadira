@@ -24,7 +24,7 @@
 	<artifactId>usertype.parent</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.0.0.CR3-SNAPSHOT</version>
+	<version>3.0.0.CR3</version>
 
 	<name>Jadira Usertype Parent</name>
 	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
@@ -78,9 +78,9 @@
 	</properties>
 	
 	<scm>
-	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk</connection>
-	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</developerConnection>
-	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk</url>
+	    <connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/usertype.parent-3.0.0.CR3</connection>
+	    <developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/usertype.parent-3.0.0.CR3</developerConnection>
+	    <url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/usertype.parent-3.0.0.CR3</url>
   	</scm>
   	
   	<distributionManagement>
@@ -644,7 +644,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
