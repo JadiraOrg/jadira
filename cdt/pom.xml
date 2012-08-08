@@ -51,11 +51,13 @@
 			<groupId>com.googlecode.libphonenumber</groupId>
 			<artifactId>libphonenumber</artifactId>
 		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.jadira.bindings</groupId>
 			<artifactId>bindings.core</artifactId>
 			<version>0.7-SNAPSHOT</version>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>net.sf.oval</groupId>
 			<artifactId>oval</artifactId>
