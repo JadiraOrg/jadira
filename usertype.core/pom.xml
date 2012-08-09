@@ -32,7 +32,7 @@
 
 	<name>Usertype Core (supporting Joda Time and Joda Money with Hibernate)</name>
 	<description>Classes utilising Joda Time and Joda Money that add Hibernate support</description>
-  		
+
 	<dependencies>
 		<dependency>
 			<groupId>org.hibernate</groupId>

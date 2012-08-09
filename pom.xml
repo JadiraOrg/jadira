@@ -115,6 +115,135 @@
 	
 	<profiles>
 		<profile>
+			<id>h2database-default</id>
+			<activation>
+				<property>
+					<name>!database</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.h2database" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>
+		<profile>
+			<id>h2database</id>
+			<activation>
+				<property>
+					<name>database</name>
+					<value>h2database</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.h2database" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>
+		<profile>
+			<id>mysql</id>
+			<activation>
+				<property>
+					<name>database</name>
+					<value>mysql</value>
+				</property>
+				<activeByDefault>false</activeByDefault> 
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.mysql" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>		
+		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
 				<property>
@@ -140,7 +269,7 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
+		</profile>		
 	</profiles>
 	
 	<build>

@@ -254,7 +254,8 @@ usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyAsIntegerHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountHolder.java -text
-usertype.core/src/test/resources/META-INF/persistence.xml -text
+usertype.core/src/test/resources/META-INF/persistence.xml.h2database -text
+usertype.core/src/test/resources/META-INF/persistence.xml.mysql -text
 usertype.core/src/test/resources/expected/.dbunit-comparison-files -text
 usertype.core/src/test/resources/expected/bigMoneyAmount.xml -text
 usertype.core/src/test/resources/expected/bigMoneyAmountAndCurrency.xml -text
@@ -442,7 +443,8 @@ usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZoneOffsetAsStringHolder.java -text
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZonedDateTimeAsStringStringOffsetAndStringZoneHolder.java -text
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZonedDateTimeAsTimestampStringOffsetAndStringZoneHolder.java -text
-usertype.extended/src/test/resources/META-INF/persistence.xml -text
+usertype.extended/src/test/resources/META-INF/persistence.xml.h2database -text
+usertype.extended/src/test/resources/META-INF/persistence.xml.mysql -text
 usertype.extended/src/test/resources/expected/.dbunit-comparison-files -text
 usertype.extended/src/test/resources/expected/durationAsString.xml -text
 usertype.extended/src/test/resources/expected/instantAsMillisLong.xml -text
