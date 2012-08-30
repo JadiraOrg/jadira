@@ -485,6 +485,10 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/JavaTimeZoneW
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionException.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionUtils.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/TypeHelper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/repository/BaseRepository.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/repository/JpaBaseRepository.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/repository/JpaSearchRepository.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/repository/SearchRepository.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigDecimalColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractColumnMapper.java -text
