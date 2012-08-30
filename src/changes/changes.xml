@@ -26,6 +26,11 @@
 	<body>
 		
 		<!-- types are add, fix, remove, update -->
+		<release version="3.0.0.CR4" date="TBC" description="Bugfixes">
+			<action dev="Chris Pheby" issue="JDF-20" type="add">Added JPA Repository implementations</action>
+		</release>		
+
+		
 		<release version="3.0.0.CR3" date="08-08-2012" description="Bugfixes">
 			<action dev="Chris Pheby" type="fix">Fix for ThreadLocal Resource leak in AbstractUserTypeHibernateIntegrator, thanks to Thilo-Alexander Ginkel</action>
 			<action dev="Chris Pheby" type="add">Added generated ISOCurrencyCodes enumeration and related interface</action>
