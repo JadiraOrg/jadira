@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010, 2011 Sousan Rassoul and Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+	<properties>
+		<title>Bindings - Manual</title>
+		<author>Sousan Pheby and Chris Pheby</author>
+	</properties>
+	
+	<body>
+
+		<section name="Introduction">
+		
+			<p>Library supporting a variety of methods for defining bindings between classes and their String representation</p>
+
+			<subsection name="About Bindings">
+				<p>Jadira Bindings is a framework for data binding artibrary Java objects to and from one object representation to another. Other libraries provide similar functionality, including: <a href="http://joda-convert.sourceforge.net/">Joda Convert</a>, <a href="http://commons.apache.org/sandbox/convert/">Apache Commons Convert</a>. Jadira Bindings differs from these frameworks in its functionality and intent.
+				</p>
+				<p>Unlike other frameworks which typically only register bindings by type, Jadira Bindings supports qualifying bindings according to context. Why would you want to this? Consider the example of a date. The binding selected for database representation would need to be different from that selected for XML Schema. Jadira Bindings supports such distinctions by the use of qualifiers. The qualifier mechanism will be familiar to anyone that has used CDI.
+				</p>
+			</subsection>
+			<subsection name="Features and Capabilities">
+				<p>Key features of Jadira Bindings include:</p>
+<ul>
+<li>Pluggable support for a variety of binding specification mechanisms (Bindings can, for example, interpret Joda Convert annotations out of the box);</li>
+<li>Support for scoping particular To and From bindings with qualifiers, so that an appropriate method can be selected by context;</li>
+<li>Support for XML and Annotation configuration styles - XML binding utilises a bootstrap mechanism similar to CDI or the Spring Framework</li>
+<li>Bindings declared with annotations on the target class can be discovered automatically (with the exception of when used with Spring's converter framework).</li>
+<li>Support for programmatic configuration</li>
+<li>Integrations with Spring Framework and CDI</li>
+</ul>
+			</subsection>
+		</section>
+		<section name="Basic Annotation Driven Bindings">
+		
+			<p>The simplest use of bindings is to mark up to and from methods on the target class and use bindings to invoke them</p>
+			<subsection name="Setting up an annotation driven binding">
+				<p>Just mark up an object method as @To and a constructor or static method with an input object parameter as @From.</p>
+			</subsection>
+			<subsection name="Invoking the Binding">
+				<p>Invoke <code>new BasicBinder().convertTo(inputClass, outputClass, bar)</code></p>
+			</subsection>
+			<subsection name="Using qualifiers">
+				<p>A To or From method can be assigned a scope by attaching a qualifier. A qualifier is a special annotation that can be defined and attached to the method. Refer to the Javadoc for org.jadira.bindings.core.annotation.BindingScope. When you don't supply an explicit qualifier, a method is assumed to belong to the qualifier scope org.jadira.bindings.core.annotation.DefaultBinding. The Binder interface provides versions of the convertTo method that accept a qualifier as an additional parameter.</p>
+			</subsection>
+			<subsection name="Registering the binding">
+				<p>It is good practice to register the new binding rather than rely on the automatic discovery mechanism. This can be achieved by defining a META-INF/bindings.xml with a binding entry definining the class attribute - refer to jadira-bindings.xsd.</p>
+			</subsection>
+		</section>
+		<section name="Other annotation techniques">
+		
+			<p>Other than the previously mentioned annotations there are other ways to implement converters</p>
+
+			<subsection name="Joda Convert">
+				<p>Bindings can interpret Joda Convert annotations</p>
+			</subsection>
+			<subsection name="XML Configuration">
+				<p>You can use bindings.xml to declaratively reference converter methods which don't have to be defined on the class they convert for - refer to the XSD</p>
+			</subsection>
+			<subsection name="Java Interface">
+				<p>You can implement Binding, ToMarshaller, FromUnmarshaller, and/or Converter then use the XML configuration to register the implementation. When you implement an interface
+				in this manner you can apply a qualifier annotation on the implementing should you wish</p>
+			</subsection>
+		</section>
+		<section name="Bootstrap Mechanisms">
+		
+			<p>A variety of bootstrap mechanisms support loading of the framework as am alternative to directly constructing BasicStringBinder</p>
+
+			<subsection name="Service Loader">
+				<p>Bindings supports the Service Loader mechanism in JDK 1.6 for the service named org.jadira.bindings.core.Binder</p>
+			</subsection>
+			<subsection name="CDI">
+				<p>In CDI environments bindings supports an automatic bootstrap mechanism that scans any beans loaded for bindings or annotated methods</p>
+			</subsection>
+			<subsection name="Spring">
+				<p>The class BindingConverter is provided for registration available bindings with Spring Framework as converters</p>
+			</subsection>
+		</section>
+		<section name="Extension Mechanisms">
+		
+			<p>Bindings is an extensible framework. Some examples are below</p>
+
+			<subsection name="BindingProvider">
+				<p>To add new mechanisms for defining bindings, create and register a Converter Provider. To do so, implement the ConverterProvider interface, and register the provider with the bindings.xml file.</p>
+			</subsection>
+		</section>
+
+	</body>
+</document>

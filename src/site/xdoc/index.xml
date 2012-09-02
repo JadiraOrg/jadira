@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
 
 	<properties>
-		<title>Usertype - Home</title>
+		<title>Jadira Framework - Home</title>
 		<author>Chris Pheby</author>
 	</properties>
 
@@ -28,9 +28,14 @@
 
 		<section name="Usertype">
 			<p>
-User Types and classes for use with Hibernate. Includes user types for use with the javax.time 
-classes included in the early review draft of JSR 310 as well as for Joda Time. Where possible these types are compatible 
-with the equivalent &quot;Joda Time Contrib - Hibernate user types&quot;. 
+User Types and classes for use with Hibernate. Includes user types for use with many types including the javax.time
+classes included in the early review draft of JSR 310 as well as for Joda Time and Joda Money. Where possible these types are compatible
+with the equivalent &quot;Joda Time Contrib - Hibernate user types&quot;.
+			</p>
+		</section>
+		<section name="Bindings">
+			<p>
+Bindings is a library supporting a variety of methods for defining bindings between classes and their String representation
 			</p>
 		</section>
 

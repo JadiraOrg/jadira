@@ -161,10 +161,11 @@ src/site/apt/limitation.apt -text
 src/site/fml/faqs.fml -text
 src/site/resources/images/jadira-small.png -text
 src/site/site.xml -text
+src/site/xdoc/bindings-userguide.xml -text
 src/site/xdoc/index.xml -text
 src/site/xdoc/licensecover.xml -text
 src/site/xdoc/tasks.xml -text
-src/site/xdoc/userguide.xml -text
+src/site/xdoc/usertype-userguide.xml -text
 /suppressions.xml -text
 usertype.core/maven-eclipse.xml -text
 usertype.core/pom.xml -text
