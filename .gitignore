@@ -4,6 +4,10 @@
 /.metadata
 /.project
 /.settings
+bindings/.classpath
+bindings/.project
+bindings/.settings
+bindings/target
 cdt/.classpath
 cdt/.externalToolBuilders
 cdt/.project

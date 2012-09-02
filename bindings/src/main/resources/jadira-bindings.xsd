@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<xsd:schema targetNamespace="http://org.jadira.bindings/xml/ns/binding"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:jadirabindings="http://org.jadira.bindings/xml/ns/binding"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	version="1.0">
+
+	<xsd:simpleType name="versionType">
+		<xsd:restriction base="xsd:token">
+			<xsd:pattern value="[0-9]+(\.[0-9]+)*" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:complexType name="toType">
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="isStatic" type="xsd:boolean"
+					default="true" />
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="useConstructorType" />
+
+	<xsd:complexType name="providerType">
+		<xsd:attribute name="class" type="xsd:string" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="extensionType">
+		<xsd:attribute name="class" type="xsd:string" use="required" />
+		<xsd:attribute name="implementationClass" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="bindingType">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="toMethod" type="jadirabindings:toType" minOccurs="0" />
+			<xsd:choice minOccurs="0" >
+				<xsd:element name="fromMethod" type="xsd:string" />
+				<xsd:element name="fromConstructor" type="jadirabindings:useConstructorType" />
+			</xsd:choice>
+		</xsd:sequence>
+		<xsd:attribute name="class" type="xsd:string" use="required" />
+		<xsd:attribute name="sourceClass" type="xsd:string" use="optional" />
+		<xsd:attribute name="targetClass" type="xsd:string" use="optional" />
+		<xsd:attribute name="qualifier" type="xsd:string" use="optional" />
+	</xsd:complexType>
+
+	<xsd:element name="bindings">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="provider" minOccurs="0" maxOccurs="unbounded"
+					type="jadirabindings:providerType" />
+				<xsd:element name="extension" minOccurs="0" maxOccurs="unbounded"
+					type="jadirabindings:extensionType" />
+				<xsd:element name="binding" minOccurs="0" maxOccurs="unbounded"
+					type="jadirabindings:bindingType" />
+			</xsd:sequence>
+			<xsd:attribute name="version" type="jadirabindings:versionType"
+				fixed="1.0" use="required" />
+		</xsd:complexType>
+	</xsd:element>
+
+
+</xsd:schema>
