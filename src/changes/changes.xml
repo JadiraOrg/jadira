@@ -27,6 +27,7 @@
 		
 		<!-- types are add, fix, remove, update -->
 		<release version="3.0.0.CR4" date="TBC" description="Bugfixes">
+			<action dev="Chris Pheby" issue="JDF-19" type="fix">Work around ClassNotFound issue on JBoss</action>
 			<action dev="Chris Pheby" issue="JDF-20" type="add">Added JPA Repository implementations</action>
 		</release>		
 
