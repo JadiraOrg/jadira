@@ -1,12 +1,12 @@
 package org.jadira.usertype.spi.reflectionutils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.TimeZone;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @SuppressWarnings("restriction")
 public class JavaTimeZoneWorkaroundHelper {
@@ -25,18 +25,28 @@ public class JavaTimeZoneWorkaroundHelper {
 			JDK5_AND_PRESECURITYPATCH_DEFAULT_ZONE_TL = ReflectionUtils.findField(TimeZone.class, "defaultZoneTL");
 			JDK5_AND_PRESECURITYPATCH_DEFAULT_ZONE_TL.setAccessible(true);
 		} catch (IllegalStateException e) {
-				
-			APPCONTEXT_CONSTRUCTOR = ReflectionUtils.findConstructor(sun.awt.AppContext.class, ThreadGroup.class);
-			APPCONTEXT_CONSTRUCTOR.setAccessible(true);
-				
+			
 			try {
-				JDK7_PATCHED_THREAD_APPCONTEXT = ReflectionUtils.findField(sun.awt.AppContext.class, "threadAppContext");
-				JDK7_PATCHED_THREAD_APPCONTEXT.setAccessible(true);
-			} catch (IllegalStateException e2) {				
-				log.warn("Under JDK 6 it may not be possible to handle DST transitions correctly");
-				if (TimeZone.getDefault().useDaylightTime()) {
-					log.error("Running under a Zone that uses daylight saving time. To avoid incorrect datetimes being stored during DST transition, either update to JDK 7 or use a Timezone for the JDK without Daylight Saving Time");
+				// This check is for environments (e.g. JBoss) which sun.awt.AppContext cannot be loaded
+				Class.forName("sun.awt.AppContext");
+				
+				APPCONTEXT_CONSTRUCTOR = ReflectionUtils.findConstructor(sun.awt.AppContext.class, ThreadGroup.class);
+				APPCONTEXT_CONSTRUCTOR.setAccessible(true);
+				
+				try {
+					JDK7_PATCHED_THREAD_APPCONTEXT = ReflectionUtils.findField(sun.awt.AppContext.class, "threadAppContext");
+					JDK7_PATCHED_THREAD_APPCONTEXT.setAccessible(true);
+				} catch (IllegalStateException e2) {				
+					log.warn("Under JDK 6 it may not be possible to handle DST transitions correctly");
+					if (TimeZone.getDefault().useDaylightTime()) {
+						log.error("Running under a Zone that uses daylight saving time. To avoid incorrect datetimes being stored during DST transition, either update to JDK 7 or use a Timezone for the JDK without Daylight Saving Time");
+					}
 				}
+
+			} catch (ClassNotFoundException e3) {
+				// This exception is only expected to be thrown in JBoss / Tomcat
+				log.warn("An unexpected exception was thrown - presumably you are running with either JBoss or Tomcat");
+				log.warn("Under JBoss and Tomcat it may not be possible to handle DST transitions correctly");
 			}
 		}
 	}
@@ -100,7 +110,7 @@ public class JavaTimeZoneWorkaroundHelper {
 					}
 				}			
 			} else { 
-				// JDK6 Patched - do nothing
+				// JDK6 Patched - do nothing || JBoss / Tomcat - do nothing
 			}
 		}
 	}
