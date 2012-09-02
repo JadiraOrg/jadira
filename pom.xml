@@ -20,8 +20,8 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.jadira.usertype</groupId>
-	<artifactId>usertype.parent</artifactId>
+	<groupId>org.jadira.framework</groupId>
+	<artifactId>jadira.parent</artifactId>
 	<packaging>pom</packaging>
 
 	<version>3.0.0.CR4-SNAPSHOT</version>
@@ -75,6 +75,8 @@
 		<configuration.base>https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</configuration.base>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>       
+
+		<version.weld_core>1.1.5.Final</version.weld_core>
 	</properties>
 	
 	<scm>
@@ -273,7 +275,7 @@
 	</profiles>
 	
 	<build>
-		<defaultGoal>install</defaultGoal>
+		<defaultGoal>install</defaultGoal>	
 
 		<extensions>
 		        <extension>
@@ -776,6 +778,25 @@
 										<ignore />
 									</action>
 								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-antrun-plugin
+										</artifactId>
+										<versionRange>
+											[1.7,)
+										</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
@@ -795,6 +816,7 @@
 	<dependencyManagement>
 	
 		<dependencies>
+		
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
@@ -836,6 +858,12 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
 				<version>1.6.4</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>1.5.8</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
@@ -882,11 +910,93 @@
 				<version>4.5</version>
 			</dependency>
 			
+			<dependency>		
+				<groupId>javax.enterprise</groupId>
+				<artifactId>cdi-api</artifactId>
+				<version>1.0-CR4</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>el-api</artifactId>
+				<version>2.2</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>		
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>3.0.6.RELEASE</version>
+				<scope>provided</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+			<dependency>		
+				<groupId>org.joda</groupId>
+				<artifactId>joda-convert</artifactId>
+				<version>1.1</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.weld</groupId>
+				<artifactId>weld-core</artifactId>
+				<version>1.1.5.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.weld</groupId>
+				<artifactId>weld-core-bom</artifactId>
+				<version>1.1.5.Final</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.weld</groupId>
+				<artifactId>weld-api</artifactId>
+				<version>1.1.Final</version>
+				<scope>test</scope>
+			</dependency>			
+			<dependency>
+				<groupId>org.jboss.arquillian.container</groupId>
+				<artifactId>arquillian-weld-se-embedded-1.1</artifactId>
+				<version>1.0.0.CR3</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian.core</groupId>
+				<artifactId>arquillian-core-api</artifactId>
+				<version>1.0.2.Final</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.arquillian.junit</groupId>
+				<artifactId>arquillian-junit-container</artifactId>
+				<version>1.0.2.Final</version>
+				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging-api</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>commons-logging</groupId>
+						<artifactId>commons-logging</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.jboss.weld</groupId>
+						<artifactId>weld-core-bom</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 		</dependencies>
 
 	</dependencyManagement>
 
 	<modules>
+		<module>bindings</module>
 		<module>cdt</module>		
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
