@@ -17,7 +17,9 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
 
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+import org.joda.time.DateTimeZone;
 import org.joda.time.TimeOfDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -29,8 +31,17 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
 
     private static final long serialVersionUID = 6734385103313158326L;
 
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
+    public TimeColumnTimeOfDayMapper() {
+    }
+    
+    public TimeColumnTimeOfDayMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public TimeOfDay fromNonNullString(String s) {
         return new TimeOfDay(s);
@@ -38,9 +49,12 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
 
     @Override
     public TimeOfDay fromNonNullValue(Time value) {
-        return LOCAL_TIME_FORMATTER.parseDateTime(value.toString()).toTimeOfDay();
+    	
+    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	
+        return LOCAL_TIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toTimeOfDay();
     }
-
+    
     @Override
     public String toNonNullString(TimeOfDay value) {
         return value.toString();
@@ -49,5 +63,9 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
     @Override
     public Time toNonNullValue(TimeOfDay value) {
         return Time.valueOf(LOCAL_TIME_FORMATTER.print((TimeOfDay) value));
+    }
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

@@ -17,7 +17,9 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
 
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -25,9 +27,18 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 6734385103313158326L;
+    
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
+    public TimeColumnLocalTimeMapper() {
+    }
+    
+    public TimeColumnLocalTimeMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public LocalTime fromNonNullString(String s) {
         return new LocalTime(s);
@@ -35,9 +46,12 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
 
     @Override
     public LocalTime fromNonNullValue(Time value) {
-        return LOCAL_TIME_FORMATTER.parseDateTime(value.toString()).toLocalTime();
+    	
+    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	
+        return LOCAL_TIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
     }
-
+    
     @Override
     public String toNonNullString(LocalTime value) {
         return value.toString();
@@ -46,5 +60,9 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     @Override
     public Time toNonNullValue(LocalTime value) {
         return Time.valueOf(LOCAL_TIME_FORMATTER.print((LocalTime) value));
+    }
+
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

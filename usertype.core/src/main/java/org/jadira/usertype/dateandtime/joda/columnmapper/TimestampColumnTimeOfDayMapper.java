@@ -18,7 +18,9 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.util.Formatter;
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
 
@@ -29,6 +31,15 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     private static final long serialVersionUID = 1921591625617366103L;
 
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+
+    public TimestampColumnTimeOfDayMapper() {
+    }
+    
+    public TimestampColumnTimeOfDayMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
+    
     @Override
     public TimeOfDay fromNonNullString(String s) {
         return new TimeOfDay(s);
@@ -36,11 +47,14 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     @Override
     public TimeOfDay fromNonNullValue(Timestamp value) {
-        final LocalTime localTime = Formatter.LOCAL_DATETIME_PARSER.parseDateTime(value.toString()).toLocalTime();
+    	
+    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	
+        final LocalTime localTime = Formatter.LOCAL_DATETIME_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }
-
+    
     @Override
     public String toNonNullString(TimeOfDay value) {
         return value.toString();
@@ -57,5 +71,8 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
     }
-
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
+    }
 }

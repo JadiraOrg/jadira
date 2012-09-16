@@ -18,12 +18,24 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 import java.sql.Timestamp;
 
 import org.jadira.usertype.dateandtime.joda.util.Formatter;
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalTime;
 
 public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 1921591625617366103L;
+
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
+
+    public TimestampColumnLocalTimeMapper() {
+    }
+    
+    public TimestampColumnLocalTimeMapper(DateTimeZone databaseZone) {
+    	this.databaseZone = databaseZone;
+    }
 
     @Override
     public LocalTime fromNonNullString(String s) {
@@ -32,9 +44,13 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     @Override
     public LocalTime fromNonNullValue(Timestamp value) {
-        return Formatter.LOCAL_DATETIME_PARSER.parseDateTime(value.toString()).toLocalTime();
+        
+    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	
+    	DateTime dt = Formatter.LOCAL_DATETIME_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()); 
+        return dt.toLocalTime();
     }
-
+    
     @Override
     public String toNonNullString(LocalTime value) {
         return value.toString();
@@ -43,12 +59,16 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-        String formattedTimestamp = Formatter.LOCAL_DATETIME_PRINTER.print(value);
+        String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
 
         final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
         return timestamp;
+    }
+    
+    public void setDatabaseZone(DateTimeZone databaseZone) {
+        this.databaseZone = databaseZone;
     }
 }

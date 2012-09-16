@@ -17,16 +17,23 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
 
+import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
-import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
+import org.joda.time.DateTimeZone;
 import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
- * be retained.
+ * be retained. The type is stored using UTC timezone.
+ *
+ * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * to indicate the zone of the database. 
+ * N.B. To use the zone of the JVM supply 'jvm'
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */
-public class PersistentTimeOfDayAsTimestamp extends AbstractSingleColumnUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> {
+public class PersistentTimeOfDayAsTimestamp extends AbstractParameterizedUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -2642237430338499187L;
 }
