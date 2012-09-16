@@ -148,6 +148,7 @@ bindings/src/test/resources/another-bindings.xml -text
 bindings/src/test/resources/log4j.properties -text
 cdt/maven-eclipse.xml -text
 cdt/pom.xml -text
+cdt/src/main/java/org/jadira/cdt/country/CountryCode.java -text
 cdt/src/main/resources/fmpp/ISOCountryCode.fmt -text
 cdt/src/main/resources/fmpp/countrynames.txt -text
 cdt/src/main/resources/freemarker/config.fmpp -text
@@ -169,6 +170,7 @@ src/site/xdoc/usertype-userguide.xml -text
 /suppressions.xml -text
 usertype.core/maven-eclipse.xml -text
 usertype.core/pom.xml -text
+usertype.core/src/main/java/org/jadira/usertype/corejava/GenericEnumUserType.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateMidnight.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateTime.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnight.java -text
@@ -280,6 +282,8 @@ usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/integrator
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/util/CurrencyUnitConfiguredColumnMapper.java -text
 usertype.core/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.core/src/site/site.xml -text
+usertype.core/src/test/java/org/jadira/usertype/corejava/TestGenericEnum.java -text
+usertype.core/src/test/java/org/jadira/usertype/corejava/testmodel/ISOCountryCodeWithGenericTypeHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTime.java -text
@@ -427,6 +431,7 @@ usertype.core/src/test/resources/expected/instantAsNanosBigInteger.xml -text
 usertype.core/src/test/resources/expected/instantAsString.xml -text
 usertype.core/src/test/resources/expected/instantAsTimestamp.xml -text
 usertype.core/src/test/resources/expected/interval.xml -text
+usertype.core/src/test/resources/expected/isoCountryCodeWithGeneric.xml -text
 usertype.core/src/test/resources/expected/localDate.xml -text
 usertype.core/src/test/resources/expected/localDateAsString.xml -text
 usertype.core/src/test/resources/expected/localDateTime.xml -text
@@ -640,6 +645,7 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigDecimalColu
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractBigIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractDateColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractHeuristicUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractMultiColumnUserType.java -text

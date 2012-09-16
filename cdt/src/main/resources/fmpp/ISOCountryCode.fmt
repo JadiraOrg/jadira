@@ -21,6 +21,8 @@ import java.util.Map;
 
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 
+import org.jadira.cdt.country.CountryCode;
+
 /**
 * Enumeration of ISO <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>
 * country codes.
@@ -29,8 +31,8 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>
 * codes. 
 * Instance methods return country name ({@link ISOCountryCode#getName()}), 
-* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> codes ({@link ISOCountryCode#getAlpha3()}),
-* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> codes ({@link ISOCountryCode#getNumeric()}),
+* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> codes ({@link ISOCountryCode#getAlpha3Code()}),
+* <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode">ISO 3166-1 numericCode</a> codes ({@link ISOCountryCode#getNumericCode()}),
 * <a href="http://en.wikipedia.org/wiki/E.164">and E.164 the dialling region</a> code ({@link ISOCountryCode#getDiallingRegionCode()})
 * Static factory methods can retrieve ISOCountryCode instances that
 * corresponds to a given code.
@@ -40,48 +42,48 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil;
 * For the purpose of FMPP, all but one line of header must be removed. 
 * 
 */
-public enum ISOCountryCode {
+public enum ISOCountryCode implements CountryCode {
 
 <#list countryCode as countryCode>
-    ${countryCode.alpha2}("${countryCode.englishShortnameReading}", "${countryCode.alpha3}", ${countryCode.numeric}),
+    ${countryCode.alpha2Code}("${countryCode.englishShortnameReading}", "${countryCode.alpha3Code}", ${countryCode.numericCode}),
 </#list>;
 
-    private static final Map<String, ISOCountryCode> alpha3Map = new HashMap<String, ISOCountryCode>();
-    private static final Map<Integer, ISOCountryCode> numericMap = new HashMap<Integer, ISOCountryCode>();
+    private static final Map<String, ISOCountryCode> alpha3CodeMap = new HashMap<String, ISOCountryCode>();
+    private static final Map<Integer, ISOCountryCode> numericCodeMap = new HashMap<Integer, ISOCountryCode>();
 
     private static final PhoneNumberUtil PHONE_NUMBER_UTIL = PhoneNumberUtil.getInstance();
     
     static {
     	
         for (ISOCountryCode next : values()) {
-            alpha3Map.put(next.getAlpha3(), next);
-            numericMap.put(next.getNumeric(), next);
+            alpha3CodeMap.put(next.getAlpha3Code(), next);
+            numericCodeMap.put(next.getNumericCode(), next);
         }
     }
 
-    private final String name;
-    private final String alpha3;
-    private final int numeric;
+    private final String countryName;
+    private final String alpha3Code;
+    private final Integer numericCode;
 
-    private ISOCountryCode(String name, String alpha3, int numeric) {
-        this.name = name;
-        this.alpha3 = alpha3;
-        this.numeric = numeric;
+    private ISOCountryCode(String countryName, String alpha3Code, Integer numericCode) {
+        this.countryName = countryName;
+        this.alpha3Code = alpha3Code;
+        this.numericCode = numericCode;
     }
 
 	/**
 	 * Get the country name.
 	 * @return The country name.
 	 */
-	public String getName() {
-        return name;
+	public String getCountryName() {
+        return countryName;
     }
 
 	/**
 	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" >ISO 3166-1 alpha-2</a> code.
 	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a> code.
 	 */
-	public String getAlpha2() {
+	public String getAlpha2Code() {
 		return name();
 	}
 
@@ -89,24 +91,24 @@ public enum ISOCountryCode {
 	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> code.
 	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">ISO 3166-1 alpha-3</a> code.
 	 */
-	public String getAlpha3() {
-		return alpha3;
+	public String getAlpha3Code() {
+		return alpha3Code;
 	}
 
 	/**
-	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric" >ISO 3166-1 numeric</a> code.
-	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> code.
+	 * Get the <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode" >ISO 3166-1 numericCode</a> code.
+	 * @return The <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode">ISO 3166-1 numericCode</a> code.
 	 */
-	public int getNumeric() {
-		return numeric;
+	public Integer getNumericCode() {
+		return numericCode;
 	}
 	
 	/**
 	 * Gets the <a href="http://en.wikipedia.org/wiki/E.164">International Direct Dial</a> prefix for the country
 	 * @return
 	 */
-	public int getDiallingRegionCode() {
-		return PHONE_NUMBER_UTIL.getCountryCodeForRegion(this.getAlpha2());
+	public Integer getDiallingRegionCode() {
+		return PHONE_NUMBER_UTIL.getCountryCodeForRegion(this.getAlpha2Code());
 	}
 
 	/**
@@ -150,18 +152,18 @@ public enum ISOCountryCode {
 	 * @return A ISOCountryCode instance, or null if not found.
 	 */
 
-	private static ISOCountryCode getByAlpha3Code(String code) {
-		return alpha3Map.get(code);
+	public static ISOCountryCode getByAlpha3Code(String code) {
+		return alpha3CodeMap.get(code);
 	}
 
 	/**
-	 * Get a CountryCode that corresponds to a given <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1
-	 * numeric</a> code.
-	 * @param code An <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numeric">ISO 3166-1 numeric</a> code.
+	 * Get a CountryCode that corresponds to a given <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode">ISO 3166-1
+	 * numericCode</a> code.
+	 * @param code An <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode">ISO 3166-1 numericCode</a> code.
 	 * @return A CountryCode instance, or null if not found.
 	 */
-	public static ISOCountryCode getByNumberCode(int code) {
-		return numericMap.get(code);
+	public static ISOCountryCode getByNumericCode(Integer code) {
+		return numericCodeMap.get(code);
 	}
 
 	/**
@@ -169,7 +171,7 @@ public enum ISOCountryCode {
 	 * @param code An <a href="http://en.wikipedia.org/wiki/E.164">E.164 Dialling Region Code</a> code.
 	 * @return A CountryCode instance, or null if not found.
 	 */
-	public static ISOCountryCode getByDiallingRegionCode(int code) {
+	public static ISOCountryCode getByDiallingRegionCode(Integer code) {
 		return getByCode(PHONE_NUMBER_UTIL.getRegionCodeForCountryCode(code));
 	}
 }

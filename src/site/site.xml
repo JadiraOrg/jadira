@@ -31,8 +31,9 @@
 	<body>
 		
 		<menu name="Documentation">
-			<item name="Overview" href="index.html" />
-			<item name="Users guide" href="userguide.html" />
+			<item name="Overview" href="usertype-overview.html" />
+			<item name="Usertypes Guide" href="usertype-userguide.html" />
+			<item name="Bindings Guide" href="bindings-userguide.html" />
 			<item name="Javadoc (Release)" href="apidocs/index.html" />
 			<item name="HowTo" href="/howto.html" />
 			<item name="Bugs and limitations" href="/limitation.html" />

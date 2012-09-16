@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <isoCountryCodeWithGeneric ID="0" ISOCOUNTRYCODE="AD" NAME="test_0"/>
+  <isoCountryCodeWithGeneric ID="1" ISOCOUNTRYCODE="GB" NAME="test_1"/>
+  <isoCountryCodeWithGeneric ID="2" ISOCOUNTRYCODE="US" NAME="test_2"/>
+  <isoCountryCodeWithGeneric ID="3" ISOCOUNTRYCODE="FR" NAME="test_3"/>
+  <isoCountryCodeWithGeneric ID="4" NAME="test_4"/>
+</dataset>
