@@ -59,7 +59,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-        String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.print(value);
+        String formattedTimestamp = Formatter.LOCAL_TIME_PRINTER.print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

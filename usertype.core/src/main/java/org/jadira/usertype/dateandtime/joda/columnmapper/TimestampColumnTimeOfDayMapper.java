@@ -63,7 +63,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(TimeOfDay value) {
 
-        String formattedTimestamp = Formatter.LOCAL_DATETIME_PRINTER.print(value.toLocalTime());
+        String formattedTimestamp = Formatter.LOCAL_TIME_PRINTER.print(value.toLocalTime());
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }
