@@ -399,6 +399,7 @@ usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyAsIntegerHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountHolder.java -text
+usertype.core/src/test/resources/META-INF/persistence.xml -text
 usertype.core/src/test/resources/META-INF/persistence.xml.h2database -text
 usertype.core/src/test/resources/META-INF/persistence.xml.mysql -text
 usertype.core/src/test/resources/expected/.dbunit-comparison-files -text
