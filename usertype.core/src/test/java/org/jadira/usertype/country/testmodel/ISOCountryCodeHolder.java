@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.corejava.testmodel;
+package org.jadira.usertype.country.testmodel;
 
 import java.io.Serializable;
 
@@ -22,16 +22,15 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.cdt.country.ISOCountryCode;
-import org.jadira.usertype.corejava.GenericEnumUserType;
+import org.jadira.usertype.country.PersistentISOCountryCode;
 
 @Entity
-@Table(name = "isoCountryCodeWithGeneric")
-@TypeDef(name = "ISOCountryCodeWithGenericType", typeClass = GenericEnumUserType.class)
-public class ISOCountryCodeWithGenericTypeHolder implements Serializable {
+@Table(name = "isoCountryCode")
+@TypeDef(name = "ISOCountryCode", typeClass = PersistentISOCountryCode.class)
+public class ISOCountryCodeHolder implements Serializable {
 
     private static final long serialVersionUID = -1674416082110551506L;
 
@@ -42,7 +41,7 @@ public class ISOCountryCodeWithGenericTypeHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "ISOCountryCodeWithGenericType", parameters = { @Parameter(name="enumClass", value="org.jadira.cdt.country.ISOCountryCode"), @Parameter(name="identifierMethod", value="name"), @Parameter(name="valueOfMethod", value="valueOf") })
+    @Type(type = "ISOCountryCode")
     private ISOCountryCode ISOCountryCode;
 
     public long getId() {

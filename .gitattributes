@@ -170,7 +170,9 @@ src/site/xdoc/usertype-userguide.xml -text
 /suppressions.xml -text
 usertype.core/maven-eclipse.xml -text
 usertype.core/pom.xml -text
-usertype.core/src/main/java/org/jadira/usertype/corejava/GenericEnumUserType.java -text
+usertype.core/src/main/java/org/jadira/usertype/corejava/PersistentEnum.java -text
+usertype.core/src/main/java/org/jadira/usertype/country/PersistentISOCountryCode.java -text
+usertype.core/src/main/java/org/jadira/usertype/country/columnmapper/StringColumnISOCountryCodeMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateMidnight.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/AbstractMultiColumnDateTime.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentDateMidnight.java -text
@@ -282,8 +284,10 @@ usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/integrator
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/util/CurrencyUnitConfiguredColumnMapper.java -text
 usertype.core/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.core/src/site/site.xml -text
-usertype.core/src/test/java/org/jadira/usertype/corejava/TestGenericEnum.java -text
-usertype.core/src/test/java/org/jadira/usertype/corejava/testmodel/ISOCountryCodeWithGenericTypeHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/corejava/TestPersistentEnum.java -text
+usertype.core/src/test/java/org/jadira/usertype/corejava/testmodel/ISOCountryCodeWithPersistentEnumHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/country/TestPersistentISOCountryCode.java -text
+usertype.core/src/test/java/org/jadira/usertype/country/testmodel/ISOCountryCodeHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnight.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateMidnightAsString.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentDateTime.java -text
@@ -431,7 +435,8 @@ usertype.core/src/test/resources/expected/instantAsNanosBigInteger.xml -text
 usertype.core/src/test/resources/expected/instantAsString.xml -text
 usertype.core/src/test/resources/expected/instantAsTimestamp.xml -text
 usertype.core/src/test/resources/expected/interval.xml -text
-usertype.core/src/test/resources/expected/isoCountryCodeWithGeneric.xml -text
+usertype.core/src/test/resources/expected/isoCountryCode.xml -text
+usertype.core/src/test/resources/expected/isoCountryCodeWithPersistentEnum.xml -text
 usertype.core/src/test/resources/expected/localDate.xml -text
 usertype.core/src/test/resources/expected/localDateAsString.xml -text
 usertype.core/src/test/resources/expected/localDateTime.xml -text

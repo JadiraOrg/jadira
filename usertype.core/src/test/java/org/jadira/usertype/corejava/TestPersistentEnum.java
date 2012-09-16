@@ -20,18 +20,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import org.jadira.cdt.country.ISOCountryCode;
-import org.jadira.usertype.corejava.testmodel.ISOCountryCodeWithGenericTypeHolder;
+import org.jadira.usertype.corejava.testmodel.ISOCountryCodeWithPersistentEnumHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.junit.Test;
 
-public class TestGenericEnum extends AbstractDatabaseTest<ISOCountryCodeWithGenericTypeHolder> {
+public class TestPersistentEnum extends AbstractDatabaseTest<ISOCountryCodeWithPersistentEnumHolder> {
 
     private static final ISOCountryCode[] isoCountryCodes = new ISOCountryCode[]{ISOCountryCode.AD, ISOCountryCode.GB, ISOCountryCode.US, ISOCountryCode.FR, null};
 
     @Test
     public void testPersist() {
         for (int i = 0; i < isoCountryCodes.length; i++) {
-            ISOCountryCodeWithGenericTypeHolder item = new ISOCountryCodeWithGenericTypeHolder();
+            ISOCountryCodeWithPersistentEnumHolder item = new ISOCountryCodeWithPersistentEnumHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setISOCountryCode(isoCountryCodes[i]);
@@ -40,7 +40,7 @@ public class TestGenericEnum extends AbstractDatabaseTest<ISOCountryCodeWithGene
         }
 
         for (int i = 0; i < isoCountryCodes.length; i++) {
-            ISOCountryCodeWithGenericTypeHolder item = find((long) i);
+            ISOCountryCodeWithPersistentEnumHolder item = find((long) i);
 
             assertNotNull(item);
             assertEquals(i, item.getId());

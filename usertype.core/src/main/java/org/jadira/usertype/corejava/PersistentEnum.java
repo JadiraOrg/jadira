@@ -22,7 +22,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.spi.shared.AbstractHeuristicUserType;
 
-public class GenericEnumUserType extends AbstractHeuristicUserType<Enum<?>> implements ParameterizedType {
+public class PersistentEnum extends AbstractHeuristicUserType<Enum<?>> implements ParameterizedType {
 
 	private static final long serialVersionUID = 3094384329334123541L;
 	
