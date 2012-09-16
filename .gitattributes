@@ -589,6 +589,7 @@ usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZoneOffsetAsStringHolder.java -text
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZonedDateTimeAsStringStringOffsetAndStringZoneHolder.java -text
 usertype.extended/src/test/java/org/jadira/usertype/dateandtime/jsr310/testmodel/ZonedDateTimeAsTimestampStringOffsetAndStringZoneHolder.java -text
+usertype.extended/src/test/resources/META-INF/persistence.xml -text
 usertype.extended/src/test/resources/META-INF/persistence.xml.h2database -text
 usertype.extended/src/test/resources/META-INF/persistence.xml.mysql -text
 usertype.extended/src/test/resources/expected/.dbunit-comparison-files -text
