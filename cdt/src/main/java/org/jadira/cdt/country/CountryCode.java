@@ -16,7 +16,7 @@
 package org.jadira.cdt.country;
 
 /**
- * Defines a country code
+ * Defines a Country Code
  */
 public interface CountryCode {
 
