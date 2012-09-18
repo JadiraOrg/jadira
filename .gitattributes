@@ -149,6 +149,8 @@ bindings/src/test/resources/log4j.properties -text
 cdt/maven-eclipse.xml -text
 cdt/pom.xml -text
 cdt/src/main/java/org/jadira/cdt/country/CountryCode.java -text
+cdt/src/main/java/org/jadira/cdt/exception/WrappedCheckedException.java -text
+cdt/src/main/java/org/jadira/cdt/exception/WrappedRuntimeException.java -text
 cdt/src/main/resources/fmpp/ISOCountryCode.fmt -text
 cdt/src/main/resources/fmpp/countrynames.txt -text
 cdt/src/main/resources/freemarker/config.fmpp -text
