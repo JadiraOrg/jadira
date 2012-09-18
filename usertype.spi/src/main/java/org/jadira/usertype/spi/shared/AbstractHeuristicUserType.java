@@ -19,7 +19,6 @@ import static org.jadira.usertype.spi.reflectionutils.ArrayUtils.copyOf;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,51 +30,30 @@ import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.TypeResolver;
 import org.hibernate.type.descriptor.java.JavaTypeDescriptor;
 import org.hibernate.usertype.EnhancedUserType;
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
 
-public abstract class AbstractHeuristicUserType<T> extends AbstractUserType implements EnhancedUserType, Serializable {
+public abstract class AbstractHeuristicUserType extends AbstractUserType implements EnhancedUserType, Serializable {
 
 	private static final long serialVersionUID = 7099384329368123541L;
 
-	private Class<?> mappedClass;
-
-	private Method identifierMethod;
-	private Method valueOfMethod;
-
 	private Class<?> identifierType;
+	
 	private AbstractSingleColumnStandardBasicType<?> type;
 	
 	private int[] sqlTypes;
 
-    protected void setMappedClass(Class<?> mappedClass) {
-    	this.mappedClass = mappedClass;
+    protected void setIdentifierType(Class<?> identifierType) {
+    	this.identifierType = identifierType;
     }
     
-    protected Class<?> getMappedClass() {
-    	return mappedClass;
+    protected Class<?> getIdentifierType() {
+    	return identifierType;
     }
     
-    protected void setIdentifierMethod(Method identifierMethod) {
-    	this.identifierMethod = identifierMethod;
-    }
-    
-    protected void setValueOfMethod(Method valueOfMethod) {
-    	this.valueOfMethod = valueOfMethod;
+    protected AbstractSingleColumnStandardBasicType<?> getType() {
+    	return type;
     }
     
 	public void setParameterValues(Properties parameters) {
-
-		if (mappedClass == null) {
-			
-			throw new IllegalStateException("No mapped class was defined for " + this.getClass().getName());
-		}
-
-		if (identifierMethod == null) {
-			
-			throw new IllegalStateException("No identifier method was defined for " + this.getClass().getName());
-		}
-		
-		identifierType = identifierMethod.getReturnType();
 		
 		@SuppressWarnings("unchecked")
 		final AbstractSingleColumnStandardBasicType<? extends Object> heuristicType = (AbstractSingleColumnStandardBasicType<? extends Object>) new TypeResolver().heuristicType(identifierType.getName(), parameters);
@@ -91,11 +69,8 @@ public abstract class AbstractHeuristicUserType<T> extends AbstractUserType impl
         return copyOf(sqlTypes);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public Class<T> returnedClass() {
-        return (Class<T>) TypeHelper.getTypeArguments(AbstractHeuristicUserType.class, getClass()).get(0);
-    }
+    public abstract Class<?> returnedClass();
     
 	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
@@ -103,62 +78,52 @@ public abstract class AbstractHeuristicUserType<T> extends AbstractUserType impl
 		beforeNullSafeOperation(session);
 		
 		try {
-		
-			Object identifier = type.get(rs, names[0], session);
-			if (rs.wasNull()) {
-				return null;
-			}
 	
 			try {
-				return valueOfMethod.invoke(mappedClass, new Object[] { identifier });
+				return doNullSafeGet(rs, names, session, owner);
 			} catch (IllegalArgumentException e) {
 				throw new HibernateException(
-						"Exception while invoking valueOf method '"
-								+ valueOfMethod.getName() + "' of class '" 
-								+ mappedClass + "'", e);
+						"Exception during nullSafeGet of type '" 
+							+ identifierType.getName() + "'", e);
 			} catch (IllegalAccessException e) {
 				throw new HibernateException(
-						"Exception while invoking valueOf method '"
-								+ valueOfMethod.getName() + "' of class '" 
-								+ mappedClass + "'", e);
+						"Exception during nullSafeGet of type '" 
+								+ identifierType.getName() + "'", e);
 			} catch (InvocationTargetException e) {
 				throw new HibernateException(
-						"Exception while invoking valueOf method '"
-								+ valueOfMethod.getName() + "' of class '" 
-								+ mappedClass + "'", e);
+						"Exception during nullSafeGet of type '" 
+								+ identifierType.getName() + "'", e);
 			}    
     	} finally {
     		afterNullSafeOperation(session);
     	}
 	}
 
+    public abstract Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
+    
     @Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
     	try {
-    		if (value == null) {
-    			preparedStatement.setNull(index, type.sqlType());
-    		} else {
-    			Object identifier = identifierMethod.invoke(value, new Object[0]);
-    			type.nullSafeSet(preparedStatement, identifier, index, session);
-    		}
+    		doNullSafeSet(preparedStatement, value, index, session);
 		} catch (IllegalArgumentException e) {
 			throw new HibernateException(
-					"Exception while invoking identifierMethod '"
-							+ identifierMethod.getName() + "' of class '" 
-							+ mappedClass + "'", e);
+					"Exception during nullSafeSet of type '" 
+							+ identifierType.getName() + "'", e);
 		} catch (IllegalAccessException e) {
 			throw new HibernateException(
-					"Exception while invoking identifierMethod '"
-							+ identifierMethod.getName() + "' of class '" 
-							+ mappedClass + "'", e);		} catch (InvocationTargetException e) {
+					"Exception during nullSafeSet of type '" 
+							+ identifierType.getName() + "'", e);
+			} catch (InvocationTargetException e) {
 		} finally {
 			afterNullSafeOperation(session);
 		}
     }
 
+    public abstract void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
+    
     @Override
     public Serializable disassemble(Object value) throws HibernateException {
         return super.disassemble(value);
@@ -189,9 +154,7 @@ public abstract class AbstractHeuristicUserType<T> extends AbstractUserType impl
     }
 
     @Override
-    public T fromXMLString(String string) {
-        @SuppressWarnings("unchecked")
-		T fromString = (T) type.fromString(string);
-		return fromString;
+    public Object fromXMLString(String string) {
+		return type.fromString(string);
     }
 }

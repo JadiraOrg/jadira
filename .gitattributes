@@ -170,6 +170,7 @@ src/site/xdoc/usertype-userguide.xml -text
 /suppressions.xml -text
 usertype.core/maven-eclipse.xml -text
 usertype.core/pom.xml -text
+usertype.core/src/main/java/org/jadira/usertype/bindings/PersistentBoundClass.java -text
 usertype.core/src/main/java/org/jadira/usertype/corejava/PersistentEnum.java -text
 usertype.core/src/main/java/org/jadira/usertype/country/PersistentISOCountryCode.java -text
 usertype.core/src/main/java/org/jadira/usertype/country/columnmapper/StringColumnISOCountryCodeMapper.java -text
@@ -655,6 +656,7 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractIntegerColumnM
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractMultiColumnUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractParameterizedUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractReflectionUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractSingleColumnUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractStringColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractTimeColumnMapper.java -text

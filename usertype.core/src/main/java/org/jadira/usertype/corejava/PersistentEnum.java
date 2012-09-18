@@ -20,15 +20,15 @@ import java.util.Properties;
 
 import org.hibernate.HibernateException;
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.spi.shared.AbstractHeuristicUserType;
+import org.jadira.usertype.spi.shared.AbstractReflectionUserType;
 
-public class PersistentEnum extends AbstractHeuristicUserType<Enum<?>> implements ParameterizedType {
+public class PersistentEnum extends AbstractReflectionUserType<Enum<?>> implements ParameterizedType {
 
 	private static final long serialVersionUID = 3094384329334123541L;
 	
 	private static final String DEFAULT_VALUE_OF_METHOD_NAME = "valueOf";		
 	private static final String DEFAULT_IDENTIFIER_METHOD_NAME = "name";
-
+	
 	@SuppressWarnings({ "unchecked" })
 	public void setParameterValues(Properties parameters) {
 
