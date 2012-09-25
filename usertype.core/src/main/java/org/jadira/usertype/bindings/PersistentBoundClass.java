@@ -30,11 +30,9 @@ import org.hibernate.usertype.ParameterizedType;
 import org.jadira.bindings.core.api.Binding;
 import org.jadira.bindings.core.binder.BasicBinder;
 import org.jadira.usertype.spi.shared.AbstractHeuristicUserType;
-/**
 
- * Allows dynamic inv
- * @author Chris
- *
+/**
+ * Allows dynamic invocation of any class by mapping it using a binding type.
  */
 public class PersistentBoundClass extends AbstractHeuristicUserType implements ParameterizedType, EnhancedUserType, Serializable {
 
