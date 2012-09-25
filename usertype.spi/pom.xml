@@ -35,6 +35,14 @@
 	<description>Shared depencies for Usertype jars</description>
 	
 	<dependencies>
+	
+		<dependency>
+			<groupId>org.jadira.bindings</groupId>
+			<artifactId>bindings</artifactId>
+			<version>${project.version}</version>
+			<optional>true</optional>
+		</dependency>
+	
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>

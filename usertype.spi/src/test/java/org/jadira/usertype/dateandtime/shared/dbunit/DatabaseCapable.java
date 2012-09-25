@@ -90,9 +90,9 @@ public class DatabaseCapable {
 	protected void writeExpectedFile(IDatabaseConnection dbunitConnection,
 			File outputFile, String tableName) throws IOException,
 			DataSetException {
+		
 		QueryDataSet partialDataSet = new QueryDataSet(dbunitConnection);
 		partialDataSet.addTable(tableName);
-		// IDataSet export = work.getDatabaseDataSet(); // Full dataset
 
 		FlatXmlDataSet.write(partialDataSet, new FileOutputStream(outputFile));
 	}

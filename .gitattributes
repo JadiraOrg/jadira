@@ -151,9 +151,13 @@ cdt/pom.xml -text
 cdt/src/main/java/org/jadira/cdt/country/CountryCode.java -text
 cdt/src/main/java/org/jadira/cdt/exception/WrappedCheckedException.java -text
 cdt/src/main/java/org/jadira/cdt/exception/WrappedRuntimeException.java -text
+cdt/src/main/java/org/jadira/cdt/phonenumber/api/PhoneNumber.java -text
+cdt/src/main/java/org/jadira/cdt/phonenumber/api/PhoneNumberParseException.java -text
+cdt/src/main/java/org/jadira/cdt/phonenumber/impl/E164PhoneNumberWithExtension.java -text
 cdt/src/main/resources/fmpp/ISOCountryCode.fmt -text
 cdt/src/main/resources/fmpp/countrynames.txt -text
 cdt/src/main/resources/freemarker/config.fmpp -text
+cdt/src/test/java/org/jadira/cdt/phonenumber/impl/TestE164PhoneNumberWithExtension.java -text
 /checkstyle.xml -text
 /dictionary.txt -text
 /howto_release.txt -text
@@ -285,6 +289,8 @@ usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapp
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/StringColumnCurrencyUnitMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/integrator/UserTypeJodaMoneyHibernateIntegrator.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/util/CurrencyUnitConfiguredColumnMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/phonenumber/PersistentE164PhoneNumberWithExtension.java -text
+usertype.core/src/main/java/org/jadira/usertype/phonenumber/columnmapper/StringColumnE164PhoneNumberWithExtensionMapper.java -text
 usertype.core/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
 usertype.core/src/site/site.xml -text
 usertype.core/src/test/java/org/jadira/usertype/corejava/TestPersistentEnum.java -text
@@ -410,6 +416,8 @@ usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyAsIntegerHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountAndCurrencyHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/MoneyMinorAmountHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/phonenumber/TestPersistentE164PhoneNumberWithExtension.java -text
+usertype.core/src/test/java/org/jadira/usertype/phonenumber/testmodel/E164PhoneNumberWithExtensionHolder.java -text
 usertype.core/src/test/resources/META-INF/persistence.xml -text
 usertype.core/src/test/resources/META-INF/persistence.xml.h2database -text
 usertype.core/src/test/resources/META-INF/persistence.xml.mysql -text
@@ -433,13 +441,14 @@ usertype.core/src/test/resources/expected/dateTimeAsString.xml -text
 usertype.core/src/test/resources/expected/dateTimeWithZone.xml -text
 usertype.core/src/test/resources/expected/dateTimeZoneAsString.xml -text
 usertype.core/src/test/resources/expected/durationAsString.xml -text
+usertype.core/src/test/resources/expected/e164PhoneNumberWithExtension.xml -text
 usertype.core/src/test/resources/expected/instantAsMillisLong.xml -text
 usertype.core/src/test/resources/expected/instantAsNanosBigInteger.xml -text
 usertype.core/src/test/resources/expected/instantAsString.xml -text
 usertype.core/src/test/resources/expected/instantAsTimestamp.xml -text
 usertype.core/src/test/resources/expected/interval.xml -text
 usertype.core/src/test/resources/expected/isoCountryCode.xml -text
-usertype.core/src/test/resources/expected/isoCountryCodeWithPersistentEnum.xml -text
+usertype.core/src/test/resources/expected/isoCountryCodeWithGeneric.xml -text
 usertype.core/src/test/resources/expected/localDate.xml -text
 usertype.core/src/test/resources/expected/localDateAsString.xml -text
 usertype.core/src/test/resources/expected/localDateTime.xml -text
