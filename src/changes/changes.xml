@@ -26,10 +26,11 @@
 	<body>
 		
 		<!-- types are add, fix, remove, update -->
-		<release version="3.0.0.CR4" date="TBC" description="Bugfixes">
+		<release version="3.0.0.CR4" date="25-09-2012" description="Bugfixes and Support for LibPhonenumber">
 			<action dev="Chris Pheby" issue="JDF-19" type="fix">Work around ClassNotFound issue on JBoss</action>
 			<action dev="Chris Pheby" issue="JDF-20" type="add">Added JPA Repository implementations</action>
 			<action dev="Chris Pheby" issue="JDF-4" type="fix">Fixed handling of local types when stored offset from GMT</action>
+			<action dev="Chris Pheby" issue="JDF-6" type="add">Adding support for persistence with libphonenumber and related value type</action>
 		</release>		
 		
 		<release version="3.0.0.CR3" date="08-08-2012" description="Bugfixes">
