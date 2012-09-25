@@ -26,6 +26,10 @@
 	<body>
 		
 		<!-- types are add, fix, remove, update -->
+		<release version="3.0.0.CR5" date="TBC" description="Bugfixes">
+			<action dev="Chris Pheby" issue="JDF-23" type="update">Bindings module now requires Java 6</action>
+		</release>		
+
 		<release version="3.0.0.CR4" date="25-09-2012" description="Bugfixes and Support for LibPhonenumber">
 			<action dev="Chris Pheby" issue="JDF-19" type="fix">Work around ClassNotFound issue on JBoss</action>
 			<action dev="Chris Pheby" issue="JDF-20" type="add">Added JPA Repository implementations</action>
