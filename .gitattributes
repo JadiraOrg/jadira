@@ -162,6 +162,7 @@ cdt/src/test/java/org/jadira/cdt/phonenumber/impl/TestE164PhoneNumberWithExtensi
 /dictionary.txt -text
 /howto_release.txt -text
 /pom.xml -text
+refdata/pom.xml -text
 src/changes/changes.xml -text
 src/site/apt/howto.apt -text
 src/site/apt/limitation.apt -text

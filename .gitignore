@@ -13,6 +13,10 @@ cdt/.externalToolBuilders
 cdt/.project
 cdt/.settings
 cdt/target
+refdata/.classpath
+refdata/.project
+refdata/.settings
+refdata/target
 /release.properties
 /target
 usertype.core/*.checkstyle
