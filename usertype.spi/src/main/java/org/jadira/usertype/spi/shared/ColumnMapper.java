@@ -15,11 +15,11 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import org.hibernate.type.AbstractStandardBasicType;
+import org.hibernate.type.SingleColumnType;
 
 public interface ColumnMapper<T, J> {
 
-	AbstractStandardBasicType<? super J> getHibernateType(); 
+	SingleColumnType<? super J> getHibernateType(); 
 
     int getSqlType();
 
