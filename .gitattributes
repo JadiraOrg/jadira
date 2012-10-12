@@ -249,12 +249,10 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/integrator/User
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/DateTimeZoneWithOffset.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/Formatter.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/util/ZoneHelper.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/LocationSafeDateType.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/LocationSafeJdbcTimeType.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/LocationSafeJdbcTimestampType.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/descriptor/sql/LocationSafeDateTypeDescriptor.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/descriptor/sql/LocationSafeTimeTypeDescriptor.java -text
-usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/descriptor/sql/LocationSafeTimestampTypeDescriptor.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/PersistentDate.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/PersistentTimestamp.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/columnmapper/TimestampColumnDateMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/columnmapper/TimestampColumnTimestampMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/AbstractSingleColumnMoneyUserType.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/PersistentBigMoneyAmount.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/PersistentBigMoneyAmountAndCurrency.java -text
@@ -375,6 +373,10 @@ usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearM
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearMonthDayHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearMonthDayJoda.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/YearsHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/legacyjdk/TestPersistentDate.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/legacyjdk/TestPersistentTimestamp.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/legacyjdk/testmodel/LegacyDateHolder.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/legacyjdk/testmodel/LegacyTimestampHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/TestPersistentBigMoneyAmount.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/TestPersistentBigMoneyAmountAndCurrency.java -text
 usertype.core/src/test/java/org/jadira/usertype/moneyandcurrency/joda/TestPersistentBigMoneyAmountAndCurrencyAsInteger.java -text
@@ -450,6 +452,8 @@ usertype.core/src/test/resources/expected/instantAsTimestamp.xml -text
 usertype.core/src/test/resources/expected/interval.xml -text
 usertype.core/src/test/resources/expected/isoCountryCode.xml -text
 usertype.core/src/test/resources/expected/isoCountryCodeWithGeneric.xml -text
+usertype.core/src/test/resources/expected/legacyDate.xml -text
+usertype.core/src/test/resources/expected/legacyTimestamp.xml -text
 usertype.core/src/test/resources/expected/localDate.xml -text
 usertype.core/src/test/resources/expected/localDateAsString.xml -text
 usertype.core/src/test/resources/expected/localDateTime.xml -text
