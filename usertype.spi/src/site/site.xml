@@ -25,14 +25,15 @@
 	<poweredBy>
 		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net/" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1" />
 		<logo name="Built using Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-button-green.png" />
-		<logo name="Sponsored by Jadira" href="http://blog.jadira.co.uk/" img="../images/jadira-small.png" />
+		<logo name="Jadira Open Source" href="http://blog.jadira.co.uk/" img="../images/jadira-small.png" />
 	</poweredBy>
 
 	<body>
 		
 		<menu name="Documentation">
 			<item name="Overview" href="../index.html" />
-			<item name="Users guide" href="../userguide.html" />
+			<item name="Usertypes Guide" href="../usertype-userguide.html" />
+			<item name="Bindings Guide" href="../bindings-userguide.html" />
 			<item name="Javadoc (Release)" href="../apidocs/index.html" />
 			<item name="HowTo" href="../howto.html" />
 			<item name="Bugs and limitations" href="../limitation.html" />
@@ -47,8 +48,8 @@
 			<item name="Mailing lists" href="../mail-lists.html" />
 			<item name="Tasks" href="../tasks.html" />
 			<item name="Subversion" href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
-			<item name="Maven 2 Repository (JSR310)" href="../m2-repo/" />
-			<item name="Maven 2 Repository (Central Staging)" href="http://oss.sonatype.org/content/groups/staging/org/jadira/" />
+			<item name="Maven 2 Repository (Central Releases)" href="http://repo1.maven.org/maven2/org/jadira/" />
+			<item name="Maven 2 Repository (JSR310 Support)" href="m2-repo/org/jadira/" />
 		</menu>
 
 		<menu ref="reports" />
