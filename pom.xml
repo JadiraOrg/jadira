@@ -24,7 +24,7 @@
 	<artifactId>jadira.parent</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.GA-SNAPSHOT</version>
+	<version>3.0.0.GA-SNAPSHOT</version>
 
 	<name>Jadira Usertype Parent</name>
 	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
