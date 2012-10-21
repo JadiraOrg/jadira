@@ -22,7 +22,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalDate;
@@ -30,7 +29,7 @@ import org.joda.time.LocalDate;
 
 @Entity
 @Table(name = "localDate")
-@TypeDef(name = "testjoda_LocalDateType", typeClass = PersistentLocalDate.class, parameters = { @Parameter(name = "databaseZone", value="Brazil/East")})
+@TypeDef(name = "testjoda_LocalDateType", typeClass = PersistentLocalDate.class)
 public class JodaLocalDateHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;

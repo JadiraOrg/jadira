@@ -30,7 +30,7 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
-    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    private DateTimeZone databaseZone = null; // Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26
     
     public DateColumnLocalDateMapper() {
     }

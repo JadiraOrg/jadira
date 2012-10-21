@@ -15,9 +15,13 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import java.sql.Date;
+
+import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateHolder;
 import org.jadira.usertype.dateandtime.joda.testmodel.LocalDateJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -76,5 +80,16 @@ public class TestPersistentLocalDate extends AbstractDatabaseTest<JodaLocalDateH
             assertEquals("test_" + i, item.getName());
             assertEquals(localDates[i], item.getLocalDate());
         }
+    }
+    
+    @Test
+    public void testMapper() {
+    	final DateColumnLocalDateMapper mapper = new DateColumnLocalDateMapper();
+    
+    	final LocalDate in = new LocalDate("2012-10-15");
+    	final Date db = mapper.toNonNullValue(in);
+    	final LocalDate out = mapper.fromNonNullValue(db);
+    	
+        assertEquals(in, out);
     }
 }
