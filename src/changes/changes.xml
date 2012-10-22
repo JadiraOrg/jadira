@@ -24,8 +24,12 @@
 	</properties>
 		
 	<body>
-		
+
 		<!-- types are add, fix, remove, update -->
+		<release version="3.1.0.GA" date="TBC" description="TBC">
+			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for PersistentInstant</action>
+		</release>
+		
 		<release version="3.0.0.GA" date="21-10-2012" description="New Types, (including for LibPhonenumber & Joda Money), Autoregistration, Hibernate 4, and Bugfixes">
 			<action dev="Chris Pheby" issue="JDF-22" type="fix">Resolve problem using Usertype with Hibernate Tools. Reported by Chun Chong Liao and Stéphane Bouteille</action>
 			<action dev="Chris Pheby" issue="JDF-23" type="update">Bindings module now requires Java 6</action>
