@@ -158,6 +158,7 @@ cdt/src/main/java/org/jadira/cdt/phonenumber/impl/E164PhoneNumberWithExtension.j
 cdt/src/main/resources/fmpp/ISOCountryCode.fmt -text
 cdt/src/main/resources/fmpp/countrynames.txt -text
 cdt/src/main/resources/freemarker/config.fmpp -text
+cdt/src/site/site.xml -text
 cdt/src/test/java/org/jadira/cdt/phonenumber/impl/TestE164PhoneNumberWithExtension.java -text
 /checkstyle.xml -text
 /dictionary.txt -text
