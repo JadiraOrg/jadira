@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.joda.PersistentInterval;
@@ -30,7 +31,7 @@ import org.joda.time.Interval;
 
 @Entity
 @Table(name = "interval")
-@TypeDef(name = "testjoda_IntervalType", typeClass = PersistentInterval.class)
+@TypeDef(name = "testjoda_IntervalType", typeClass = PersistentInterval.class, parameters = { @Parameter(name = "javaZone", value="UTC") })
 public class JodaIntervalHolder implements Serializable {
 
     private static final long serialVersionUID = -1674416082110551506L;

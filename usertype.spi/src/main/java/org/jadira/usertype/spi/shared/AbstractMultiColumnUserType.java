@@ -32,15 +32,20 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     private static final long serialVersionUID = -8258683760413283329L;
 
-    private final int[] sqlTypes;
+    private int[] sqlTypes;
 
-    private final Type[] hibernateTypes;
+    private Type[] hibernateTypes;
 
 //    private String[] defaultPropertyNames;
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
 	public AbstractMultiColumnUserType() {
 
+    	initialise();
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    protected void initialise() {
+    	
         sqlTypes = new int[getColumnMappers().length];
         for (int i = 0; i < sqlTypes.length; i++) {
             sqlTypes[i] = getColumnMappers()[i].getSqlType();
@@ -72,9 +77,9 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 //            }
 //            nameCount.put(name, count);
 //        }
-    }
+	}
 
-    public int[] sqlTypes() {
+	public int[] sqlTypes() {
         return copyOf(sqlTypes);
     }
 

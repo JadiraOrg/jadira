@@ -15,19 +15,18 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import java.sql.Date;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateHolder;
 import org.jadira.usertype.dateandtime.joda.testmodel.LocalDateJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 public class TestPersistentLocalDate extends AbstractDatabaseTest<JodaLocalDateHolder> {
 

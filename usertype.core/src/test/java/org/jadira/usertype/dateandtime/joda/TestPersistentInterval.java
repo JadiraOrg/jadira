@@ -59,7 +59,8 @@ public class TestPersistentInterval extends AbstractDatabaseTest<JodaIntervalHol
             if (intervals[i] == null) {
                 assertNull(item.getInterval());
             } else {
-                assertEquals(intervals[i].toString(), item.getInterval().toString());
+                assertEquals(intervals[i].getStartMillis(), item.getInterval().getStartMillis());
+                assertEquals(intervals[i].getEndMillis(), item.getInterval().getEndMillis());
             }
         }
 
@@ -85,7 +86,8 @@ public class TestPersistentInterval extends AbstractDatabaseTest<JodaIntervalHol
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            assertEquals(intervals[i].toString(), item.getInterval().toString());
+            assertEquals(intervals[i].getStartMillis(), item.getInterval().getStartMillis());
+            assertEquals(intervals[i].getEndMillis(), item.getInterval().getEndMillis());
         }
     }
 }

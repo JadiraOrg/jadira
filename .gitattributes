@@ -673,6 +673,7 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractHeuristicUserT
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractIntegerColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractLongColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractMultiColumnUserType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractParameterizedMultiColumnUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractParameterizedUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractReflectionUserType.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractSingleColumnUserType.java -text
