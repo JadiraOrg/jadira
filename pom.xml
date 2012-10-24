@@ -564,7 +564,8 @@
 								<reportSet>
 									<reports>
 										<report>changes-report</report> 
-										<report>jira-report</report>
+										<!-- Jira report is not working with Atlassian OnDemand
+										<report>jira-report</report> -->
 									</reports>
 								</reportSet>
 							</reportSets>
@@ -990,7 +991,7 @@
 	<modules>
 		<module>bindings</module>
 		<module>cdt</module>		
-		<module>refdata</module>
+		<!-- <module>refdata</module> -->
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
