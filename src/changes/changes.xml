@@ -27,7 +27,8 @@
 
 		<!-- types are add, fix, remove, update -->
 		<release version="3.1.0.GA" date="TBC" description="TBC">
-			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for PersistentInstant</action>
+			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for Joda's PersistentInstant</action>
+			<action dev="Chris Pheby" issue="JDF-28" type="fix">For Joda's PersistentPeriodAsString, PeriodType is now persisted for Periods that are have a non-standard (i.e. not standard()) type. Reported by Phil at Inversebit</action>
 		</release>
 		
 		<release version="3.0.0.GA" date="21-10-2012" description="New Types, (including for LibPhonenumber and Joda Money), Autoregistration, Hibernate 4, and Bugfixes">
