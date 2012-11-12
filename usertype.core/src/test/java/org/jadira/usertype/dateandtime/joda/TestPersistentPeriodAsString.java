@@ -1,5 +1,5 @@
 /*
- *  Copyright 2010, 2011 Christopher Pheby
+ *  Copyright 2010, 2011, 2012 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -15,19 +15,20 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import junit.framework.Assert;
-import org.jadira.usertype.dateandtime.joda.testmodel.JodaPeriodAsStringHolder;
-import org.jadira.usertype.dateandtime.joda.testmodel.PeriodJoda;
-import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
-import org.joda.time.Period;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import org.jadira.usertype.dateandtime.joda.testmodel.JodaPeriodAsStringHolder;
+import org.jadira.usertype.dateandtime.joda.testmodel.PeriodJoda;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPeriodAsStringHolder> {
 
@@ -38,7 +39,8 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
             Period.seconds(30),
             new Period(4, 35, 0, 40, 141, 0, 0, 0),
             new Period(28, 10, 0, 2, 2, 4, 35, 40),
-            new Period(28, 10, 0, 0, 16, 4, 35, 40)
+            new Period(28, 10, 0, 0, 16, 4, 35, 40),
+            new Period(0, 0, 0, 0, 16, 0, 0, 0, PeriodType.hours())
     };
 
     private static final org.joda.time.Period[] jodaPeriods = new org.joda.time.Period[]{
@@ -48,7 +50,8 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
             org.joda.time.Period.seconds(30),
             new org.joda.time.Period(4, 35, 0, 40, 141, 0, 0, 0),
             new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 40),
-            new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40)
+            new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40),
+            new org.joda.time.Period(0, 0, 0, 0, 16, 0, 0, 0, PeriodType.hours())
     };
     
     @Test
@@ -120,6 +123,5 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
         assertEquals(1, item.getId());
         assertEquals("test_millis", item.getName());
         assertEquals(Period.millis(111), item.getPeriod());
-        ;
     }
 }

@@ -29,7 +29,6 @@ public class StringColumnDateTimeZoneWithOffsetMapper extends AbstractStringColu
 
     @Override
     public String toNonNullValue(DateTimeZoneWithOffset value) {
-    	System.err.println(value.toString());
     	return value.toString();
     }
 }
