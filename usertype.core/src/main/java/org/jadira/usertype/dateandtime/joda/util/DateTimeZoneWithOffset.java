@@ -94,7 +94,7 @@ public class DateTimeZoneWithOffset implements Serializable {
        
         final DateTimeZoneWithOffset obj2 = (DateTimeZoneWithOffset)obj;
         if (this.standardDateTimeZone.equals(obj2.standardDateTimeZone)
-        	&& offsetDateTimeZone.equals(offsetDateTimeZone)) {
+        	&& offsetDateTimeZone.equals(obj2.offsetDateTimeZone)) {
             return true;
         }
         
