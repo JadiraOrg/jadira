@@ -32,19 +32,19 @@ public interface ConverterProvider {
      * @param previouslySeenKeys Keys that have already been matched to a method for this class
      * @return The methods
      */
-	public <I,O> Map<ConverterKey<?, ?>, Method> matchToMethods(Class<?> cls);
+	<I,O> Map<ConverterKey<?, ?>, Method> matchToMethods(Class<?> cls);
  
     /**
      * Match constructors that can perform a from operation
      * @param cls The class being inspected
      * @return The constructors
      */
-    public <I,O> Map<ConverterKey<?, ?>, Constructor<O>> matchFromConstructors(Class<O> cls);
+    <I,O> Map<ConverterKey<?, ?>, Constructor<O>> matchFromConstructors(Class<O> cls);
     
     /**
      * Match methods that can perform a from operation
      * @param cls The class being inspected
      * @return The methods
      */
-    public <I,O> Map<ConverterKey<?, ?>, Method> matchFromMethods(Class<?> cls);
+    <I,O> Map<ConverterKey<?, ?>, Method> matchFromMethods(Class<?> cls);
 }
