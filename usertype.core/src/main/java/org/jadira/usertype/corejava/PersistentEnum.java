@@ -44,7 +44,7 @@ public class PersistentEnum extends AbstractReflectionUserType<Enum<?>> implemen
 		final Method identifierMethod;
 		String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);
 		try {
-			identifierMethod = getMappedClass().getMethod(identifierMethodName, new Class[0]);;
+			identifierMethod = getMappedClass().getMethod(identifierMethodName, new Class[0]);
 		} catch (NoSuchMethodException e) {
 			throw new HibernateException("Specified identifier method could not be found", e);
 		}
