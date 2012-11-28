@@ -16,10 +16,9 @@
 package org.jadira.usertype.spi.shared;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.integrator.spi.Integrator;
 
 /**
- * Represents a type that can be configured by an {@link Integrator} or that take additional configuration from the {@link SessionFactory}. 
+ * Represents a type that can be configured by an {@link org.hibernate.integrator.spi.Integrator} or that take additional configuration from the {@link SessionFactory}. 
  * Typically these types are configured at runtime prior to the execution of null safe get. This is necessary because integrators are 
  * invoked following the discovery of annotated types.
  */
