@@ -269,7 +269,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             
         	// Filter built in bindings - these are already registered by calling registerConfiguration directly
         	URL builtIn = getBuiltInBindingsURL();
-        	if (!builtIn.equals(nextLocation)) {
+        	if (!builtIn.toString().equals(nextLocation.toString())) {
         		configs.add(BindingXmlLoader.load(nextLocation));
         	}
         }
