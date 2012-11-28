@@ -151,7 +151,7 @@ public interface RegisterableBinder {
 	 * Inspect each of the supplied classes, processing any of the annotated methods found
 	 * @param classesToInspect
 	 */
-	public void registerAnnotatedClasses(Class<?>... classesToInspect);
+	void registerAnnotatedClasses(Class<?>... classesToInspect);
 	
     
 	/**
