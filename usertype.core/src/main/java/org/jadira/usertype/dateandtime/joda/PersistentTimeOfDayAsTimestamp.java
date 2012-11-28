@@ -21,7 +21,6 @@ import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
-import org.joda.time.DateTimeZone;
 import org.joda.time.TimeOfDay;
 
 /**
