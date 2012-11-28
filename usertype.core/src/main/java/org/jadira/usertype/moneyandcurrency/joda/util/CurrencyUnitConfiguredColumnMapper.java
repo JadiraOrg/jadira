@@ -20,5 +20,5 @@ import org.joda.money.CurrencyUnit;
 
 public interface CurrencyUnitConfiguredColumnMapper<T, J> extends ColumnMapper<T, J> {
 	
-    public void setCurrencyUnit(CurrencyUnit currencyUnit);
+    void setCurrencyUnit(CurrencyUnit currencyUnit);
 }
