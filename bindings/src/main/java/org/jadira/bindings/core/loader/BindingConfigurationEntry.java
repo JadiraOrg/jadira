@@ -20,22 +20,21 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 import org.jadira.bindings.core.annotation.DefaultBinding;
-import org.jadira.bindings.core.api.Binding;
-import org.jadira.bindings.core.api.Converter;
-import org.jadira.bindings.core.api.FromUnmarshaller;
-import org.jadira.bindings.core.api.ToMarshaller;
 
 /**
  * Represents a BindingConfigurationEntry - a specification of a particular
  * binding by configuration 
  * 
  * The configuration entry either consists of a) a
- * binding class implementing either {@link Binding}, {@link ToMarshaller},
- * {@link FromUnmarshaller}, or {@link Converter} together with an optional
+ * binding class implementing either {@link org.jadira.bindings.core.api.Binding}, 
+ * {@link org.jadira.bindings.core.api.ToMarshaller},
+ * {@link org.jadira.bindings.core.api.FromUnmarshaller}, 
+ * or {@link org.jadira.bindings.core.api.Converter} together with an optional
  * qualifier, b) an arbitrary class to be inspected for annotations or other
- * configuration meaningful to a {@link Provider}, or c) an explicit definition
- * of a method for marshalling or unmarshalling and/or constructor (either from
- * method or from constructor can be defined but not both).
+ * configuration meaningful to a {@link org.jadira.bindings.core.api.Provider}, 
+ * or c) an explicit definitionof a method for marshalling or unmarshalling 
+ * and/or constructor (either from method or from constructor can be defined but 
+ * not both).
  * 
  * @author Chris
  */
