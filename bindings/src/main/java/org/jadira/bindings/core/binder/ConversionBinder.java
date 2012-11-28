@@ -34,7 +34,7 @@ public interface ConversionBinder {
 	 * @param object The object to be converted
 	 * @param qualifier The qualifier for which the binding must be registered
 	 */
-	public <S,T> T convertTo(Class<T> output, Object object, Class<? extends Annotation> qualifier);
+	<S,T> T convertTo(Class<T> output, Object object, Class<? extends Annotation> qualifier);
 	
 	/**
 	 * TODO Add find methods equating to convertTo
