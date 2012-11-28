@@ -29,7 +29,7 @@ public class CharacterStringBinding extends AbstractStringBinding<Character> imp
     public Character unmarshal(String object) {
 
         if (object.length() == 1) {
-            return new Character(object.charAt(0));
+            return Character.valueOf(object.charAt(0));
         } else {
             throw new IllegalArgumentException("Only single character String can be unmarshalled to a Character");
         }
