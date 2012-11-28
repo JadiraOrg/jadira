@@ -395,7 +395,7 @@ public final class BindingXmlLoader {
      * @param elementName The class name
      * @return Instance of Class
      */
-    private static final Class<?> lookupClass(String elementName) {
+    private static Class<?> lookupClass(String elementName) {
 
         Class<?> clazz = null;
         try {
