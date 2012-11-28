@@ -37,11 +37,11 @@ public interface ToMarshaller<S, T> {
      * Obtain the bound class
      * @return Class<S>
      */
-    public Class<S> getBoundClass();
+    Class<S> getBoundClass();
     
     /**
      * Obtain the bound class
      * @return Class<T>
      */
-    public Class<T> getTargetClass();
+    Class<T> getTargetClass();
 }
