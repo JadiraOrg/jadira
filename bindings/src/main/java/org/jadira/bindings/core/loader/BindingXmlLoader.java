@@ -330,11 +330,9 @@ public final class BindingXmlLoader {
 	                    } catch (SecurityException e) {
 	                    } catch (NoSuchMethodException e) {
 	                    }
-	                    if (fromMethod != null) {
-	                    	if ((targetClass != null && !targetClass.isAssignableFrom(fromMethod.getReturnType()))
-	                    		|| !Modifier.isStatic(fromMethod.getModifiers())) {
-	                    		fromMethod = null;
-	                    	}
+	                    if (fromMethod != null && ((targetClass != null && !targetClass.isAssignableFrom(fromMethod.getReturnType()))
+	                    	|| !Modifier.isStatic(fromMethod.getModifiers()))) {
+	                    	fromMethod = null;
 	                    }
 	
 	                } else if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
