@@ -40,11 +40,11 @@ public interface Converter<I, O> {
      * Obtain the bound class
      * @return Class<I>
      */
-    public Class<I> getInputClass();
+    Class<I> getInputClass();
     
     /**
      * Obtain the bound class
      * @return Class<O>
      */
-    public Class<O> getOutputClass();
+    Class<O> getOutputClass();
 }
