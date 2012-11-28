@@ -18,10 +18,9 @@ package org.jadira.usertype.dateandtime.joda;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
-import org.joda.time.DateTimeZone;
 
 /**
- * Maps a {@link DateTimeZone} to and from String for Hibernate.
+ * Maps a {@link org.joda.time.DateTimeZone} to and from String for Hibernate.
  */
 public class PersistentDateTimeZoneWithOffsetAsString extends AbstractSingleColumnUserType<DateTimeZoneWithOffset, String, StringColumnDateTimeZoneWithOffsetMapper> {
 
