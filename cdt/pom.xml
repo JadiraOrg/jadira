@@ -34,14 +34,26 @@
 	<name>Common Data Types</name>
 	<description>Common Data Types for Jadira Framework</description>
 	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jadira.framework</groupId>
+				<artifactId>jadira.depmgmt</artifactId>
+				<type>pom</type>
+				<scope>import</scope>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+  			<artifactId>log4j-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -59,9 +71,12 @@
 		<dependency>
 			<groupId>net.sf.oval</groupId>
 			<artifactId>oval</artifactId>
-			<version>1.80</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-jpa_2.0_spec</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

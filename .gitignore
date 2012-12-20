@@ -13,6 +13,8 @@ cdt/.externalToolBuilders
 cdt/.project
 cdt/.settings
 cdt/target
+depmgmt/.project
+depmgmt/.settings
 refdata/.classpath
 refdata/.project
 refdata/.settings

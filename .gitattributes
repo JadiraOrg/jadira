@@ -161,6 +161,7 @@ cdt/src/main/resources/freemarker/config.fmpp -text
 cdt/src/site/site.xml -text
 cdt/src/test/java/org/jadira/cdt/phonenumber/impl/TestE164PhoneNumberWithExtension.java -text
 /checkstyle.xml -text
+depmgmt/pom.xml -text
 /dictionary.txt -text
 /howto_release.txt -text
 /pom.xml -text

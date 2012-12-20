@@ -65,6 +65,18 @@
 		</plugins>
 	</reporting>
 	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jadira.framework</groupId>
+				<artifactId>jadira.depmgmt</artifactId>
+				<type>pom</type>
+				<scope>import</scope>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<dependencies>
 		<!-- JSR 310 Jars from https://jsr-310.dev.java.net/servlets/ProjectDocumentList?folderID=10338 -->
 		<dependency>
@@ -101,11 +113,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+  			<artifactId>log4j-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

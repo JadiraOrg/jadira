@@ -34,6 +34,18 @@
 	<name>Core Bindings Provision</name>
 	<description>Core Bindings Provision</description>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.jadira.framework</groupId>
+				<artifactId>jadira.depmgmt</artifactId>
+				<type>pom</type>
+				<scope>import</scope>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 
 		<dependency>
@@ -55,17 +67,16 @@
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
+			<artifactId>jcl-over-slf4j</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+  			<artifactId>log4j-core</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.joda</groupId>
 			<artifactId>joda-convert</artifactId>
 		</dependency>
-
 
 		<!-- Temporarily commented weld tests and explictly including
 		shrinkwrap-api due to https://issues.jboss.org/browse/ARQ-817 	
