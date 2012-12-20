@@ -15,6 +15,10 @@ cdt/.settings
 cdt/target
 depmgmt/.project
 depmgmt/.settings
+introspector/.classpath
+introspector/.project
+introspector/.settings
+introspector/target
 refdata/.classpath
 refdata/.project
 refdata/.settings
