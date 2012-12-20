@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.convert.support.ConversionServiceFactory;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
 
 public class BindingConverterTest {
@@ -22,7 +23,7 @@ public class BindingConverterTest {
         Set<GenericConverter> converters = new HashSet<GenericConverter>();
         converters.add(new BindingConverter());
         
-        svc = ConversionServiceFactory.createDefaultConversionService();
+        svc = new DefaultConversionService();
         ConversionServiceFactory.registerConverters(converters, svc);
     }
     
