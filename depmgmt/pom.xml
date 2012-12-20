@@ -101,6 +101,11 @@
 			    <artifactId>truezip-path</artifactId>
 			    <version>7.7.1</version>
 			</dependency>
+			<dependency>
+		    		<groupId>de.schlichtherle.truezip</groupId>
+		    		<artifactId>truezip-driver-zip</artifactId>
+		    		<version>7.7.1</version>
+			</dependency>
 			
 			<dependency>
 				<groupId>commons-lang</groupId>
