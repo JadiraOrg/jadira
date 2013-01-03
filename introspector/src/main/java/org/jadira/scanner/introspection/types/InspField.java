@@ -57,20 +57,52 @@ public class InspField extends InspVariable {
 
         Class<?> clazz;
         try {
-            clazz = getEnclosingType().getClass().getField(fieldInfo.getName()).getType();
+            Field field = getActualField();
+            clazz = field.getType();            
         } catch (SecurityException e) {
             throw new ClasspathAccessException("Problem finding enclosing type: " + e.getMessage(), e);
-        } catch (NoSuchFieldException e) {
-            throw new ClasspathAccessException("Problem finding requested field: " + e.getMessage(), e);        }
-        if (clazz.isEnum()) {
-            retVal = InspEnum.getInspEnum(clazz.getName(), getResolver());
-        } else if (clazz.isInterface()) {
+        }
+        if (clazz.isInterface()) {
             retVal = InspInterface.getInspInterface(clazz.getName(), getResolver());
+        } else if (clazz.isPrimitive()) {
+        	retVal = InspPrimitiveClass.getInspClass(clazz.getName(), getResolver());
+        } else if (clazz.isArray()) {
+        	retVal = InspArrayClass.getInspClass(clazz, getResolver());
         } else {
             retVal = InspClass.getInspClass(clazz.getName(), getResolver());
         }
         return retVal;
     }
+    
+	public static Class<?> decodeFieldType(String componentType) throws ClassNotFoundException {
+
+		char type = componentType.charAt(0);
+		String fieldContent = componentType.substring(1);
+
+		switch (type) {
+		case 'L': // L<classname>; reference an instance of class <classname>
+			return Class.forName(fieldContent.replace('/', '.'));
+		case 'B': // B byte signed byte
+			return Byte.class;
+		case 'C': // C char Unicode character
+			return Character.class;
+		case 'D': // D double double-precision floating-point value
+			return Double.class;
+		case 'F': // F float single-precision floating-point value
+			return Float.class;
+		case 'I': // I int integer
+			return Integer.class;
+		case 'J': // J long long integer
+			return Long.class;
+		case 'S': // S short signed short
+			return Short.class;
+		case 'Z': // Z boolean true or false
+			return Boolean.class;
+		case '[': // [ reference one array dimension
+			return Class.forName(componentType.replace('/', '.') + ";");
+		}
+		return null;
+	}
 
     @Override
     public Set<InspAnnotation<?>> getAnnotations() {
@@ -107,7 +139,7 @@ public class InspField extends InspVariable {
     public Field getActualField() {
 
         try {
-            return getEnclosingType().getActualClass().getField(getName());
+            return getEnclosingType().getActualClass().getDeclaredField(getName());
         } catch (SecurityException e) {
             throw new ClasspathAccessException("Problem obtaining field: " + e.getMessage(), e);
         } catch (NoSuchFieldException e) {

@@ -63,7 +63,7 @@ public abstract class InspElement {
 	}
     
 	protected static ClassFile findClassFile(final String name, ClasspathResolver resolver) throws ClasspathAccessException {
-
+		
 		ClassFile retVal = null;
 
 		for (URL url : resolver.getClasspaths()) {
@@ -83,7 +83,9 @@ public abstract class InspElement {
 					}
 				});
 				
-				break;
+				if (retVal != null) {
+					break;
+				}
 			}			
 		}
 		return retVal;

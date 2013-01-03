@@ -15,6 +15,8 @@
  */
 package org.jadira.scanner.helper;
 
+import java.util.Arrays;
+
 import javassist.bytecode.MethodInfo;
 
 import org.jadira.scanner.exception.ClasspathAccessException;
@@ -24,17 +26,22 @@ public class JavassistMethodInfoHelper {
 	private JavassistMethodInfoHelper() {
 	}
 
-	public static Class<?>[] getMethodParams(MethodInfo methodInfo) throws ClasspathAccessException {
+	public static String[] getMethodParamTypeNames(MethodInfo methodInfo) {
 		String desc = methodInfo.getDescriptor();
 
 		String paramsString = desc.substring(desc.indexOf('(') + 1, desc.lastIndexOf(')'));
 
 		if (paramsString.length() == 0) {
-			return new Class<?>[0];
+			return new String[0];
 		}
 
 		String[] classNames = paramsString.split(";");
-
+		return classNames;
+	}
+	
+	public static Class<?>[] getMethodParamClasses(MethodInfo methodInfo) throws ClasspathAccessException {
+		
+		String[] classNames = getMethodParamTypeNames(methodInfo);
 		Class<?>[] retArray = new Class<?>[classNames.length];
 
 		for (int i = 0; i < classNames.length; i++) {
@@ -49,7 +56,7 @@ public class JavassistMethodInfoHelper {
 		return retArray;
 	}
 
-	private static Class<?> decodeFieldType(String componentType) throws ClassNotFoundException {
+	public static Class<?> decodeFieldType(String componentType) throws ClassNotFoundException {
 
 		char type = componentType.charAt(0);
 		String fieldContent = componentType.substring(1);
@@ -74,9 +81,8 @@ public class JavassistMethodInfoHelper {
 		case 'Z': // Z boolean true or false
 			return Boolean.class;
 		case '[': // [ reference one array dimension
-			return Class.forName(componentType.replace('/', '.') + ";");
+			return Arrays.class; // Class.forName(componentType.replace('/', '.') + ";");
 		}
 		return null;
 	}
-
 }

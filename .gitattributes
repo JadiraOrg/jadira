@@ -183,11 +183,11 @@ introspector/src/main/java/org/jadira/scanner/introspection/filter/InspPackageFi
 introspector/src/main/java/org/jadira/scanner/introspection/filter/NameFilter.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/filter/PackagePrefixFilter.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspAnnotation.java -text
+introspector/src/main/java/org/jadira/scanner/introspection/types/InspArrayClass.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspClass.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspConstructor.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspDefaultConstructor.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspElement.java -text
-introspector/src/main/java/org/jadira/scanner/introspection/types/InspEnum.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspField.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspInnerClass.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspInterface.java -text
@@ -195,6 +195,7 @@ introspector/src/main/java/org/jadira/scanner/introspection/types/InspMethod.jav
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspOperation.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspPackage.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspParameter.java -text
+introspector/src/main/java/org/jadira/scanner/introspection/types/InspPrimitiveClass.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspStaticInitializer.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspType.java -text
 introspector/src/main/java/org/jadira/scanner/introspection/types/InspVariable.java -text

@@ -36,7 +36,7 @@ public class InspConstructor extends InspOperation {
 
     public Constructor<?> getActualConstructor() throws ClasspathAccessException {
 
-        Class<?>[] methodParams = JavassistMethodInfoHelper.getMethodParams(getMethodInfo());
+        Class<?>[] methodParams = JavassistMethodInfoHelper.getMethodParamClasses(getMethodInfo());
 
         try {
             Class<?> clazz = ((InspClass) getEnclosingType()).getActualClass();

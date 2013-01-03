@@ -18,10 +18,12 @@ package org.jadira.scanner.introspection.types;
 import java.util.HashSet;
 import java.util.Set;
 
+import javassist.bytecode.MethodInfo;
 import javassist.bytecode.ParameterAnnotationsAttribute;
 import javassist.bytecode.annotation.Annotation;
 
 import org.jadira.scanner.exception.ClasspathAccessException;
+import org.jadira.scanner.helper.JavassistMethodInfoHelper;
 import org.jadira.scanner.introspection.visitor.IntrospectionVisitor;
 import org.jadira.scanner.resolver.ClasspathResolver;
 
@@ -74,10 +76,15 @@ public class InspParameter extends InspVariable {
     public InspType getType() throws ClasspathAccessException {
 
         Class<?> clazz;
-        if (enclosingOperation instanceof InspConstructor) {
-            clazz = ((InspConstructor) enclosingOperation).getActualConstructor().getParameterTypes()[index];
-        } else if (enclosingOperation instanceof InspMethod) {
-            clazz = ((InspMethod) enclosingOperation).getActualMethod().getParameterTypes()[index];
+        if (enclosingOperation instanceof InspConstructor || enclosingOperation instanceof InspMethod) {
+            MethodInfo methodInfo = ((InspOperation) enclosingOperation).getMethodInfo();
+            String[] paramTypeNames = JavassistMethodInfoHelper.getMethodParamTypeNames(methodInfo);
+            try {
+				clazz = JavassistMethodInfoHelper.decodeFieldType(paramTypeNames[getIndex()]);
+			} catch (ClassNotFoundException e) {
+				throw new ClasspathAccessException("Invalid parameter index: " + index, e);
+			}
+
         } else {
             throw new ClasspathAccessException("Invalid parameter index: " + index);
         }
@@ -90,10 +97,6 @@ public class InspParameter extends InspVariable {
             } catch (IllegalAccessException e) {
                 throw new ClasspathAccessException("Problem accessing annotation: " + e.getMessage(), e);
             }
-        } else if (clazz.isEnum()) {
-            @SuppressWarnings({ "unchecked", "rawtypes" })
-            InspEnum inspEnumType = new InspEnum((Class) clazz, getResolver());
-            return inspEnumType;
         } else if (clazz.isInterface()) {
             return new InspInterface(clazz.getName(), getResolver());
         } else {

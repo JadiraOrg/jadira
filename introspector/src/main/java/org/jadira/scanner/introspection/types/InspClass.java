@@ -45,12 +45,6 @@ public class InspClass extends InspType {
 
     protected InspClass(ClassFile classFile, ClasspathResolver resolver) {
         super(classFile, resolver);
-        if (classFile.isInterface()) {
-            throw new IllegalArgumentException("Argument was interface: " + classFile.getName());
-        }
-        if (classFile.getSuperclass().equals("java.lang.Enum")) {
-            throw new IllegalArgumentException("Argument was enum: " + classFile.getName());
-        }
     }
 
     public static InspClass getInspClass(String name, ClasspathResolver resolver) throws ClasspathAccessException {
@@ -103,10 +97,12 @@ public class InspClass extends InspType {
             if (next instanceof InnerClassesAttribute) {
                 int innerClassCount = ((InnerClassesAttribute) next).tableLength();
                 for (int i = 0; i < innerClassCount; i++) {
-                    String innerName = ((InnerClassesAttribute) next).innerName(i);
+                    String innerName = ((InnerClassesAttribute) next).innerClass(i);
                     // Skip anonymous classes - these are returned via method introspection instead
-                    if (innerName != null) {
-                        retVal.add(InspInnerClass.getInspInnerClass(this.getClassFile(), findClassFile(getName() + "$" + innerName, getResolver()), getResolver()));
+                    if (innerName != null && innerName.startsWith(this.getClassFile().getName())) {
+                    	
+                    	ClassFile innerClass = findClassFile(innerName, getResolver());
+                        retVal.add(InspInnerClass.getInspInnerClass(this.getClassFile(), innerClass, getResolver()));
                     }
                 }
             }
@@ -116,11 +112,17 @@ public class InspClass extends InspType {
 
     public List<InspField> getFields() {
 
+    	boolean isJavaLangThrowable = "java.lang.Throwable".equals(this.getName());
+    	
         final List<InspField> retVal = new ArrayList<InspField>();
         @SuppressWarnings("unchecked")
         final List<FieldInfo> fields = (List<FieldInfo>) getClassFile().getFields();
 
         for (FieldInfo next : fields) {
+        	if (isJavaLangThrowable && ("backtrace".equals(next.getName()))) {
+        		// See http://bugs.sun.com/bugdatabase/view_bug.do;jsessionid=d7621f5189c86f127fe5737490903?bug_id=4496456
+        		continue;
+        	}
             retVal.add(InspField.getInspField(next, this, getResolver()));
         }
         return retVal;
@@ -139,7 +141,7 @@ public class InspClass extends InspType {
         }
         
         if (retVal.isEmpty()) {
-        	retVal.add(InspDefaultConstructor.getInspConstructor(null, this, getResolver()));
+        	retVal.add(InspDefaultConstructor.getInspConstructor((MethodInfo)null, (InspClass)this, getResolver()));
         }
         	
         return retVal;
@@ -242,4 +244,16 @@ public class InspClass extends InspType {
     public InspElement getEnclosingElement() {
         return getPackage();
     }
+
+	public boolean isPrimitive() {
+		return false;
+	}
+	
+	public boolean isArray() {
+		return false;
+	}
+	
+	public boolean isInterface() {
+		return getClassFile().isInterface();
+	}
 }

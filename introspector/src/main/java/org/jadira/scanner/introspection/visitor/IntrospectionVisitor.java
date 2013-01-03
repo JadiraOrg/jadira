@@ -18,7 +18,6 @@ package org.jadira.scanner.introspection.visitor;
 import org.jadira.scanner.introspection.types.InspAnnotation;
 import org.jadira.scanner.introspection.types.InspClass;
 import org.jadira.scanner.introspection.types.InspConstructor;
-import org.jadira.scanner.introspection.types.InspEnum;
 import org.jadira.scanner.introspection.types.InspField;
 import org.jadira.scanner.introspection.types.InspInnerClass;
 import org.jadira.scanner.introspection.types.InspInterface;
@@ -36,7 +35,6 @@ public interface IntrospectionVisitor {
     void visit(InspAnnotation<?> element);
     void visit(InspInnerClass element);
     void visit(InspClass element);
-    void visit(InspEnum element);
     void visit(InspInterface element);
     void visit(InspField element);
     void visit(InspParameter element);

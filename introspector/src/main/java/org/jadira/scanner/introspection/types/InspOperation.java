@@ -38,7 +38,7 @@ public abstract class InspOperation extends InspElement {
     private final InspType enclosingType;
 
     protected InspOperation(MethodInfo methodInfo, InspType enclosingType, ClasspathResolver resolver) {
-        super(methodInfo.getName(), resolver);
+        super(methodInfo == null ? null : methodInfo.getName(), resolver);
         this.methodInfo = methodInfo;
         this.enclosingType = enclosingType;
     }
@@ -101,8 +101,8 @@ public abstract class InspOperation extends InspElement {
     public List<InspParameter> getParameters() throws ClasspathAccessException {
 
         List<InspParameter> params = new ArrayList<InspParameter>();
-        Class<?>[] paramClasses = JavassistMethodInfoHelper.getMethodParams(methodInfo);
-        for (int i = 0; i < paramClasses.length; i++) {
+        String[] paramTypes = JavassistMethodInfoHelper.getMethodParamTypeNames(methodInfo);
+        for (int i = 0; i < paramTypes.length; i++) {
             params.add(InspParameter.getInspParameter(i, this, getResolver()));
         }
         return params;
@@ -111,7 +111,7 @@ public abstract class InspOperation extends InspElement {
     public Method getActualMethod() throws ClasspathAccessException {
 
         try {
-            return getEnclosingType().getActualClass().getMethod(getName(), JavassistMethodInfoHelper.getMethodParams(methodInfo));
+            return getEnclosingType().getActualClass().getMethod(getName(), JavassistMethodInfoHelper.getMethodParamClasses(methodInfo));
         } catch (SecurityException e) {
             throw new ClasspathAccessException("Problem obtaining method: " + e.getMessage(), e);
         } catch (NoSuchMethodException e) {

@@ -69,8 +69,11 @@ public class InspPackage extends InspElement {
         List<ClassFile> classes = findClassFilesForPackage(getName(), getResolver());
         for (ClassFile classFile : classes) {
 
-            if (!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum")))
-                retVal.add(InspClass.getInspClass(classFile, getResolver()));
+        	if (classFile.getSuperclass() != null) {
+	            if (!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum"))) {
+	                retVal.add(InspClass.getInspClass(classFile, getResolver()));
+	            }
+        	}
         }
         return retVal;
     }
@@ -105,26 +108,6 @@ public class InspPackage extends InspElement {
                 } catch (IllegalAccessException e) {
                     throw new ClasspathAccessException("Cannot access annotation: " + e.getMessage(), e);
                 }
-        }
-        return retVal;
-    }
-
-    public Set<InspEnum> getEnums() throws ClasspathAccessException {
-
-        Set<InspEnum> retVal = new HashSet<InspEnum>();
-        List<ClassFile> classes = findClassFilesForPackage(getName(), getResolver());
-        for (ClassFile classFile : classes) {
-
-            if (!classFile.isInterface() && (classFile.getSuperclass().equals("java.lang.Enum"))) {
-
-                try {
-                    @SuppressWarnings("unchecked")
-                    Class<? extends Enum<?>> enumeration = (Class<? extends Enum<?>>) Class.forName(classFile.getName());
-                    retVal.add(InspEnum.getInspEnum(enumeration, getResolver()));
-                } catch (ClassNotFoundException e) {
-                    throw new ClasspathAccessException("Cannot find class for enumeration: " + e.getMessage(), e);
-                }
-            }
         }
         return retVal;
     }
@@ -192,9 +175,6 @@ public class InspPackage extends InspElement {
             next.acceptVisitor(visitor);
         }
         for (InspClass next : getClasses()) {
-            next.acceptVisitor(visitor);
-        }
-        for (InspEnum next : getEnums()) {
             next.acceptVisitor(visitor);
         }
         for (InspAnnotation<?> next : getAnnotations()) {

@@ -15,6 +15,9 @@
  */
 package org.jadira.scanner.introspection.types;
 
+import java.util.Collections;
+import java.util.List;
+
 import javassist.bytecode.ClassFile;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -31,9 +34,6 @@ public class InspInnerClass extends InspClass {
         super(classFile, resolver);
         // Get the inner class definition
         String className = classFile.getName();
-        if (!className.substring(0, className.lastIndexOf("$")).equals(enclosingClass.getName())) {
-            throw new ClasspathAccessException("Could not find reference to " + classFile.getName() + " as an inner class of " + enclosingClass.getName());
-        }
         this.enclosingClass = enclosingClass;
     }
 
@@ -63,5 +63,10 @@ public class InspInnerClass extends InspClass {
     	builder.append("enclosingClass", getEnclosingClass());
     	
     	return builder.toString();
+    }
+    
+    @Override
+    public List<InspInnerClass> getEnclosedClasses() {
+    	return Collections.emptyList();
     }
 }

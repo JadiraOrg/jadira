@@ -19,6 +19,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javassist.bytecode.MethodInfo;
 
@@ -32,8 +33,8 @@ public class InspDefaultConstructor extends InspConstructor {
 	protected InspDefaultConstructor(MethodInfo methodInfo, InspClass inspClass, ClasspathResolver resolver) {
         super(methodInfo, inspClass, resolver);
     }
-
-    public static InspDefaultConstructor getInspDefaultConstructor(MethodInfo methodInfo, InspClass inspClass, ClasspathResolver resolver) {
+	
+    public static InspDefaultConstructor getInspConstructor(MethodInfo methodInfo, InspClass inspClass, ClasspathResolver resolver) {
         return new InspDefaultConstructor(methodInfo, inspClass, resolver);
     }
 
@@ -64,6 +65,11 @@ public class InspDefaultConstructor extends InspConstructor {
         } catch (NoSuchMethodException e) {
             throw new ClasspathAccessException("Problem finding method: " + e.getMessage(), e);
         }
+    }
+    
+    @Override
+    public Set<InspAnnotation<?>> getAnnotations() {
+    	return Collections.emptySet();
     }
 
 }
