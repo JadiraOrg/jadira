@@ -33,7 +33,6 @@ public class InspInnerClass extends InspClass {
     protected InspInnerClass(ClassFile enclosingClass, ClassFile classFile, ClasspathResolver resolver) throws ClasspathAccessException {
         super(classFile, resolver);
         // Get the inner class definition
-        String className = classFile.getName();
         this.enclosingClass = enclosingClass;
     }
 
