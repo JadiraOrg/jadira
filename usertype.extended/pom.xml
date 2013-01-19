@@ -33,37 +33,6 @@
 
 	<name>Usertype Extended (supporting JSR 310 with Hibernate)</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
-  	
-  	<distributionManagement>
-  	  	<!-- Can't sync to Nexus for JSR 310 -->
-		<repository>
-			<id>usertype.sourceforge.net.m2-repo</id>
-			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo</url>
-			<name>Usertype Maven 2 Repository</name>
-  		</repository> 
-  		<snapshotRepository>
-  			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
-  			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo-snapshots</url>
-  			<name>Usertype Maven 2 Snapshots Repository</name>
-  		</snapshotRepository>
-  	</distributionManagement>
-	
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.8</version>
-				<configuration>
-					<configLocation>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/checkstyle.xml?revision=119&amp;content-type=text%2Fplain</configLocation>
-					<encoding>${project.build.sourceEncoding}</encoding> 
-					<charset>${project.build.sourceEncoding}</charset>
-					<enableRulesSummary>false</enableRulesSummary>
-					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 	
 	<dependencyManagement>
 		<dependencies>
@@ -78,19 +47,11 @@
 	</dependencyManagement>
 	
 	<dependencies>
-		<!-- JSR 310 Jars from https://jsr-310.dev.java.net/servlets/ProjectDocumentList?folderID=10338 -->
 		<dependency>
-			<groupId>javax.time</groupId>
-			<artifactId>jsr-310-ri</artifactId>
-			<version>0.6.3</version> <!-- 20100212 -->
-			<optional>true</optional>
+		    <groupId>org.threeten</groupId>
+		    <artifactId>threetenbp</artifactId>
+		    <optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>javax.time</groupId>
-			<artifactId>jsr-310-TZDB-all</artifactId> <!-- ZoneRuleInfo-TZDB -->
-			<version>0.6.3</version> <!-- 2009b -->
-			<scope>test</scope>
-		</dependency>		
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -165,13 +126,46 @@
 	</dependencies>
 
 	<build>	
-		<extensions>
-		        <extension>
-		            <groupId>org.apache.maven.wagon</groupId>
-		            <artifactId>wagon-ssh</artifactId>
-		            <version>2.2</version>
-		        </extension>
-    		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>7.0</version>
+							<vendor>sun</vendor>
+						</jdk>
+					</toolchains>
+			 	 </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>1.7</source>
+					<target>1.7</target>
+					<compilerArgument>-g</compilerArgument>
+					<encoding>${project.build.sourceEncoding}</encoding> 
+					<charset>${project.build.sourceEncoding}</charset>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<repositories>
