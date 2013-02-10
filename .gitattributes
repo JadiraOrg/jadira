@@ -717,6 +717,7 @@ usertype.extended/src/test/resources/expected/localTimeAsMillisInteger.xml -text
 usertype.extended/src/test/resources/expected/localTimeAsNanosLong.xml -text
 usertype.extended/src/test/resources/expected/localTimeAsString.xml -text
 usertype.extended/src/test/resources/expected/localTimeAsTimestamp.xml -text
+usertype.extended/src/test/resources/expected/month.xml -text
 usertype.extended/src/test/resources/expected/monthDay.xml -text
 usertype.extended/src/test/resources/expected/offsetDateAsDateAndStringOffset.xml -text
 usertype.extended/src/test/resources/expected/offsetDateTimeAsStringAndStringOffset.xml -text

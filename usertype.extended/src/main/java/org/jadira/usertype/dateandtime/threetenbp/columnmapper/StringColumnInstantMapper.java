@@ -28,7 +28,7 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
     private static final long serialVersionUID = -6885561256539185520L;
 
     public static final DateTimeFormatter INSTANT_FORMATTER = new DateTimeFormatterBuilder()
-        .appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter()).appendLiteral('Z').toFormatter();
+        .appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter()).appendLiteral('Z').toFormatter();
 
     @Override
     public Instant fromNonNullValue(String s) {

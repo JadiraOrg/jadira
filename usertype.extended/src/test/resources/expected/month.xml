@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <month ID="0" MONTH="JANUARY" NAME="test_0"/>
+  <month ID="1" MONTH="FEBRUARY" NAME="test_1"/>
+  <month ID="2" MONTH="DECEMBER" NAME="test_2"/>
+</dataset>
