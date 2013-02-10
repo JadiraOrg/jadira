@@ -29,7 +29,7 @@ import org.threeten.bp.Month;
 
 
 @Entity
-@Table(name = "month")
+@Table(name = "monthAsString")
 @TypeDef(name = "test_MonthAsStringType", typeClass = PersistentMonthAsString.class)
 public class MonthAsStringHolder implements Serializable {
 

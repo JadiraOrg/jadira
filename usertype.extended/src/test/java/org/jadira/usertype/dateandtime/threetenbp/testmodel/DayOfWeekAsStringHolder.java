@@ -27,9 +27,8 @@ import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentDayOfWeekAsString;
 import org.threeten.bp.DayOfWeek;
 
-
 @Entity
-@Table(name = "month")
+@Table(name = "dayOfWeekAsString")
 @TypeDef(name = "test_DayOfWeekAsStringType", typeClass = PersistentDayOfWeekAsString.class)
 public class DayOfWeekAsStringHolder implements Serializable {
 
@@ -43,7 +42,7 @@ public class DayOfWeekAsStringHolder implements Serializable {
 
     @Column
     @Type(type = "test_DayOfWeekAsStringType")
-    private DayOfWeek month;
+    private DayOfWeek day;
 
     public long getId() {
         return id;
@@ -62,10 +61,10 @@ public class DayOfWeekAsStringHolder implements Serializable {
     }
 
     public DayOfWeek getDayOfWeek() {
-        return month;
+        return day;
     }
 
     public void setDayOfWeek(DayOfWeek month) {
-        this.month = month;
+        this.day = month;
     }
 }

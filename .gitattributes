@@ -703,6 +703,8 @@ usertype.extended/src/test/resources/META-INF/persistence.xml -text
 usertype.extended/src/test/resources/META-INF/persistence.xml.h2database -text
 usertype.extended/src/test/resources/META-INF/persistence.xml.mysql -text
 usertype.extended/src/test/resources/expected/.dbunit-comparison-files -text
+usertype.extended/src/test/resources/expected/dayOfWeek.xml -text
+usertype.extended/src/test/resources/expected/dayOfWeekAsString.xml -text
 usertype.extended/src/test/resources/expected/durationAsString.xml -text
 usertype.extended/src/test/resources/expected/instantAsMillisLong.xml -text
 usertype.extended/src/test/resources/expected/instantAsNanosBigInteger.xml -text
@@ -718,6 +720,7 @@ usertype.extended/src/test/resources/expected/localTimeAsNanosLong.xml -text
 usertype.extended/src/test/resources/expected/localTimeAsString.xml -text
 usertype.extended/src/test/resources/expected/localTimeAsTimestamp.xml -text
 usertype.extended/src/test/resources/expected/month.xml -text
+usertype.extended/src/test/resources/expected/monthAsString.xml -text
 usertype.extended/src/test/resources/expected/monthDay.xml -text
 usertype.extended/src/test/resources/expected/offsetDateAsDateAndStringOffset.xml -text
 usertype.extended/src/test/resources/expected/offsetDateTimeAsStringAndStringOffset.xml -text

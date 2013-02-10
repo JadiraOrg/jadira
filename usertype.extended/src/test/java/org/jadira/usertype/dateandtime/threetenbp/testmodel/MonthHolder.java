@@ -29,7 +29,7 @@ import org.threeten.bp.Month;
 
 
 @Entity
-@Table(name = "year")
+@Table(name = "month")
 @TypeDef(name = "test_MonthType", typeClass = PersistentMonth.class)
 public class MonthHolder implements Serializable {
 

@@ -29,7 +29,7 @@ import org.threeten.bp.DayOfWeek;
 
 
 @Entity
-@Table(name = "year")
+@Table(name = "dayOfWeek")
 @TypeDef(name = "test_DayOfWeekType", typeClass = PersistentDayOfWeek.class)
 public class DayOfWeekHolder implements Serializable {
 

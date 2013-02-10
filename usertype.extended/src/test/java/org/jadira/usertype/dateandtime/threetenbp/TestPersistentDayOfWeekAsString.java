@@ -32,7 +32,7 @@ import org.threeten.bp.DayOfWeek;
 
 public class TestPersistentDayOfWeekAsString extends DatabaseCapable {
 
-    private static final DayOfWeek[] months = new DayOfWeek[] { DayOfWeek.of(1), DayOfWeek.of(2), DayOfWeek.of(7) };
+    private static final DayOfWeek[] days = new DayOfWeek[] { DayOfWeek.of(1), DayOfWeek.of(2), DayOfWeek.of(7) };
 
     private static EntityManagerFactory factory;
 
@@ -53,12 +53,12 @@ public class TestPersistentDayOfWeekAsString extends DatabaseCapable {
 
         manager.getTransaction().begin();
 
-        for (int i = 0; i < months.length; i++) {
+        for (int i = 0; i < days.length; i++) {
 
             DayOfWeekAsStringHolder item = new DayOfWeekAsStringHolder();
             item.setId(i);
             item.setName("test_" + i);
-            item.setDayOfWeek(months[i]);
+            item.setDayOfWeek(days[i]);
 
             manager.persist(item);
         }
@@ -71,14 +71,14 @@ public class TestPersistentDayOfWeekAsString extends DatabaseCapable {
 
         manager = factory.createEntityManager();
 
-        for (int i = 0; i < months.length; i++) {
+        for (int i = 0; i < days.length; i++) {
 
             DayOfWeekAsStringHolder item = manager.find(DayOfWeekAsStringHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            assertEquals(months[i], item.getDayOfWeek());
+            assertEquals(days[i], item.getDayOfWeek());
         }
 
         verifyDatabaseTable(manager, DayOfWeekAsStringHolder.class.getAnnotation(Table.class).name());
