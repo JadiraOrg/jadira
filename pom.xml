@@ -800,6 +800,7 @@
 
 	<modules>
 		<module>depmgmt</module>
+		<module>scanner</module>
 		<module>bindings</module>
 
 		<module>cdt</module>		
