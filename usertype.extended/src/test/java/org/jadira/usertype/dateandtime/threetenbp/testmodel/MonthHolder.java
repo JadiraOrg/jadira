@@ -43,7 +43,7 @@ public class MonthHolder implements Serializable {
 
     @Column
     @Type(type = "test_MonthType")
-    private Month year;
+    private Month month;
 
     public long getId() {
         return id;
@@ -62,10 +62,10 @@ public class MonthHolder implements Serializable {
     }
 
     public Month getMonth() {
-        return year;
+        return month;
     }
 
-    public void setMonth(Month year) {
-        this.year = year;
+    public void setMonth(Month month) {
+        this.month = month;
     }
 }

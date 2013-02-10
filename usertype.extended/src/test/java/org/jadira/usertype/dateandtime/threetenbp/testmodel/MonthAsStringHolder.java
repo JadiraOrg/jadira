@@ -27,7 +27,6 @@ import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentMonthAsString;
 import org.threeten.bp.Month;
 
-
 @Entity
 @Table(name = "monthAsString")
 @TypeDef(name = "test_MonthAsStringType", typeClass = PersistentMonthAsString.class)

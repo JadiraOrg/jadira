@@ -32,7 +32,7 @@ import org.threeten.bp.Month;
 
 public class TestPersistentMonth extends DatabaseCapable {
 
-    private static final Month[] years = new Month[] { Month.of(1), Month.of(2), Month.of(12) };
+    private static final Month[] months = new Month[] { Month.of(1), Month.of(2), Month.of(12) };
 
     private static EntityManagerFactory factory;
 
@@ -53,12 +53,12 @@ public class TestPersistentMonth extends DatabaseCapable {
 
         manager.getTransaction().begin();
 
-        for (int i = 0; i < years.length; i++) {
+        for (int i = 0; i < months.length; i++) {
 
             MonthHolder item = new MonthHolder();
             item.setId(i);
             item.setName("test_" + i);
-            item.setMonth(years[i]);
+            item.setMonth(months[i]);
 
             manager.persist(item);
         }
@@ -71,14 +71,14 @@ public class TestPersistentMonth extends DatabaseCapable {
 
         manager = factory.createEntityManager();
 
-        for (int i = 0; i < years.length; i++) {
+        for (int i = 0; i < months.length; i++) {
 
             MonthHolder item = manager.find(MonthHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            assertEquals(years[i], item.getMonth());
+            assertEquals(months[i], item.getMonth());
         }
 
         verifyDatabaseTable(manager, MonthHolder.class.getAnnotation(Table.class).name());

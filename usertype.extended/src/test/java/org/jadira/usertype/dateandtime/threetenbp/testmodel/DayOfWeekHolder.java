@@ -43,7 +43,7 @@ public class DayOfWeekHolder implements Serializable {
 
     @Column
     @Type(type = "test_DayOfWeekType")
-    private DayOfWeek year;
+    private DayOfWeek dayOfWeek;
 
     public long getId() {
         return id;
@@ -62,10 +62,10 @@ public class DayOfWeekHolder implements Serializable {
     }
 
     public DayOfWeek getDayOfWeek() {
-        return year;
+        return dayOfWeek;
     }
 
-    public void setDayOfWeek(DayOfWeek year) {
-        this.year = year;
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }

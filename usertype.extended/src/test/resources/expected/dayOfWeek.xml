@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-  <month ID="0" MONTH="MONDAY" NAME="test_0"/>
-  <month ID="1" MONTH="TUESDAY" NAME="test_1"/>
-  <month ID="2" MONTH="SUNDAY" NAME="test_2"/>
+  <dayOfWeek ID="0" NAME="test_0" DAYOFWEEK="1"/>
+  <dayOfWeek ID="1" NAME="test_1" DAYOFWEEK="2"/>
+  <dayOfWeek ID="2" NAME="test_2" DAYOFWEEK="7"/>
 </dataset>
