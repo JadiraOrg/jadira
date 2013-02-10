@@ -21,13 +21,14 @@ import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
+import org.threeten.bp.temporal.ChronoField;
 
 
 public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnMapper<LocalDateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
-    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
+    public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
 
     @Override
     public LocalDateTime fromNonNullString(String s) {

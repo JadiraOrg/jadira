@@ -25,6 +25,7 @@ import org.threeten.bp.OffsetTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
+import org.threeten.bp.temporal.ChronoField;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
@@ -33,8 +34,8 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
 
     private static final long serialVersionUID = -7670411089210984705L;
 
-    public static final DateTimeFormatter LOCAL_TIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ssffn").toFormatter();
-    public static final DateTimeFormatter LOCAL_TIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ssffn").toFormatter();
+    public static final DateTimeFormatter LOCAL_TIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
+    public static final DateTimeFormatter LOCAL_TIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
 
     private ZoneOffset databaseZone = ZoneOffset.UTC;
 

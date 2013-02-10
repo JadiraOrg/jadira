@@ -21,13 +21,14 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
+import org.threeten.bp.temporal.ChronoField;
 
 public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instant> {
 
     private static final long serialVersionUID = -6885561256539185520L;
 
     public static final DateTimeFormatter INSTANT_FORMATTER = new DateTimeFormatterBuilder()
-        .appendPattern("yyyy-MM-ddTHH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendPattern("ffn").toFormatter()).appendLiteral('Z').toFormatter();
+        .appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter()).appendLiteral('Z').toFormatter();
 
     @Override
     public Instant fromNonNullValue(String s) {

@@ -42,7 +42,7 @@ public class ZonedDateTimeAsStringAndStringZoneHolder implements Serializable {
     @Column
     private String name;
 
-    @Columns(columns = { @Column(name = "MY_DATE"), @Column(name = "MY_OFFSET"), @Column(name = "MY_ZONE") })
+    @Columns(columns = { @Column(name = "MY_DATETIME"), @Column(name = "MY_ZONE") })
     @Type(type = "test_ZonedDateTimeAsStringStringOffsetAndStringZoneType")
     private ZonedDateTime zonedDateTime;
 
