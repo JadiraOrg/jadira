@@ -82,6 +82,13 @@
 			<artifactId>collections-generic</artifactId>
 		</dependency>
 		
+		<!-- Parallel programming -->
+		<dependency>
+		    <groupId>org.codehaus.jsr166-mirror</groupId>
+		    <artifactId>jsr166y</artifactId>
+		    <version>1.7.0</version>
+		</dependency>
+		
 		<!-- Logging -->
 		<!-- SLF4J -->
 		<dependency>
