@@ -31,15 +31,10 @@ import org.junit.Test;
 import org.threeten.bp.LocalTime;
 import org.threeten.bp.OffsetTime;
 import org.threeten.bp.ZoneOffset;
-import org.threeten.bp.temporal.ChronoField;
-import org.threeten.bp.temporal.Temporal;
-import org.threeten.bp.temporal.TemporalAdjuster;
 
 public class TestPersistentOffsetTimeAsTimeAndStringOffset extends DatabaseCapable {
 
     private static final OffsetTime[] offsetTimes = new OffsetTime[] { OffsetTime.of(LocalTime.of(12, 10, 31), ZoneOffset.UTC), OffsetTime.of(LocalTime.of(23, 7, 43, 120), ZoneOffset.ofHours(2)) };
-
-    private static final TemporalAdjuster NORMALISE_NANOS = new NormaliseNanosAdjuster();
 
     private static EntityManagerFactory factory;
 
@@ -85,22 +80,11 @@ public class TestPersistentOffsetTimeAsTimeAndStringOffset extends DatabaseCapab
             assertNotNull(item);
             assertEquals(i, item.getId());
             assertEquals("test_" + i, item.getName());
-            assertEquals(offsetTimes[i].with(NORMALISE_NANOS), item.getOffsetTime());
+            assertEquals(offsetTimes[i].withNano(0), item.getOffsetTime());
         }
 
         verifyDatabaseTable(manager, OffsetTimeAsTimeAndStringOffsetHolder.class.getAnnotation(Table.class).name());
 
         manager.close();
-    }
-
-    private static final class NormaliseNanosAdjuster implements TemporalAdjuster {
-
-        public LocalTime adjustInto(Temporal time) {
-            if (time == null) { return null; }
-
-            int millis = (int) (time.get(ChronoField.NANO_OF_SECOND) / 1000000);
-
-            return LocalTime.of(time.get(ChronoField.HOUR_OF_DAY), time.get(ChronoField.MINUTE_OF_HOUR), time.get(ChronoField.SECOND_OF_MINUTE), millis * 1000000);
-        }
     }
 }

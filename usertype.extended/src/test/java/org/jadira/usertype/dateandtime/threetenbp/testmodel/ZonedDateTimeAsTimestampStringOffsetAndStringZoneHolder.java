@@ -42,7 +42,7 @@ public class ZonedDateTimeAsTimestampStringOffsetAndStringZoneHolder implements 
     @Column
     private String name;
 
-    @Columns(columns = { @Column(name = "MY_DATE"), @Column(name = "MY_OFFSET"), @Column(name = "MY_ZONE") })
+    @Columns(columns = { @Column(name = "MY_DATE"), @Column(name = "MY_ZONE") })
     @Type(type = "test_ZonedDateTimeAsTimestampStringOffsetAndStringZoneType")
     private ZonedDateTime zonedDateTime;
 

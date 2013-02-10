@@ -17,15 +17,19 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.threeten.bp.LocalDateTime;
-
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.DateTimeFormatterBuilder;
+import org.threeten.bp.temporal.ChronoField;
 
 public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<LocalDateTime> {
 
+	public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();
+	
     private static final long serialVersionUID = -6885561256539185520L;
 
     @Override
     public LocalDateTime fromNonNullValue(String s) {
-        return LocalDateTime.parse(s.toString());
+        return LocalDateTime.parse(s.toString(), DATETIME_FORMATTER);
     }
 
     @Override

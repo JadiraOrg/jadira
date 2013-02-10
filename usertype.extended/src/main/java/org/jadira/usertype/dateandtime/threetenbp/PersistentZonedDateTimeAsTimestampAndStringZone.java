@@ -16,7 +16,6 @@
 package org.jadira.usertype.dateandtime.threetenbp;
 
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.StringColumnZoneIdMapper;
-import org.jadira.usertype.dateandtime.threetenbp.columnmapper.StringColumnZoneOffsetMapper;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnLocalDateTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
@@ -33,7 +32,7 @@ public class PersistentZonedDateTimeAsTimestampAndStringZone extends AbstractMul
     private static final long serialVersionUID = -1335371912886315820L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] {
-        new TimestampColumnLocalDateTimeMapper(), new StringColumnZoneOffsetMapper(), new StringColumnZoneIdMapper()
+        new TimestampColumnLocalDateTimeMapper(), new StringColumnZoneIdMapper()
     };
 
     private static final String[] propertyNames = new String[]{ "datetime", "zoneid" };

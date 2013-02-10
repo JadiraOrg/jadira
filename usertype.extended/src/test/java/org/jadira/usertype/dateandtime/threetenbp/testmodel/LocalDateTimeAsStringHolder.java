@@ -24,12 +24,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threetenbp.PersistentLocalDateTime;
+import org.jadira.usertype.dateandtime.threetenbp.PersistentLocalDateTimeAsString;
 import org.threeten.bp.LocalDateTime;
 
 @Entity
 @Table(name = "localDateTimeAsString")
-@TypeDef(name = "test_LocalDateTimeAsStringType", typeClass = PersistentLocalDateTime.class)
+@TypeDef(name = "test_LocalDateTimeAsStringType", typeClass = PersistentLocalDateTimeAsString.class)
 public class LocalDateTimeAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;

@@ -53,7 +53,7 @@ public class PersistentOffsetDateTimeAsTimestampAndStringOffset extends Abstract
     @Override
     protected Object[] toConvertedColumns(OffsetDateTime value) {
 
-        return new Object[] { value.getDate(), value.getOffset() };
+        return new Object[] { value.getDateTime(), value.getOffset() };
     }
 
     @Override
