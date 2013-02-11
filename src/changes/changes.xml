@@ -26,9 +26,14 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
-		<release version="3.1.0.GA" date="TBC" description="TBC">
+		<release version="3.1.0.CR1" date="11-02-2013" description="Support for Threeten Backport and Classpath Introspection">
+			<action dev="Chris Pheby" issue="JDF-25" type="add">usertype.extended and Threenten project synchronization</action>
+			<action dev="Chris Pheby" issue="JDF-32" type="add">Add Classpath Introspection capability</action>
+			<action dev="Chris Pheby" issue="JDF-31" type="add">Create Dependency Management Pom.xml</action>
 			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for Joda's PersistentInstant</action>
 			<action dev="Chris Pheby" issue="JDF-28" type="fix">For Joda's PersistentPeriodAsString, PeriodType is now persisted for Periods that are have a non-standard (i.e. not standard()) type. Reported by Phil at Inversebit</action>
+			<action dev="Chris Pheby" issue="JDF-29" type="fix">Correct Services Entry for Bindings</action>
+			<action dev="Chris Pheby" issue="JDF-30" type="update">Remove use of Spring API deprecated in 3.1+</action>
 		</release>
 		
 		<release version="3.0.0.GA" date="21-10-2012" description="New Types, (including for LibPhonenumber and Joda Money), Autoregistration, Hibernate 4, and Bugfixes">
