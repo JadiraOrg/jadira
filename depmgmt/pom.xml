@@ -28,6 +28,54 @@
 
 	<name>Jadira Framework Dependency Management</name>
 	<description>Dependency Management for Jadira Framework</description>
+	<url>http://usertype.sourceforge.net/</url>
+	<inceptionYear>2013</inceptionYear>
+
+	<organization>
+		<name>Jadira Systems</name>
+		<url>http://blog.jadira.co.uk/</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<id>chrisphe</id>
+			<name>Chris Pheby</name>
+			<email />
+			<roles>
+				<role>Developer</role>
+			</roles>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+
+	<mailingLists>
+		<mailingList>
+			<name>Usertype Discussion Mailing list</name>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</subscribe>
+			<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</unsubscribe>
+			<archive>https://sourceforge.net/mailarchive/forum.php?forum_name=usertype-discuss</archive>
+			<post>usertype-discuss@lists.sourceforge.net</post>
+		</mailingList>
+	</mailingLists>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://jadira.atlassian.net/BrowseProject.jspa?id=1</url>
+	</issueManagement>	
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	
+	<scm>
+		<connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk</connection>
+		<developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</developerConnection>
+		<url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk</url>
+  	</scm>
 
 	<dependencyManagement>
 		<dependencies>		
