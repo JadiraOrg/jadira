@@ -313,7 +313,7 @@
   		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
   	  	<site>
   	  	  	<id>usertype.sourceforge.net</id>
-  	  	  	<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs</url>
+  	  	  	<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/depmgmt</url>
   	  	  	<name>Usertype Maven Site</name>
   	  	</site>
   	  	<!-- Old Sourceforge Repository
@@ -349,6 +349,18 @@
 		            <version>2.2</version>
 		        </extension>
     		</extensions>
+    		
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<reportPlugins>
+					</reportPlugins>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<profiles>
