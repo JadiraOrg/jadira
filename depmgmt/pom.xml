@@ -24,7 +24,7 @@
 	<artifactId>jadira.depmgmt</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.GA-SNAPSHOT</version>
+	<version>3.1.0.CR1</version>
 
 	<name>Jadira Framework Dependency Management</name>
 	<description>Dependency Management for Jadira Framework</description>
