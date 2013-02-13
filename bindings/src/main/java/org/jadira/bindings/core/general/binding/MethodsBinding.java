@@ -15,7 +15,8 @@
  */
 package org.jadira.bindings.core.general.binding;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -34,7 +35,9 @@ import org.jadira.bindings.core.general.marshaller.MethodToMarshaller;
  */
 public final class MethodsBinding<S, T> extends MethodToMarshaller<S, T> implements Binding<S, T> {
 
-    private final Method unmarshal;
+	private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
+	
+    private final MethodHandle unmarshalHandle;
 
     /**
      * Constructs a binding that supports a marshal method and an unmarshal method
@@ -60,8 +63,12 @@ public final class MethodsBinding<S, T> extends MethodToMarshaller<S, T> impleme
         if (!boundClass.isAssignableFrom(unmarshal.getReturnType())) {
             throw new IllegalStateException("unmarshal method must return " + boundClass.getSimpleName());
         }
-
-        this.unmarshal = unmarshal;
+        
+        try {
+			this.unmarshalHandle = LOOKUP.unreflect(unmarshal);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Method is not accessible" + unmarshal);
+		}
     }
 
 	/**
@@ -71,11 +78,9 @@ public final class MethodsBinding<S, T> extends MethodToMarshaller<S, T> impleme
     public S unmarshal(T string) {
 
         try {
-            return getBoundClass().cast(unmarshal.invoke(null, string));
-        } catch (IllegalAccessException ex) {
-            throw new IllegalStateException("Method is not accessible");
-        } catch (InvocationTargetException ex) {
-            if (ex.getCause() instanceof RuntimeException) {
+            return getBoundClass().cast(unmarshalHandle.invoke(string));
+        } catch (Throwable ex) {
+        	if (ex.getCause() instanceof RuntimeException) {
                 throw (RuntimeException) ex.getCause();
             }
             throw new RuntimeException(ex.getMessage(), ex.getCause());

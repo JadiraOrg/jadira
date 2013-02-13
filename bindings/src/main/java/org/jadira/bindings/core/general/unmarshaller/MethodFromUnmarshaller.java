@@ -15,7 +15,8 @@
  */
 package org.jadira.bindings.core.general.unmarshaller;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -33,7 +34,9 @@ import org.jadira.bindings.core.api.FromUnmarshaller;
  */
 public final class MethodFromUnmarshaller<S, T> implements FromUnmarshaller<S, T> {
 
-    private final Method unmarshal;
+	private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
+	
+    private final MethodHandle unmarshalHandle;
 
     private final Class<S> boundClass;
 
@@ -58,7 +61,11 @@ public final class MethodFromUnmarshaller<S, T> implements FromUnmarshaller<S, T
             throw new IllegalStateException("unmarshal method must return " + boundClass.getSimpleName());
         }
 
-        this.unmarshal = unmarshal;
+        try {
+			this.unmarshalHandle = LOOKUP.unreflect(unmarshal);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Method is not accessible" + unmarshal);
+		}
         
         @SuppressWarnings("unchecked")
         Class<T> myTarget = (Class<T>)unmarshal.getParameterTypes()[0];
@@ -76,11 +83,9 @@ public final class MethodFromUnmarshaller<S, T> implements FromUnmarshaller<S, T
     	}
     	
         try {
-            return getBoundClass().cast(unmarshal.invoke(null, object));
-        } catch (IllegalAccessException ex) {
-            throw new IllegalStateException("Method is not accessible");
-        } catch (InvocationTargetException ex) {
-            if (ex.getCause() instanceof RuntimeException) {
+            return getBoundClass().cast(unmarshalHandle.invoke(object));
+        } catch (Throwable ex) {
+        	if (ex.getCause() instanceof RuntimeException) {
                 throw (RuntimeException) ex.getCause();
             }
             throw new RuntimeException(ex.getMessage(), ex.getCause());

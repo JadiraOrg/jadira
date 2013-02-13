@@ -15,7 +15,8 @@
  */
 package org.jadira.bindings.core.general.marshaller;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -46,11 +47,13 @@ import org.jadira.bindings.core.api.ToMarshaller;
  */
 public class MethodToMarshaller<S, T> implements ToMarshaller<S, T> {
 
+	private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
+	
     private final Class<S> boundClass;
 
     private final Class<T> targetClass;
     
-    private final Method marshal;
+    private final MethodHandle marshalHandle;
 
     /**
      * Create a new instance
@@ -77,7 +80,13 @@ public class MethodToMarshaller<S, T> implements ToMarshaller<S, T> {
 
         this.boundClass = boundClass;
         this.targetClass = targetClass;
-        this.marshal = marshal;
+
+        try {
+			this.marshalHandle = LOOKUP.unreflect(marshal);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Method is not accessible" + marshal);
+		}
+
     }
 
 	/**
@@ -87,19 +96,10 @@ public class MethodToMarshaller<S, T> implements ToMarshaller<S, T> {
     public T marshal(S object) {
 
         try {
-            if (Modifier.isStatic(marshal.getModifiers())) {
-                @SuppressWarnings("unchecked")
-				final T result = (T) marshal.invoke(null, object);
-                return result;
-            } else {
-            	@SuppressWarnings("unchecked")
-				final T result = (T) marshal.invoke(object);
-            	return result;
-            }
-        } catch (IllegalAccessException ex) {
-            throw new IllegalStateException("Method is not accessible");
-        } catch (InvocationTargetException ex) {
-            if (ex.getCause() instanceof RuntimeException) {
+        	final T result = (T) marshalHandle.invoke(object);
+            return result;
+        } catch (Throwable ex) {
+        	if (ex.getCause() instanceof RuntimeException) {
                 throw (RuntimeException) ex.getCause();
             }
             throw new RuntimeException(ex.getMessage(), ex.getCause());
