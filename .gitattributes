@@ -90,7 +90,7 @@ bindings/src/main/java/org/jadira/bindings/core/utils/reflection/TypeHelper.java
 bindings/src/main/java/org/jadira/bindings/core/utils/string/StringUtils.java -text
 bindings/src/main/resources/META-INF/bindings.xml -text
 bindings/src/main/resources/META-INF/services/javax.enterprise.inject.spi.Extension -text
-bindings/src/main/resources/META-INF/services/org.jadira.bindings.core.Binder -text
+bindings/src/main/resources/META-INF/services/org.jadira.bindings.core.binder.Binder -text
 bindings/src/main/resources/jadira-bindings.xsd -text
 bindings/src/site/site.xml -text
 bindings/src/test/java/org/jadira/bindings/core/BasicBinderTest.java -text
