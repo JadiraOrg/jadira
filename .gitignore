@@ -24,6 +24,7 @@ scanner/.classpath
 scanner/.project
 scanner/.settings
 scanner/target
+scanner/test-output
 /target
 usertype.core/*.checkstyle
 usertype.core/*.releaseBackup

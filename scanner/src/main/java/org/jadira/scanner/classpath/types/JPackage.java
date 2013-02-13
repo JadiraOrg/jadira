@@ -69,7 +69,8 @@ public class JPackage extends JElement {
         for (ClassFile classFile : classes) {
 
         	if (classFile.getSuperclass() != null) {
-	            if (!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum"))) {
+	            if (!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum"))
+	            		&& (classFile.getInnerAccessFlags() == -1)) {
 	                retVal.add(JClass.getJClass(classFile, getResolver()));
 	            }
         	}
