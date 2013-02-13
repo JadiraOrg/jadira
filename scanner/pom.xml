@@ -30,8 +30,8 @@
 	<artifactId>scanner</artifactId>
 	<packaging>jar</packaging>
 	
-	<name>Jadira Introspector</name>
-	<description>Java Introspector Library</description>
+	<name>Jadira Scanner</name>
+	<description>Java Classpath Scanner Library</description>
 
 	<dependencyManagement>
 		<dependencies>
