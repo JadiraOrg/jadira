@@ -221,10 +221,13 @@ scanner/src/main/java/org/jadira/scanner/core/helper/filenamefilter/JarFilenameF
 scanner/src/main/java/org/jadira/scanner/core/spi/AbstractFileResolver.java -text
 scanner/src/main/java/org/jadira/scanner/core/spi/AbstractResolver.java -text
 scanner/src/main/java/org/jadira/scanner/core/spi/TypeHelper.java -text
+scanner/src/main/java/org/jadira/scanner/core/utils/lang/IterableEnumeration.java -text
+scanner/src/main/java/org/jadira/scanner/core/utils/reflection/ClassLoaderUtils.java -text
 scanner/src/main/java/org/jadira/scanner/file/ClasspathFileResolver.java -text
 scanner/src/main/java/org/jadira/scanner/file/locator/IdentityUrlLocator.java -text
 scanner/src/main/java/org/jadira/scanner/file/locator/JavaClasspathUrlLocator.java -text
 scanner/src/main/java/org/jadira/scanner/file/locator/JdkBaseClasspathUrlLocator.java -text
+scanner/src/main/java/org/jadira/scanner/file/locator/MarkerFileClasspathUrlLocator.java -text
 scanner/src/main/java/org/jadira/scanner/file/locator/WebappClasspathUrlLocator.java -text
 scanner/src/main/java/org/jadira/scanner/file/projector/AntPathProjector.java -text
 scanner/src/test/java/org/jadira/scanner/classpath/A.java -text
