@@ -15,7 +15,6 @@
  */
 package org.jadira.scanner.classpath.types;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
@@ -25,18 +24,11 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.jadira.scanner.classfile.filter.ClassFileFilter;
-import org.jadira.scanner.classfile.filter.NameFilter;
-import org.jadira.scanner.classfile.filter.PackageFileFilter;
 import org.jadira.scanner.classpath.ClasspathResolver;
-import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
-import org.jadira.scanner.core.api.Projector;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 public abstract class JElement {
-
-	private static final Projector<File> CLASSPATH_PROJECTOR = new ClasspathProjector();
 	
     private final String name;
 	private final ClasspathResolver resolver;
@@ -82,12 +74,7 @@ public abstract class JElement {
 		} else if (("double").equals(name)) {
 			retVal = JClass.findClassFile("java.lang.Double", resolver);
 		} else {
-			ClassFile myRetVal = resolver.getClassFileResolver().resolveFirst(null, CLASSPATH_PROJECTOR, new PackageFileFilter(name, true), new NameFilter(name));
-			if (myRetVal == null) {
-				retVal = resolver.getClassFileResolver().resolveFirst(null, CLASSPATH_PROJECTOR, new ClassFileFilter(name));
-			} else {
-				retVal = myRetVal;
-			}
+			retVal = resolver.getClassFileResolver().resolveClassFile(name);
 		}
 		return retVal;
 	}

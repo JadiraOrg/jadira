@@ -15,9 +15,12 @@
  */
 package org.jadira.scanner.classfile;
 
+import java.io.BufferedInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
@@ -26,28 +29,49 @@ import jsr166y.ForkJoinPool;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.jadira.scanner.classfile.filter.ClassFileFilter;
+import org.jadira.scanner.classfile.filter.NameFilter;
+import org.jadira.scanner.classfile.filter.PackageFileFilter;
+import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.core.api.Allocator;
+import org.jadira.scanner.core.api.Projector;
 import org.jadira.scanner.core.helper.JavassistClassFileHelper;
 import org.jadira.scanner.core.spi.AbstractFileResolver;
+import org.jadira.scanner.core.utils.reflection.ClassLoaderUtils;
 import org.jadira.scanner.file.locator.JdkBaseClasspathUrlLocator;
 
 import de.schlichtherle.truezip.file.TFileInputStream;
 
 public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 
+	private static final Projector<File> CLASSPATH_PROJECTOR = new ClasspathProjector();
+	
 	public static ForkJoinPool FORKJOIN_TASK = new ForkJoinPool();
 
     private static final List<URL> JDK_BASE_CLASSPATH_JARS = new JdkBaseClasspathUrlLocator().locate();
 
 	private final ClassFileAssigner assigner = new ClassFileAssigner();
+
+	private boolean resolveUsingClasspath = true;
 	
     public ClassFileResolver() {    	
         super(JDK_BASE_CLASSPATH_JARS);
+	}
+    
+    public ClassFileResolver(boolean resolveUsingClasspath) {    	
+        super(JDK_BASE_CLASSPATH_JARS);
+        this.resolveUsingClasspath = resolveUsingClasspath;
 	}
 
 	public ClassFileResolver(List<URL> classpaths) {
 		super(JDK_BASE_CLASSPATH_JARS);
 		getDriverData().addAll(classpaths);
+	}
+	
+	public ClassFileResolver(List<URL> classpaths, boolean resolveUsingClasspath) {
+		super(JDK_BASE_CLASSPATH_JARS);
+		getDriverData().addAll(classpaths);
+		this.resolveUsingClasspath  = resolveUsingClasspath;
 	}
 
 	@Override
@@ -88,5 +112,32 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 				}
 			}
 		}
-	}	
+	}
+	
+	public ClassFile resolveClassFile(String name) {
+		
+		ClassFile cf = null;
+		
+		if (resolveUsingClasspath) {
+			
+			String className = name.replace('.', '/').concat(".class");
+			InputStream is = ClassLoaderUtils.getClassLoader().getResourceAsStream(className);
+			BufferedInputStream fin = new BufferedInputStream(is);
+			
+			try {
+				cf = new ClassFile(new DataInputStream(fin));
+				if (cf != null) {
+					return cf;
+				}
+			} catch (IOException e) {
+				// Ignore
+			}
+		}
+			
+		cf = resolveFirst(null, CLASSPATH_PROJECTOR, new PackageFileFilter(name, true), new NameFilter(name));
+		if (cf == null) {
+			cf = resolveFirst(null, CLASSPATH_PROJECTOR, new ClassFileFilter(name));
+		}
+		return cf;
+	}
 }
