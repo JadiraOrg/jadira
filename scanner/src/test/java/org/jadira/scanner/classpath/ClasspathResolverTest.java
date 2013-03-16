@@ -88,7 +88,7 @@ public class ClasspathResolverTest {
         assertEquals(2, thirdClass.getEnclosedClasses().size());        
     }
     
-    @Test @Ignore
+    @Test
     public void simpleVisit() throws ClasspathAccessException, FileNotFoundException {
     	
         ClasspathResolver helper = new ClasspathResolver();
