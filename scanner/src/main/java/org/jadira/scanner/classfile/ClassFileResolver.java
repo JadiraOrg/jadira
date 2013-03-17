@@ -52,15 +52,15 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 
 	private final ClassFileAssigner assigner = new ClassFileAssigner();
 
-	private boolean resolveUsingClasspath = true;
+	private ClassLoader classLoader = ClassLoaderUtils.getClassLoader();
 	
     public ClassFileResolver() {    	
         super(JDK_BASE_CLASSPATH_JARS);
 	}
     
-    public ClassFileResolver(boolean resolveUsingClasspath) {    	
+    public ClassFileResolver(ClassLoader classLoader) {    	
         super(JDK_BASE_CLASSPATH_JARS);
-        this.resolveUsingClasspath = resolveUsingClasspath;
+        this.classLoader = classLoader;
 	}
 
 	public ClassFileResolver(List<URL> classpaths) {
@@ -68,10 +68,10 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 		getDriverData().addAll(classpaths);
 	}
 	
-	public ClassFileResolver(List<URL> classpaths, boolean resolveUsingClasspath) {
+	public ClassFileResolver(List<URL> classpaths, ClassLoader classLoader) {
 		super(JDK_BASE_CLASSPATH_JARS);
 		getDriverData().addAll(classpaths);
-		this.resolveUsingClasspath  = resolveUsingClasspath;
+		this.classLoader  = classLoader;
 	}
 
 	@Override
@@ -118,10 +118,10 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 		
 		ClassFile cf = null;
 		
-		if (resolveUsingClasspath) {
+		if (classLoader != null) {
 			
 			String className = name.replace('.', '/').concat(".class");
-			InputStream is = ClassLoaderUtils.getClassLoader().getResourceAsStream(className);
+			InputStream is = classLoader.getResourceAsStream(className);
 			BufferedInputStream fin = new BufferedInputStream(is);
 			
 			try {

@@ -65,6 +65,17 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 		classFileResolver = new ClassFileResolver(classpaths);
 		getDriverData().addAll(classpaths);
 	}
+	
+    public ClasspathResolver(ClassLoader classLoader) {    	
+        super(JDK_BASE_CLASSPATH_JARS);
+        classFileResolver = new ClassFileResolver(classLoader);
+	}
+
+	public ClasspathResolver(List<URL> classpaths, ClassLoader classLoader) {
+		super(JDK_BASE_CLASSPATH_JARS);
+		classFileResolver = new ClassFileResolver(classpaths, classLoader);
+		getDriverData().addAll(classpaths);
+	}
 
 	@Override
 	public String toString() {
