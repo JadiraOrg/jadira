@@ -116,4 +116,20 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
     	}
     	return super.objectToSQLString(object);
     }
+    
+    @Override
+    public String toXMLString(Object object) {
+        if (identifierMethod != null) {
+            try {
+                return String.valueOf(identifierMethod.invoke(object));
+
+            } catch (InvocationTargetException e) {
+                throw new HibernateException("Problem constructing XMLString: " + object + "'", e);
+
+            } catch (IllegalAccessException e) {
+            	throw new HibernateException("Problem constructing XMLString: " + object + "'", e);
+            }
+        }
+        return super.toXMLString(object);
+    }
 }
