@@ -117,6 +117,26 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-g</compilerArgument>
+					<!-- We override the compiler plugin in order to suppress the errors from the following
+					     argument not being set -->
+					<compilerArgument>-XDignore.symbol.file=true</compilerArgument>
+					<encoding>${project.build.sourceEncoding</encoding>
+					<charset>${project.build.sourceEncoding</charset>
+					<debug>true</debug>
+					<optimize>true</optimize>
+					<showDeprecations>true</showDeprecations>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
