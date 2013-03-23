@@ -45,12 +45,14 @@ public abstract class JpaBaseRepository<T extends Serializable, ID extends Seria
 	 */
 	protected ID extractId(T entity) {
 
-		Class<?> entityClass = TypeHelper.getTypeArguments(JpaBaseRepository.class, this.getClass()).get(0);
-		SessionFactory sf = ((HibernateEntityManagerFactory) getEntityManager().getEntityManagerFactory()).getSessionFactory();
-		ClassMetadata cmd = sf.getClassMetadata(entityClass);
+		final Class<?> entityClass = TypeHelper.getTypeArguments(JpaBaseRepository.class, this.getClass()).get(0);
+		final SessionFactory sf = ((HibernateEntityManagerFactory) getEntityManager().getEntityManagerFactory()).getSessionFactory();
+		final ClassMetadata cmd = sf.getClassMetadata(entityClass);
+
+		final SessionImplementor si = (SessionImplementor)(getEntityManager().getDelegate());
 
 		@SuppressWarnings("unchecked")
-		ID result = (ID) cmd.getIdentifier(entity, (SessionImplementor) ((HibernateEntityManagerFactory) getEntityManager().getDelegate()));
+		final ID result = (ID) cmd.getIdentifier(entity, si);
 		return result;
 	}
 
