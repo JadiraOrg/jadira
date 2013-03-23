@@ -98,4 +98,22 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
 			getType().nullSafeSet(preparedStatement, identifier, index, session);
 		}
     }
+    
+    @Override
+    public String objectToSQLString(final Object object) {
+    	
+    	if (object == null) {
+    		return null;
+    	}
+    	if (identifierMethod != null) {
+    		try {
+    			return String.valueOf(identifierMethod.invoke(object));
+    		} catch (InvocationTargetException e) {
+    			// Ignore
+    		} catch (IllegalAccessException e) {
+    			// Ignore
+    		}
+    	}
+    	return super.objectToSQLString(object);
+    }
 }
