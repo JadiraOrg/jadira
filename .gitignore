@@ -15,6 +15,7 @@ cdt/.settings
 cdt/target
 depmgmt/.project
 depmgmt/.settings
+depmgmt/target
 refdata/.classpath
 refdata/.project
 refdata/.settings
