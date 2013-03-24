@@ -50,7 +50,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     	
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	
-        final LocalTime localTime = Formatter.LOCAL_DATETIME_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
+        final LocalTime localTime = Formatter.TIMESTAMP_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }
@@ -63,7 +63,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(TimeOfDay value) {
 
-        String formattedTimestamp = Formatter.LOCAL_TIME_PRINTER.print(value.toLocalTime());
+        String formattedTimestamp = Formatter.TIMESTAMP_PRINTER.print(value.toLocalTime());
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

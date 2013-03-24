@@ -46,7 +46,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
 
-        return Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
+        return Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
 
-        String formattedTimestamp = Formatter.LOCAL_DATETIME_FORMATTER.withZone(currentDatabaseZone).print(value);
+        String formattedTimestamp = Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).print(value);
         if (formattedTimestamp.endsWith(".")) {
             formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
         }

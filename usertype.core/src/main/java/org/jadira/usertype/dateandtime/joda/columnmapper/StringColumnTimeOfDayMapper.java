@@ -32,7 +32,7 @@ public class StringColumnTimeOfDayMapper extends AbstractStringColumnMapper<Time
             if (value.getMinuteOfHour() == 0) {
                 return Formatter.LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
             }
-            return Formatter.LOCAL_TIME_FORMATTER.print(value);
+            return Formatter.LOCAL_TIME_FORMATTER_FOR_PRINTING.print(value);
         } else {
             return value.toString().substring(1);
         }

@@ -31,10 +31,10 @@ public class StringColumnLocalTimeMapper extends AbstractStringColumnMapper<Loca
     @Override
     public String toNonNullValue(LocalTime value) {
         if (value.getMillisOfSecond() == 0) {
-            if (value.getMinuteOfHour() == 0) {
+            if (value.getSecondOfMinute() == 0) {
                 return Formatter.LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
             }
-            return Formatter.LOCAL_TIME_FORMATTER.print(value);
+            return Formatter.LOCAL_TIME_FORMATTER_FOR_PRINTING.print(value);
         } else {
             return value.toString();
         }
