@@ -483,7 +483,8 @@
 				<version>2.9</version>
 				<inherited>true</inherited>
 				<configuration>
-        			<javadocVersion>1.7</javadocVersion>
+					<javadocExecutable>${env.JAVA_HOME}\bin\javadoc.exe</javadocExecutable>
+					<javadocVersion>1.7</javadocVersion>
 					<linksource>true</linksource>
 					<links>
 						<link>http://download.oracle.com/javase/6/docs/api/</link>
@@ -560,7 +561,8 @@
 							<artifactId>maven-javadoc-plugin</artifactId>
 							<version>2.9</version>
 							<configuration>
-        						<javadocVersion>1.7</javadocVersion>
+								<javadocExecutable>${env.JAVA_HOME}\bin\javadoc.exe</javadocExecutable>
+								<javadocVersion>1.7</javadocVersion>
 								<linksource>true</linksource>
 								<links>
 									<link>http://download.oracle.com/javase/6/docs/api/</link>
