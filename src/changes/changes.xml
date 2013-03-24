@@ -26,6 +26,19 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
+		<release version="3.1.0.CR2" date="24-03-2013" description="Support Joda Time 2.2 and incremental bugfixes">
+			<action dev="Chris Pheby" issue="JDF-42" type="add">Adding Oracle Profile to Verify Timezone Handling on Oracle</action>
+			<action dev="Chris Pheby" issue="JDF-35" type="update">Update Bindings to Use Method Handle. Also introduces a dependency on Java 7 or later (for bindings module)</action>
+			<action dev="Chris Pheby" issue="JDF-38" type="update">Update to Joda Money 0.8 and Joda Time 2.2</action>
+			<action dev="Chris Pheby" issue="JDF-33" type="fix">Correct service loader configuration for Bindings</action>
+			<action dev="Chris Pheby" issue="JDF-34" type="fix">Retrieving classes in package should not return inner classes</action>			
+			<action dev="Chris Pheby" issue="JDF-36" type="fix">PersistentEnum does not convert constants in HQL Queries. Resolution proposed by Adriano Machado</action>
+			<action dev="Chris Pheby" issue="JDF-37" type="fix">PersistentEnum causes ClassCastException if org.hibernate loglevel is set to DEBUG. Resolution proposed by Adriano Machado</action>
+			<action dev="Chris Pheby" issue="JDF-39" type="fix">Work around JDK Compilation Guard</action>
+			<action dev="Chris Pheby" issue="JDF-40" type="fix">Fix error in JpaBaseRepository</action>
+			<action dev="Chris Pheby" issue="JDF-41" type="fix">Printing not supported exception thrown in StringColumnLocalTimeMapper with Joda Time 2.2. Reported by Marko Lavikainen</action>			
+		</release>
+				
 		<release version="3.1.0.CR1" date="11-02-2013" description="Support for Threeten Backport and Classpath Introspection">
 			<action dev="Chris Pheby" issue="JDF-25" type="add">usertype.extended and Threenten project synchronization</action>
 			<action dev="Chris Pheby" issue="JDF-32" type="add">Add Classpath Introspection capability</action>
