@@ -195,6 +195,12 @@
 				<artifactId>joda-time-hibernate</artifactId>
 				<version>1.3</version>
 				<scope>test</scope>
+				<exclusions>
+					<exclusion>
+						<groupId>joda-time</groupId>
+						<artifactId>joda-time</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>joda-time</groupId>
