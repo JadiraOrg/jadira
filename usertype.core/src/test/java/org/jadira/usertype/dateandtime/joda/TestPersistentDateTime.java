@@ -15,6 +15,12 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+
 import org.hamcrest.core.IsEqual;
 import org.jadira.usertype.dateandtime.joda.testmodel.DateTimeJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeHolder;
@@ -23,8 +29,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHolder> {
 

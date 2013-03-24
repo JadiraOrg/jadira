@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <moneyMajorAmountAndCurAsInt ID="0" MY_CURRENCY="840" MY_AMOUNT="100" NAME="test_0"/>
+  <moneyMajorAmountAndCurAsInt ID="1" MY_CURRENCY="840" MY_AMOUNT="100" NAME="test_1"/>
+  <moneyMajorAmountAndCurAsInt ID="2" MY_CURRENCY="978" MY_AMOUNT="0" NAME="test_2"/>
+  <moneyMajorAmountAndCurAsInt ID="3" MY_CURRENCY="978" MY_AMOUNT="0" NAME="test_3"/>
+  <moneyMajorAmountAndCurAsInt ID="4" NAME="test_4"/>
+</dataset>

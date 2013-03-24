@@ -130,8 +130,8 @@
 					<!-- We override the compiler plugin in order to suppress the errors from the following
 					     argument not being set -->
 					<compilerArgument>-XDignore.symbol.file=true</compilerArgument>
-					<encoding>${project.build.sourceEncoding</encoding>
-					<charset>${project.build.sourceEncoding</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<charset>${project.build.sourceEncoding}</charset>
 					<debug>true</debug>
 					<optimize>true</optimize>
 					<showDeprecations>true</showDeprecations>

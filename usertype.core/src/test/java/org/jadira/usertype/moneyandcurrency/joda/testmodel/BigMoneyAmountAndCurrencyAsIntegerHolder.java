@@ -29,7 +29,7 @@ import org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmountAndCurr
 import org.joda.money.BigMoney;
 
 @Entity
-@Table(name = "bigMoneyAmountAndCurrencyAsInteger")
+@Table(name = "bigMoneyAmountAndCurAsInt")
 @TypeDef(name = "testjoda_BigMoneyAmountWithCurrencyAsIntegerType", typeClass = PersistentBigMoneyAmountAndCurrencyAsInteger.class)
 public class BigMoneyAmountAndCurrencyAsIntegerHolder implements Serializable {
 

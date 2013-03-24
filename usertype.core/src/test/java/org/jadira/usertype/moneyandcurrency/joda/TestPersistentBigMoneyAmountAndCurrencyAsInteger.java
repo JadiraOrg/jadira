@@ -47,7 +47,8 @@ public class TestPersistentBigMoneyAmountAndCurrencyAsInteger extends AbstractDa
             if (bigMoneys[i] == null) {
                 assertNull(item.getBigMoney());
             } else {
-                assertEquals(bigMoneys[i].toString(), item.getBigMoney().toString());
+                assertEquals(bigMoneys[i].getAmountMajorLong(), item.getBigMoney().getAmountMajorLong());
+                assertEquals(bigMoneys[i].getAmountMinorInt(), item.getBigMoney().getAmountMinorInt());
             }
         }
 

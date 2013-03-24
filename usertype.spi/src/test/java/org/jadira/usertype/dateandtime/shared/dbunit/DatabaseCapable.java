@@ -25,6 +25,7 @@ import javax.persistence.EntityManager;
 
 import org.dbunit.Assertion;
 import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
 import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
@@ -33,23 +34,35 @@ import org.dbunit.dataset.ITable;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2Connection;
+import org.dbunit.ext.oracle.OracleConnection;
 import org.hibernate.Session;
+import org.hibernate.engine.jdbc.spi.JdbcWrapper;
 import org.hibernate.jdbc.Work;
 
 public class DatabaseCapable {
 
-	protected void verifyDatabaseTable(EntityManager manager, final String tableName) throws RuntimeDatabaseUnitException {
+	protected void verifyDatabaseTable(final EntityManager manager, final String tableName) throws RuntimeDatabaseUnitException {
 
 		Work work = new Work() {
 
 			@Override
 			public void execute(Connection connection) throws SQLException {
 
-				H2Connection dbunitConnection;
+				final Connection wrappedConnection;
+				if (connection instanceof JdbcWrapper) {
+				        wrappedConnection = (Connection) ((JdbcWrapper<?>) connection).getWrappedObject();
+				} else {
+				        wrappedConnection = connection;
+				}
+				
 				IDataSet databaseDataSet;
-				try {
-					dbunitConnection = new H2Connection(
-							connection, null);
+				try { 
+					DatabaseConnection dbunitConnection;
+					if (wrappedConnection.getClass().getName().equals("oracle.jdbc.driver.T4CConnection")) {
+						dbunitConnection = new OracleConnection(wrappedConnection, "chris");
+					} else {
+						dbunitConnection = new H2Connection(wrappedConnection, null);
+					}
 					databaseDataSet = dbunitConnection.createDataSet();
 				} catch (DatabaseUnitException ex) {
 					throw new RuntimeException(ex);
@@ -82,7 +95,7 @@ public class DatabaseCapable {
 				}
 			}
 		};
-		
+
 		((Session) (manager.getDelegate())).doWork(work);
 
 	}
@@ -90,7 +103,7 @@ public class DatabaseCapable {
 	protected void writeExpectedFile(IDatabaseConnection dbunitConnection,
 			File outputFile, String tableName) throws IOException,
 			DataSetException {
-		
+
 		QueryDataSet partialDataSet = new QueryDataSet(dbunitConnection);
 		partialDataSet.addTable(tableName);
 

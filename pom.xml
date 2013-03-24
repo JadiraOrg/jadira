@@ -122,6 +122,7 @@
 				<property>
 					<name>!database</name>
 				</property>
+				<activeByDefault>false</activeByDefault> 
 			</activation>
 			<build>
 				<plugins>
@@ -165,6 +166,7 @@
 					<name>database</name>
 					<value>h2database</value>
 				</property>
+				<activeByDefault>false</activeByDefault> 
 			</activation>
 			<build>
 				<plugins>
@@ -244,7 +246,51 @@
 					</plugin>
 				</plugins>
 			</build>			
-		</profile>		
+		</profile>
+		<profile>
+			<id>oracle</id>
+			<activation>
+				<property>
+					<name>database</name>
+					<value>oracle</value>
+				</property>
+				<activeByDefault>false</activeByDefault> 
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.oracle" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>
 		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
