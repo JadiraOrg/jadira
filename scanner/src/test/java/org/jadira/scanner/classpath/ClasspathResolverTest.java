@@ -70,8 +70,8 @@ public class ClasspathResolverTest {
         assertEquals("JConstructor[name=<init>,enclosingType=JClass[name=org.jadira.scanner.classpath.A],parameters=[JParameter[name=first,type=JClass[name=java.lang.String],enclosingType=JClass[name=org.jadira.scanner.classpath.A]], JParameter[name=second,type=JClass[name=java.lang.Integer],enclosingType=JClass[name=org.jadira.scanner.classpath.A]]]]", constructors.get(0).toString());
 
         assertEquals(2, firstClass.getEnclosedClasses().size());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
+        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
+        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
 
         assertEquals("JClass[name=org.jadira.scanner.classpath.A]", firstClass.toString());
         
