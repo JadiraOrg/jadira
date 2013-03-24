@@ -50,7 +50,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     	
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	
-        final LocalTime localTime = Formatter.TIMESTAMP_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
+        final LocalTime localTime = Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toLocalTime();
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }

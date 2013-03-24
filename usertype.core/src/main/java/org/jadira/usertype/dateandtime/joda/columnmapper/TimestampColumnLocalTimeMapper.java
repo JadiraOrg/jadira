@@ -47,7 +47,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
         
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	
-    	DateTime dt = Formatter.TIMESTAMP_PARSER.withZone(currentDatabaseZone).parseDateTime(value.toString()); 
+    	DateTime dt = Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()); 
         return dt.toLocalTime();
     }
     

@@ -29,10 +29,10 @@ public class StringColumnTimeOfDayMapper extends AbstractStringColumnMapper<Time
     public String toNonNullValue(TimeOfDay value) {
 
         if (value.getMillisOfSecond() == 0) {
-            if (value.getMinuteOfHour() == 0) {
-                return Formatter.LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
+            if (value.getSecondOfMinute() == 0) {
+                return Formatter.LOCAL_TIME_NOSECONDS_PRINTER.print(value);
             }
-            return Formatter.LOCAL_TIME_FORMATTER_FOR_PRINTING.print(value);
+            return Formatter.LOCAL_TIME_NOMILLIS_PRINTER.print(value);
         } else {
             return value.toString().substring(1);
         }

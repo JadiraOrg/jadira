@@ -23,7 +23,6 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.TimeOfDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
-import org.joda.time.format.DateTimePrinter;
 
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTime}
@@ -35,7 +34,6 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
     private DateTimeZone databaseZone = DateTimeZone.UTC;
     
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-    public static final DateTimePrinter LOCAL_TIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toPrinter();
 
     public TimeColumnTimeOfDayMapper() {
     }

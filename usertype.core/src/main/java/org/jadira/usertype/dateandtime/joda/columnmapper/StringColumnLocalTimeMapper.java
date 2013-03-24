@@ -32,9 +32,9 @@ public class StringColumnLocalTimeMapper extends AbstractStringColumnMapper<Loca
     public String toNonNullValue(LocalTime value) {
         if (value.getMillisOfSecond() == 0) {
             if (value.getSecondOfMinute() == 0) {
-                return Formatter.LOCAL_TIME_NOSECONDS_FORMATTER.print(value);
+                return Formatter.LOCAL_TIME_NOSECONDS_PRINTER.print(value);
             }
-            return Formatter.LOCAL_TIME_FORMATTER_FOR_PRINTING.print(value);
+            return Formatter.LOCAL_TIME_NOMILLIS_PRINTER.print(value);
         } else {
             return value.toString();
         }
