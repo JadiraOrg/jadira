@@ -275,6 +275,7 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocal
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsNanosLong.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentLocalTimeAsTimestamp.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentMinutes.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentMonthDayAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentPeriodAsString.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/PersistentTimeOfDay.java -text
@@ -388,6 +389,7 @@ usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentL
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsNanosLong.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsString.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentLocalTimeAsTimestamp.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentMinutes.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentMonthDayAsString.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentPeriodAsString.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/TestPersistentTimeOfDay.java -text
@@ -430,6 +432,7 @@ usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/Local
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalDateTimeJoda.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalTimeAsStringJoda.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/LocalTimeExactJoda.java -text
+usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/MinutesHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/MonthDayAsStringHolder.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/PeriodJoda.java -text
 usertype.core/src/test/java/org/jadira/usertype/dateandtime/joda/testmodel/TimeOfDayAsMillisIntegerHolder.java -text
@@ -535,6 +538,7 @@ usertype.core/src/test/resources/expected/localTimeAsMillisInteger.xml -text
 usertype.core/src/test/resources/expected/localTimeAsNanosLong.xml -text
 usertype.core/src/test/resources/expected/localTimeAsString.xml -text
 usertype.core/src/test/resources/expected/localTimeAsTimestamp.xml -text
+usertype.core/src/test/resources/expected/minute.xml -text
 usertype.core/src/test/resources/expected/moneyAmount.xml -text
 usertype.core/src/test/resources/expected/moneyAmountAndCurAsInt.xml -text
 usertype.core/src/test/resources/expected/moneyAmountAndCurrency.xml -text
