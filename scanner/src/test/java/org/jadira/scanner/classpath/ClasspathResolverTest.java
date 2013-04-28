@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.jadira.scanner.classpath.api.JClassFilter;
+import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.classpath.types.JAnnotation;
 import org.jadira.scanner.classpath.types.JClass;
 import org.jadira.scanner.classpath.types.JConstructor;
@@ -92,62 +94,67 @@ public class ClasspathResolverTest {
     	
         ClasspathResolver helper = new ClasspathResolver();
         
+        @SuppressWarnings("unchecked")
+		List<JClass> classes = (List<JClass>)helper.resolveAll(new JavaClasspathUrlLocator(), new ClasspathProjector(), new JClassFilter());
+        
         // JClass pkg = JClass.getJClass("java.lang.CharacterData00", helper);
        
-        JPackage pkg = JPackage.getJPackage("java.lang", helper);
-        pkg.acceptVisitor(new IntrospectionVisitor() {
-			
-			@Override
-			public void visit(JParameter element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JField element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JInterface element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JClass element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JInnerClass element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JPackage element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JStaticInitializer element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JMethod element) {
-				System.out.println(element.toString());
-			}
-			
-			@Override
-			public void visit(JConstructor element) {
-				System.out.println(element.toString());
-
-			}
-			
-			@Override
-			public void visit(JAnnotation<?> element) {
-				System.out.println(element.toString());
-			}
-
-		});
+        // JPackage pkg = JPackage.getJPackage("java.lang", helper);
+        
+        for (JClass next : classes) {
+	        next.acceptVisitor(new IntrospectionVisitor() {
+				
+				@Override
+				public void visit(JParameter element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JField element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JInterface element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JClass element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JInnerClass element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JPackage element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JStaticInitializer element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JMethod element) {
+					System.out.println(element.toString());
+				}
+				
+				@Override
+				public void visit(JConstructor element) {
+					System.out.println(element.toString());
+	
+				}
+				
+				@Override
+				public void visit(JAnnotation<?> element) {
+					System.out.println(element.toString());
+				}
+			});
+        }
     }
 }

@@ -121,12 +121,12 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 
 	@Override
 	public T resolveFirst(Locator<A> locator, Projector<E> projector, Filter<?>... filters) {
-		List<T> result = resolve(Integer.valueOf(1), locator, projector, filters);
+		List<? extends T> result = resolve(Integer.valueOf(1), locator, projector, filters);
 		return result.isEmpty() ? null : result.get(0);
 	}
 
 	@Override
-	public List<T> resolve(Integer limit, Locator<A> locator, Projector<E> projector, Filter<?>... filters) {
+	public List<? extends T> resolve(Integer limit, Locator<A> locator, Projector<E> projector, Filter<?>... filters) {
 
 		final List<Filter<?>> myFilters = Arrays.asList(filters);
 		
@@ -166,7 +166,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	}
 
 	@Override
-	public List<T> resolveAll(Locator<A> locator, Projector<E> projector, Filter<?>... filters) {
+	public List<? extends T> resolveAll(Locator<A> locator, Projector<E> projector, Filter<?>... filters) {
 		return resolve(null, locator, projector, filters);
 	}
 	

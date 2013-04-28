@@ -21,7 +21,7 @@ public interface Resolver<T, E, A> {
 	 * @param filter
 	 * @return
 	 */
-	public List<T> resolve(Integer limit, Locator<A> locator, Projector<E> projector, Filter<?>... filter);
+	public List<? extends T> resolve(Integer limit, Locator<A> locator, Projector<E> projector, Filter<?>... filter);
 	
 	/**
 	 * 
@@ -30,5 +30,5 @@ public interface Resolver<T, E, A> {
 	 * @param filter
 	 * @return
 	 */
-	public List<T> resolveAll(Locator<A> locator, Projector<E> projector, Filter<?>... filter);
+	public List<? extends T> resolveAll(Locator<A> locator, Projector<E> projector, Filter<?>... filter);
 }

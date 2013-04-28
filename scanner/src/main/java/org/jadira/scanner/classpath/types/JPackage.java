@@ -65,7 +65,7 @@ public class JPackage extends JElement {
     public Set<JClass> getClasses() throws ClasspathAccessException {
 
         Set<JClass> retVal = new HashSet<JClass>();
-        List<ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackagePrefixFilter(this), new JElementTypeFilter(JClass.class)); 
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackagePrefixFilter(this), new JElementTypeFilter(JClass.class)); 
         for (ClassFile classFile : classes) {
 
         	if (classFile.getSuperclass() != null) {
@@ -81,7 +81,7 @@ public class JPackage extends JElement {
     public Set<JInterface> getInterfaces() throws ClasspathAccessException {
 
         Set<JInterface> retVal = new HashSet<JInterface>();
-        List<ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JInterface.class));
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JInterface.class));
         for (ClassFile classFile : classes) {
             if (classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.annotation.Annotation")))
                 retVal.add(JInterface.getJInterface(classFile, getResolver()));
@@ -93,7 +93,7 @@ public class JPackage extends JElement {
     public Set<JAnnotation<?>> getAnnotations() throws ClasspathAccessException {
 
         Set<JAnnotation<?>> retVal = new HashSet<JAnnotation<?>>();
-        List<ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JAnnotation.class));
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JAnnotation.class));
         for (ClassFile classFile : classes) {
             if (classFile.isInterface() && (classFile.getSuperclass().equals("java.lang.annotation.Annotation")))
                 try {
