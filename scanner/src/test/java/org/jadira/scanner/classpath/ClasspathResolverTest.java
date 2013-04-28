@@ -72,8 +72,8 @@ public class ClasspathResolverTest {
         assertEquals("JConstructor[name=<init>,enclosingType=JClass[name=org.jadira.scanner.classpath.A],parameters=[JParameter[name=first,type=JClass[name=java.lang.String],enclosingType=JClass[name=org.jadira.scanner.classpath.A]], JParameter[name=second,type=JClass[name=java.lang.Integer],enclosingType=JClass[name=org.jadira.scanner.classpath.A]]]]", constructors.get(0).toString());
 
         assertEquals(2, firstClass.getEnclosedClasses().size());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
+        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
+        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
 
         assertEquals("JClass[name=org.jadira.scanner.classpath.A]", firstClass.toString());
         
@@ -95,11 +95,12 @@ public class ClasspathResolverTest {
         ClasspathResolver helper = new ClasspathResolver();
         
         @SuppressWarnings("unchecked")
-		List<JClass> classes = (List<JClass>)helper.resolveAll(new JavaClasspathUrlLocator(), new ClasspathProjector(), new JClassFilter());
+		// FIXME List<JClass> classes = (List<JClass>)helper.resolveAll(new JavaClasspathUrlLocator(), new ClasspathProjector(), new JClassFilter());
         
         // JClass pkg = JClass.getJClass("java.lang.CharacterData00", helper);
        
-        // JPackage pkg = JPackage.getJPackage("java.lang", helper);
+        JPackage pkg = JPackage.getJPackage("java.lang", helper);
+        Set<JClass> classes = pkg.getClasses();
         
         for (JClass next : classes) {
 	        next.acceptVisitor(new IntrospectionVisitor() {
