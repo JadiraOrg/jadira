@@ -186,7 +186,7 @@
 			<dependency>
 			    <groupId>org.threeten</groupId>
 			    <artifactId>threetenbp</artifactId>
-			    <version>0.7</version>
+			    <version>0.8.1</version>
 			    <optional>true</optional>
 			</dependency>
 	
