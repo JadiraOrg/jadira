@@ -25,7 +25,7 @@ import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.Instant;
-import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
@@ -58,7 +58,7 @@ public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<In
             if ("jvm".equals(databaseZone)) {
                 columnMapper.setDatabaseZone(null);
             } else {
-                columnMapper.setDatabaseZone(ZoneId.of(databaseZone));
+                columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
             }
         }
     }

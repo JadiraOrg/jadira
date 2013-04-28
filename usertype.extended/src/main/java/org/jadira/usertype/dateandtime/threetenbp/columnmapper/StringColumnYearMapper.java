@@ -34,6 +34,6 @@ public class StringColumnYearMapper extends AbstractStringColumnMapper<Year> {
 
     @Override
     public String toNonNullValue(Year value) {
-        return YEAR_FORMATTER.print((Year) value);
+        return YEAR_FORMATTER.format((Year) value);
     }
 }

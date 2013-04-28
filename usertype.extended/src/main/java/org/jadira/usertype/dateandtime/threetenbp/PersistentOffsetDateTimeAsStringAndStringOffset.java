@@ -52,7 +52,7 @@ public class PersistentOffsetDateTimeAsStringAndStringOffset extends AbstractMul
     @Override
     protected Object[] toConvertedColumns(OffsetDateTime value) {
 
-        return new Object[] { value.getDateTime(), value.getOffset() };
+        return new Object[] { value.toLocalDateTime(), value.getOffset() };
     }
 
     @Override

@@ -19,6 +19,4 @@
 <dataset>
   <durationAsString ID="0" DURATION="PT0S" NAME="test_0"/>
   <durationAsString ID="1" DURATION="PT30S" NAME="test_1"/>
-  <durationAsString ID="2" DURATION="PT30S" NAME="test_2"/>
-  <durationAsString ID="3" DURATION="PT7776000S" NAME="test_3"/>
 </dataset>

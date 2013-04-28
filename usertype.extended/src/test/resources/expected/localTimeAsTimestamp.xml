@@ -17,7 +17,7 @@
 
  -->
 <dataset>
-  <localTimeAsTimestamp ID="0" LOCALTIME="0001-01-01 14:02:25.0" NAME="test_0"/>
-  <localTimeAsTimestamp ID="1" LOCALTIME="0001-01-01 23:59:59.999" NAME="test_1"/>
-  <localTimeAsTimestamp ID="2" LOCALTIME="0001-01-01 00:00:00.0" NAME="test_2"/>
+  <localTimeAsTimestamp ID="0" LOCALTIME="1970-01-01 14:02:25.0" NAME="test_0"/>
+  <localTimeAsTimestamp ID="1" LOCALTIME="1970-01-01 23:59:59.999" NAME="test_1"/>
+  <localTimeAsTimestamp ID="2" LOCALTIME="1970-01-01 00:00:00.0" NAME="test_2"/>
 </dataset>

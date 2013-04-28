@@ -45,6 +45,6 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     @Override
     public Date toNonNullValue(LocalDate value) {
-        return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
+        return Date.valueOf(LOCAL_DATE_FORMATTER.format((LocalDate) value));
     }
 }

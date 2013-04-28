@@ -16,18 +16,23 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
+import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
-
 
 public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnMapper<LocalDateTime> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
+    private ZoneOffset databaseZone = ZoneOffset.of("Z");
+    
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();
 
     @Override
@@ -37,7 +42,15 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
 
     @Override
     public LocalDateTime fromNonNullValue(Timestamp value) {
-        return LocalDateTime.parse(value.toString(), LOCAL_DATETIME_FORMATTER);
+    	
+    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        
+        Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
+        instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
+        
+        return LocalDateTime.ofInstant(instant, currentDatabaseZone);
     }
 
     @Override
@@ -48,9 +61,42 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     @Override
     public Timestamp toNonNullValue(LocalDateTime value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_FORMATTER.print((LocalDateTime) value);
-        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
-
+    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+    	
+    	ZonedDateTime zdt = value.atZone(currentDatabaseZone);
+        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        
+        final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli() - adjustment);
+        timestamp.setNanos(value.getNano());
         return timestamp;
     }
+    
+    public void setDatabaseZone(ZoneOffset databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+    
+    private static ZoneOffset getDefault() {
+
+    	ZoneOffset zone = null;
+        try {
+            try {
+                String id = System.getProperty("user.timezone");
+                if (id != null) {
+                    zone = ZoneOffset.of(id);
+                }
+            } catch (RuntimeException ex) {
+                zone = null;
+            }
+            if (zone == null) {
+                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+            }
+        } catch (RuntimeException ex) {
+            zone = null;
+        }
+        if (zone == null) {
+            zone = ZoneOffset.of("Z");
+        }
+        return zone;
+    }
+
 }

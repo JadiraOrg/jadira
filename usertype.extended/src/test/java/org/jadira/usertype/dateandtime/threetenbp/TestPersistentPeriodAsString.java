@@ -33,29 +33,22 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.threeten.bp.Duration;
 import org.threeten.bp.Period;
 
 public class TestPersistentPeriodAsString extends DatabaseCapable {
 
     private static final Period[] periods = new Period[] {
-        Period.of(Duration.ofDays(2)),
-        Period.of(Duration.ofSeconds(30)),
-        Period.of(0, 3, 0, 0, 0, 0),
-        Period.of(Duration.ofSeconds(30)),
-        Period.of(4, 35, 40, 141, 0, 0, 0),
-        Period.of(28, 10, 2, 2, 4, 35, 40000000),
-        Period.of(28, 10, 0, 16, 4, 35, 40000000)
+        Period.of(0, 3, 0),
+        Period.of(4, 35, 40),
+        Period.of(28, 10, 2),
+        Period.of(28, 10, 0)
     };
 
     private static final org.joda.time.Period[] jodaPeriods = new org.joda.time.Period[] {
-        org.joda.time.Period.days(2),
-        org.joda.time.Period.seconds(30),
         org.joda.time.Period.months(3),
-        org.joda.time.Period.seconds(30),
-        new org.joda.time.Period(4, 35, 0, 40, 141, 0, 0, 0),
-        new org.joda.time.Period(28, 10, 0, 2, 2, 4, 35, 40),
-        new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40)
+        new org.joda.time.Period(4, 35, 0, 0, 0, 0, 0, 0),
+        new org.joda.time.Period(28, 10, 2, 0, 0, 0, 0, 0),
+        new org.joda.time.Period(28, 10, 0, 0, 0, 0, 0, 0)
     };
 
     private static EntityManagerFactory factory;
@@ -149,61 +142,9 @@ public class TestPersistentPeriodAsString extends DatabaseCapable {
             assertEquals("test_" + i, item.getName());
 
             Period expected = periods[i];
-            long nanos = expected.getNanos();
-            nanos = (nanos / 1000000L) * 1000000L;
-            expected = expected.withTimeNanos(nanos);
 
             assertEquals(expected, item.getPeriod());
         }
-        manager.close();
-    }
-
-    @Test @Ignore // Joda Time Contrib does not support Hibernate 4 yet
-    public void testNanosWithJodaTime() {
-
-        EntityManager manager = factory.createEntityManager();
-
-        manager.getTransaction().begin();
-        for (int i = 0; i < periods.length; i++) {
-            manager.remove(manager.find(PeriodAsStringHolder.class, Long.valueOf(i)));
-        }
-        manager.flush();
-        manager.getTransaction().commit();
-
-        manager.getTransaction().begin();
-
-        PeriodAsStringHolder item = new PeriodAsStringHolder();
-        item.setId(1);
-        item.setName("test_nanos1");
-        item.setPeriod(Period.of(Duration.ofNanos(111444444)));
-
-        manager.persist(item);
-        manager.flush();
-
-        manager.getTransaction().commit();
-
-        manager.close();
-
-        manager = factory.createEntityManager();
-
-        PeriodJoda jodaItem = manager.find(PeriodJoda.class, Long.valueOf(1));
-
-        assertNotNull(jodaItem);
-        assertEquals(1, jodaItem.getId());
-        assertEquals("test_nanos1", jodaItem.getName());
-        assertEquals(new org.joda.time.Period(0, 0, 0, 111), jodaItem.getPeriod());
-
-        manager.close();
-
-        manager = factory.createEntityManager();
-
-        item = manager.find(PeriodAsStringHolder.class, Long.valueOf(1));
-
-        assertNotNull(item);
-        assertEquals(1, item.getId());
-        assertEquals("test_nanos1", item.getName());
-        assertEquals(Period.of(Duration.ofNanos(111444444)), item.getPeriod());
-
         manager.close();
     }
 }

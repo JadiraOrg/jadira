@@ -24,7 +24,6 @@ import org.jadira.usertype.dateandtime.threetenbp.PersistentLocalDate;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentLocalDateTime;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentLocalTime;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentMonthDayAsString;
-import org.jadira.usertype.dateandtime.threetenbp.PersistentOffsetDate;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentOffsetDateTime;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentOffsetTimeAsTimestamp;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentPeriodAsString;
@@ -44,7 +43,6 @@ public class UserTypeThreeTenBPHibernateIntegrator extends AbstractUserTypeHiber
 		new PersistentLocalDateTime(), 
 		new PersistentLocalTime(), 
 		new PersistentMonthDayAsString(),
-		new PersistentOffsetDate(), 
 		new PersistentOffsetDateTime(), 
 		new PersistentOffsetTimeAsTimestamp(), 
 		new PersistentPeriodAsString(), 

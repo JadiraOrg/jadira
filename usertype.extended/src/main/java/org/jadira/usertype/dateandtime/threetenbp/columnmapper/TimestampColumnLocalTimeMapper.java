@@ -16,13 +16,18 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
-
 
 public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> {
 
@@ -31,6 +36,8 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
 
+    private ZoneOffset databaseZone = ZoneOffset.of("Z");
+
     @Override
     public LocalTime fromNonNullString(String s) {
         return LocalTime.parse(s);
@@ -38,7 +45,18 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     @Override
     public LocalTime fromNonNullValue(Timestamp value) {
-        return LocalTime.parse(value.toString(), LOCAL_DATETIME_PARSER);
+    	
+    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        
+        Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
+        instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
+        
+        LocalDateTime ldt = LocalDateTime.ofInstant(instant, currentDatabaseZone);
+        LocalTime localTime = ldt.toLocalTime();
+        
+        return localTime;
     }
 
     @Override
@@ -49,10 +67,42 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-        final String formattedTimestamp = LOCAL_DATETIME_PRINTER.print((LocalTime) value);
-        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
-
+    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+    	
+    	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
+    	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
+        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        
+        final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli() - adjustment);
+        timestamp.setNanos(value.getNano());
         return timestamp;
     }
 
+    public void setDatabaseZone(ZoneOffset databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+
+    private static ZoneOffset getDefault() {
+
+    	ZoneOffset zone = null;
+        try {
+            try {
+                String id = System.getProperty("user.timezone");
+                if (id != null) {
+                    zone = ZoneOffset.of(id);
+                }
+            } catch (RuntimeException ex) {
+                zone = null;
+            }
+            if (zone == null) {
+                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+            }
+        } catch (RuntimeException ex) {
+            zone = null;
+        }
+        if (zone == null) {
+            zone = ZoneOffset.of("Z");
+        }
+        return zone;
+    }
 }

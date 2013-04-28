@@ -52,7 +52,7 @@ public class PersistentZonedDateTimeAsStringAndStringZone extends AbstractMultiC
     @Override
     protected Object[] toConvertedColumns(ZonedDateTime value) {
 
-        return new Object[] { value.getDateTime(), value.getZone() };
+        return new Object[] { value.toLocalDateTime(), value.getZone() };
     }
 
     @Override

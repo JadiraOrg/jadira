@@ -53,7 +53,7 @@ public class PersistentOffsetTimeAsLongAndStringOffset extends AbstractMultiColu
     @Override
     protected Object[] toConvertedColumns(OffsetTime value) {
 
-        return new Object[] { value.getTime(), value.getOffset() };
+        return new Object[] { value.toLocalTime(), value.getOffset() };
     }
 
     @Override

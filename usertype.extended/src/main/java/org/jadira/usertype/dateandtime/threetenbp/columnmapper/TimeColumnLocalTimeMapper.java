@@ -45,6 +45,6 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
 
     @Override
     public Time toNonNullValue(LocalTime value) {
-        return Time.valueOf(LOCAL_TIME_FORMATTER.print((LocalTime) value));
+        return Time.valueOf(LOCAL_TIME_FORMATTER.format((LocalTime) value));
     }
 }

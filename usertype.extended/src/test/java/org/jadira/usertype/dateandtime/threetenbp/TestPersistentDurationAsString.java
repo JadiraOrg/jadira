@@ -31,20 +31,13 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.threeten.bp.Duration;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalTime;
-import org.threeten.bp.OffsetDate;
-import org.threeten.bp.Period;
-import org.threeten.bp.ZoneOffset;
-import org.threeten.bp.temporal.ChronoUnit;
 
 public class TestPersistentDurationAsString extends DatabaseCapable {
 
     private static final Duration[] durations = new Duration[] {
         Duration.ZERO,
-        Duration.ofSeconds(30),
-        Period.of(30, ChronoUnit.SECONDS).toDuration(),
-        Duration.between(OffsetDate.of(LocalDate.of(2010, 4, 1), ZoneOffset.UTC).minusMonths(3).atTime(LocalTime.MIDNIGHT), OffsetDate.of(LocalDate.of(2010, 4, 1), ZoneOffset.UTC).atTime(LocalTime.MIDNIGHT)) };
+        Duration.ofSeconds(30)
+    };
 
     private static final org.joda.time.Duration[] jodaDurations = new org.joda.time.Duration[] {
         org.joda.time.Duration.ZERO,

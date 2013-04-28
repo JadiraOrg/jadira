@@ -65,7 +65,7 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
         value = value.withOffsetSameInstant(currentDatabaseZone);
 
-        return Time.valueOf(LOCAL_TIME_FORMATTER.print(value));
+        return Time.valueOf(LOCAL_TIME_FORMATTER.format(value));
     }
 
     public void setDatabaseZone(ZoneOffset databaseZone) {
