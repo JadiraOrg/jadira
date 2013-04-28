@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.framework</groupId>
 		<artifactId>jadira.parent</artifactId>
-		<version>3.1.0.GA-SNAPSHOT</version>
+		<version>3.1.0.CR3</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -107,18 +107,18 @@
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR3</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR3</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR3</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
