@@ -22,8 +22,8 @@ import org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmount;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentCurrency;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount;
-import org.jadira.usertype.spi.reflectionutils.ClassLoaderUtils;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
+import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 
 public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 

@@ -16,6 +16,7 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
@@ -56,8 +57,12 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         DateTimeZone currentJavaZone = javaZone == null ? ZoneHelper.getDefault() : javaZone;
 
-        DateTime dateTime = DATETIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString());
-        return dateTime.withZone(currentJavaZone);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        
+        DateTime dateTime = new DateTime(value.getTime() + adjustment);
+        DateTime dateTimeWithZone = dateTime.withZone(currentJavaZone);
+        
+        return dateTimeWithZone;
     }
 
     @Override
@@ -69,19 +74,14 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     public Timestamp toNonNullValue(DateTime value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-
-        value = value.withZone(currentDatabaseZone);
-
-        String formattedTimestamp = DATETIME_FORMATTER.print(value);
-        if (formattedTimestamp.endsWith(".")) {
-            formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
-        }
-
-        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
+        
+        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(null);
+        
+        final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
         return timestamp;
     }
 
-    public void setDatabaseZone(DateTimeZone databaseZone) {
+	public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
 

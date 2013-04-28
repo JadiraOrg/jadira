@@ -26,11 +26,12 @@ import org.jadira.usertype.dateandtime.joda.PersistentInterval;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalDate;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime;
 import org.jadira.usertype.dateandtime.joda.PersistentLocalTime;
+import org.jadira.usertype.dateandtime.joda.PersistentMinutes;
 import org.jadira.usertype.dateandtime.joda.PersistentMonthDayAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentPeriodAsString;
 import org.jadira.usertype.dateandtime.joda.PersistentYears;
-import org.jadira.usertype.spi.reflectionutils.ClassLoaderUtils;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
+import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 
 @SuppressWarnings("deprecation")
 public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
@@ -55,6 +56,7 @@ public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHiberna
 				new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
 				new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),
 				new PersistentYears(),
+				new PersistentMinutes(),
 			};
 			COMPOSITE_USER_TYPES = new CompositeUserType[] {
 				new PersistentDateMidnight(),

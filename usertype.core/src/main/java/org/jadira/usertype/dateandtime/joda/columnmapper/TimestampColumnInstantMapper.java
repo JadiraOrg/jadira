@@ -16,8 +16,8 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
-import org.jadira.usertype.dateandtime.joda.util.Formatter;
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.DateTimeZone;
@@ -46,7 +46,10 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
 
-        return Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toInstant();
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        
+        Instant instant = new Instant(value.getTime() + adjustment);       
+        return instant;
     }
 
     @Override
@@ -56,15 +59,12 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     @Override
     public Timestamp toNonNullValue(Instant value) {
-
+        
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-
-        String formattedTimestamp = Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).print(value);
-        if (formattedTimestamp.endsWith(".")) {
-            formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
-        }
-
-        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
+        
+        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(null);
+        
+        final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
         return timestamp;
     }
 

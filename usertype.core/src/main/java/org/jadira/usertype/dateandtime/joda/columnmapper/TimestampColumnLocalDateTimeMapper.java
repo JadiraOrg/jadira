@@ -16,8 +16,8 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.TimeZone;
 
-import org.jadira.usertype.dateandtime.joda.util.Formatter;
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.ColumnMapper;
@@ -40,16 +40,20 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     
     @Override
     public LocalDateTime fromNonNullString(String s) {
-        return new LocalDateTime(s);
+       return new LocalDateTime(s);
     }
 
     @Override
     public LocalDateTime fromNonNullValue(Timestamp value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-    	
-    	DateTime dt = Formatter.TIMESTAMP_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()); 
-        return dt.toLocalDateTime();
+        
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        
+        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        LocalDateTime localDateTime = dateTime.toLocalDateTime();
+        
+        return localDateTime;
     }
     
     @Override
@@ -60,12 +64,12 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     @Override
     public Timestamp toNonNullValue(LocalDateTime value) {
         
-        String formattedTimestamp = Formatter.TIMESTAMP_FORMATTER.print(value);
-        if (formattedTimestamp.endsWith(".")) {
-            formattedTimestamp = formattedTimestamp.substring(0, formattedTimestamp.length() - 1);
-        }
-
-        final Timestamp timestamp = Timestamp.valueOf(formattedTimestamp);
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	DateTime zonedValue = value.toDateTime(value.toDateTime(currentDatabaseZone));
+        
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+    	
+        final Timestamp timestamp = new Timestamp(zonedValue.getMillis() - adjustment);
         return timestamp;
     }
     

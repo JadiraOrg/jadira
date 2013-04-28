@@ -26,7 +26,6 @@ import org.jadira.usertype.dateandtime.joda.testmodel.PeriodJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -68,10 +67,10 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
 
             JodaPeriodAsStringHolder item = find((long) i);
 
-            Assert.assertNotNull(item);
-            Assert.assertEquals(i, item.getId());
-            Assert.assertEquals("test_" + i, item.getName());
-            Assert.assertEquals(periods[i], item.getPeriod());
+            assertNotNull(item);
+            assertEquals(i, item.getId());
+            assertEquals("test_" + i, item.getName());
+            assertEquals(periods[i], item.getPeriod());
         }
 
         verifyDatabaseTable();

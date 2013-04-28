@@ -290,6 +290,7 @@ usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/Bi
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/DateColumnLocalDateMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/DateColumnYearMonthDayMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/IntegerColumnLocalTimeMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/IntegerColumnMinutesMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/IntegerColumnTimeOfDayMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/IntegerColumnYearsMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/columnmapper/LongColumnInstantMapper.java -text
