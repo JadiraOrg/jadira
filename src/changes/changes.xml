@@ -26,6 +26,12 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
+		<release version="3.1.0.CR3" date="29-04-2013" description="New Approach for the Timestamp Mapping & ThreeTenBP 0.8.1">
+			<action dev="Chris Pheby" issue="JDF-44" type="update">Update to ThreeTen Backport 0.8.1</action>
+			<action dev="Chris Pheby" issue="JDF-45" type="fix">Update Joda Mapping to use direct millisecond value</action>
+			<action dev="Chris Pheby" issue="JDF-46" type="add">Add PersistentMinutes mapping for Joda Time</action>
+		</release>
+
 		<release version="3.1.0.CR2" date="24-03-2013" description="Support Joda Time 2.2 and incremental bugfixes">
 			<action dev="Chris Pheby" issue="JDF-42" type="add">Adding Oracle Profile to Verify Timezone Handling on Oracle</action>
 			<action dev="Chris Pheby" issue="JDF-35" type="update">Update Bindings to Use Method Handle. Also introduces a dependency on Java 7 or later (for bindings module)</action>
