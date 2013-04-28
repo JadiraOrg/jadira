@@ -744,12 +744,6 @@ usertype.extended/src/test/resources/expected/zonedOffsetAsString.xml -text
 usertype.extended/src/test/resources/log4j.properties -text
 usertype.spi/maven-eclipse.xml -text
 usertype.spi/pom.xml -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ArrayUtils.java -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ClassLoaderUtils.java -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/JavaTimeZoneWorkaroundHelper.java -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionException.java -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/ReflectionUtils.java -text
-usertype.spi/src/main/java/org/jadira/usertype/spi/reflectionutils/TypeHelper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/repository/BaseRepository.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/repository/JpaBaseRepository.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/repository/JpaSearchRepository.java -text
@@ -783,6 +777,11 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/IntegratorConfiguredTy
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/JvmTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/Seed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/VersionableColumnMapper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/utils/reflection/ArrayUtils.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/utils/reflection/ClassLoaderUtils.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/utils/reflection/ReflectionException.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/utils/reflection/ReflectionUtils.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/utils/reflection/TypeHelper.java -text
 usertype.spi/src/site/site.xml -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/AbstractDatabaseTest.java -text
 usertype.spi/src/test/java/org/jadira/usertype/dateandtime/shared/dbunit/DatabaseCapable.java -text

@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.dateandtime.shared.dbunit;
 
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

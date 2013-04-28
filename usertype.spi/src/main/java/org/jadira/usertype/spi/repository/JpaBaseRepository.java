@@ -24,7 +24,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.metadata.ClassMetadata;
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 /**
  * Base implementation of a Repository / type-safe DAO using Hibernate JPA

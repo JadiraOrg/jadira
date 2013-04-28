@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import static org.jadira.usertype.spi.reflectionutils.ArrayUtils.copyOf;
+import static org.jadira.usertype.spi.utils.reflection.ArrayUtils.copyOf;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;

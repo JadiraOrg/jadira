@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.spi.reflectionutils;
+package org.jadira.usertype.spi.utils.reflection;
 
 import java.lang.reflect.InvocationTargetException;
 

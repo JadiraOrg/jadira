@@ -56,8 +56,8 @@ public class DatabaseCapable {
 				}
 				
 				IDataSet databaseDataSet;
+				DatabaseConnection dbunitConnection;
 				try { 
-					DatabaseConnection dbunitConnection;
 					if (wrappedConnection.getClass().getName().equals("oracle.jdbc.driver.T4CConnection")) {
 						dbunitConnection = new OracleConnection(wrappedConnection, "chris");
 					} else {

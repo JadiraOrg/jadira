@@ -21,7 +21,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 /**
  * Base implementation of a read-only Repository / type-safe DAO using Hibernate JPA

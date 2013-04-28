@@ -26,7 +26,7 @@ import java.util.Properties;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.EnhancedUserType;
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUserType implements EnhancedUserType, Serializable {
 

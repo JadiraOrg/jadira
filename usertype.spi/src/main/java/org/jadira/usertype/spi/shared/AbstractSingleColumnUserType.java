@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import static org.jadira.usertype.spi.reflectionutils.ArrayUtils.copyOf;
+import static org.jadira.usertype.spi.utils.reflection.ArrayUtils.copyOf;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.EnhancedUserType;
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<T, J>> extends AbstractUserType implements EnhancedUserType, Serializable {
 

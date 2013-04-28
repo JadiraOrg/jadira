@@ -17,7 +17,7 @@ package org.jadira.usertype.spi.shared;
 
 import java.io.Serializable;
 
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 
 public abstract class AbstractColumnMapper<T, J> implements Serializable, ColumnMapper<T, J> {

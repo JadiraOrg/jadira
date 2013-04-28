@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import static org.jadira.usertype.spi.reflectionutils.ArrayUtils.copyOf;
+import static org.jadira.usertype.spi.utils.reflection.ArrayUtils.copyOf;
 
 import java.io.Serializable;
 import java.sql.PreparedStatement;
@@ -26,7 +26,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
-import org.jadira.usertype.spi.reflectionutils.TypeHelper;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType implements CompositeUserType, Serializable {
 

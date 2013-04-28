@@ -49,6 +49,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
 				autoRegisterUsertypes(configuration, isEnabled);
 			}
+			
+			doIntegrate(configuration, sessionFactory, serviceRegistry);
 		} finally {
 			ConfigurationHelper.setCurrentSessionFactory(null);
 		}
@@ -105,4 +107,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	protected abstract CompositeUserType[] getCompositeUserTypes();
 	
 	protected abstract UserType[] getUserTypes();
+	
+	protected void doIntegrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
+	}
 }
