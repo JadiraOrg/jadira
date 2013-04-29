@@ -41,6 +41,14 @@ public class TimestampColumnOffsetDateTimeMapper extends AbstractVersionableTime
 
     private ZoneOffset javaZone = null;
 
+	public TimestampColumnOffsetDateTimeMapper() {
+	}
+
+	public TimestampColumnOffsetDateTimeMapper(ZoneOffset databaseZone, ZoneOffset javaZone) {
+		this.databaseZone = databaseZone;
+		this.javaZone = javaZone;
+	}
+    
     @Override
     public OffsetDateTime fromNonNullString(String s) {
         return OffsetDateTime.parse(s);

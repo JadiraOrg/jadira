@@ -44,6 +44,14 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
 
     private ZoneOffset javaZone = null;
 
+	public TimestampColumnOffsetTimeMapper() {
+	}
+
+	public TimestampColumnOffsetTimeMapper(ZoneOffset databaseZone, ZoneOffset javaZone) {
+		this.databaseZone = databaseZone;
+		this.javaZone = javaZone;
+	}
+	
     @Override
     public OffsetTime fromNonNullString(String s) {
         return OffsetTime.parse(s);

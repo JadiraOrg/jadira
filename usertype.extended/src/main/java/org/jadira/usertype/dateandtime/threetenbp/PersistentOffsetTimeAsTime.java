@@ -16,12 +16,11 @@
 package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Time;
-import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimeColumnOffsetTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.OffsetTime;
@@ -38,16 +37,9 @@ import org.threeten.bp.ZoneOffset;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetTimeAsTime extends AbstractSingleColumnUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentOffsetTimeAsTime extends AbstractParameterizedUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5138742305537333265L;
-    
-    private Properties parameterValues;
-    
-    @Override
-    public void setParameterValues(Properties parameters) {
-    	this.parameterValues = parameters;
-    }
     
 	@Override
 	public void applyConfiguration(SessionFactory sessionFactory) {
@@ -55,8 +47,8 @@ public class PersistentOffsetTimeAsTime extends AbstractSingleColumnUserType<Off
 		TimeColumnOffsetTimeMapper columnMapper = (TimeColumnOffsetTimeMapper) getColumnMapper();
 
 		String databaseZone = null;
-		if (parameterValues != null) {
-			databaseZone = parameterValues.getProperty("databaseZone");
+		if (getParameterValues() != null) {
+			databaseZone = getParameterValues().getProperty("databaseZone");
 		}
 		if (databaseZone == null) {
 			databaseZone = ConfigurationHelper.getProperty("databaseZone");
@@ -70,8 +62,8 @@ public class PersistentOffsetTimeAsTime extends AbstractSingleColumnUserType<Off
 		}
 
 		String javaZone = null;
-		if (parameterValues != null) {
-			javaZone = parameterValues.getProperty("javaZone");
+		if (getParameterValues() != null) {
+			javaZone = getParameterValues().getProperty("javaZone");
 		}
 		if (javaZone == null) {
 			javaZone = ConfigurationHelper.getProperty("javaZone");

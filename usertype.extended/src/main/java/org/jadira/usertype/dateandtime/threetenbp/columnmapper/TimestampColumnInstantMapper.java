@@ -34,6 +34,13 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
     private ZoneOffset databaseZone = ZoneOffset.of("Z");
 
+	public TimestampColumnInstantMapper() {
+	}
+
+	public TimestampColumnInstantMapper(ZoneOffset databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+    
     @Override
     public Instant fromNonNullString(String s) {
         return Instant.parse(s);

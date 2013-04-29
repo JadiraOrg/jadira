@@ -16,10 +16,13 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
+import java.util.TimeZone;
 
+import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
 import org.joda.time.YearMonthDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -49,12 +52,19 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
     
     @Override
     public YearMonthDay fromNonNullValue(Date value) {
+
     	if (databaseZone == null) {
     		return new YearMonthDay(value.toString());
-    	} else {
-    		DateTime referenceDateTime = new DateTime(value.toString(), databaseZone);
-    		return referenceDateTime.toYearMonthDay();
     	}
+
+    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+        
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        
+        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        YearMonthDay localDate = dateTime.toYearMonthDay();
+        
+        return localDate;
     }
 
     @Override
@@ -64,12 +74,18 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 
     @Override
     public Date toNonNullValue(YearMonthDay value) {
+    	
         if (databaseZone==null) {
-        	return Date.valueOf(LOCAL_DATE_FORMATTER.print((YearMonthDay) value));
+        	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate)(value.toLocalDate())));
         }
-
-        DateTime referenceDateTime = value.toLocalDate().toDateTimeAtStartOfDay(databaseZone);        
-        return new Date(referenceDateTime.getMillis());
+    	
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	DateTime zonedValue = value.toDateTime(value.toLocalDate().toDateTimeAtStartOfDay(currentDatabaseZone));
+        
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+    	
+        final Date date = new Date(zonedValue.getMillis() - adjustment);
+        return date;
     }
     
     public void setDatabaseZone(DateTimeZone databaseZone) {

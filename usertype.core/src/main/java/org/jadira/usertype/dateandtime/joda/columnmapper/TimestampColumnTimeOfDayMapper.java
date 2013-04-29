@@ -35,8 +35,8 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
 
-    public TimestampColumnTimeOfDayMapper() {
-    }
+	public TimestampColumnTimeOfDayMapper() {
+	}
     
     public TimestampColumnTimeOfDayMapper(DateTimeZone databaseZone) {
     	this.databaseZone = databaseZone;

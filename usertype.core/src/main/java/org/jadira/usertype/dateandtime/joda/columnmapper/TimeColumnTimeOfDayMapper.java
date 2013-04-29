@@ -16,10 +16,14 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
+import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
@@ -49,10 +53,16 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
 
     @Override
     public TimeOfDay fromNonNullValue(Time value) {
-    	
-    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-    	
-        return LOCAL_TIME_FORMATTER.withZone(currentDatabaseZone).parseDateTime(value.toString()).toTimeOfDay();
+
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+        
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        
+        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        LocalTime localTime = dateTime.toLocalTime();
+        
+        final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
+        return timeOfDay;
     }
     
     @Override
@@ -62,7 +72,16 @@ public class TimeColumnTimeOfDayMapper extends AbstractTimeColumnMapper<TimeOfDa
 
     @Override
     public Time toNonNullValue(TimeOfDay value) {
-        return Time.valueOf(LOCAL_TIME_FORMATTER.print((TimeOfDay) value));
+
+        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	DateTime zonedValue = new LocalDateTime(
+    			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
+    	).toDateTime(currentDatabaseZone);
+    	
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+    	
+        final Time time = new Time(zonedValue.getMillis() - adjustment);
+        return time;
     }
     
     public void setDatabaseZone(DateTimeZone databaseZone) {

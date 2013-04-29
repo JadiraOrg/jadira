@@ -38,6 +38,13 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     private ZoneOffset databaseZone = ZoneOffset.of("Z");
 
+	public TimestampColumnLocalTimeMapper() {
+	}
+
+	public TimestampColumnLocalTimeMapper(ZoneOffset databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+    
     @Override
     public LocalTime fromNonNullString(String s) {
         return LocalTime.parse(s);

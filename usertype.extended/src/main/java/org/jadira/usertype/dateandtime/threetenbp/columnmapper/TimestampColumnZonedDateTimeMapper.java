@@ -1,5 +1,5 @@
 /*
-;po;. *  Copyright 2010, 2011 Christopher Pheby
+ *  Copyright 2010, 2011 Christopher Pheby
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -41,6 +41,14 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
 
     private ZoneOffset javaZone = null;
 
+	public TimestampColumnZonedDateTimeMapper() {
+	}
+
+	public TimestampColumnZonedDateTimeMapper(ZoneOffset databaseZone, ZoneOffset javaZone) {
+		this.databaseZone = databaseZone;
+		this.javaZone = javaZone;
+	}
+    
     @Override
     public ZonedDateTime fromNonNullString(String s) {
         return ZonedDateTime.parse(s);

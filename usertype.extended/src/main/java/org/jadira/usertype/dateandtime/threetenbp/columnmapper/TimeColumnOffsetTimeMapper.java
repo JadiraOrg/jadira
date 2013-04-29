@@ -18,9 +18,12 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import static org.jadira.usertype.dateandtime.threetenbp.utils.ZoneHelper.getDefaultZoneOffset;
 
 import java.sql.Time;
+import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
-import org.threeten.bp.LocalTime;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.OffsetTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -36,6 +39,14 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     private ZoneOffset javaZone = null;
 
+	public TimeColumnOffsetTimeMapper() {
+	}
+
+	public TimeColumnOffsetTimeMapper(ZoneOffset databaseZone, ZoneOffset javaZone) {
+		this.databaseZone = databaseZone;
+		this.javaZone = javaZone;
+	}
+    
     @Override
     public OffsetTime fromNonNullString(String s) {
         return OffsetTime.parse(s);
@@ -44,13 +55,12 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
     @Override
     public OffsetTime fromNonNullValue(Time value) {
 
-        ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
-        ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
-
-        LocalTime localTime = LocalTime.parse(value.toString(), LOCAL_TIME_FORMATTER);
-
-        OffsetTime time = localTime.atOffset(currentDatabaseZone);
-        return time.withOffsetSameInstant(currentJavaZone);
+    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+        
+    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        
+        OffsetDateTime dateTime = Instant.ofEpochMilli(value.getTime() + adjustment).atOffset(currentDatabaseZone);
+        return dateTime.toOffsetTime().withOffsetSameInstant(javaZone);
     }
 
     @Override
@@ -74,5 +84,30 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     public void setJavaZone(ZoneOffset javaZone) {
         this.javaZone = javaZone;
+    }
+    
+    
+    private static ZoneOffset getDefault() {
+
+    	ZoneOffset zone = null;
+        try {
+            try {
+                String id = System.getProperty("user.timezone");
+                if (id != null) {
+                    zone = ZoneOffset.of(id);
+                }
+            } catch (RuntimeException ex) {
+                zone = null;
+            }
+            if (zone == null) {
+                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+            }
+        } catch (RuntimeException ex) {
+            zone = null;
+        }
+        if (zone == null) {
+            zone = ZoneOffset.of("Z");
+        }
+        return zone;
     }
 }

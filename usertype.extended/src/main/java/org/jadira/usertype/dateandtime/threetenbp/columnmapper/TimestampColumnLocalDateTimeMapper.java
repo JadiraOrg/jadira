@@ -35,6 +35,13 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();
 
+	public TimestampColumnLocalDateTimeMapper() {
+	}
+
+	public TimestampColumnLocalDateTimeMapper(ZoneOffset databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+    
     @Override
     public LocalDateTime fromNonNullString(String s) {
         return LocalDateTime.parse(s);
