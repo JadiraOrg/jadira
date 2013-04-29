@@ -25,8 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.jadira.scanner.classpath.api.JClassFilter;
-import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.classpath.types.JAnnotation;
 import org.jadira.scanner.classpath.types.JClass;
 import org.jadira.scanner.classpath.types.JConstructor;
@@ -94,7 +92,7 @@ public class ClasspathResolverTest {
     	
         ClasspathResolver helper = new ClasspathResolver();
         
-        @SuppressWarnings("unchecked")
+        // @SuppressWarnings("unchecked")
 		// FIXME List<JClass> classes = (List<JClass>)helper.resolveAll(new JavaClasspathUrlLocator(), new ClasspathProjector(), new JClassFilter());
         
         // JClass pkg = JClass.getJClass("java.lang.CharacterData00", helper);
