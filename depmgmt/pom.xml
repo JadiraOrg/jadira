@@ -24,7 +24,7 @@
 	<artifactId>jadira.depmgmt</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.CR4</version>
+	<version>3.1.0.GA-SNAPSHOT</version>
 
 	<name>Jadira Framework Dependency Management</name>
 	<description>Dependency Management for Jadira Framework</description>
@@ -72,9 +72,9 @@
 	</licenses>
 	
 	<scm>
-		<connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/tags/jadira.parent-3.1.0.CR4/trunk</connection>
-		<developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/tags/jadira.parent-3.1.0.CR4/trunk</developerConnection>
-		<url>http://usertype.svn.sourceforge.net/viewvc/usertype/tags/jadira.parent-3.1.0.CR4/trunk</url>
+		<connection>scm:svn:http://usertype.svn.sourceforge.net/svnroot/usertype/trunk</connection>
+		<developerConnection>scm:svn:https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</developerConnection>
+		<url>http://usertype.svn.sourceforge.net/viewvc/usertype/trunk</url>
   	</scm>
 
 	<dependencyManagement>
