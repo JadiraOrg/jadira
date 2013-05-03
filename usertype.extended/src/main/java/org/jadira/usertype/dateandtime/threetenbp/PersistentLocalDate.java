@@ -17,14 +17,11 @@ package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Date;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
@@ -33,26 +30,5 @@ import org.threeten.bp.ZoneOffset;
 public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5362933224614493534L;
-    
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-
-		DateColumnLocalDateMapper columnMapper = (DateColumnLocalDateMapper) getColumnMapper();
-
-		String databaseZone = null;
-		if (getParameterValues() != null) {
-			databaseZone = getParameterValues().getProperty("databaseZone");
-		}
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		if (databaseZone != null) {
-			if ("jvm".equals(databaseZone)) {
-				columnMapper.setDatabaseZone(null);
-			} else {
-				columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-			}
-		}
-	}
 }
 

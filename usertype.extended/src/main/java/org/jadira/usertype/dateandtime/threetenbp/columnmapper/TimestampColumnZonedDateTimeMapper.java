@@ -21,6 +21,8 @@ import java.sql.Timestamp;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
@@ -31,7 +33,7 @@ import org.threeten.bp.temporal.ChronoField;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimestampColumnMapper<ZonedDateTime> {
+public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimestampColumnMapper<ZonedDateTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -84,11 +86,18 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
         return timestamp;    	
     }
 
+    @Override
     public void setDatabaseZone(ZoneOffset databaseZone) {
         this.databaseZone = databaseZone;
     }
-
+    
+    @Override
     public void setJavaZone(ZoneOffset javaZone) {
         this.javaZone = javaZone;
     }
+        
+	@Override
+	public ZoneOffset parseZone(String zoneString) {
+		return ZoneOffset.of(zoneString);
+	}
 }

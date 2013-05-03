@@ -17,14 +17,11 @@ package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Timestamp;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnLocalTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.LocalTime;
-import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
@@ -33,29 +30,4 @@ import org.threeten.bp.ZoneOffset;
 public class PersistentLocalTimeAsTimestamp extends AbstractParameterizedUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 526277986034021423L;
-    
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-		TimestampColumnLocalTimeMapper columnMapper = (TimestampColumnLocalTimeMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-            }
-        }
-    }
-
 }

@@ -17,11 +17,9 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Time;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnTimeOfDayMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.TimeOfDay;
@@ -44,28 +42,4 @@ import org.joda.time.TimeOfDay;
 public class PersistentTimeOfDay extends AbstractParameterizedUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -7674573524546389213L;
-    
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        TimeColumnTimeOfDayMapper columnMapper = (TimeColumnTimeOfDayMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-            }
-        }
-	}
 }

@@ -21,6 +21,8 @@ import java.sql.Time;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
@@ -29,7 +31,7 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> {
+public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -77,15 +79,6 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
         return Time.valueOf(LOCAL_TIME_FORMATTER.format(value));
     }
-
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
-    public void setJavaZone(ZoneOffset javaZone) {
-        this.javaZone = javaZone;
-    }
-    
     
     private static ZoneOffset getDefault() {
 
@@ -110,4 +103,19 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
         }
         return zone;
     }
+    
+    @Override
+    public void setDatabaseZone(ZoneOffset databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+    
+    @Override
+    public void setJavaZone(ZoneOffset javaZone) {
+        this.javaZone = javaZone;
+    }
+        
+	@Override
+	public ZoneOffset parseZone(String zoneString) {
+		return ZoneOffset.of(zoneString);
+	}
 }

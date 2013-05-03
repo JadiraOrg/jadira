@@ -16,16 +16,12 @@
 package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Timestamp;
-import java.util.Properties;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnOffsetTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
+import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.OffsetTime;
-import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link OffsetTime} via Hibernate using nanoseconds of the day. This uses a long value stored as nanoseconds
@@ -38,53 +34,7 @@ import org.threeten.bp.ZoneOffset;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetTimeAsTimestamp extends AbstractSingleColumnUserType<OffsetTime, Timestamp, TimestampColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentOffsetTimeAsTimestamp extends AbstractParameterizedUserType<OffsetTime, Timestamp, TimestampColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 2629423108971922341L;
-
-    private Properties parameterValues;
-    
-    @Override
-    public void setParameterValues(Properties parameters) {
-    	this.parameterValues = parameters;
-    }
-    
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-
-		TimestampColumnOffsetTimeMapper columnMapper = (TimestampColumnOffsetTimeMapper) getColumnMapper();
-
-		String databaseZone = null;
-		if (parameterValues != null) {
-			databaseZone = parameterValues.getProperty("databaseZone");
-		}
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-
-		if (databaseZone != null) {
-			if ("jvm".equals(databaseZone)) {
-				columnMapper.setDatabaseZone(null);
-			} else {
-				columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-			}
-		}
-
-		String javaZone = null;
-		if (parameterValues != null) {
-			javaZone = parameterValues.getProperty("javaZone");
-		}
-		if (javaZone == null) {
-			javaZone = ConfigurationHelper.getProperty("javaZone");
-		}
-
-		if (javaZone != null) {
-			if ("jvm".equals(javaZone)) {
-				columnMapper.setJavaZone(null);
-			} else {
-				columnMapper.setJavaZone(ZoneOffset.of(javaZone));
-			}
-		}
-    }
-	
 }

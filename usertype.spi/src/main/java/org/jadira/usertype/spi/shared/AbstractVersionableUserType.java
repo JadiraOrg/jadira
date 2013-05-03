@@ -32,6 +32,8 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
     
     @Override
 	public void applyConfiguration(SessionFactory sessionFactory) {
+
+    	super.applyConfiguration(sessionFactory);
     	
     	if (seed == null) {
 

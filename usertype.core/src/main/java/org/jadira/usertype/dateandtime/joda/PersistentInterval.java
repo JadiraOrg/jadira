@@ -76,48 +76,4 @@ public class PersistentInterval extends AbstractParameterizedMultiColumnUserType
 
         return ArrayUtils.copyOf(propertyNames);
     }
-    
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-		for (int i = 0; i < getColumnMappers().length; i++) {
-			
-			TimestampColumnDateTimeMapper columnMapper = columnMappers[i];
-	
-	        String databaseZone = null;
-	        if (getParameterValues() != null) {
-	        	databaseZone = getParameterValues().getProperty("databaseZone");
-	        }
-			if (databaseZone == null) {
-				databaseZone = ConfigurationHelper.getProperty("databaseZone");
-			}
-			
-	        if (databaseZone != null) {
-	            if ("jvm".equals(databaseZone)) {
-	                columnMapper.setDatabaseZone(null);
-	            } else {
-	                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-	            }
-	        }
-	        
-	        String javaZone = null;
-	        if (getParameterValues() != null) {
-	        	javaZone = getParameterValues().getProperty("javaZone");
-	        }
-			if (javaZone == null) {
-				javaZone = ConfigurationHelper.getProperty("javaZone");
-			}
-			
-	        if (javaZone != null) {
-	            if ("jvm".equals(javaZone)) {
-	                columnMapper.setJavaZone(null);
-	            } else {
-	                columnMapper.setJavaZone(DateTimeZone.forID(javaZone));
-	            }
-	        }
-		}
-	}
 }

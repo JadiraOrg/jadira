@@ -20,10 +20,11 @@ import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 
-public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> {
+public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> implements DatabaseZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -68,7 +69,13 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
         return timestamp;
     }
 
+    @Override
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
+    
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
 }

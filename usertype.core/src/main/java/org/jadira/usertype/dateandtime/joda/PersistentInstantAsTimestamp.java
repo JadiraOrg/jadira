@@ -17,11 +17,9 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Timestamp;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnInstantMapper;
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
@@ -37,30 +35,6 @@ import org.joda.time.Instant;
 public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -1402055314572075132L;
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        TimestampColumnInstantMapper columnMapper = (TimestampColumnInstantMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-            }
-        }
-    }
 
     @Override
     public int compare(Object o1, Object o2) {

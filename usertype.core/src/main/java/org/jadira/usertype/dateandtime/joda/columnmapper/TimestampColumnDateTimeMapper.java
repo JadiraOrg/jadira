@@ -20,6 +20,8 @@ import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
@@ -28,7 +30,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampColumnMapper<DateTime> {
+public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampColumnMapper<DateTime> implements DatabaseZoneConfigured<DateTimeZone>, JavaZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -81,11 +83,18 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
         return timestamp;
     }
 
+    @Override
 	public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
 
+    @Override
     public void setJavaZone(DateTimeZone javaZone) {
         this.javaZone = javaZone;
     }
+    
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
 }

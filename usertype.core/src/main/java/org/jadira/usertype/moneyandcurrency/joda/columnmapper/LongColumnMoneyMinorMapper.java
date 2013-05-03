@@ -15,12 +15,12 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
 
-import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfiguredColumnMapper;
+import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Money> implements CurrencyUnitConfiguredColumnMapper<Money, Long> {
+public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Money> implements CurrencyUnitConfigured {
 
     private static final long serialVersionUID = 4205713919952452881L;
 	

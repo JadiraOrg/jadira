@@ -17,11 +17,9 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Date;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -39,28 +37,4 @@ import org.joda.time.LocalDate;
 public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = 2918856421618299370L;
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        DateColumnLocalDateMapper columnMapper = (DateColumnLocalDateMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-            }
-        }
-	}
 }

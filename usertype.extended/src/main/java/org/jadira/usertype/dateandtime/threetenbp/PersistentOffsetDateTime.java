@@ -17,14 +17,11 @@ package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Timestamp;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnOffsetDateTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link OffsetDateTime} via Hibernate. This type is
@@ -42,46 +39,6 @@ import org.threeten.bp.ZoneOffset;
 public class PersistentOffsetDateTime extends AbstractVersionableUserType<OffsetDateTime, Timestamp, TimestampColumnOffsetDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 9030422333054503794L;
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        TimestampColumnOffsetDateTimeMapper columnMapper = (TimestampColumnOffsetDateTimeMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(ZoneOffset.of(databaseZone));
-            }
-        }
-
-        String javaZone = null;
-        if (getParameterValues() != null) {
-        	javaZone = getParameterValues().getProperty("javaZone");
-        }
-		if (javaZone == null) {
-			javaZone = ConfigurationHelper.getProperty("javaZone");
-		}
-		
-        if (javaZone != null) {
-            if ("jvm".equals(javaZone)) {
-                columnMapper.setJavaZone(null);
-            } else {
-                columnMapper.setJavaZone(ZoneOffset.of(javaZone));
-            }
-        }
-    }
 
     @Override
     public int compare(Object o1, Object o2) {

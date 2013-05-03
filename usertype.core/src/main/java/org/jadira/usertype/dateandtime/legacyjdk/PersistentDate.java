@@ -16,13 +16,10 @@
 package org.jadira.usertype.dateandtime.legacyjdk;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.legacyjdk.columnmapper.TimestampColumnDateMapper;
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
@@ -40,28 +37,4 @@ public class PersistentDate extends AbstractVersionableUserType<java.util.Date, 
     public int compare(Object o1, Object o2) {
         return ((java.util.Date) o1).compareTo((java.util.Date) o2);
     }
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        TimestampColumnDateMapper columnMapper = (TimestampColumnDateMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(TimeZone.getTimeZone(databaseZone));
-            }
-        }
-	}
 }

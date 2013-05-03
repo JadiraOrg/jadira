@@ -23,11 +23,12 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 
 /**
  * Maps a precise timestamp column for storage. The GMT Zone will be used to store the value
  */
-public class TimestampColumnTimestampMapper extends AbstractVersionableTimestampColumnMapper<java.sql.Timestamp> {
+public class TimestampColumnTimestampMapper extends AbstractVersionableTimestampColumnMapper<java.sql.Timestamp> implements DatabaseZoneConfigured<TimeZone> {
 
     private static final long serialVersionUID = -7670411089210984705L;
     
@@ -107,7 +108,13 @@ public class TimestampColumnTimestampMapper extends AbstractVersionableTimestamp
         return timestamp;
     }
 
+    @Override
     public void setDatabaseZone(TimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
+        
+	@Override
+	public TimeZone parseZone(String zoneString) {
+		return TimeZone.getTimeZone(zoneString);
+	}
 }

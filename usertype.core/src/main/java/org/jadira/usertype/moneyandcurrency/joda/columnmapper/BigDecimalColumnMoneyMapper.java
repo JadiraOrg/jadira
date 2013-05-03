@@ -17,12 +17,12 @@ package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
 
 import java.math.BigDecimal;
 
-import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfiguredColumnMapper;
+import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractBigDecimalColumnMapper;
 import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
-public class BigDecimalColumnMoneyMapper extends AbstractBigDecimalColumnMapper<Money> implements CurrencyUnitConfiguredColumnMapper<Money, BigDecimal> {
+public class BigDecimalColumnMoneyMapper extends AbstractBigDecimalColumnMapper<Money> implements CurrencyUnitConfigured {
 
     private static final long serialVersionUID = 4205713919952452881L;
 	

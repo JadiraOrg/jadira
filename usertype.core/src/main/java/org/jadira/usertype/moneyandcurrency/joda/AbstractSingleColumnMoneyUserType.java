@@ -19,7 +19,7 @@ import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfiguredColumnMapper;
+import org.jadira.usertype.moneyandcurrency.joda.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
@@ -49,7 +49,7 @@ public abstract class AbstractSingleColumnMoneyUserType<T, J, C extends ColumnMa
     @Override
 	public void applyConfiguration(SessionFactory sessionFactory) {
 
-    	CurrencyUnitConfiguredColumnMapper<T, J> columnMapper = (CurrencyUnitConfiguredColumnMapper<T, J>) getColumnMapper();
+    	CurrencyUnitConfigured columnMapper = (CurrencyUnitConfigured) getColumnMapper();
     	if (currencyUnit == null) {
 
     		String currencyString = null;

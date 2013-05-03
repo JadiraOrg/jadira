@@ -39,28 +39,4 @@ public class PersistentTimestamp extends AbstractVersionableUserType<java.sql.Ti
     public int compare(Object o1, Object o2) {
         return ((java.util.Date) o1).compareTo((java.util.Date) o2);
     }
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        TimestampColumnTimestampMapper columnMapper = (TimestampColumnTimestampMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(TimeZone.getTimeZone(databaseZone));
-            }
-        }
-	}
 }

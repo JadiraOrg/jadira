@@ -15,10 +15,9 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda.util;
 
-import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.joda.money.CurrencyUnit;
 
-public interface CurrencyUnitConfiguredColumnMapper<T, J> extends ColumnMapper<T, J> {
+public interface CurrencyUnitConfigured {
 	
     void setCurrencyUnit(CurrencyUnit currencyUnit);
 }

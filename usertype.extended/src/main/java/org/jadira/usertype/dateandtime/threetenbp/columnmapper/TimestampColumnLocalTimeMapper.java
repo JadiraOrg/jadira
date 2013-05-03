@@ -19,6 +19,7 @@ import java.sql.Timestamp;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
@@ -29,7 +30,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
-public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> {
+public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 
@@ -85,10 +86,6 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
         return timestamp;
     }
 
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
     private static ZoneOffset getDefault() {
 
     	ZoneOffset zone = null;
@@ -112,4 +109,14 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
         }
         return zone;
     }
+    
+    @Override
+    public void setDatabaseZone(ZoneOffset databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+    
+	@Override
+	public ZoneOffset parseZone(String zoneString) {
+		return ZoneOffset.of(zoneString);
+	}
 }

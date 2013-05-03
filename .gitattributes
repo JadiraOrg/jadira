@@ -359,7 +359,7 @@ usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapp
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/StringColumnCurrencyMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/columnmapper/StringColumnCurrencyUnitMapper.java -text
 usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/integrator/UserTypeJodaMoneyHibernateIntegrator.java -text
-usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/util/CurrencyUnitConfiguredColumnMapper.java -text
+usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/util/CurrencyUnitConfigured.java -text
 usertype.core/src/main/java/org/jadira/usertype/phonenumber/PersistentE164PhoneNumberWithExtension.java -text
 usertype.core/src/main/java/org/jadira/usertype/phonenumber/columnmapper/StringColumnE164PhoneNumberWithExtensionMapper.java -text
 usertype.core/src/main/resources/META-INF/services/org.hibernate.integrator.spi.Integrator -text
@@ -757,8 +757,10 @@ usertype.spi/src/main/java/org/jadira/usertype/spi/shared/AbstractVersionableUse
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ColumnMapper.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ColumnMapperSingleColumnTypeAdapter.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/ConfigurationHelper.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/DatabaseZoneConfigured.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/DbTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/IntegratorConfiguredType.java -text
+usertype.spi/src/main/java/org/jadira/usertype/spi/shared/JavaZoneConfigured.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/JvmTimestampSeed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/Seed.java -text
 usertype.spi/src/main/java/org/jadira/usertype/spi/shared/VersionableColumnMapper.java -text

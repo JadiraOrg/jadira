@@ -19,6 +19,7 @@ import java.sql.Time;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
@@ -28,7 +29,7 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> {
+public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -104,8 +105,14 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
         }
         return zone;
     }
-
-	public void setDatabaseZone(ZoneOffset databaseZone) {
-		this.databaseZone = databaseZone;
+    
+    @Override
+    public void setDatabaseZone(ZoneOffset databaseZone) {
+        this.databaseZone = databaseZone;
+    }
+    
+	@Override
+	public ZoneOffset parseZone(String zoneString) {
+		return ZoneOffset.of(zoneString);
 	}
 }

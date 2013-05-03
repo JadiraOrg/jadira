@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -30,7 +31,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalDate}
  */
-public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearMonthDay> {
+public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearMonthDay> implements DatabaseZoneConfigured<DateTimeZone> {
 
 	private static final long serialVersionUID = 5399269707841091964L;
 
@@ -88,7 +89,13 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
         return date;
     }
     
-    public void setDatabaseZone(DateTimeZone databaseZone) {
+    @Override
+	public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
+    
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
 }

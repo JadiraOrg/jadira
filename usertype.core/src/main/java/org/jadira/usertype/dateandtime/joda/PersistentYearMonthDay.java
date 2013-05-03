@@ -42,28 +42,4 @@ import org.joda.time.YearMonthDay;
 public class PersistentYearMonthDay extends AbstractParameterizedUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -198265563149334183L;
-
-	@Override
-	public void applyConfiguration(SessionFactory sessionFactory) {
-		
-		super.applyConfiguration(sessionFactory);
-
-        DateColumnYearMonthDayMapper columnMapper = (DateColumnYearMonthDayMapper) getColumnMapper();
-
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                columnMapper.setDatabaseZone(null);
-            } else {
-                columnMapper.setDatabaseZone(DateTimeZone.forID(databaseZone));
-            }
-        }
-	}
 }

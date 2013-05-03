@@ -20,13 +20,14 @@ import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> {
+public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> implements DatabaseZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -85,7 +86,13 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
         return date;
     }
     
+    @Override
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
+    
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
 }
