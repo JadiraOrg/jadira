@@ -26,8 +26,13 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
+		<release version="3.1.0.CR5" date="03-05-2013" description="Support databaseZone with multicolumn types">
+			<action dev="Chris Pheby" issue="JDF-49" type="update">DatabaseZone parameter can be applied to multicolumn types</action>
+		</release>
+		
 		<release version="3.1.0.CR4" date="29-04-2013" description="New Approach for the Date and Time Mapping">
 			<action dev="Chris Pheby" issue="JDF-47" type="fix">Update Joda Mapping for Date and Time types</action>
+			<action dev="Chris Pheby" issue="JDF-48" type="fix">Resolved entities with multiple LocalDateTime fields are retrieved with incorrect values</action>
 		</release>
 		
 		<release version="3.1.0.CR3" date="28-04-2013" description="New Approach for the Timestamp Mapping & ThreeTenBP 0.8.1">
