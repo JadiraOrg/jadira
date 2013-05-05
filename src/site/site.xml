@@ -39,8 +39,8 @@
 			<item name="Bugs and limitations" href="/limitation.html" />
 			<item name="FAQs" href="/faqs.html"/>
 			<item name="License" href="licensecover.html" />
-			<item name="Release notes" href="changes-report.html" />
-			<item name="Download" href="http://sourceforge.net/projects/usertype/files/dateandtime-hibernate/" />
+			<item name="Release Notes" href="changes-report.html" />
+			<item name="Blog" href="http://blog.jadira.co.uk/" />
 		</menu>
 		
 		<menu ref="modules" />
@@ -48,10 +48,10 @@
 		<menu name="Development">
 			<item name="Sourceforge" href="http://sourceforge.net/projects/usertype/" />
 			<item name="Mailing lists" href="mail-lists.html" />
-			<item name="Tasks" href="tasks.html" />
-			<item name="Subversion" href="http://usertype.svn.sourceforge.net/viewvc/usertype/trunk/" />
-			<item name="Maven 2 Repository (Central Releases)" href="http://repo1.maven.org/maven2/org/jadira/" />
-			<item name="Maven 2 Repository (JSR310 Support)" href="m2-repo/org/jadira/" />
+			<item name="Jira" href="http://jadira.atlassian.net/" />
+			<item name="Confluence" href="http://jadira.atlassian.net/wiki/" />
+			<item name="GitHub" href="https://github.com/JadiraOrg/jadira/" />
+			<item name="Maven Central" href="http://repo1.maven.org/maven2/org/jadira/" />
 		</menu>
 
 		<menu ref="reports" />
