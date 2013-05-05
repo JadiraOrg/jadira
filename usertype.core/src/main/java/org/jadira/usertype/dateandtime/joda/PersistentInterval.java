@@ -15,11 +15,9 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;

@@ -15,13 +15,9 @@
  */
 package org.jadira.usertype.dateandtime.legacyjdk;
 
-import java.util.TimeZone;
-
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.legacyjdk.columnmapper.TimestampColumnTimestampMapper;
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**

@@ -17,11 +17,9 @@ package org.jadira.usertype.dateandtime.joda;
 
 import java.sql.Date;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnYearMonthDayMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
-import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.YearMonthDay;
