@@ -27,8 +27,8 @@ import java.util.List;
 import javassist.bytecode.ClassFile;
 import jsr166y.ForkJoinPool;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jadira.scanner.classfile.filter.ClassFileFilter;
 import org.jadira.scanner.classfile.filter.NameFilter;
 import org.jadira.scanner.classfile.filter.PackageFileFilter;

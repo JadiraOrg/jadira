@@ -26,8 +26,8 @@ import javassist.bytecode.AnnotationsAttribute;
 import javassist.bytecode.FieldInfo;
 import javassist.bytecode.annotation.Annotation;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jadira.scanner.classpath.ClasspathResolver;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
