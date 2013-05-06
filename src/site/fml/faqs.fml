@@ -10,19 +10,7 @@
       <question>What is the Date and Time offsetting problem</question> 
       <answer>Details are available at the <a href="http://blog.jadira.co.uk/blog/2010/5/1/javasqldate-types-and-the-offsetting-problem.html">Jadira Blog</a></answer>
     </faq>
-    <faq id="dstTransitionIssue">
-      <question>Why does the log contain an error telling me to 'either update to JDK 7 or use a Timezone for the JDK without Daylight Saving Time'?</question> 
-      <answer>JDBC's date and time support is focused on legacy types - essentially java.util.Date and javax.sql.Timestamp. The problem with these types is not
-      only that they exhibit the offsetting problem (see previous entry), but also assume that the underlying database will be in UTC. Usertype addresses both of these
-      issues by allowing the effective JDK zone and the underlying database zone to be configured. Part of the approach to address this involves creating Timestamp instances
-      from literal JDBC Timestamp escape sequences. This works well in most cases, but unfortunately, Timestamp itself extends Date and Date carries with it the JVM's implicit
-      timezone. The problem is that timestamp literals that cannot exist in the active zone are automatically rolled forward - this typically can happen as a result of daylight
-      saving transitions. This problem does not arise if the active zone is fixed (i.e. without daylight saving). Since usertype 3.0.0.CR3 this issue is addressed by temporarily
-      changing the active zone - only if it is not fixed - to UTC. The change is localised to a ThreadLocal so can't impact any other running threads. However, the workaround is 
-      not portable to all JVM instances, but works on Sun's Java 5 and Oracle's Java 7, and Java 6 up to 1.6.0_30. Due to a change in the TimeZone implementation it cannot be 
-      applied to Java 6 1.6.0.31 and above. We recommend that you either a) upgrade to Java 7, b) use a fixed timezone for the JVM's zone.</answer>
-    </faq>
-    
+   
   </part> 
   
 </faqs> 
