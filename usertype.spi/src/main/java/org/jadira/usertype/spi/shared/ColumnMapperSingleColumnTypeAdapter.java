@@ -93,6 +93,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 		return columnMapper.returnedClass();
 	}
 
+	@Deprecated
 	@Override
 	public boolean isXMLElement() {
 		return columnMapper.getHibernateType().isXMLElement();
@@ -198,6 +199,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 		columnMapper.getHibernateType().nullSafeSet(st, value, index, session);
 	}
 
+	@Deprecated
 	@Override
 	public void setToXMLNode(Node node, Object value,
 			SessionFactoryImplementor factory) throws HibernateException {
@@ -210,6 +212,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 		return columnMapper.getHibernateType().toLoggableString(value, factory);
 	}
 
+	@Deprecated
 	@Override
 	public Object fromXMLNode(Node xml, Mapping factory)
 			throws HibernateException {
