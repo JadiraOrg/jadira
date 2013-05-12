@@ -19,7 +19,7 @@
 <project xmlns="http://maven.apache.org/DECORATION/1.0.1"
   	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.1 http://maven.apache.org/xsd/decoration-1.0.1.xsd" 
-	name="Usertype for Hibernate">
+	name="Jadira Framework">
 	<publishDate position="navigation-bottom" format="yyyy-MM-dd" />
 
 	<poweredBy>
@@ -46,7 +46,7 @@
 		<menu ref="modules" />
 
 		<menu name="Development">
-			<item name="Sourceforge" href="http://sourceforge.net/projects/usertype/" />
+			<item name="Sourceforge" href="http://sourceforge.net/projects/jadira/" />
 			<item name="Mailing lists" href="mail-lists.html" />
 			<item name="Jira" href="http://jadira.atlassian.net/" />
 			<item name="Confluence" href="http://jadira.atlassian.net/wiki/" />
