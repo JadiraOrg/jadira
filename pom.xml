@@ -24,11 +24,11 @@
 	<artifactId>jadira.parent</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.CR6</version>
+	<version>3.1.0.GA-SNAPSHOT</version>
 
 	<name>Jadira Framework Parent</name>
 	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
-	<url>http://framework.jadira.co.uk/</url>
+	<url>http://usertype.sourceforge.net/</url>
 	<inceptionYear>2010</inceptionYear>
 
 	<organization>
@@ -51,10 +51,10 @@
 	<mailingLists>
 		<mailingList>
 	    		<name>Usertype Discussion Mailing list</name>
-			<subscribe>https://lists.sourceforge.net/mailman/listinfo/jadira-discuss</subscribe>
-	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/jadira-discuss</unsubscribe>
-			<archive>https://sourceforge.net/mailarchive/forum.php?forum_name=jadira-discuss</archive>
-			<post>jadira-discuss@lists.sourceforge.net</post>
+			<subscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</subscribe>
+	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/usertype-discuss</unsubscribe>
+			<archive>https://sourceforge.net/mailarchive/forum.php?forum_name=usertype-discuss</archive>
+			<post>usertype-discuss@lists.sourceforge.net</post>
 		</mailingList>
 	</mailingLists>
 	
@@ -72,6 +72,7 @@
 	</licenses>
 	
 	<properties>
+		<configuration.base>https://usertype.svn.sourceforge.net/svnroot/usertype/trunk</configuration.base>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>       
 
@@ -83,26 +84,26 @@
 	    <connection>scm:git:git@github.com:JadiraOrg/jadira.git</connection>
 	    <url>scm:git:git@github.com:JadiraOrg/jadira.git</url>
 	    <developerConnection>scm:git:git@github.com:JadiraOrg/jadira.git</developerConnection>
-	    <tag>jadira.parent-3.1.0.CR6</tag>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
   	
   	<distributionManagement>
   		<!-- See http://maven.apache.org/plugins/maven-site-plugin/examples/site-deploy-to-sourceforge.net.html -->
   	  	<site>
-  	  	  	<id>jadira.sourceforge.net</id>
-  	  	  	<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs</url>
-  	  	  	<name>Jadira Maven Site</name>
+  	  	  	<id>usertype.sourceforge.net</id>
+  	  	  	<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs</url>
+  	  	  	<name>Usertype Maven Site</name>
   	  	</site>
   	  	<!-- Old Sourceforge Repository
 		<repository>
-			<id>jadira.sourceforge.net.m2-repo</id>
-			<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs/m2-repo</url>
-			<name>Jadira Maven 2 Repository</name>
+			<id>usertype.sourceforge.net.m2-repo</id>
+			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo</url>
+			<name>Usertype Maven 2 Repository</name>
   		</repository> 
   		<snapshotRepository>
-  			<id>jadira.sourceforge.net.m2-repo-snapshots</id>
-  			<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs/m2-repo-snapshots</url>
-  			<name>Jadira Maven 2 Snapshots Repository</name>
+  			<id>usertype.sourceforge.net.m2-repo-snapshots</id>
+  			<url>scp://shell.sourceforge.net/home/project-web/usertype/htdocs/m2-repo-snapshots</url>
+  			<name>Usertype Maven 2 Snapshots Repository</name>
   		</snapshotRepository> 
   		-->
 		<repository>
@@ -590,7 +591,7 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId> 
 							<artifactId>maven-changes-plugin</artifactId> 
-							<version>2.8</version> <!-- 2.9 fails to produce changes report -->
+							<version>2.9</version> 
 							<reportSets>
 								<reportSet>
 									<reports>
@@ -617,7 +618,7 @@
 							<artifactId>maven-checkstyle-plugin</artifactId>
 							<version>2.10</version>
 							<configuration>
-								<configLocation>checkstyle.xml</configLocation>
+								<configLocation>https://usertype.svn.sourceforge.net/svnroot/usertype/trunk/checkstyle.xml</configLocation>
 								<encoding>${project.build.sourceEncoding}</encoding> 
 								<charset>${project.build.sourceEncoding}</charset>
 								<enableRulesSummary>false</enableRulesSummary>
@@ -734,6 +735,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.4.1</version><!--$NO-MVN-MAN-VER$-->
 				<configuration>
+					<tagBase>https://usertype.svn.sourceforge.net/svnroot/usertype/tags/</tagBase>
 					<!-- Workaround for MGPG-9 and MRELEASE-424, MRELEASE-263 -->
 					<mavenExecutorId>forked-path</mavenExecutorId>
 				</configuration>
