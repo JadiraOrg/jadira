@@ -28,7 +28,7 @@
 
 	<name>Jadira Framework Parent</name>
 	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
-	<url>http://usertype.sourceforge.net/</url>
+	<url>http://jadira.sourceforge.net/</url>
 	<inceptionYear>2010</inceptionYear>
 
 	<organization>
