@@ -837,6 +837,7 @@
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
+		<module>quant</module>
 	</modules>
 	
 </project>
