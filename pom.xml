@@ -50,7 +50,7 @@
 
 	<mailingLists>
 		<mailingList>
-	    		<name>Usertype Discussion Mailing list</name>
+	    		<name>Jadira Discussion Mailing list</name>
 			<subscribe>https://lists.sourceforge.net/mailman/listinfo/jadira-discuss</subscribe>
 	    		<unsubscribe>https://lists.sourceforge.net/mailman/listinfo/jadira-discuss</unsubscribe>
 			<archive>https://sourceforge.net/mailarchive/forum.php?forum_name=jadira-discuss</archive>
@@ -91,18 +91,18 @@
   	  	<site>
   	  	  	<id>jadira.sourceforge.net</id>
   	  	  	<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs</url>
-  	  	  	<name>Usertype Maven Site</name>
+  	  	  	<name>Jadira Maven Site</name>
   	  	</site>
   	  	<!-- Old Sourceforge Repository
 		<repository>
 			<id>jadira.sourceforge.net.m2-repo</id>
 			<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs/m2-repo</url>
-			<name>Usertype Maven 2 Repository</name>
+			<name>Jadira Maven 2 Repository</name>
   		</repository> 
   		<snapshotRepository>
   			<id>jadira.sourceforge.net.m2-repo-snapshots</id>
   			<url>scp://shell.sourceforge.net/home/project-web/jadira/htdocs/m2-repo-snapshots</url>
-  			<name>Usertype Maven 2 Snapshots Repository</name>
+  			<name>Jadira Maven 2 Snapshots Repository</name>
   		</snapshotRepository> 
   		-->
 		<repository>
