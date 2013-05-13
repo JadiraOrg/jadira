@@ -51,3 +51,7 @@ usertype.spi/.project
 usertype.spi/.settings
 usertype.spi/runner
 usertype.spi/target
+/quant/.classpath
+/quant/.project
+/quant/.settings
+/quant/target
