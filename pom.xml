@@ -438,7 +438,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.14.1</version>
+				<version>2.14</version> <!-- Tring reverting from 2.14 for Jenkins interoperability -->
 				<executions>
 					<execution>
 						<goals>
@@ -656,7 +656,7 @@
 						<plugin>
 							<groupId>org.apache.maven.plugins</groupId>
 							<artifactId>maven-surefire-report-plugin</artifactId>
-							<version>2.14.1</version>
+							<version>2.14</version> <!-- Tring reverting from 2.14 for Jenkins interoperability -->
 							<configuration>
 								<xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
 								<showSuccess>true</showSuccess>
@@ -726,7 +726,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.14.1</version>
+				<version>2.14</version> <!-- Tring reverting from 2.14 for Jenkins interoperability -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
