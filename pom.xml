@@ -464,7 +464,7 @@
 				<version>2.9</version>
 				<inherited>true</inherited>
 				<configuration>
-					<javadocExecutable>${env.JAVA_HOME}\bin\javadoc.exe</javadocExecutable>
+					<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
 					<javadocVersion>1.7</javadocVersion>
 					<linksource>true</linksource>
 					<links>
@@ -542,7 +542,7 @@
 							<artifactId>maven-javadoc-plugin</artifactId>
 							<version>2.9</version>
 							<configuration>
-								<javadocExecutable>${env.JAVA_HOME}\bin\javadoc.exe</javadocExecutable>
+								<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
 								<javadocVersion>1.7</javadocVersion>
 								<linksource>true</linksource>
 								<links>
