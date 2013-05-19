@@ -51,6 +51,8 @@
 			<item name="Jira" href="http://jadira.atlassian.net/" />
 			<item name="Confluence" href="http://jadira.atlassian.net/wiki/" />
 			<item name="GitHub" href="https://github.com/JadiraOrg/jadira/" />
+			<item name="Jenkins" href="http://jenkins.jadira.co.uk/" />
+			<item name="Sonar" href="http://sonar.jadira.co.uk/" />
 			<item name="Maven Central" href="http://repo1.maven.org/maven2/org/jadira/" />
 		</menu>
 
