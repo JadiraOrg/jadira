@@ -38,6 +38,7 @@ import org.jadira.scanner.classpath.types.JStaticInitializer;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 import org.jadira.scanner.file.locator.JavaClasspathUrlLocator;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ClasspathResolverTest {
