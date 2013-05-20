@@ -16,14 +16,17 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
-import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 
-public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUserType<DateTime> {
+public abstract class AbstractMultiColumnDateTime extends AbstractParameterizedMultiColumnUserType<DateTime> implements DatabaseZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = 726719808559368002L;
+
+    private DateTimeZone databaseZone = DateTimeZone.UTC;
 
     @Override
     protected DateTime fromConvertedColumns(Object[] convertedColumns) {
@@ -31,20 +34,16 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
         LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
         DateTimeZoneWithOffset offset = (DateTimeZoneWithOffset) convertedColumns[1];
 
-        final DateTime result;
+        DateTime result;
 
         if (datePart == null) {
             result = null;
         } else {
-            result = new DateTime(
-                    datePart.getYear(),
-                    datePart.getMonthOfYear(),
-                    datePart.getDayOfMonth(),
-                    datePart.getHourOfDay(),
-                    datePart.getMinuteOfHour(),
-                    datePart.getSecondOfMinute(),
-                    datePart.getMillisOfSecond(),
-                    offset.getStandardDateTimeZone());
+            result = datePart.toDateTime(databaseZone == null ? offset.getStandardDateTimeZone() : databaseZone);
+            
+            if (databaseZone != null) {
+            	result = result.withZone(offset.getStandardDateTimeZone());
+            }
         }
         
         // Handling DST rollover
@@ -59,6 +58,22 @@ public abstract class AbstractMultiColumnDateTime extends AbstractMultiColumnUse
     @Override
     protected Object[] toConvertedColumns(DateTime value) {
 
-        return new Object[] { value.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
+    	final DateTime myValue;
+    	if (databaseZone == null) {
+    		myValue = value;
+    	} else {
+    		myValue = value.withZone(databaseZone);
+    	}
+        return new Object[] { myValue.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
     }
+
+	@Override
+	public void setDatabaseZone(DateTimeZone databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
 }
