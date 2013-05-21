@@ -25,13 +25,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.joda.PersistentDateTimeWithZone;
+import org.jadira.usertype.dateandtime.joda.PersistentDateTimeAndZoneWithOffset;
 import org.joda.time.DateTime;
 
 @Entity
-@Table(name = "dateTimeWithZone")
-@TypeDef(name = "testjoda_DateTimeWithZoneType", typeClass = PersistentDateTimeWithZone.class)
-public class JodaDateTimeWithZoneHolder implements Serializable {
+@Table(name = "dateTimeAndZoneWithOffset")
+@TypeDef(name = "testjoda_DateTimeAndZoneWithOffsetType", typeClass = PersistentDateTimeAndZoneWithOffset.class)
+public class JodaDateTimeAndZoneWithOffsetHolder implements Serializable {
 
     private static final long serialVersionUID = -1674416082110551506L;
 
@@ -42,7 +42,7 @@ public class JodaDateTimeWithZoneHolder implements Serializable {
     private String name;
 
     @Columns(columns = { @Column(name = "MY_DATETIME"), @Column(name = "MY_OFFSET") })
-    @Type(type = "testjoda_DateTimeWithZoneType")
+    @Type(type = "testjoda_DateTimeAndZoneWithOffsetType")
     private DateTime dateTime;
 
     public long getId() {

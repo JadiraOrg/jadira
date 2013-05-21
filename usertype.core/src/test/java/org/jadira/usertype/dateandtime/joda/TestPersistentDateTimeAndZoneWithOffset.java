@@ -22,13 +22,13 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.hamcrest.core.IsEqual;
-import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeWithZoneHolder;
+import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeAndZoneWithOffsetHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
-public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDateTimeWithZoneHolder> {
+public class TestPersistentDateTimeAndZoneWithOffset extends AbstractDatabaseTest<JodaDateTimeAndZoneWithOffsetHolder> {
 
     private static final DateTime[] dateTimes = new DateTime[] { 
         new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)).withZone(DateTimeZone.UTC), 
@@ -40,7 +40,7 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
 
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
+            JodaDateTimeAndZoneWithOffsetHolder item = new JodaDateTimeAndZoneWithOffsetHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setDateTime(dateTimes[i]);
@@ -50,7 +50,7 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
 
         for (int i = 0; i < dateTimes.length; i++) {
 
-            JodaDateTimeWithZoneHolder item = find(JodaDateTimeWithZoneHolder.class, Long.valueOf(i));
+            JodaDateTimeAndZoneWithOffsetHolder item = find(JodaDateTimeAndZoneWithOffsetHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -76,14 +76,14 @@ public class TestPersistentDateTimeWithZone extends AbstractDatabaseTest<JodaDat
 
 			System.err.println("Saving: " + dt);
 
-			JodaDateTimeWithZoneHolder item = new JodaDateTimeWithZoneHolder();
+			JodaDateTimeAndZoneWithOffsetHolder item = new JodaDateTimeAndZoneWithOffsetHolder();
 			item.setId(i + 10);
 			item.setName("test_" + i);
 			item.setDateTime(dt);
 
 			persist(item);
 
-			JodaDateTimeWithZoneHolder readItem = find(JodaDateTimeWithZoneHolder.class, Long.valueOf(i) + 10);
+			JodaDateTimeAndZoneWithOffsetHolder readItem = find(JodaDateTimeAndZoneWithOffsetHolder.class, Long.valueOf(i) + 10);
 
 			System.err.println("ReadItem: " + readItem.getDateTime());
 

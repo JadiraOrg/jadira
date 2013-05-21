@@ -22,7 +22,11 @@ import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 
 /**
  * Persist {@link org.joda.time.DateTime} via Hibernate. The offset will be stored in an extra column.
+ * @deprecated This class is being replaced by {@link PersistentDateTimeAndZoneWithOffset}. The handling
+ * of Date / Time Zone boundaries is slightly different so you are encouraged to retest before migrating
+ * to this class
  */
+@Deprecated
 public class PersistentDateTimeWithZone extends AbstractMultiColumnDateTime {
 
     private static final long serialVersionUID = 1364221029392346011L;
