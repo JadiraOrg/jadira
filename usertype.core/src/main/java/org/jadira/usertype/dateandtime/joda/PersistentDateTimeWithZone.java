@@ -17,8 +17,14 @@ package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
+import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
+import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
 
 /**
  * Persist {@link org.joda.time.DateTime} via Hibernate. The offset will be stored in an extra column.
@@ -27,19 +33,64 @@ import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
  * to this class
  */
 @Deprecated
-public class PersistentDateTimeWithZone extends AbstractMultiColumnDateTime {
+public class PersistentDateTimeWithZone extends AbstractParameterizedMultiColumnUserType<DateTime> implements DatabaseZoneConfigured<DateTimeZone> {
 
-    private static final long serialVersionUID = 1364221029392346011L;
+    private static final long serialVersionUID = 1364224029392346011L;
 
     private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
 
     private static final String[] propertyNames = new String[]{ "datetime", "offset" };
+    
+    private DateTimeZone databaseZone = null;
 
-    public PersistentDateTimeWithZone() {
-    	super();
-    	// Ensure default behaviour is consistent with previous PersistentDateTimeWithZone behaviour
-    	setDatabaseZone(null);
+    @Override
+    protected DateTime fromConvertedColumns(Object[] convertedColumns) {
+
+        LocalDateTime datePart = (LocalDateTime) convertedColumns[0];
+        DateTimeZoneWithOffset offset = (DateTimeZoneWithOffset) convertedColumns[1];
+
+        DateTime result;
+
+        if (datePart == null) {
+            result = null;
+        } else {
+            result = datePart.toDateTime(databaseZone == null ? offset.getStandardDateTimeZone() : databaseZone);
+            
+            if (databaseZone != null) {
+            	result = result.withZone(offset.getStandardDateTimeZone());
+            }
+        }
+        
+        // Handling DST rollover
+        if (result != null && offset.getOffsetDateTimeZone() != null &&
+        		offset.getStandardDateTimeZone().getOffset(result) > offset.getOffsetDateTimeZone().getOffset(result)) {
+        	return result.withLaterOffsetAtOverlap();
+        }
+
+        return result;
     }
+
+    @Override
+    protected Object[] toConvertedColumns(DateTime value) {
+
+    	final DateTime myValue;
+    	if (databaseZone == null) {
+    		myValue = value;
+    	} else {
+    		myValue = value.withZone(databaseZone);
+    	}
+        return new Object[] { myValue.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
+    }
+    
+	@Override
+	public void setDatabaseZone(DateTimeZone databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+
+	@Override
+	public DateTimeZone parseZone(String zoneString) {
+		return DateTimeZone.forID(zoneString);
+	}
     
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
