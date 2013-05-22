@@ -35,6 +35,12 @@ public class PersistentDateTimeWithZone extends AbstractMultiColumnDateTime {
 
     private static final String[] propertyNames = new String[]{ "datetime", "offset" };
 
+    public PersistentDateTimeWithZone() {
+    	super();
+    	// Ensure default behaviour is consistent with previous PersistentDateTimeWithZone behaviour
+    	setDatabaseZone(null);
+    }
+    
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
         return columnMappers;
