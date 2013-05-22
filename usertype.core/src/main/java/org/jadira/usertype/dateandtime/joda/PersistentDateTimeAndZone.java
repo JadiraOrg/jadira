@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
-import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
 import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
@@ -69,7 +68,7 @@ public class PersistentDateTimeAndZone extends AbstractParameterizedMultiColumnU
     	} else {
     		myValue = value.withZone(databaseZone);
     	}
-        return new Object[] { myValue.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
+        return new Object[] { myValue.toLocalDateTime(), value.getZone() };
     }
     
 	@Override
