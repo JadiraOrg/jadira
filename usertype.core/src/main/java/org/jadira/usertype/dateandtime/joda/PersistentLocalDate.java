@@ -21,7 +21,6 @@ import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 
 /**
@@ -30,7 +29,7 @@ import org.joda.time.LocalDate;
  * 
  * The type is stored using the JVM timezone by default.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
  * to indicate the zone of the database. Be careful to set this carefully. See https://jadira.atlassian.net/browse/JDF-26
  * N.B. To use the zone of the JVM for the database zone you can also supply 'jvm'
  */

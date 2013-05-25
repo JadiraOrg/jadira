@@ -31,9 +31,9 @@ public class PersistentZonedDateTimeAsStringAndStringZone extends AbstractMultiC
 
     private static final long serialVersionUID = -1335371912886315820L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneIdMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnZoneIdMapper() };
 
-    private static final String[] propertyNames = new String[]{ "datetime", "zoneid" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "datetime", "zoneid" };
 
     @Override
     protected ZonedDateTime fromConvertedColumns(Object[] convertedColumns) {
@@ -46,7 +46,7 @@ public class PersistentZonedDateTimeAsStringAndStringZone extends AbstractMultiC
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
@@ -57,6 +57,6 @@ public class PersistentZonedDateTimeAsStringAndStringZone extends AbstractMultiC
 
     @Override
     public String[] getPropertyNames() {
-        return propertyNames;
+        return PROPERTY_NAMES;
     }
 }

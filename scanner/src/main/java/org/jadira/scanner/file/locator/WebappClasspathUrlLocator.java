@@ -66,7 +66,7 @@ public class WebappClasspathUrlLocator implements Locator<URL> {
             return null;
         }
         File fp = new File(path);
-        if (fp.exists() == false) {
+        if (!fp.exists()) {
             return null;
         }
         try {

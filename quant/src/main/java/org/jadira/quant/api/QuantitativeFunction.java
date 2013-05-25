@@ -29,5 +29,5 @@ public interface QuantitativeFunction<R extends Number, T> {
 	 * @param value the input value
 	 * @return the result of the function
 	 */
-	public R apply(T value);
+	R apply(T value);
 }

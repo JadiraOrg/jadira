@@ -68,11 +68,10 @@ public class JPackage extends JElement {
         List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackagePrefixFilter(this), new JElementTypeFilter(JClass.class)); 
         for (ClassFile classFile : classes) {
 
-        	if (classFile.getSuperclass() != null) {
-	            if (!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum"))
-	            		&& (classFile.getInnerAccessFlags() == -1)) {
-	                retVal.add(JClass.getJClass(classFile, getResolver()));
-	            }
+        	if ((classFile.getSuperclass() != null) && 
+        			(!classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.Enum"))
+	            		&& (classFile.getInnerAccessFlags() == -1))) {
+        		retVal.add(JClass.getJClass(classFile, getResolver()));
         	}
         }
         return retVal;
@@ -83,8 +82,9 @@ public class JPackage extends JElement {
         Set<JInterface> retVal = new HashSet<JInterface>();
         List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JInterface.class));
         for (ClassFile classFile : classes) {
-            if (classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.annotation.Annotation")))
+            if (classFile.isInterface() && (!classFile.getSuperclass().equals("java.lang.annotation.Annotation"))) {
                 retVal.add(JInterface.getJInterface(classFile, getResolver()));
+            }
         }
         return retVal;
     }
@@ -95,7 +95,7 @@ public class JPackage extends JElement {
         Set<JAnnotation<?>> retVal = new HashSet<JAnnotation<?>>();
         List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new PackageFileFilter(getName(), false), new PackageFilter(this), new JElementTypeFilter(JAnnotation.class));
         for (ClassFile classFile : classes) {
-            if (classFile.isInterface() && (classFile.getSuperclass().equals("java.lang.annotation.Annotation")))
+            if (classFile.isInterface() && (classFile.getSuperclass().equals("java.lang.annotation.Annotation"))) {
                 try {
                     @SuppressWarnings("unchecked")
                     Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) (Class.forName(classFile.getName()));
@@ -108,6 +108,7 @@ public class JPackage extends JElement {
                 } catch (IllegalAccessException e) {
                     throw new ClasspathAccessException("Cannot access annotation: " + e.getMessage(), e);
                 }
+            }
         }
         return retVal;
     }
@@ -146,8 +147,8 @@ public class JPackage extends JElement {
     	String name = getName();
     	
         Package retVal = null;
-        while (retVal == null && name.lastIndexOf(".") != -1) {
-            name = name.substring(0, name.lastIndexOf("."));
+        while (retVal == null && name.lastIndexOf('.') != -1) {
+            name = name.substring(0, name.lastIndexOf('.'));
             retVal = Package.getPackage(name);
         }
         if (retVal == null) {

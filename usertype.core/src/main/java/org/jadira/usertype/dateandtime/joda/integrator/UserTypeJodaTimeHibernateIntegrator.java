@@ -36,15 +36,15 @@ import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 @SuppressWarnings("deprecation")
 public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
-	private static UserType[] USER_TYPES;
-	private static CompositeUserType[] COMPOSITE_USER_TYPES;
+	private static UserType[] userTypes;
+	private static CompositeUserType[] compositeUserTypes;
 
 	static {
 		
 		try {
 			Class.forName("org.joda.time.DateTime", false, ClassLoaderUtils.getClassLoader());
 			
-			USER_TYPES = new UserType[] {
+			userTypes = new UserType[] {
 				new PersistentDateTime(),
 				new PersistentDurationAsString(),
 				new PersistentInstantAsTimestamp(),
@@ -58,13 +58,13 @@ public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHiberna
 				new PersistentYears(),
 				new PersistentMinutes(),
 			};
-			COMPOSITE_USER_TYPES = new CompositeUserType[] {
+			compositeUserTypes = new CompositeUserType[] {
 				new PersistentDateMidnight(),
 				new PersistentInterval(),
 			};
 		} catch (ClassNotFoundException e) {
-			USER_TYPES = new UserType[]{};
-			COMPOSITE_USER_TYPES = new CompositeUserType[]{};
+			userTypes = new UserType[]{};
+			compositeUserTypes = new CompositeUserType[]{};
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHiberna
 	 */
 	@Override
 	protected CompositeUserType[] getCompositeUserTypes() {
-		return COMPOSITE_USER_TYPES;
+		return compositeUserTypes;
 	}
 
 	/**
@@ -81,6 +81,6 @@ public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHiberna
 	 */
 	@Override
 	protected UserType[] getUserTypes() {
-		return USER_TYPES;
+		return userTypes;
 	}	
 }

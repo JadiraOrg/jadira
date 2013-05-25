@@ -21,7 +21,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	private static final Integer ZERO = Integer.valueOf(0);
 
 	private static final int SEGMENT_SIZE = 500;
-	private static ForkJoinPool FORKJOIN_POOL = new ForkJoinPool();
+	private static final ForkJoinPool FORKJOIN_POOL = new ForkJoinPool();
 	
 	private final List<A> driverData;
 	

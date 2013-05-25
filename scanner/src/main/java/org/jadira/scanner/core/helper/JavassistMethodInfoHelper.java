@@ -84,7 +84,7 @@ public class JavassistMethodInfoHelper {
 		for (int i = 0; i < classNames.length; i++) {
 			if (!"".equals(classNames[i])) {
 				try {
-					retArray[i] = decodeFieldType(classNames[i]); // Class.forName(classNames[i]);
+					retArray[i] = decodeFieldType(classNames[i]);
 				} catch (ClassNotFoundException e) {
 					throw new ClasspathAccessException("Class could not be found: " + e.getMessage(), e);
 				}
@@ -99,26 +99,36 @@ public class JavassistMethodInfoHelper {
 		String fieldContent = componentType.substring(1);
 
 		switch (type) {
-		case 'L': // L<classname>; reference an instance of class <classname>
+		// L<classname>; reference an instance of class <classname>
+		case 'L': 
 			return Class.forName(fieldContent.replace('/', '.'));
-		case 'B': // B byte signed byte
+		// B byte signed byte
+		case 'B': 
 			return Byte.class;
-		case 'C': // C char Unicode character
+		// C char Unicode character
+		case 'C': 
 			return Character.class;
-		case 'D': // D double double-precision floating-point value
+		// D double double-precision floating-point value
+		case 'D': 
 			return Double.class;
-		case 'F': // F float single-precision floating-point value
+		// F float single-precision floating-point value		
+		case 'F': 
 			return Float.class;
-		case 'I': // I int integer
+		// I int integer
+		case 'I': 
 			return Integer.class;
-		case 'J': // J long long integer
+		// J long long integer
+		case 'J': 
 			return Long.class;
-		case 'S': // S short signed short
+		// S short signed short
+		case 'S': 
 			return Short.class;
-		case 'Z': // Z boolean true or false
+		// Z boolean true or false
+		case 'Z': 
 			return Boolean.class;
-		case '[': // [ reference one array dimension
-			return Arrays.class; // Class.forName(componentType.replace('/', '.') + ";");
+		// [ reference one array dimension
+		case '[': 
+			return Arrays.class;
 		}
 		return null;
 	}

@@ -29,7 +29,7 @@ public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<
 
     @Override
     public LocalDateTime fromNonNullValue(String s) {
-        return LocalDateTime.parse(s.toString(), DATETIME_FORMATTER);
+        return LocalDateTime.parse(s, DATETIME_FORMATTER);
     }
 
     @Override

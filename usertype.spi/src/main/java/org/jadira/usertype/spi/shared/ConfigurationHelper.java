@@ -25,7 +25,7 @@ public class ConfigurationHelper {
 
 	private static ThreadLocal<SessionFactory> currentSessionFactory = new ThreadLocal<SessionFactory>();
 	
-	private static final Map<SessionFactory, Properties> defaultProperties = new HashMap<SessionFactory, Properties>();
+	private static final Map<SessionFactory, Properties> DEFAULT_PROPERTIES = new HashMap<SessionFactory, Properties>();
 	
     private ConfigurationHelper() {
     }
@@ -34,7 +34,7 @@ public class ConfigurationHelper {
     	
     	SessionFactory current = currentSessionFactory.get();
     	if (current != null) {
-    		Properties defaults = defaultProperties.get(current);
+    		Properties defaults = DEFAULT_PROPERTIES.get(current);
     		if (defaults != null) {
     			return defaults.getProperty(key);
     		}
@@ -48,9 +48,9 @@ public class ConfigurationHelper {
 	
 	static void configureDefaultProperties(SessionFactory sessionFactory, Properties properties) {
 		if (properties == null) {
-			defaultProperties.remove(sessionFactory);
+			DEFAULT_PROPERTIES.remove(sessionFactory);
 		} else {
-			defaultProperties.put(sessionFactory, properties);
+			DEFAULT_PROPERTIES.put(sessionFactory, properties);
 		}
 	}
 }

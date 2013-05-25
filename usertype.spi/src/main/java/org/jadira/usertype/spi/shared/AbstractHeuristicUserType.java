@@ -123,22 +123,7 @@ public abstract class AbstractHeuristicUserType extends AbstractUserType impleme
     }
 
     public abstract void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
-    
-    @Override
-    public Serializable disassemble(Object value) throws HibernateException {
-        return super.disassemble(value);
-    }
 
-    @Override
-    public Object assemble(Serializable cached, Object owner) throws HibernateException {
-        return super.assemble(cached, owner);
-    }
-
-    @Override
-    public Object replace(Object original, Object target, Object owner) throws HibernateException {
-        return super.replace(original, target, owner);
-    }
-    
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public String objectToSQLString(Object object) {

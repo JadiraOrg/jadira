@@ -48,14 +48,26 @@ public class ProjectorTask<T> extends RecursiveTask<List<T>> {
 			List<T> myResult = projector.project(inputs.get(computeIndex));
 			resultList.addAll(myResult);
 			computeIndex = computeIndex - 1;
-		} while (((getForkInterval() == -1) && computeIndex >= 0) 
-				|| (computeIndex == 0)
-				|| (computeIndex % getForkInterval() != 0 && computeIndex >= 0));
+		} while (indexMatchesThisThread(computeIndex));
 		
 		if (pt != null) {
 			resultList.addAll(pt.join());
 		} 
 		return resultList;
+	}
+
+	private boolean indexMatchesThisThread(int computeIndex) {
+		
+		if (getForkInterval() == -1 && computeIndex >= 0) {
+			return true;
+		}
+		if (computeIndex == 0) {
+			return true;
+		}
+		if (computeIndex % getForkInterval() != 0 && computeIndex >= 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public static int getForkInterval() {

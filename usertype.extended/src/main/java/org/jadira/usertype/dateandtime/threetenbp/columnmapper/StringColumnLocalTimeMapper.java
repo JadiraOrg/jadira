@@ -24,7 +24,7 @@ public class StringColumnLocalTimeMapper extends AbstractStringColumnMapper<Loca
 
     @Override
     public LocalTime fromNonNullValue(String s) {
-        return LocalTime.parse(s.toString());
+        return LocalTime.parse(s);
     }
 
     @Override

@@ -28,7 +28,7 @@ import org.jadira.bindings.core.api.Binding;
  */
 public class CalendarStringBinding extends AbstractStringBinding<Calendar> implements Binding<Calendar, String> {
 
-    ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+    private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() {
         @Override
         public SimpleDateFormat initialValue() {
             return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -51,11 +51,11 @@ public class CalendarStringBinding extends AbstractStringBinding<Calendar> imple
 
         GregorianCalendar cal = new GregorianCalendar(zone);
         cal.setTimeInMillis(0);
-        DATE_FORMAT.get().setCalendar(cal);
+        dateFormat.get().setCalendar(cal);
 
         try {
-            DATE_FORMAT.get().parseObject(parseableDateString);
-            return DATE_FORMAT.get().getCalendar();
+            dateFormat.get().parseObject(parseableDateString);
+            return dateFormat.get().getCalendar();
         } catch (ParseException ex) {
             throw new RuntimeException(ex);
         }
@@ -71,8 +71,8 @@ public class CalendarStringBinding extends AbstractStringBinding<Calendar> imple
 
             GregorianCalendar cal = (GregorianCalendar) object;
 
-            DATE_FORMAT.get().setCalendar(cal);
-            String str = DATE_FORMAT.get().format(cal.getTime());
+            dateFormat.get().setCalendar(cal);
+            String str = dateFormat.get().format(cal.getTime());
 
             String printableDateString = str.substring(0, 26) + ":" + str.substring(26) + "["
                     + cal.getTimeZone().getID() + "]";

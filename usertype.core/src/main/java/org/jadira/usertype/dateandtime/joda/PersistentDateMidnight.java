@@ -27,17 +27,17 @@ public class PersistentDateMidnight extends AbstractMultiColumnDateMidnight {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new DateColumnLocalDateMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
 
-    private static final String[] propertyNames = new String[] { "date", "offset" };
+    private static final String[] PROPERTY_NAMES = new String[] { "date", "offset" };
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
     public String[] getPropertyNames() {
-        return ArrayUtils.copyOf(propertyNames);
+        return ArrayUtils.copyOf(PROPERTY_NAMES);
     }
 }

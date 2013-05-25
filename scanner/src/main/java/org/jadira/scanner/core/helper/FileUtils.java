@@ -116,10 +116,11 @@ public class FileUtils {
 			} catch (IOException e) {
 			} finally {
 			
-				if (file instanceof TFile)
-				try {
-					TVFS.umount((TFile)file);
-				} catch (FsSyncException e) {
+				if (file instanceof TFile) {
+					try {
+						TVFS.umount((TFile)file);
+					} catch (FsSyncException e) {
+					}
 				}
 			}
 		}

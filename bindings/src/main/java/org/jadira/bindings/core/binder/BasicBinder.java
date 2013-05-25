@@ -684,19 +684,29 @@ public class BasicBinder implements Binder, RegisterableBinder {
 
         Converter<?,?> old = registeredConverters.putIfAbsent(key, converter);
         if (old != null) {
-        	if (old.getClass() == converter.getClass()
-        			// Special cases which arises when processing the identity function
-        			|| (old instanceof FromUnmarshallerConverter && converter instanceof ToMarshallerConverter
-        					&& (((FromUnmarshallerConverter<?, ?>)old).getUnmarshaller().equals(((ToMarshallerConverter<?, ?>)converter).getMarshaller())))
-        			|| (old instanceof ToMarshallerConverter && converter instanceof FromUnmarshallerConverter
-        					&& (((ToMarshallerConverter<?, ?>)old).getMarshaller().equals(((FromUnmarshallerConverter<?, ?>)converter).getUnmarshaller())))
-        			) {
-        		// Do nothing
-        	} else {
+        	if (!isSameConverter(old, converter)) {
         		throw new IllegalStateException("Converter already registered for key: " + key);
         	}
         }
     }
+	
+	private boolean isSameConverter(Converter<?,?> old, Converter<?,?> converter) {
+		
+		if (old.getClass().equals(converter.getClass())) {
+			return true;
+		}
+
+		// Special cases which arises when processing the identity function
+		if (old instanceof FromUnmarshallerConverter && converter instanceof ToMarshallerConverter
+				&& (((FromUnmarshallerConverter<?, ?>)old).getUnmarshaller().equals(((ToMarshallerConverter<?, ?>)converter).getMarshaller()))) {
+			return true;
+		}
+		if (old instanceof ToMarshallerConverter && converter instanceof FromUnmarshallerConverter
+				&& (((ToMarshallerConverter<?, ?>)old).getMarshaller().equals(((FromUnmarshallerConverter<?, ?>)converter).getUnmarshaller()))) {
+			return true;
+		}
+		return false;
+	}
 	
     /******************
      *                *
@@ -903,7 +913,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 		
 		if (fromUnmarshaller != null && toMarshaller != null) {
 			
-			if (fromUnmarshaller == toMarshaller && Binding.class.isAssignableFrom(fromUnmarshaller.getClass())) {
+			if (fromUnmarshaller.equals(toMarshaller) && Binding.class.isAssignableFrom(fromUnmarshaller.getClass())) {
 				Binding<?,?> theBinding = (Binding<?,?>)fromUnmarshaller;
 				if (theBinding.getBoundClass().equals(key.getInputClass())) {
 					@SuppressWarnings("unchecked")

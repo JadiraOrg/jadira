@@ -29,13 +29,13 @@ public class PersistentBigMoneyMinorAmountAndCurrencyAsInteger extends AbstractM
 
 	private static final long serialVersionUID = -3990523657883978202L;
 
-	private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new IntegerColumnCurrencyUnitMapper(), new LongLongColumnMapper<Long>() };
+	private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new IntegerColumnCurrencyUnitMapper(), new LongLongColumnMapper<Long>() };
 
-    private static final String[] propertyNames = new String[]{ "currencyUnit", "amountMinor" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amountMinor" };
 	
 	@Override
 	protected ColumnMapper<?, ?>[] getColumnMappers() {
-		return columnMappers;
+		return COLUMN_MAPPERS;
 	}
 
     @Override
@@ -56,6 +56,6 @@ public class PersistentBigMoneyMinorAmountAndCurrencyAsInteger extends AbstractM
     
     @Override
 	public String[] getPropertyNames() {
-		return propertyNames;
+		return PROPERTY_NAMES;
 	}
 }

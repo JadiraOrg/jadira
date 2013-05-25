@@ -33,7 +33,7 @@ public class StringColumnDayOfWeekMapper extends AbstractStringColumnMapper<DayO
     		case "WEDNESDAY" : return DayOfWeek.WEDNESDAY;
     		case "THURSDAY" : return DayOfWeek.THURSDAY;
     		case "FRIDAY" : return DayOfWeek.FRIDAY;
-    		default: throw new IllegalArgumentException("Seen unexpected DayOfWeek: " + s.toString());
+    		default: throw new IllegalArgumentException("Seen unexpected DayOfWeek: " + s);
     	}
     }
 

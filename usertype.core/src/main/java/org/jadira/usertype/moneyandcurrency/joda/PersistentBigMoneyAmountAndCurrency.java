@@ -31,13 +31,13 @@ public class PersistentBigMoneyAmountAndCurrency extends AbstractMultiColumnUser
 
 	private static final long serialVersionUID = 3735995469031558183L;
 
-	private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnCurrencyUnitMapper(), new BigDecimalBigDecimalColumnMapper() };
+	private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnCurrencyUnitMapper(), new BigDecimalBigDecimalColumnMapper() };
 
-    private static final String[] propertyNames = new String[]{ "currencyUnit", "amount" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amount" };
 	
 	@Override
 	protected ColumnMapper<?, ?>[] getColumnMappers() {
-		return columnMappers;
+		return COLUMN_MAPPERS;
 	}
 
     @Override
@@ -58,6 +58,6 @@ public class PersistentBigMoneyAmountAndCurrency extends AbstractMultiColumnUser
     
     @Override
 	public String[] getPropertyNames() {
-		return propertyNames;
+		return PROPERTY_NAMES;
 	}
 }

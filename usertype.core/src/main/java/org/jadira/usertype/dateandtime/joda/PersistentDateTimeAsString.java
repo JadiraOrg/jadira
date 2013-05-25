@@ -33,18 +33,18 @@ public class PersistentDateTimeAsString extends AbstractParameterizedMultiColumn
 
     private static final long serialVersionUID = 1364221029397346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneWithOffsetMapper() };
 
-    private static final String[] propertyNames = new String[]{ "datetime", "offset" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "datetime", "offset" };
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
     public String[] getPropertyNames() {
-        return ArrayUtils.copyOf(propertyNames);
+        return ArrayUtils.copyOf(PROPERTY_NAMES);
     }
     
     private DateTimeZone databaseZone = DateTimeZone.UTC;

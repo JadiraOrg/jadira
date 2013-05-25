@@ -29,17 +29,17 @@ public class ClassUtils {
     public static final char PACKAGE_SEPARATOR_CHARACTER = '.';
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';
 
-    private static final Map<String, String> primitiveMapping = new HashMap<String, String>();
+    private static final Map<String, String> PRIMITIVE_MAPPING = new HashMap<String, String>();
 
     static {
-        primitiveMapping.put("int", "I");
-        primitiveMapping.put("boolean", "Z");
-        primitiveMapping.put("float", "F");
-        primitiveMapping.put("long", "J");
-        primitiveMapping.put("short", "S");
-        primitiveMapping.put("byte", "B");
-        primitiveMapping.put("double", "D");
-        primitiveMapping.put("char", "C");
+        PRIMITIVE_MAPPING.put("int", "I");
+        PRIMITIVE_MAPPING.put("boolean", "Z");
+        PRIMITIVE_MAPPING.put("float", "F");
+        PRIMITIVE_MAPPING.put("long", "J");
+        PRIMITIVE_MAPPING.put("short", "S");
+        PRIMITIVE_MAPPING.put("byte", "B");
+        PRIMITIVE_MAPPING.put("double", "D");
+        PRIMITIVE_MAPPING.put("char", "C");
     }
 
     private ClassUtils() {
@@ -69,9 +69,9 @@ public class ClassUtils {
 
             final Class<?> clazz;
 
-            if (primitiveMapping.containsKey(className)) {
+            if (PRIMITIVE_MAPPING.containsKey(className)) {
 
-                String qualifiedName = "[" + primitiveMapping.get(className);
+                String qualifiedName = "[" + PRIMITIVE_MAPPING.get(className);
                 clazz = Class.forName(qualifiedName, true, classLoader).getComponentType();
             } else {
                 clazz = Class.forName(determineQualifiedName(className), true, classLoader);
@@ -110,7 +110,7 @@ public class ClassUtils {
                 classNameBuffer.append("[");
             }
 
-            String abbreviation = primitiveMapping.get(readableClassName);
+            String abbreviation = PRIMITIVE_MAPPING.get(readableClassName);
 
             if (abbreviation == null) {
                 classNameBuffer.append("L").append(readableClassName).append(";");
@@ -142,9 +142,9 @@ public class ClassUtils {
                 qualifiedName = qualifiedName.substring(1);
             }
             
-            if (primitiveMapping.containsValue(qualifiedName)) {
+            if (PRIMITIVE_MAPPING.containsValue(qualifiedName)) {
                 
-                for (Map.Entry<String,String> next : primitiveMapping.entrySet()) {
+                for (Map.Entry<String,String> next : PRIMITIVE_MAPPING.entrySet()) {
                     if (next.getValue().equals(qualifiedName)) {
                         qualifiedName = next.getKey() + classNameBuffer.toString();
                         break;

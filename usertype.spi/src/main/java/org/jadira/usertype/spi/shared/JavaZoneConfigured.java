@@ -7,7 +7,7 @@ package org.jadira.usertype.spi.shared;
  */
 public interface JavaZoneConfigured<T> {
 
-	public void setJavaZone(T javaZone);
+	void setJavaZone(T javaZone);
 	
-	public T parseZone(String zoneString);
+	T parseZone(String zoneString);
 }

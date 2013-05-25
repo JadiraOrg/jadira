@@ -59,14 +59,14 @@ public class AntPathProjector implements Projector<File> {
 		if (currentParent.isDirectory()) {
 			File[] childFiles = currentParent.listFiles();
 			for (File next : childFiles) {
-				String path = next.getPath().substring(root.getPath().length());
-				if (next.isDirectory() && (!path.endsWith(AntPathFilter.PATH_SEPARATOR))) {
-					path = path + AntPathFilter.PATH_SEPARATOR;
+				String currentPath = next.getPath().substring(root.getPath().length());
+				if (next.isDirectory() && (!currentPath.endsWith(AntPathFilter.PATH_SEPARATOR))) {
+					currentPath = currentPath + AntPathFilter.PATH_SEPARATOR;
 				}
 				AntPathFilter antPathMatcher = new AntPathFilter(pattern);
-				if (antPathMatcher.match(path)) {
+				if (antPathMatcher.match(currentPath)) {
 					resultsHolder.add(next);
-				} else if (antPathMatcher.matchStart(path)) {
+				} else if (antPathMatcher.matchStart(currentPath)) {
 					findFilesForPatternRecursively(pattern, resultsHolder, root, currentParent);
 				}
 			}

@@ -38,7 +38,7 @@ public class StringColumnMonthMapper extends AbstractStringColumnMapper<Month> {
     		case "OCTOBER" : return Month.OCTOBER;
     		case "NOVEMBER" : return Month.NOVEMBER;
     		case "DECEMBER" : return Month.DECEMBER;
-    		default: throw new IllegalArgumentException("Seen unexpected Month: " + s.toString());
+    		default: throw new IllegalArgumentException("Seen unexpected Month: " + s);
     	}
     }
 

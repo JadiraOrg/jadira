@@ -22,7 +22,6 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTime
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 
 /**
  * Persist {@link DateTime} via Hibernate. This type is
@@ -32,7 +31,7 @@ import org.joda.time.DateTimeZone;
  * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'

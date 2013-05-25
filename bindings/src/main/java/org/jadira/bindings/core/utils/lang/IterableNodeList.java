@@ -42,13 +42,12 @@ public class IterableNodeList implements Iterable<Node> {
     public Iterator<Node> iterator() {
 
         return new Iterator<Node>() {
-
             private int currentIndex = 0;
-
+            
             public boolean hasNext() {
                 return currentIndex < nodeList.getLength();
             }
-
+            
             public Node next() {
                 Node next = nodeList.item(currentIndex);
                 currentIndex++;
@@ -57,7 +56,7 @@ public class IterableNodeList implements Iterable<Node> {
                 }
                 return next;
             }
-
+            
             public void remove() {
                 throw new UnsupportedOperationException("IterableNodeList does not support remove");
             }

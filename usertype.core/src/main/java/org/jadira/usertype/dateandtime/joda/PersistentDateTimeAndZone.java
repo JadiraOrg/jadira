@@ -32,9 +32,9 @@ public class PersistentDateTimeAndZone extends AbstractParameterizedMultiColumnU
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new TimestampColumnLocalDateTimeMapper(), new StringColumnDateTimeZoneMapper() };
 
-    private static final String[] propertyNames = new String[]{ "datetime", "offset" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "datetime", "offset" };
 
     private DateTimeZone databaseZone = DateTimeZone.UTC;
 
@@ -83,11 +83,11 @@ public class PersistentDateTimeAndZone extends AbstractParameterizedMultiColumnU
     
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
     public String[] getPropertyNames() {
-        return ArrayUtils.copyOf(propertyNames);
+        return ArrayUtils.copyOf(PROPERTY_NAMES);
     }
 }

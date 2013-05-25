@@ -104,7 +104,9 @@ public class JClass extends JType {
                     if (innerName != null && innerName.startsWith(this.getClassFile().getName())) {
                     	
                     	ClassFile innerClass = findClassFile(innerName, getResolver());
-                    	if (innerClass != null) { // One or two inner classes can be introspected easily - filter these
+
+                    	// One or two inner classes can be introspected easily - filter these
+                    	if (innerClass != null) { 
                     		retVal.add(JInnerClass.getJInnerClass(this.getClassFile(), innerClass, getResolver()));
                     	}
                     }

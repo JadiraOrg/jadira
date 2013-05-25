@@ -47,7 +47,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode);
 		
 			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
-				autoRegisterUsertypes(configuration, isEnabled);
+				autoRegisterUsertypes(configuration);
 			}
 			
 			doIntegrate(configuration, sessionFactory, serviceRegistry);
@@ -56,8 +56,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		}
 	}
 
-	private void autoRegisterUsertypes(Configuration configuration, String isEnabled) {
-		
+	private void autoRegisterUsertypes(Configuration configuration) {
+	
 		for(UserType next : getUserTypes()) {
 
 			registerType(configuration, next);

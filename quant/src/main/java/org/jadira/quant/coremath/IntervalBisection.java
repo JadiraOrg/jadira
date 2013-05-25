@@ -44,7 +44,8 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 	
 	public IntervalBisection(double lowerBound, double higherBound) {
 		iterations = 20;
-		precision = 0.001D; // Defaults to 1e-3
+		// Defaults to 1e-3
+		precision = 0.001D; 
 		precisionStrategy = PrecisionStrategy.TO_INTERVAL;
 		
 		this.lowerBound = lowerBound;
@@ -108,10 +109,9 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 				if (Math.abs(midValueResult) <= precision) {
 					break;	
 				}
-			} else if (PrecisionStrategy.BETWEEN_RESULTS == precisionStrategy || null == precisionStrategy) {
-				if (Math.abs(midValueResult - preceedingMidValueResult) <= precision) {
+			} else if ((PrecisionStrategy.BETWEEN_RESULTS == precisionStrategy || null == precisionStrategy)
+					&& (Math.abs(midValueResult - preceedingMidValueResult) <= precision)) {
 					break;
-				}
 			}
 		}
 

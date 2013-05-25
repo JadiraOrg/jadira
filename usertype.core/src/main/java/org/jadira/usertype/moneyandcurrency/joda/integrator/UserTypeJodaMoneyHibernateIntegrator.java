@@ -27,23 +27,22 @@ import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 
 public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
-
-	private static UserType[] USER_TYPES;
-	private static final CompositeUserType[] COMPOSITE_USER_TYPES = new CompositeUserType[]{};
+	private static UserType[] userTypes;
+	private static final CompositeUserType[] compositeUserTypes = new CompositeUserType[]{};
 
 	static {
 		
 		try {
 			Class.forName("org.joda.money.BigMoney", false, ClassLoaderUtils.getClassLoader());
 			
-			USER_TYPES = new UserType[]{
+			userTypes = new UserType[]{
 				new PersistentBigMoneyAmount(),
 				new PersistentMoneyAmount(),
 				new PersistentCurrency(),
 				new PersistentCurrencyUnit()
 			};
 		} catch (ClassNotFoundException e) {
-			USER_TYPES = new UserType[]{};
+			userTypes = new UserType[]{};
 		}
 	}
 	
@@ -52,7 +51,7 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 	 */
 	@Override
 	protected CompositeUserType[] getCompositeUserTypes() {
-		return COMPOSITE_USER_TYPES;
+		return compositeUserTypes;
 	}
 
 	/**
@@ -60,6 +59,6 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 	 */
 	@Override
 	protected UserType[] getUserTypes() {
-		return USER_TYPES;
+		return userTypes;
 	}	
 }

@@ -16,7 +16,6 @@
 package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnInstantMapper;
@@ -28,7 +27,7 @@ import org.threeten.bp.Instant;
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained. The type is stored using UTC timezone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#of(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#of(String)} format
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */

@@ -38,10 +38,14 @@ public class JavaClasspathUrlLocator implements Locator<URL> {
         StringTokenizer tokenizer = new StringTokenizer(classpath, File.pathSeparator);
 
         while (tokenizer.hasMoreTokens()) {
-            String path = tokenizer.nextToken();
+            
+        	String path = tokenizer.nextToken();
+            
             File fp = new File(path);
-            if (!fp.exists())
+            if (!fp.exists()) {
                 throw new RuntimeException("File in java.class.path does not exist: " + fp);
+            }
+            
             try {
                 list.add(fp.toURI().toURL());
             } catch (MalformedURLException e) {

@@ -27,11 +27,11 @@ import java.util.List;
  */
 public class BindingConfiguration {
 
-	private ArrayList<Provider> providers = new ArrayList<Provider>();
+	private List<Provider> providers = new ArrayList<Provider>();
 	
-	private ArrayList<Extension<?>> extensions = new ArrayList<Extension<?>>();
+	private List<Extension<?>> extensions = new ArrayList<Extension<?>>();
 
-	private ArrayList<BindingConfigurationEntry> bindingEntries = new ArrayList<BindingConfigurationEntry>();
+	private List<BindingConfigurationEntry> bindingEntries = new ArrayList<BindingConfigurationEntry>();
 
 	/**
 	 * Return the registered providers

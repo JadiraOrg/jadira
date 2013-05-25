@@ -21,7 +21,6 @@ import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Interval;
 
 /**
@@ -30,7 +29,7 @@ import org.joda.time.Interval;
  * using the UTC zone and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link DateTimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
@@ -39,13 +38,12 @@ public class PersistentInterval extends AbstractParameterizedMultiColumnUserType
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private TimestampColumnDateTimeMapper[] columnMappers;
+    private static final TimestampColumnDateTimeMapper[] COLUMN_MAPPERS = new TimestampColumnDateTimeMapper[] { new TimestampColumnDateTimeMapper(), new TimestampColumnDateTimeMapper() };
 
-    private static final String[] propertyNames = new String[]{ "begin", "end" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "begin", "end" };
     
     @Override
     protected void initialise() {
-    	columnMappers = new TimestampColumnDateTimeMapper[] { new TimestampColumnDateTimeMapper(), new TimestampColumnDateTimeMapper() };
     	super.initialise();
     }
     
@@ -60,7 +58,7 @@ public class PersistentInterval extends AbstractParameterizedMultiColumnUserType
 
     @Override
     protected TimestampColumnDateTimeMapper[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
@@ -72,6 +70,6 @@ public class PersistentInterval extends AbstractParameterizedMultiColumnUserType
     @Override
     public String[] getPropertyNames() {
 
-        return ArrayUtils.copyOf(propertyNames);
+        return ArrayUtils.copyOf(PROPERTY_NAMES);
     }
 }

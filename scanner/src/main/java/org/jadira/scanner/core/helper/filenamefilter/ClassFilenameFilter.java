@@ -19,7 +19,8 @@ import java.io.FilenameFilter;
 
 public class ClassFilenameFilter implements FilenameFilter {
 
-    protected static final String[] IGNORED_PACKAGES = { }; // Potentially ignore for performance... "com.sun", "java", "javassist", "javax", "sun" };
+	// Potentially ignore for performance... "com.sun", "java", "javassist", "javax", "sun" };
+    protected static final String[] IGNORED_PACKAGES = { }; 
 	
 	public boolean accept(java.io.File dir, String filename) {
 

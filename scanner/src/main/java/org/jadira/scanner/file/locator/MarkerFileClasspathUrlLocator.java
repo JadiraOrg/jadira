@@ -57,8 +57,11 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
 	                String deploymentArchiveRoot = determineClasspathRootForResource(nextPath, nextResourceMatchedUrl);
 	                
                     File fp = new File(deploymentArchiveRoot);
-                    if (!fp.exists())
+                    
+                    if (!fp.exists()) {
                         throw new RuntimeException("File unexpectedly does not exist: " + fp);
+                    }
+                    
                     try {
                         list.add(fp.toURI().toURL());
                     } catch (MalformedURLException e) {

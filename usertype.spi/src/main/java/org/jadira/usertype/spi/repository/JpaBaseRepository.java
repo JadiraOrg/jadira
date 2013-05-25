@@ -66,12 +66,12 @@ public abstract class JpaBaseRepository<T extends Serializable, ID extends Seria
 		if (extractId(entity) == null) {
 			getEntityManager().persist(entity);
 		}
-		// Do nothing - an attached entity will be persisted on synchronisation
-		else if (getEntityManager().contains(entity)) {
-		}
-		// This is the case of an unattached, but persisted entity
-		// In this case we perform a merge to re-attach and persist it
-		else {
+	
+		else if (!getEntityManager().contains(entity)) {
+			// In the case of an attached entity, we do nothing (it
+			// will be persisted automatically on synchronisation)
+			// But... in the case of an unattached, but persisted entity
+			// we perform a merge to re-attach and persist it
 			entity = getEntityManager().merge(entity);
 		}
 

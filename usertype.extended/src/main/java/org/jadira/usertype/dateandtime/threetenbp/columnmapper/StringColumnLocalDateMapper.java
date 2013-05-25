@@ -25,7 +25,7 @@ public class StringColumnLocalDateMapper extends AbstractStringColumnMapper<Loca
 
     @Override
     public LocalDate fromNonNullValue(String s) {
-        return LocalDate.parse(s.toString());
+        return LocalDate.parse(s);
     }
 
     @Override

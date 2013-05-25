@@ -6,7 +6,7 @@ package org.jadira.usertype.spi.shared;
  */
 public interface DatabaseZoneConfigured<T> {
 
-	public void setDatabaseZone(T databaseZone);
+	void setDatabaseZone(T databaseZone);
 
-	public T parseZone(String zoneString);
+	T parseZone(String zoneString);
 }

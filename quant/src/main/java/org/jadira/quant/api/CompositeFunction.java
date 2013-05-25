@@ -32,5 +32,5 @@ public interface CompositeFunction<R extends Number, T extends QuantitativeFunct
 	 * @param value the input value
 	 * @return the result of the function
 	 */
-	public R apply(T value);
+	R apply(T value);
 }

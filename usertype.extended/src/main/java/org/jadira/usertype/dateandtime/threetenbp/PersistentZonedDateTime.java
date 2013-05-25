@@ -16,7 +16,6 @@
 package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimestampColumnZonedDateTimeMapper;
@@ -32,7 +31,7 @@ import org.threeten.bp.ZonedDateTime;
  * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link TimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#forID(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'

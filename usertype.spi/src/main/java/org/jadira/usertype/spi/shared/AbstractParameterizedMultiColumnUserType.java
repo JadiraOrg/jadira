@@ -22,10 +22,10 @@ public abstract class AbstractParameterizedMultiColumnUserType<T> extends Abstra
 
 	@Override
 	public void applyConfiguration(SessionFactory sessionFactory) {
-		doApplyConfiguration(sessionFactory);
+		doApplyConfiguration();
     }
     
-	private <Z> void doApplyConfiguration(SessionFactory sessionFactory) {
+	private <Z> void doApplyConfiguration() {
     	
 		if (DatabaseZoneConfigured.class.isAssignableFrom(this.getClass())) {
 			

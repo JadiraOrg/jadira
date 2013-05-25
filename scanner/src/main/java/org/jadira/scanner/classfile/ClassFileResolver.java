@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.List;
 
 import javassist.bytecode.ClassFile;
-import jsr166y.ForkJoinPool;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -46,8 +45,6 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 
 	private static final Projector<File> CLASSPATH_PROJECTOR = new ClasspathProjector();
 	
-	public static ForkJoinPool FORKJOIN_TASK = new ForkJoinPool();
-
     private static final List<URL> JDK_BASE_CLASSPATH_JARS = new JdkBaseClasspathUrlLocator().locate();
 
 	private final ClassFileAssigner assigner = new ClassFileAssigner();

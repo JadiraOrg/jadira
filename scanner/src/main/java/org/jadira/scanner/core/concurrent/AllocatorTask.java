@@ -48,14 +48,26 @@ public class AllocatorTask<T,A> extends RecursiveTask<List<T>> {
 			T myResult = allocator.allocate(inputs.get(computeIndex));
 			resultList.add(myResult);
 			computeIndex = computeIndex - 1;
-		} while (((getForkInterval() == -1) && computeIndex >= 0)
-				|| (computeIndex == 0)
-				|| (computeIndex % getForkInterval() != 0 && computeIndex >= 0));
+		} while (indexMatchesThisThread(computeIndex));
 		
 		if (at != null) {
 			resultList.addAll(at.join());
 		} 
 		return resultList;
+	}
+	
+	private boolean indexMatchesThisThread(int computeIndex) {
+		
+		if (getForkInterval() == -1 && computeIndex >= 0) {
+			return true;
+		}
+		if (computeIndex == 0) {
+			return true;
+		}
+		if (computeIndex % getForkInterval() != 0 && computeIndex >= 0) {
+			return true;
+		}
+		return false;
 	}
 
 	public static int getForkInterval() {

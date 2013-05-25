@@ -85,12 +85,9 @@ public abstract class WrappedCheckedException extends Exception {
 		Throwable rootCause = null;
 		Throwable nextCause = getCause();
 		
-		while (nextCause != rootCause) {
+		while (nextCause != null && !nextCause.equals(rootCause)) {
 			rootCause = nextCause;
 			nextCause = nextCause.getCause();
-			if (nextCause == null) {
-				break;
-			}
 		}
 		
 		return rootCause;

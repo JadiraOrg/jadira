@@ -30,11 +30,14 @@ public abstract class AbstractUserType implements Serializable {
     }
 
     public boolean equals(Object x, Object y) throws HibernateException {
-        if (x == y) {
-            return true;
-        }
+    	if ((x == null) && (y == null)) {
+    		return true;
+    	}
         if ((x == null) || (y == null)) {
             return false;
+        }
+    	if (x.equals(y)) {
+            return true;
         }
         return x.equals(y);
     }

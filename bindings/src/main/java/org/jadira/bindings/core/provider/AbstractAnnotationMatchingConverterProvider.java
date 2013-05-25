@@ -51,12 +51,7 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 		while (loopCls != Object.class) {
 			Method[] methods = loopCls.getDeclaredMethods();
 			for (Method method : methods) {
-				if (Modifier.isPublic(method.getModifiers())
-						&& !(method.getReturnType().equals(Void.TYPE))
-						&& isToMatch(method)
-						&& ((Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1)
-								|| (!Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 0))					
-						) {
+				if (signatureIndicatesToMethodCandidate(method)) {
 					T toMethodAnnotation = method.getAnnotation(toAnnotation);
 					if (toMethodAnnotation != null) {
 						List<Class<? extends Annotation>> qualifiers = determineQualifiers(toMethodAnnotation, method.getAnnotations());
@@ -85,6 +80,25 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 		return matchedMethods;
 	}
 
+	private boolean signatureIndicatesToMethodCandidate(Method method) {
+		
+		if (!Modifier.isPublic(method.getModifiers())) {
+			return false;
+		}
+		if (method.getReturnType().equals(Void.TYPE)) {
+			return false;
+		}
+		if (!isToMatch(method)) {
+			return false;
+		}
+		if ((!(Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1))
+			&&
+			(!(!Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 0))) {
+			return false;
+		}
+		return true;
+	}
+
 	public <I,O> Map<ConverterKey<?,?>, Constructor<O>> matchFromConstructors(Class<O> cls) {
 
 		Map<ConverterKey<?, ?>, Constructor<O>> matchedConstructors = new HashMap<ConverterKey<?, ?>, Constructor<O>>();
@@ -102,10 +116,7 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 			Constructor<O>[] constructors = (Constructor<O>[])loopCls.getDeclaredConstructors();
 			
 			for (Constructor<O> constructor : constructors) {
-				if (Modifier.isPublic(constructor.getModifiers())
-						&& constructor.getParameterTypes().length == 1
-						&& isFromMatch(constructor)
-						) {
+				if (signatureIndicatesFromConstructorCandidate(constructor)) {
 					F fromConstructorAnnotation = constructor.getAnnotation(fromAnnotation);
 					if (fromConstructorAnnotation != null) {
 						List<Class<? extends Annotation>> qualifiers = determineQualifiers(fromConstructorAnnotation, constructor.getAnnotations());
@@ -121,6 +132,20 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 			loopCls = loopCls.getSuperclass();
 		}
 		return matchedConstructors;
+	}
+	
+	private boolean signatureIndicatesFromConstructorCandidate(Constructor<?> constructor) {
+		
+		if (!Modifier.isPublic(constructor.getModifiers())) {
+			return false;
+		}
+		if (!(constructor.getParameterTypes().length == 1)) {
+			return false;
+		}
+		if (!isFromMatch(constructor)) {
+			return false;
+		}
+		return true;
 	}
 
 	public <I,O> Map<ConverterKey<?,?>, Method> matchFromMethods(Class<?> cls) {

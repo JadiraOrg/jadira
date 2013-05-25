@@ -23,6 +23,9 @@ import java.util.Arrays;
 
 public class ReflectionUtils {
 
+	private ReflectionUtils() {
+	}
+	
 	private static final ReflectPermission SUPPRESS_ACCESS_CHECKS = new ReflectPermission("suppressAccessChecks");
 	
 	public static boolean isPrivateAccessAllowed() {

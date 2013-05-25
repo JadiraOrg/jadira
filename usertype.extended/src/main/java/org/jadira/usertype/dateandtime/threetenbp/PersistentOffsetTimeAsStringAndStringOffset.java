@@ -31,9 +31,9 @@ public class PersistentOffsetTimeAsStringAndStringOffset extends AbstractMultiCo
 
     private static final long serialVersionUID = 1364221029392346011L;
 
-    private static final ColumnMapper<?, ?>[] columnMappers = new ColumnMapper<?, ?>[] { new StringColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnLocalTimeMapper(), new StringColumnZoneOffsetMapper() };
 
-    private static final String[] propertyNames = new String[]{ "time", "offset" };
+    private static final String[] PROPERTY_NAMES = new String[]{ "time", "offset" };
 
     @Override
     protected OffsetTime fromConvertedColumns(Object[] convertedColumns) {
@@ -47,7 +47,7 @@ public class PersistentOffsetTimeAsStringAndStringOffset extends AbstractMultiCo
 
     @Override
     protected ColumnMapper<?, ?>[] getColumnMappers() {
-        return columnMappers;
+        return COLUMN_MAPPERS;
     }
 
     @Override
@@ -58,6 +58,6 @@ public class PersistentOffsetTimeAsStringAndStringOffset extends AbstractMultiCo
 
     @Override
     public String[] getPropertyNames() {
-        return propertyNames;
+        return PROPERTY_NAMES;
     }
 }

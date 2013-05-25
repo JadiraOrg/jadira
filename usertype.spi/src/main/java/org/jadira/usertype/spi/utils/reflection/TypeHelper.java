@@ -30,6 +30,9 @@ import java.util.Map;
  */
 public class TypeHelper {
 
+	private TypeHelper() {
+	}
+	
     /**
      * Get the underlying class for a type, or null if the type is a variable type.
      * @param type the type
