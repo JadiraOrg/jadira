@@ -25,7 +25,7 @@ import javassist.bytecode.MethodInfo;
 
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
-public class JavassistMethodInfoHelper {
+public final class JavassistMethodInfoHelper {
 
 	private JavassistMethodInfoHelper() {
 	}

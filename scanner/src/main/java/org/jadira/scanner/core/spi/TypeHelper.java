@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Originally based on http://www.artima.com/weblogs/viewpost.jsp?thread=208860
  */
-public class TypeHelper {
+public final class TypeHelper {
 
 	private TypeHelper() {
 	}

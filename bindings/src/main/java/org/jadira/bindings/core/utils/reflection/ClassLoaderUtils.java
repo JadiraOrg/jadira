@@ -20,7 +20,7 @@ import org.jadira.bindings.core.jdk.ClassStringBinding;
 /**
  * Utility methods related to {@link ClassLoader} resolution and the like
  */
-public class ClassLoaderUtils {
+public final class ClassLoaderUtils {
 
     private ClassLoaderUtils() {
     }

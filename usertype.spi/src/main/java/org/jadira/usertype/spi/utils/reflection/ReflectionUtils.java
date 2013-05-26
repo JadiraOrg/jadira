@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ReflectPermission;
 import java.util.Arrays;
 
-public class ReflectionUtils {
+public final class ReflectionUtils {
 
 	private ReflectionUtils() {
 	}

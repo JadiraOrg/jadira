@@ -32,7 +32,7 @@ import de.schlichtherle.truezip.file.TFileInputStream;
 import de.schlichtherle.truezip.file.TVFS;
 import de.schlichtherle.truezip.fs.FsSyncException;
 
-public class FileUtils {
+public final class FileUtils {
 
     private static final WeakHashMap<String, TFile> FILE_CACHE = new WeakHashMap<String, TFile>();
 	

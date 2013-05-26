@@ -18,7 +18,7 @@ package org.jadira.bindings.core.utils.string;
 /**
  * Utility methods for working with Strings
  */
-public class StringUtils {
+public final class StringUtils {
 
     private StringUtils() {
     }

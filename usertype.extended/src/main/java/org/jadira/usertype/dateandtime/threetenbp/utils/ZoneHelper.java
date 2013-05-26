@@ -19,7 +19,7 @@ import org.threeten.bp.ZoneId;
 
 import org.threeten.bp.ZoneOffset;
 
-public class ZoneHelper {
+public final class ZoneHelper {
 
     private ZoneHelper() {
     }

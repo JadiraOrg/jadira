@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda.util;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class Formatter {
+public final class Formatter {
 
     private Formatter() {
     }

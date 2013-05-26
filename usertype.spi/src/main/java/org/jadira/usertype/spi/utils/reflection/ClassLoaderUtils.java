@@ -18,7 +18,7 @@ package org.jadira.usertype.spi.utils.reflection;
 /**
  * Utility methods related to {@link ClassLoader} resolution and the like
  */
-public class ClassLoaderUtils {
+public final class ClassLoaderUtils {
 
     private ClassLoaderUtils() {
     }

@@ -21,7 +21,7 @@ import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 
-public class ConfigurationHelper {
+public final class ConfigurationHelper {
 
 	private static ThreadLocal<SessionFactory> currentSessionFactory = new ThreadLocal<SessionFactory>();
 	

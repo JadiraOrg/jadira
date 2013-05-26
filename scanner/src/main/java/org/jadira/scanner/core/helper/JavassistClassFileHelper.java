@@ -23,7 +23,7 @@ import java.util.WeakHashMap;
 
 import javassist.bytecode.ClassFile;
 
-public class JavassistClassFileHelper {
+public final class JavassistClassFileHelper {
 
 	private static final WeakHashMap<String, ClassFile> CLASSFILES_BY_NAME = new WeakHashMap<String, ClassFile>(1024, 0.6f);
 	private static final WeakHashMap<String, ClassFile> CLASSFILES_BY_FILE = new WeakHashMap<String, ClassFile>(1024, 0.6f);

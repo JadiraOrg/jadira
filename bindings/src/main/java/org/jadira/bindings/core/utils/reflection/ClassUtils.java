@@ -24,7 +24,7 @@ import org.jadira.bindings.core.utils.string.StringUtils;
  * Holds utility methods for obtaining a class from a symbolic representation
  * The result of {@link #determineQualifiedName(String)} is equivalent in format to the result of {@link Class#getName()}
  */
-public class ClassUtils {
+public final class ClassUtils {
 
     public static final char PACKAGE_SEPARATOR_CHARACTER = '.';
     public static final char INNER_CLASS_SEPARATOR_CHAR = '$';

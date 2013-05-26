@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda.util;
 
 import org.joda.time.DateTimeZone;
 
-public class ZoneHelper {
+public final class ZoneHelper {
 
     private ZoneHelper() {
     }

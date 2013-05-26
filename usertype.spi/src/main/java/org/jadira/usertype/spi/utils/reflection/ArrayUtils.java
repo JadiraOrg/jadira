@@ -21,7 +21,7 @@ import java.lang.reflect.Array;
  * Utility methods for manipulating arrays
  * @author Chris Pheby
  */
-public class ArrayUtils {
+public final class ArrayUtils {
 
     private ArrayUtils() {
     }
