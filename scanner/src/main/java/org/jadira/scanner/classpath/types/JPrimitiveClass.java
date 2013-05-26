@@ -48,7 +48,7 @@ public class JPrimitiveClass extends JClass {
         return new JPrimitiveClass(clazz, resolver);
     }
 
-	protected static ClassFile findClassFile(final String name, ClasspathResolver resolver) throws ClasspathAccessException {
+	protected static final ClassFile findClassFile(final String name, ClasspathResolver resolver) throws ClasspathAccessException {
 
 		if (("boolean").equals(name)) {
 			return JClass.findClassFile("java.lang.Boolean", resolver);

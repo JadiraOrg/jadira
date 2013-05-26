@@ -173,14 +173,14 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	/**
 	 *  Initialise the instance with built in extended binders
 	 */
-	private void initExtendedBinders() {
+	private final void initExtendedBinders() {
 		extendedBinders.put(StringBinder.class, this);
 	}
     
     /**
      * Initialises standard bindings for Java built in types
      */
-    private void initJdkBindings() {
+    private final void initJdkBindings() {
         
         registerBinding(AtomicBoolean.class, String.class, new AtomicBooleanStringBinding());
         registerBinding(AtomicInteger.class, String.class, new AtomicIntegerStringBinding());
@@ -217,7 +217,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
      * Initialises bindings registered with the framework included bindings.xml
      * This includes the built in support for converters for annotation processing and Joda Convert annotations.
      */
-    private void initBuiltInBindings() {
+    private final void initBuiltInBindings() {
 
         final URL builtInBindingsUrl = getBuiltInBindingsURL();
         registerConfiguration(builtInBindingsUrl);
@@ -244,7 +244,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
     /**
      * Initialises any bindings bundled with other (third-party / user) jars
      */
-    private void initRegisteredBindings() {
+    private final void initRegisteredBindings() {
         
         Enumeration<URL> bindingsConfiguration;
         try {

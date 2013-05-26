@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.jadira.scanner.core.api.Locator;
+import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 /**
  * Uses the java.class.path system property to obtain a list of URLs that represent the
@@ -43,7 +44,7 @@ public class JavaClasspathUrlLocator implements Locator<URL> {
             
             File fp = new File(path);
             if (!fp.exists()) {
-                throw new RuntimeException("File in java.class.path does not exist: " + fp);
+                throw new ClasspathAccessException("File in java.class.path does not exist: " + fp);
             }
             
             try {

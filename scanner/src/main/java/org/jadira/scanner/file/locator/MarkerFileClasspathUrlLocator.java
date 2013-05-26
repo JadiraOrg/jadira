@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jadira.scanner.core.api.Locator;
+import org.jadira.scanner.core.exception.FileAccessException;
 import org.jadira.scanner.core.utils.lang.IterableEnumeration;
 import org.jadira.scanner.core.utils.reflection.ClassLoaderUtils;
 
@@ -59,18 +60,18 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
                     File fp = new File(deploymentArchiveRoot);
                     
                     if (!fp.exists()) {
-                        throw new RuntimeException("File unexpectedly does not exist: " + fp);
+                        throw new FileAccessException("File unexpectedly does not exist: " + fp);
                     }
                     
                     try {
                         list.add(fp.toURI().toURL());
                     } catch (MalformedURLException e) {
-                    	throw new RuntimeException("Filepath unexpectedly malformed: " + fp.getPath(), e);
+                    	throw new FileAccessException("Filepath unexpectedly malformed: " + fp.getPath(), e);
                     }
 	            }
         	}
         } catch (IOException e) {
-        	throw new RuntimeException("Problem resolving deployment archives: " + e.getMessage(), e);
+        	throw new FileAccessException("Problem resolving deployment archives: " + e.getMessage(), e);
         }
 		
         return list;
@@ -83,7 +84,7 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
             nextResourceMatchedPathName = URLDecoder.decode(nextResourceMatchedPathName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // Never thrown for UTF-8
-            throw new RuntimeException("Exception thrown for Encoding when not expected: " + e.getMessage(), e);
+            throw new FileAccessException("Exception thrown for Encoding when not expected: " + e.getMessage(), e);
         }
 
         // Reformat file urls to remove file: prefix

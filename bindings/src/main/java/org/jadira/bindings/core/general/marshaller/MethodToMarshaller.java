@@ -20,6 +20,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
+import org.jadira.bindings.core.api.BindingException;
 import org.jadira.bindings.core.api.ToMarshaller;
 
 /**
@@ -102,7 +103,7 @@ public class MethodToMarshaller<S, T> implements ToMarshaller<S, T> {
         	if (ex.getCause() instanceof RuntimeException) {
                 throw (RuntimeException) ex.getCause();
             }
-            throw new RuntimeException(ex.getMessage(), ex.getCause());
+            throw new BindingException(ex.getMessage(), ex.getCause());
         }
     }
    

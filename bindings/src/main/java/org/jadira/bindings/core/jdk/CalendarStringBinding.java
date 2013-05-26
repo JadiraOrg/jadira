@@ -22,6 +22,7 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 import org.jadira.bindings.core.api.Binding;
+import org.jadira.bindings.core.api.BindingException;
 
 /**
  * Binds a Calendar to a String
@@ -57,7 +58,7 @@ public class CalendarStringBinding extends AbstractStringBinding<Calendar> imple
             DATE_FORMAT.get().parseObject(parseableDateString);
             return DATE_FORMAT.get().getCalendar();
         } catch (ParseException ex) {
-            throw new RuntimeException(ex);
+            throw new BindingException(ex.getMessage(), ex);
         }
     }
 

@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.servlet.ServletContext;
 
 import org.jadira.scanner.core.api.Locator;
+import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 /**
  * Utilities for resolving urls against the classpath of a Web Archive
@@ -46,7 +47,7 @@ public class WebappClasspathUrlLocator implements Locator<URL> {
             try {
                 list.add(servletContext.getResource(jar));
             } catch (MalformedURLException e) {
-                throw new RuntimeException(e);
+                throw new ClasspathAccessException(e);
             }
         }
         list.add(findWebInfClassesPath(servletContext));
@@ -72,7 +73,7 @@ public class WebappClasspathUrlLocator implements Locator<URL> {
         try {
             return fp.toURI().toURL();
         } catch (MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new ClasspathAccessException(e);
         }
     }
 }

@@ -19,6 +19,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import org.jadira.bindings.core.api.BindingException;
 import org.jadira.bindings.core.api.FromUnmarshaller;
 
 /**
@@ -80,7 +81,7 @@ public final class ConstructorFromUnmarshaller<S, T> implements FromUnmarshaller
             if (ex.getCause() instanceof RuntimeException) {
                 throw (RuntimeException) ex.getCause();
             }
-            throw new RuntimeException(ex.getMessage(), ex.getCause());
+            throw new BindingException(ex.getMessage(), ex.getCause());
         }
     }
     

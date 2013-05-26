@@ -46,7 +46,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     	initialise();
     }
 
-    protected void initialise() {
+    protected final void initialise() {
     	
         initialiseSqlTypes();
         initialiseHibernateTypes();
