@@ -33,11 +33,7 @@ public class StringConverterProvider extends AbstractAnnotationMatchingConverter
 	 * @return True if match
 	 */
 	protected boolean isToMatch(Method method) {
-		if (String.class.equals(method.getReturnType())) {
-			return true;
-		} else {
-			return false;
-		}
+		return String.class.equals(method.getReturnType());
 	}
 
 	/**
@@ -46,11 +42,7 @@ public class StringConverterProvider extends AbstractAnnotationMatchingConverter
 	 * @return True if match
 	 */
 	protected boolean isFromMatch(Constructor<?> constructor) {
-		if (String.class.equals(constructor.getParameterTypes()[0])) {
-			return true;
-		} else {
-			return false;
-		}
+		return String.class.equals(constructor.getParameterTypes()[0]);
 	}
 
 	/**
@@ -59,10 +51,6 @@ public class StringConverterProvider extends AbstractAnnotationMatchingConverter
 	 * @return True if match
 	 */
 	protected boolean isFromMatch(Method method) {
-		if (String.class.equals(method.getParameterTypes()[0])) {
-			return true;
-		} else {
-			return false;
-		}
+		return String.class.equals(method.getParameterTypes()[0]);
 	}
 }

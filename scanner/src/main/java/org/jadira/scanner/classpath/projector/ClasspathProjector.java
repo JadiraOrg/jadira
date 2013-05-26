@@ -17,11 +17,7 @@ public class ClasspathProjector implements Projector<File> {
 			
 			@Override
 			public boolean accept(File file) {
-				if (file.isDirectory()) {
-					return true;
-				} else {
-					return false;
-				}
+				return file.isDirectory();
 			}
 		});
 		
@@ -34,11 +30,7 @@ public class ClasspathProjector implements Projector<File> {
 			
 			@Override
 			public boolean accept(File file) {
-				if (!file.isDirectory() && file.getName().endsWith(".class")) {
-					return true;
-				} else {
-					return false;
-				}
+				return !file.isDirectory() && file.getName().endsWith(".class");
 			}
 		});
 		files.addAll(Arrays.asList(classes));

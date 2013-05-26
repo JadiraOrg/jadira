@@ -182,10 +182,8 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 			boolean[] settable, SessionImplementor session)
 			throws HibernateException, SQLException {
 
-		if (value != null) {
-			value = columnMapper.fromNonNullValue((J) value);
-		}
-		columnMapper.getHibernateType().nullSafeSet(st, value, index, settable, session);		
+		final Object param = value == null ? null : columnMapper.fromNonNullValue((J) value);
+		columnMapper.getHibernateType().nullSafeSet(st, param, index, settable, session);		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -193,10 +191,8 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	public void nullSafeSet(PreparedStatement st, Object value, int index,
 			SessionImplementor session) throws HibernateException, SQLException {
 		
-		if (value != null) {
-			value = columnMapper.toNonNullValue((T) value);
-		}
-		columnMapper.getHibernateType().nullSafeSet(st, value, index, session);
+		final Object param = value == null ? null : columnMapper.toNonNullValue((T) value);		
+		columnMapper.getHibernateType().nullSafeSet(st, param, index, session);
 	}
 
 	@Deprecated
@@ -344,9 +340,6 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	public void set(PreparedStatement st, Object value, int index,
 			SessionImplementor session) throws HibernateException, SQLException {
 		
-		if (value != null) {
-			value = columnMapper.toNonNullValue((T) value);
-		}
-		columnMapper.getHibernateType().nullSafeSet(st, value, index, session);	}
-
+		final Object param = value == null ? null : columnMapper.toNonNullValue((T) value);
+		columnMapper.getHibernateType().nullSafeSet(st, param, index, session);	}
 }

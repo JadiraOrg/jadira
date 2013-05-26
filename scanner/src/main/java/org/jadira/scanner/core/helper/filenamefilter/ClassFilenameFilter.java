@@ -28,12 +28,8 @@ public class ClassFilenameFilter implements FilenameFilter {
 			filename = filename.substring(1);
 		}
 		if (filename.endsWith(".class") && !ignorePackage(filename.replace('/', '.'))) {
-			if (filename.contains("$")) {
-				// Skip inner classes
-				return false;
-			} else {
-				return true;
-			}
+			// Skip inner classes
+			return !filename.contains("$");
 		}
 		return false;
 	}
