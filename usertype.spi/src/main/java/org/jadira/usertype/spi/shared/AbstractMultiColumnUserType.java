@@ -21,6 +21,8 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
@@ -36,47 +38,58 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     private Type[] hibernateTypes;
 
-//    private String[] defaultPropertyNames;
+    /* DefaultPropertyNames is currently not being used */
+    private String[] defaultPropertyNames;
 
 	public AbstractMultiColumnUserType() {
 
     	initialise();
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected void initialise() {
     	
-        sqlTypes = new int[getColumnMappers().length];
-        for (int i = 0; i < sqlTypes.length; i++) {
-            sqlTypes[i] = getColumnMappers()[i].getSqlType();
-        }
+        initialiseSqlTypes();
+        initialiseHibernateTypes();
+        initialiseDefaultPropertyNames();
+	}
 
-        hibernateTypes = new Type[getColumnMappers().length];
+	private void initialiseDefaultPropertyNames() {
+		Map<String, Integer> nameCount = new HashMap<String, Integer>();
+
+        defaultPropertyNames = new String[getColumnMappers().length];
+        for (int i = 0; i < defaultPropertyNames.length; i++) {
+            String className = hibernateTypes[i].getClass().getSimpleName();
+            if (className.endsWith("Type")) {
+                className = className.substring(0, className.length() - 4);
+            }
+
+            String name = className.toLowerCase();
+            final Integer count;
+            if (nameCount.containsKey(name)) {
+                Integer oldCount = nameCount.get(name);
+                count = oldCount.intValue() + 1;
+                defaultPropertyNames[i] = name + count;
+            } else {
+                count = 1;
+                defaultPropertyNames[i] = name;
+            }
+            nameCount.put(name, count);
+        }
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private void initialiseHibernateTypes() {
+		hibernateTypes = new Type[getColumnMappers().length];
         for (int i = 0; i < hibernateTypes.length; i++) {
             hibernateTypes[i] = new ColumnMapperSingleColumnTypeAdapter(getColumnMappers()[i]);
         }
+	}
 
-//        Map<String, Integer> nameCount = new HashMap<String, Integer>();
-//
-//        defaultPropertyNames = new String[getColumnMappers().length];
-//        for (int i = 0; i < defaultPropertyNames.length; i++) {
-//            String className = hibernateTypes[i].getClass().getSimpleName();
-//            if (className.endsWith("Type")) {
-//                className = className.substring(0, className.length() - 4);
-//            }
-//
-//            String name = className.toLowerCase();
-//            final Integer count;
-//            if (nameCount.containsKey(name)) {
-//                Integer oldCount = nameCount.get(name);
-//                count = oldCount.intValue() + 1;
-//                defaultPropertyNames[i] = name + count;
-//            } else {
-//                count = 1;
-//                defaultPropertyNames[i] = name;
-//            }
-//            nameCount.put(name, count);
-//        }
+	private void initialiseSqlTypes() {
+		sqlTypes = new int[getColumnMappers().length];
+        for (int i = 0; i < sqlTypes.length; i++) {
+            sqlTypes[i] = getColumnMappers()[i].getSqlType();
+        }
 	}
 
 	public int[] sqlTypes() {

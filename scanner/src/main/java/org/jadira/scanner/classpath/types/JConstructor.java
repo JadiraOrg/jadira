@@ -82,7 +82,7 @@ public class JConstructor extends JOperation {
 		if (obj == this) {
 			return true;
 		}
-		if (obj.getClass() != getClass()) {
+		if (!(getClass().equals(obj.getClass()))) {
 			return false;
 		}
 		// JConstructor rhs = (JConstructor) obj;

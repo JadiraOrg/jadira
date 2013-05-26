@@ -32,9 +32,6 @@ public class StringColumnPeriodMapper extends AbstractStringColumnMapper<Period>
         return toString((Period) value);
     }
 
-    // Workaround defect in EA revision of JSR 310
-    // See https://jsr-310.dev.java.net/servlets/ReadMsg?list=dev&msgNo=2117
-
     /**
      * Returns a string representation of the amount of time.
      * @return the amount of time in ISO8601 string format
@@ -56,41 +53,6 @@ public class StringColumnPeriodMapper extends AbstractStringColumnMapper<Period>
             if (value.getDays() != 0) {
                 buf.append(value.getDays()).append('D');
             }
-//            if ((value.getHours() | value.getMinutes() | value.getSeconds()) != 0 || value.getNanos() != 0) {
-//                buf.append('T');
-//                if (value.getHours() != 0) {
-//                    buf.append(value.getHours()).append('H');
-//                }
-//                if (value.getMinutes() != 0) {
-//                    buf.append(value.getMinutes()).append('M');
-//                }
-//                if (value.getSeconds() != 0 || value.getNanos() != 0) {
-//                    if (value.getNanos() == 0) {
-//                        buf.append(value.getSeconds()).append('S');
-//                    } else {
-//                        long s = value.getSeconds() + (value.getNanos() / 1000000000);
-//                        long n = value.getNanos() % 1000000000;
-//                        if (s < 0 && n > 0) {
-//                            n -= 1000000000;
-//                            s++;
-//                        } else if (s > 0 && n < 0) {
-//                            n += 1000000000;
-//                            s--;
-//                        }
-//                        if (n < 0) {
-//                            n = -n;
-//                            if (s == 0) {
-//                                buf.append('-');
-//                            }
-//                        }
-//                        buf.append(s).append('.').append(String.format("%09d", n));
-//                        while (buf.charAt(buf.length() - 1) == '0') {
-//                            buf.setLength(buf.length() - 1);
-//                        }
-//                        buf.append('S');
-//                    }
-//                }
-//            }
             str = buf.toString();
         }
         return str;

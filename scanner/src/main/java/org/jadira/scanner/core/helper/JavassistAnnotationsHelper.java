@@ -29,7 +29,7 @@ import javassist.bytecode.ParameterAnnotationsAttribute;
 
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
-public class JavassistAnnotationsHelper {
+public final class JavassistAnnotationsHelper {
 
     private static final ClassPool CLASS_POOL = ClassPool.getDefault();
 	

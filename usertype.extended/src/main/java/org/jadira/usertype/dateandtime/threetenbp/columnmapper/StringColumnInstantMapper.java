@@ -17,8 +17,6 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
@@ -32,8 +30,7 @@ public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instan
 
     @Override
     public Instant fromNonNullValue(String s) {
-        // Instant.parse(s) is currently not implemented;
-        return LocalDateTime.parse(s, INSTANT_FORMATTER).atOffset(ZoneOffset.UTC).toInstant();
+    	return Instant.parse(s);
     }
 
     @Override
