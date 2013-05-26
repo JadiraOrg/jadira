@@ -191,10 +191,10 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 		if (method.getReturnType().equals(Void.TYPE)) {
 			return false;
 		}
-		if (!isFromMatch(method)) {
+		if (!(Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1)) {
 			return false;
 		}
-		if (!(Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1)) {
+		if (!isFromMatch(method)) {
 			return false;
 		}
 		return true;
