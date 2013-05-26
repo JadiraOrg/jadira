@@ -32,17 +32,19 @@ import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 public class TimestampColumnDateMapper extends AbstractVersionableTimestampColumnMapper<java.util.Date> implements DatabaseZoneConfigured<TimeZone> {
 
     private static final long serialVersionUID = -7670411089210984705L;
+
+	protected static final TimeZone GMT = TimeZone.getTimeZone("GMT");
     
     private static final ThreadLocal<SimpleDateFormat> DATETIME_FORMAT = new ThreadLocal<SimpleDateFormat>() {
     	@Override protected SimpleDateFormat initialValue() {
     		
     		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-    		format.setTimeZone(TimeZone.getTimeZone("GMT"));
+    		format.setTimeZone(GMT);
     		
     		return format;
     	}
     };
-    private TimeZone databaseZone = TimeZone.getTimeZone("GMT");
+    private TimeZone databaseZone = GMT;
 
     public TimestampColumnDateMapper() {
     }
@@ -63,7 +65,7 @@ public class TimestampColumnDateMapper extends AbstractVersionableTimestampColum
     	ParsePosition parsePosition = new ParsePosition(0);
     	
     	SimpleDateFormat format = DATETIME_FORMAT.get();
-    	format.setTimeZone(TimeZone.getTimeZone("GMT"));
+    	format.setTimeZone(GMT);
         date = format.parse(mainPart, parsePosition);
         
         if (date == null) {
@@ -128,7 +130,7 @@ public class TimestampColumnDateMapper extends AbstractVersionableTimestampColum
     @Override
     public String toNonNullString(java.util.Date value) {
 
-        TimeZone gmtZone = TimeZone.getTimeZone("GMT");
+        TimeZone gmtZone = GMT;
         
         final SimpleDateFormat sdf = DATETIME_FORMAT.get();
         sdf.setTimeZone(gmtZone);

@@ -94,9 +94,9 @@ public class ClassUtils {
      * @param readableClassName The name to convert
      * @return The JVM Qualified representation
      */
-    public static String determineQualifiedName(String readableClassName) {
+    public static String determineQualifiedName(String className) {
 
-        readableClassName = StringUtils.removeWhitespace(readableClassName);
+        String readableClassName = StringUtils.removeWhitespace(className);
         if (readableClassName == null) {
 
             throw new IllegalArgumentException("readableClassName must not be null.");
@@ -125,41 +125,41 @@ public class ClassUtils {
     
     /**
      * Given a JVM Qualified Name produce a readable classname
-     * @param qualifiedName The Qualified Name
+     * @param readableClassName The Qualified Name
      * @return The readable classname
      */
     public static String determineReadableClassName(String qualifiedName) {
 
-        qualifiedName = StringUtils.removeWhitespace(qualifiedName);
-        if (qualifiedName == null) {
+        String readableClassName = StringUtils.removeWhitespace(qualifiedName);
+        if (readableClassName == null) {
 
             throw new IllegalArgumentException("qualifiedName must not be null.");
-        } else if (qualifiedName.startsWith("[")) {
+        } else if (readableClassName.startsWith("[")) {
 
             StringBuilder classNameBuffer = new StringBuilder();
-            while (qualifiedName.startsWith("[")) {
+            while (readableClassName.startsWith("[")) {
                 classNameBuffer.append("[]");
-                qualifiedName = qualifiedName.substring(1);
+                readableClassName = readableClassName.substring(1);
             }
             
-            if (PRIMITIVE_MAPPING.containsValue(qualifiedName)) {
+            if (PRIMITIVE_MAPPING.containsValue(readableClassName)) {
                 
                 for (Map.Entry<String,String> next : PRIMITIVE_MAPPING.entrySet()) {
-                    if (next.getValue().equals(qualifiedName)) {
-                        qualifiedName = next.getKey() + classNameBuffer.toString();
+                    if (next.getValue().equals(readableClassName)) {
+                        readableClassName = next.getKey() + classNameBuffer.toString();
                         break;
                     }
                 }
                 
-            } else if (qualifiedName.startsWith("L") && qualifiedName.endsWith(";")) {
-                qualifiedName = qualifiedName.substring(1, qualifiedName.length() - 1) + classNameBuffer.toString();
+            } else if (readableClassName.startsWith("L") && readableClassName.endsWith(";")) {
+                readableClassName = readableClassName.substring(1, readableClassName.length() - 1) + classNameBuffer.toString();
             } else {
-                throw new IllegalArgumentException("qualifiedName was invalid {" + qualifiedName + "}");                
+                throw new IllegalArgumentException("qualifiedName was invalid {" + readableClassName + "}");                
             }
-        } else if (qualifiedName.endsWith("]")) {
-            throw new IllegalArgumentException("qualifiedName was invalid {" + qualifiedName + "}");
+        } else if (readableClassName.endsWith("]")) {
+            throw new IllegalArgumentException("qualifiedName was invalid {" + readableClassName + "}");
         }
         
-        return qualifiedName;
+        return readableClassName;
     }
 }

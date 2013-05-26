@@ -49,7 +49,9 @@ import org.xml.sax.SAXParseException;
  */
 public final class BindingXmlLoader {
 
-    private BindingXmlLoader() {
+    private static final String BINDINGS_NAMESPACE = "http://org.jadira.bindings/xml/ns/binding";
+
+	private BindingXmlLoader() {
     }
 
     /**
@@ -168,21 +170,21 @@ public final class BindingXmlLoader {
             if (Node.ELEMENT_NODE == next.getNodeType()) {
                 Element element = (Element) next;
 
-                if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+                if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
                         && "provider".equals(element.getLocalName())) {
 
                     Provider provider = parseProviderElement(element);
                     result.addProvider(provider);
                 }
 
-                if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+                if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
                         && "extension".equals(element.getLocalName())) {
 
                     Extension<?> extension = parseBinderExtensionElement(element);
                     result.addExtension(extension);
                 }
                 
-                if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+                if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
                         && "binding".equals(element.getLocalName())) {
 
                     BindingConfigurationEntry binding = parseBindingConfigurationEntryElement(element);
@@ -295,7 +297,7 @@ public final class BindingXmlLoader {
 	        for (Node next : new IterableNodeList(element.getChildNodes())) {
 	            if (Node.ELEMENT_NODE == next.getNodeType()) {
 	                Element childElement = (Element) next;
-	                if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+	                if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
 	                        && "toMethod".equals(element.getLocalName())) {
 	
 	                    String toMethodName = childElement.getTextContent();
@@ -320,7 +322,7 @@ public final class BindingXmlLoader {
 	                        }
 	                    }
 	
-	                } else if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+	                } else if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
 	                        && "fromMethod".equals(element.getLocalName())) {
 	
 	                    String fromMethodName = childElement.getTextContent();
@@ -335,7 +337,7 @@ public final class BindingXmlLoader {
 	                    	fromMethod = null;
 	                    }
 	
-	                } else if ("http://org.jadira.bindings/xml/ns/binding".equals(element.getNamespaceURI())
+	                } else if (BINDINGS_NAMESPACE.equals(element.getNamespaceURI())
 	                        && "fromConstructor".equals(element.getLocalName())) {
 	
 	                    try {

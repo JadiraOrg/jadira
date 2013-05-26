@@ -28,7 +28,7 @@ import org.jadira.bindings.core.api.Binding;
  */
 public class DateStringBinding extends AbstractStringBinding<Date> implements Binding<Date, String> {
 
-    private static final ThreadLocal<SimpleDateFormat> dateFormat = new ThreadLocal<SimpleDateFormat>() {
+    private static final ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
         @Override
         public SimpleDateFormat initialValue() {
             final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
@@ -49,7 +49,7 @@ public class DateStringBinding extends AbstractStringBinding<Date> implements Bi
         object = object.substring(0, 26) + object.substring(27);
 
         try {
-            return dateFormat.get().parse(object);
+            return DATE_FORMAT.get().parse(object);
         } catch (ParseException ex) {
             throw new IllegalArgumentException("Invalid date: " + object);
         }
@@ -61,7 +61,7 @@ public class DateStringBinding extends AbstractStringBinding<Date> implements Bi
     @Override
     public String marshal(Date object) {
 
-        String output = dateFormat.get().format(object);
+        String output = DATE_FORMAT.get().format(object);
         return output.substring(0, 26) + ":" + output.substring(26);
     }
 

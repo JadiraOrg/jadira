@@ -282,7 +282,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	                } catch (InstantiationException e) {
 	                    throw new IllegalStateException("Cannot instantiate binding provider class: " + nextProvider.getProviderClass().getName());
 	                } catch (IllegalAccessException e) {
-	                    throw new IllegalStateException("Cannot instantiate binding provider class: " + nextProvider.getProviderClass().getName());
+	                    throw new IllegalStateException("Cannot access binding provider class: " + nextProvider.getProviderClass().getName());
 	                }
                 }
                 
@@ -294,7 +294,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	                } catch (InstantiationException e) {
 	                    throw new IllegalStateException("Cannot instantiate binder extension class: " + nextExtension.getExtensionClass().getName());
 	                } catch (IllegalAccessException e) {
-	                    throw new IllegalStateException("Cannot instantiate binder extension class: " + nextExtension.getExtensionClass().getName());
+	                    throw new IllegalStateException("Cannot access binder extension class: " + nextExtension.getExtensionClass().getName());
 	                }
                 }
         
@@ -316,7 +316,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             } catch (InstantiationException e) {
                 throw new IllegalStateException("Cannot instantiate binding provider class: " + nextProvider.getProviderClass().getName());
             } catch (IllegalAccessException e) {
-                throw new IllegalStateException("Cannot instantiate binding provider class: " + nextProvider.getProviderClass().getName());
+                throw new IllegalStateException("Cannot access binding provider class: " + nextProvider.getProviderClass().getName());
             }
         }
         
@@ -400,7 +400,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             } catch (InstantiationException e) {
                 throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
             } catch (IllegalAccessException e) {
-                throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
+                throw new IllegalStateException("Cannot access binding class: " + theBinding.getBindingClass().getName());
             }
         } else if (FromUnmarshaller.class.isAssignableFrom(theBinding.getBindingClass())) {
         	
@@ -418,7 +418,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             } catch (InstantiationException e) {
                 throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
             } catch (IllegalAccessException e) {
-                throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
+                throw new IllegalStateException("Cannot access binding class: " + theBinding.getBindingClass().getName());
             }
 		} else if (ToMarshaller.class.isAssignableFrom(theBinding.getBindingClass())) {
         	
@@ -436,7 +436,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             } catch (InstantiationException e) {
                 throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
             } catch (IllegalAccessException e) {
-                throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
+                throw new IllegalStateException("Cannot access binding class: " + theBinding.getBindingClass().getName());
             }
 		} else if (Converter.class.isAssignableFrom(theBinding.getBindingClass())) {
         	
@@ -454,7 +454,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
             } catch (InstantiationException e) {
                 throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
             } catch (IllegalAccessException e) {
-                throw new IllegalStateException("Cannot instantiate binding class: " + theBinding.getBindingClass().getName());
+                throw new IllegalStateException("Cannot access binding class: " + theBinding.getBindingClass().getName());
             }
 		} else if (theBinding.getBindingClass() != null) {
 
@@ -683,10 +683,8 @@ public class BasicBinder implements Binder, RegisterableBinder {
         }
 
         Converter<?,?> old = registeredConverters.putIfAbsent(key, converter);
-        if (old != null) {
-        	if (!isSameConverter(old, converter)) {
-        		throw new IllegalStateException("Converter already registered for key: " + key);
-        	}
+        if (old != null && (!isSameConverter(old, converter))) {
+        	throw new IllegalStateException("Converter already registered for key: " + key);
         }
     }
 	

@@ -43,11 +43,6 @@ public class PersistentInterval extends AbstractParameterizedMultiColumnUserType
     private static final String[] PROPERTY_NAMES = new String[]{ "begin", "end" };
     
     @Override
-    protected void initialise() {
-    	super.initialise();
-    }
-    
-    @Override
     protected Interval fromConvertedColumns(Object[] convertedColumns) {
 
         DateTime begin = (DateTime) convertedColumns[0];

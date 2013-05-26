@@ -162,11 +162,8 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 		while (loopCls != Object.class) {
 			Method[] methods = loopCls.getDeclaredMethods();
 			for (Method method : methods) {
-				if (Modifier.isPublic(method.getModifiers())
-						&& !(method.getReturnType().equals(Void.TYPE))
-						&& (Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1)
-						&& isFromMatch(method)
-						) {
+				if (signatureIndicatesFromMethodCandidate(method)) {
+					
 					F fromMethodAnnotation = method.getAnnotation(fromAnnotation);
 					if (fromMethodAnnotation != null) {
 						List<Class<? extends Annotation>> qualifiers = determineQualifiers(fromMethodAnnotation, method.getAnnotations());
@@ -184,6 +181,23 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 			loopCls = loopCls.getSuperclass();
 		}
 		return matchedMethods;
+	}
+
+	private boolean signatureIndicatesFromMethodCandidate(Method method) {
+	
+		if (!Modifier.isPublic(method.getModifiers())) {
+			return false;
+		}
+		if (method.getReturnType().equals(Void.TYPE)) {
+			return false;
+		}
+		if (!isFromMatch(method)) {
+			return false;
+		}
+		if (!(Modifier.isStatic(method.getModifiers()) && method.getParameterTypes().length == 1)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**

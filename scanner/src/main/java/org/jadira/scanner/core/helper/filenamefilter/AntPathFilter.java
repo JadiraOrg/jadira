@@ -124,17 +124,18 @@ public class AntPathFilter implements FilenameFilter {
         return retVal;
     }
 
-    private Pattern convertAntPatternToRegex(String pattern) {
+    private Pattern convertAntPatternToRegex(String antPattern) {
 
-        if (pattern.endsWith(PATH_SEPARATOR)) {
-            pattern = pattern + "**";
+    	String regex = antPattern;
+        if (regex.endsWith(PATH_SEPARATOR)) {
+        	regex = regex + "**";
         }
 
-        pattern = Pattern.quote(pattern);
+        regex = Pattern.quote(regex);
 
-        pattern = pattern.replaceAll("[?]", "\\\\E[.^/]\\\\Q");
-        pattern = pattern.replaceAll("([^*]|^)[*]([^*]|$){1}", "$1\\\\E(?:[^/]*)\\\\Q$2");
-        pattern = pattern.replaceAll("[*]{2}", "\\\\E(?:.*)\\\\Q");
-        return Pattern.compile(pattern);
+        regex = regex.replaceAll("[?]", "\\\\E[.^/]\\\\Q");
+        regex = regex.replaceAll("([^*]|^)[*]([^*]|$){1}", "$1\\\\E(?:[^/]*)\\\\Q$2");
+        regex = regex.replaceAll("[*]{2}", "\\\\E(?:.*)\\\\Q");
+        return Pattern.compile(regex);
     }
 }

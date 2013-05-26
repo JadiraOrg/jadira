@@ -28,7 +28,7 @@ import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
 	private static UserType[] userTypes;
-	private static final CompositeUserType[] compositeUserTypes = new CompositeUserType[]{};
+	private static final CompositeUserType[] COMPOSITE_USER_TYPES = new CompositeUserType[]{};
 
 	static {
 		
@@ -51,7 +51,7 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 	 */
 	@Override
 	protected CompositeUserType[] getCompositeUserTypes() {
-		return compositeUserTypes;
+		return COMPOSITE_USER_TYPES;
 	}
 
 	/**

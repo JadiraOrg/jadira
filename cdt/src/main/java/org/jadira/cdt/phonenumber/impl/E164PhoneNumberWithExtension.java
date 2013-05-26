@@ -48,8 +48,10 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
 	private static final PhoneNumberUtil PHONE_NUMBER_UTIL = PhoneNumberUtil.getInstance();
     
     private static final String RFC3966_EXTN_PREFIX = ";ext=";
-    
+
     private Phonenumber.PhoneNumber number;
+
+	private static final String EX_PARSE_MSG_PREFIX = "Could not parse {";
     
     /**
      * Creates a instance from the given PhoneNumber
@@ -64,7 +66,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             this.number = PHONE_NUMBER_UTIL.parse(e164Builder.toString(), "GB");
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + prototype.getNationalNumber() +"}", e);
+                    EX_PARSE_MSG_PREFIX + prototype.getNationalNumber() +"}", e);
         }
     	
     	if (prototype.hasExtension()) {
@@ -98,7 +100,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             number = PHONE_NUMBER_UTIL.parse(e164PhoneNumber, "GB");
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + e164PhoneNumber +"}", e);
+                    EX_PARSE_MSG_PREFIX + e164PhoneNumber +"}", e);
         }
         
         if (extension != null) {
@@ -122,7 +124,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             number = PHONE_NUMBER_UTIL.parse(e164PhoneNumber, "GB");
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + e164PhoneNumber +"}", e);
+                    EX_PARSE_MSG_PREFIX + e164PhoneNumber +"}", e);
         }
         
         number.setExtension(extension);
@@ -140,7 +142,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             number = PHONE_NUMBER_UTIL.parse(phoneNumber, defaultCountryCode.toString());
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + phoneNumber + "} for country {" + defaultCountryCode +"}", e);
+                    EX_PARSE_MSG_PREFIX + phoneNumber + "} for country {" + defaultCountryCode +"}", e);
         }
     }
 
@@ -157,7 +159,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             number = PHONE_NUMBER_UTIL.parse(phoneNumber, defaultCountryCode.toString());
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + phoneNumber + "} for country {" + defaultCountryCode +"}", e);
+                    EX_PARSE_MSG_PREFIX + phoneNumber + "} for country {" + defaultCountryCode +"}", e);
         }
         if (extension != null) {
         	number.setExtension(extension);
@@ -230,7 +232,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
             copy = PHONE_NUMBER_UTIL.parse(e164Builder.toString(), "GB");
         } catch (NumberParseException e) {
             throw new PhoneNumberParseException(
-                    "Could not format {" + number.getNationalNumber() +"}", e);
+                    EX_PARSE_MSG_PREFIX + number.getNationalNumber() +"}", e);
         }
     	
     	if (number.hasExtension()) {
