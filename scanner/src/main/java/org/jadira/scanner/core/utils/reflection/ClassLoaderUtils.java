@@ -27,7 +27,7 @@ public final class ClassLoaderUtils {
      * Gets an appropriate {@link ClassLoader} for the current thread
      * @return
      */
-    public static final ClassLoader getClassLoader() {
+    public static ClassLoader getClassLoader() {
 
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
 
