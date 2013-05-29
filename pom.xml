@@ -40,13 +40,20 @@
 		<developer>
 			<id>chrisphe</id>
 			<name>Chris Pheby</name>
-			<email />
+			<!-- <email> -->
+			<url>https://twitter.com/chrisphe</url>
 			<roles>
+				<role>Architect</role>
 				<role>Developer</role>
 			</roles>
-			<timezone>0</timezone>
+			<timezone>+8</timezone>
 		</developer>
 	</developers>
+
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://jenkins.jadira.co.uk/</url>
+	</ciManagement>
 
 	<mailingLists>
 		<mailingList>
@@ -70,6 +77,10 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	
+	<prerequisites>
+	    <maven>3.0.5</maven>
+  	</prerequisites>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
