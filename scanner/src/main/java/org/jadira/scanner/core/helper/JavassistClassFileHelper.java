@@ -28,6 +28,8 @@ public final class JavassistClassFileHelper {
 	private static final WeakHashMap<String, ClassFile> CLASSFILES_BY_NAME = new WeakHashMap<String, ClassFile>(1024, 0.6f);
 	private static final WeakHashMap<String, ClassFile> CLASSFILES_BY_FILE = new WeakHashMap<String, ClassFile>(1024, 0.6f);
 	
+	private static final int MAXIMUM_SIZE = 2048;
+	
 	private JavassistClassFileHelper() {
 	}
 	
@@ -70,10 +72,10 @@ public final class JavassistClassFileHelper {
         }
         
         if (cf != null) {
-        	if (CLASSFILES_BY_NAME.size() < 2048) {
+        	if (CLASSFILES_BY_NAME.size() < MAXIMUM_SIZE) {
         		CLASSFILES_BY_NAME.put(cf.getName(), cf);
         	}
-        	if (CLASSFILES_BY_FILE.size() < 2048) {
+        	if (CLASSFILES_BY_FILE.size() < MAXIMUM_SIZE) {
         		CLASSFILES_BY_FILE.put(path, cf);
         	}
         }

@@ -42,6 +42,8 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
     public static final DateTimeFormatter LOCAL_TIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
     public static final DateTimeFormatter LOCAL_TIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
 
     private ZoneOffset javaZone = null;
@@ -66,7 +68,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
         OffsetDateTime dateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
         dateTime = dateTime.with(ChronoField.NANO_OF_SECOND, value.getNanos()).withOffsetSameInstant(currentJavaZone);
@@ -86,9 +88,9 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
     	OffsetDateTime odt = value.atDate(LocalDate.of(1970, 1, 1));
         
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(odt.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(odt.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp((odt.toEpochSecond() * 1000) - adjustment);
+        final Timestamp timestamp = new Timestamp((odt.toEpochSecond() * MILLIS_IN_SECOND) - adjustment);
         timestamp.setNanos(value.getNano());
         return timestamp;
     }

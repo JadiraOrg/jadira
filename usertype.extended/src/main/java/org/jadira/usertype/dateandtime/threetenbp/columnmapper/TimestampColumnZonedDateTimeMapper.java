@@ -39,6 +39,8 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
 
     public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, false).toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
 
     private ZoneOffset javaZone = null;
@@ -62,7 +64,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
         ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
         dateTime = dateTime.with(ChronoField.NANO_OF_SECOND, value.getNanos()).withZoneSameInstant(currentJavaZone);
@@ -79,9 +81,9 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
     public Timestamp toNonNullValue(ZonedDateTime value) {
 
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(value.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(value.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp((value.toEpochSecond() * 1000) - adjustment);
+        final Timestamp timestamp = new Timestamp((value.toEpochSecond() * MILLIS_IN_SECOND) - adjustment);
         timestamp.setNanos(value.getNano());
         return timestamp;    	
     }

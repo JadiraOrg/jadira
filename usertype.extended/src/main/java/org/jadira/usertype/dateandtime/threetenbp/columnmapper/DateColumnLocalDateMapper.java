@@ -34,6 +34,8 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
     /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
     private ZoneOffset databaseZone = null;
     
@@ -58,7 +60,7 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
 		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
-		int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+		int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
@@ -81,7 +83,7 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
     	ZonedDateTime zonedValue = value.atStartOfDay(currentDatabaseZone);
         
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * 1000) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
     	
         final Date date = new Date(zonedValue.toEpochSecond() - adjustment);
         return date;

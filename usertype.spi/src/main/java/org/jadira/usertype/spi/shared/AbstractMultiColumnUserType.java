@@ -173,10 +173,9 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     }
 
     @Override
-    public abstract String[] getPropertyNames();
-//    public String[] getPropertyNames() {
-//        return defaultPropertyNames;
-//    }
+    public String[] getPropertyNames() {
+        return defaultPropertyNames;
+    }
 
     @Override
     public Type[] getPropertyTypes() {

@@ -46,10 +46,10 @@ public class DateStringBinding extends AbstractStringBinding<Date> implements Bi
         if (object.length() != 29) {
             throw new IllegalArgumentException("Invalid date: " + object);
         }
-        object = object.substring(0, 26) + object.substring(27);
+        final String result = object.substring(0, 26) + object.substring(27);
 
         try {
-            return DATE_FORMAT.get().parse(object);
+            return DATE_FORMAT.get().parse(result);
         } catch (ParseException ex) {
             throw new IllegalArgumentException("Invalid date: " + object);
         }

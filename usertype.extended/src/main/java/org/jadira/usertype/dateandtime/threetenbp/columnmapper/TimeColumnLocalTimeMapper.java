@@ -37,6 +37,8 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
 	public TimeColumnLocalTimeMapper() {
 	}
 
@@ -54,7 +56,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     	
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
-    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         ZonedDateTime dateTime = Instant.ofEpochMilli(value.getTime() + adjustment).atZone(currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
@@ -76,7 +78,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     				1970, 1, 1, value.getHour(), value.getMinute(), value.getSecond(), value.getNano()
     			).atOffset(currentDatabaseZone);
     	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
     	
         final Time time = new Time(zonedValue.toInstant().toEpochMilli() - adjustment);
         return time;

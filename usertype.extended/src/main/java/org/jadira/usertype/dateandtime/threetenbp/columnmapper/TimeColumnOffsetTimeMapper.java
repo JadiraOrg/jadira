@@ -37,6 +37,8 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
     private ZoneOffset databaseZone = ZoneOffset.UTC;
 
     private ZoneOffset javaZone = null;
@@ -59,7 +61,7 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
-    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         OffsetDateTime dateTime = Instant.ofEpochMilli(value.getTime() + adjustment).atOffset(currentDatabaseZone);
         return dateTime.toOffsetTime().withOffsetSameInstant(javaZone);
@@ -75,9 +77,9 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
 
-        value = value.withOffsetSameInstant(currentDatabaseZone);
+        final OffsetTime adjustedValue = value.withOffsetSameInstant(currentDatabaseZone);
 
-        return Time.valueOf(LOCAL_TIME_FORMATTER.format(value));
+        return Time.valueOf(LOCAL_TIME_FORMATTER.format(adjustedValue));
     }
     
     private static ZoneOffset getDefault() {

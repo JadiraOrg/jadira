@@ -21,7 +21,9 @@ import org.threeten.bp.ZoneOffset;
 
 public final class ZoneHelper {
 
-    private ZoneHelper() {
+    private static final int MILLIS_IN_SECOND = 1000;
+
+	private ZoneHelper() {
     }
 
     public static ZoneOffset getDefaultZoneOffset() {
@@ -37,7 +39,7 @@ public final class ZoneHelper {
                 zone = null;
             }
             if (zone == null) {
-                zone = ZoneOffset.ofTotalSeconds(java.util.TimeZone.getDefault().getOffset(System.currentTimeMillis()) / 1000);
+                zone = ZoneOffset.ofTotalSeconds(java.util.TimeZone.getDefault().getOffset(System.currentTimeMillis()) / MILLIS_IN_SECOND);
             }
         } catch (RuntimeException ex) {
             zone = null;

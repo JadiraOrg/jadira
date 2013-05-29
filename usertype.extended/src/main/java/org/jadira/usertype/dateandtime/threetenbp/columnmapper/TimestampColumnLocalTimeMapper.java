@@ -37,6 +37,8 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
     private ZoneOffset databaseZone = ZoneOffset.of("Z");
 
 	public TimestampColumnLocalTimeMapper() {
@@ -56,7 +58,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     	
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
         instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
@@ -79,7 +81,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     	
     	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
-        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli() - adjustment);
         timestamp.setNanos(value.getNano());

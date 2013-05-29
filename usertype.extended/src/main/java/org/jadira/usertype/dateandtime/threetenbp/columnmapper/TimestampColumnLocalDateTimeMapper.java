@@ -36,6 +36,8 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();
 
+	private static final int MILLIS_IN_SECOND = 1000;
+
 	public TimestampColumnLocalDateTimeMapper() {
 	}
 
@@ -53,7 +55,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     	
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
         instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
@@ -72,7 +74,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
     	
     	ZonedDateTime zdt = value.atZone(currentDatabaseZone);
-        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * 1000);
+        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli() - adjustment);
         timestamp.setNanos(value.getNano());
