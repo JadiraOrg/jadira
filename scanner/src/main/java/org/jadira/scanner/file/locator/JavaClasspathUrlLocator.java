@@ -50,7 +50,7 @@ public class JavaClasspathUrlLocator implements Locator<URL> {
             try {
                 list.add(fp.toURI().toURL());
             } catch (MalformedURLException e) {
-            	throw new ClasspathAccessException("URL was invalid: " + fp.toURI().toString());
+            	throw new ClasspathAccessException("URL was invalid: " + fp.toURI().toString(), e);
             }
         }
         return list;

@@ -25,11 +25,11 @@ import org.jadira.scanner.core.exception.ClasspathAccessException;
 public class JPrimitiveClass extends JClass {
 
     protected JPrimitiveClass(String name, ClasspathResolver resolver) throws ClasspathAccessException {
-    	this(findClassFile(name, resolver), resolver);
+    	super(findClassFile(name, resolver), resolver);
     }
 
     protected JPrimitiveClass(Class<?> clazz, ClasspathResolver resolver) throws ClasspathAccessException {
-        this(findClassFile(clazz.getName(), resolver), resolver);
+    	super(findClassFile(clazz.getName(), resolver), resolver);
     }
 
     protected JPrimitiveClass(ClassFile classFile, ClasspathResolver resolver) {
@@ -50,21 +50,21 @@ public class JPrimitiveClass extends JClass {
 
 	protected static final ClassFile findClassFile(final String name, ClasspathResolver resolver) throws ClasspathAccessException {
 
-		if (("boolean").equals(name)) {
+		if ("boolean".equals(name)) {
 			return JClass.findClassFile("java.lang.Boolean", resolver);
-		} else if (("byte").equals(name)) {
+		} else if ("byte".equals(name)) {
 			return JClass.findClassFile("java.lang.Byte", resolver);
-		} else if (("char").equals(name)) {
+		} else if ("char".equals(name)) {
 			return JClass.findClassFile("java.lang.Character", resolver);
-		} else if (("short").equals(name)) {
+		} else if ("short".equals(name)) {
 			return JClass.findClassFile("java.lang.Short", resolver);
-		} else if (("int").equals(name)) {
+		} else if ("int".equals(name)) {
 			return JClass.findClassFile("java.lang.Integer", resolver);
-		} else if (("long").equals(name)) {
+		} else if ("long".equals(name)) {
 			return JClass.findClassFile("java.lang.Long", resolver);
-		} else if (("float").equals(name)) {
+		} else if ("float".equals(name)) {
 			return JClass.findClassFile("java.lang.Float", resolver);
-		} else if (("double").equals(name)) {
+		} else if ("double".equals(name)) {
 			return JClass.findClassFile("java.lang.Double", resolver);
 		} else {
 			throw new ClasspathAccessException("Not a valid primitive: " + name);
