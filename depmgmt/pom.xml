@@ -314,6 +314,12 @@
 				<artifactId>juniversalchardet</artifactId>
 				<version>1.0.3</version>
 			</dependency>
+
+			<dependency>
+				<groupId>net.sourceforge.fmpp</groupId>
+				<artifactId>fmpp</artifactId>
+				<version>0.9.14</version>
+			</dependency>
 			
 		</dependencies>
 		

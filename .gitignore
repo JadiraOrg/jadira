@@ -55,3 +55,10 @@ usertype.spi/target
 /quant/.project
 /quant/.settings
 /quant/target
+/maven/.project
+/maven/.settings
+/maven/target
+/maven/fmpp-maven-plugin/.classpath
+/maven/fmpp-maven-plugin/.project
+/maven/fmpp-maven-plugin/.settings
+/maven/fmpp-maven-plugin/target
