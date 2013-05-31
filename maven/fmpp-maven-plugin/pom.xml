@@ -75,7 +75,7 @@
 				<configuration>
 					<toolchains>
 						<jdk>
-							<version>5.0</version>
+							<version>6.0</version>
 							<vendor>sun</vendor>
 						</jdk>
 					</toolchains>
@@ -88,8 +88,8 @@
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 					<compilerArgument>-g</compilerArgument>
 					<encoding>${project.build.sourceEncoding}</encoding> 
 					<charset>${project.build.sourceEncoding}</charset>
