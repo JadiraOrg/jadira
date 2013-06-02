@@ -52,6 +52,10 @@ public class TestPersistentPeriodAsString extends AbstractDatabaseTest<JodaPerio
             new org.joda.time.Period(28, 10, 0, 0, 16, 4, 35, 40),
             new org.joda.time.Period(0, 0, 0, 0, 16, 0, 0, 0, PeriodType.hours())
     };
+
+    public TestPersistentPeriodAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
     
     @Test
     public void testPersist() throws SQLException, IOException {

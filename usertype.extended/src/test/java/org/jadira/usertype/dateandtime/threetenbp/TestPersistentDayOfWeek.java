@@ -45,7 +45,7 @@ public class TestPersistentDayOfWeek extends DatabaseCapable {
     public static void tearDown() {
         factory.close();
     }
-
+    
     @Test
     public void testPersist() {
 

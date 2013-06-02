@@ -26,6 +26,10 @@ public class TestPersistentMoneyMinorAmountAndCurrency extends AbstractDatabaseT
 
     private static final Money[] moneys = new Money[]{Money.parse("USD 100.00"), Money.parse("USD 100.10"), Money.parse("EUR 0.99"), Money.parse("EUR -0.99"), null};
 
+    public TestPersistentMoneyMinorAmountAndCurrency() {
+    	super(TestJodaMoneySuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < moneys.length; i++) {

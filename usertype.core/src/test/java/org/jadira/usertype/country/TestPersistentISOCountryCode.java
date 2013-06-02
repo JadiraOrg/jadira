@@ -28,6 +28,10 @@ public class TestPersistentISOCountryCode extends AbstractDatabaseTest<ISOCountr
 
     private static final ISOCountryCode[] isoCountryCodes = new ISOCountryCode[]{ISOCountryCode.AD, ISOCountryCode.GB, ISOCountryCode.US, ISOCountryCode.FR, null};
 
+    public TestPersistentISOCountryCode() {
+    	super(TestCountrySuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < isoCountryCodes.length; i++) {

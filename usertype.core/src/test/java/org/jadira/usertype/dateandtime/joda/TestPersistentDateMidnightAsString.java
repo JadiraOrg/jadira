@@ -27,6 +27,10 @@ public class TestPersistentDateMidnightAsString extends AbstractDatabaseTest<Jod
 
     private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};
 
+    public TestPersistentDateMidnightAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < dateMidnights.length; i++) {

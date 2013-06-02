@@ -39,6 +39,10 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
         new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
         new Duration(new DateMidnight(2010, 4, 1, DateTimeZone.UTC).minusMonths(3), new DateMidnight(2010, 4, 1, DateTimeZone.UTC)) };
     
+    public TestPersistentDurationAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         

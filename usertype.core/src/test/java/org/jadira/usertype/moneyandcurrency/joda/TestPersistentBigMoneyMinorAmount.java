@@ -26,6 +26,10 @@ public class TestPersistentBigMoneyMinorAmount extends AbstractDatabaseTest<BigM
 
     private static final BigMoney[] bigMoneys = new BigMoney[]{BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99"), null};
 
+    public TestPersistentBigMoneyMinorAmount() {
+    	super(TestJodaMoneySuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < bigMoneys.length; i++) {

@@ -27,6 +27,10 @@ public class TestPersistentMinutes extends AbstractDatabaseTest<MinutesHolder> {
 
     private static final Minutes[] minutes = new Minutes[]{Minutes.minutes(1), Minutes.minutes(2010), Minutes.minutes(1999)};
 
+    public TestPersistentMinutes() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

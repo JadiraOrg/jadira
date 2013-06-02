@@ -31,6 +31,10 @@ public class TestPersistentInstantAsNanosBigInteger extends AbstractDatabaseTest
                     new org.joda.time.DateTime(2004, 2, 25, 17, 3, 45, 760, DateTimeZone.UTC).toInstant(),
                     new org.joda.time.DateTime(1980, 3, 11, 2, 3, 45, 0, DateTimeZone.forID("+02:00")).toInstant()};
 
+    public TestPersistentInstantAsNanosBigInteger() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

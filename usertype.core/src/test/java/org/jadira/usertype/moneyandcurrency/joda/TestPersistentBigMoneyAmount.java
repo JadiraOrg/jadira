@@ -15,17 +15,23 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.joda.testmodel.BigMoneyAmountHolder;
 import org.joda.money.BigMoney;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class TestPersistentBigMoneyAmount extends AbstractDatabaseTest<BigMoneyAmountHolder> {
 
     private static final BigMoney[] bigMoneys = new BigMoney[]{BigMoney.parse("USD 100.00"), BigMoney.parse("USD 100.10"), BigMoney.parse("USD 0.99"), null};
 
+    public TestPersistentBigMoneyAmount() {
+    	super(TestJodaMoneySuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < bigMoneys.length; i++) {

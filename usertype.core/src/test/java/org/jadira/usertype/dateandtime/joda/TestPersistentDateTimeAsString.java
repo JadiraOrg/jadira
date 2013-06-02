@@ -30,6 +30,10 @@ public class TestPersistentDateTimeAsString extends AbstractDatabaseTest<JodaDat
             new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
             null};
 
+    public TestPersistentDateTimeAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

@@ -26,6 +26,10 @@ public class TestPersistentCurrencyUnitAsInteger extends AbstractDatabaseTest<Cu
 
     private static final CurrencyUnit[] currencies = new CurrencyUnit[]{CurrencyUnit.EUR, CurrencyUnit.USD, CurrencyUnit.GBP, CurrencyUnit.getInstance("SAR"), null};
 
+    public TestPersistentCurrencyUnitAsInteger() {
+    	super(TestJodaMoneySuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < currencies.length; i++) {

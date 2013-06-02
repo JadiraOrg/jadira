@@ -27,6 +27,10 @@ public class TestPersistentYearMonthAsString extends AbstractDatabaseTest<YearMo
 
     private static final YearMonth[] yearMonths = new YearMonth[]{new YearMonth(2011, 1), new YearMonth(2000, 01), new YearMonth(1999, 12)};
 
+    public TestPersistentYearMonthAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < yearMonths.length; i++) {

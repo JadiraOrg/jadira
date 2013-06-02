@@ -43,6 +43,10 @@ public class TestPersistentDate extends AbstractDatabaseTest<LegacyDateHolder> {
     	dateTimes[1] = GMT_CAL.getTime();
     }
 
+    public TestPersistentDate() {
+    	super(TestLegacyJdkSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

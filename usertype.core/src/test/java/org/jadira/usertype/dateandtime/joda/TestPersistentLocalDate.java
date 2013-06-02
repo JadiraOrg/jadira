@@ -34,6 +34,10 @@ public class TestPersistentLocalDate extends AbstractDatabaseTest<JodaLocalDateH
 
     private static final org.joda.time.LocalDate[] jodaLocalDates = new org.joda.time.LocalDate[]{new org.joda.time.LocalDate(2004, 2, 25), new org.joda.time.LocalDate(1980, 3, 11)};
 
+    public TestPersistentLocalDate() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < localDates.length; i++) {

@@ -15,16 +15,14 @@
  */
 package org.jadira.usertype.dateandtime.shared.dbunit;
 
-import org.jadira.usertype.spi.utils.reflection.TypeHelper;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.io.Serializable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Table;
-import java.io.Serializable;
+
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
+import org.junit.Before;
 
 /**
  * This abstract parent test class bundles several method needed for database relevant tests:
@@ -43,18 +41,14 @@ import java.io.Serializable;
  */
 public abstract class AbstractDatabaseTest<T extends Serializable> extends DatabaseCapable {
 
-    protected static EntityManagerFactory factory;
+    protected EntityManagerFactory factory;
 
     private Class<T> tableType;
 
     @SuppressWarnings("unchecked")
-	public AbstractDatabaseTest() {
+	public AbstractDatabaseTest(EntityManagerFactory factory) {
+    	this.factory = factory;
         this.tableType = (Class<T>) TypeHelper.getTypeArguments(AbstractDatabaseTest.class, this.getClass()).get(0);
-    }
-
-    @BeforeClass
-    public static void setup() {
-        factory = Persistence.createEntityManagerFactory("test1");
     }
 
     @Before
@@ -65,11 +59,6 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
         manager.createQuery("delete from " + tableType.getSimpleName()).executeUpdate();
         manager.getTransaction().commit();
         manager.close();
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        factory.close();
     }
 
     protected <E extends Serializable> E persist(E item) {

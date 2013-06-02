@@ -26,6 +26,10 @@ public class TestPersistentDateTimeZoneAsString extends AbstractDatabaseTest<Jod
 
     private static final DateTimeZone[] dateTimeZones = new DateTimeZone[]{DateTimeZone.forOffsetHours(4), DateTimeZone.UTC, null};
 
+    public TestPersistentDateTimeZoneAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < dateTimeZones.length; i++) {

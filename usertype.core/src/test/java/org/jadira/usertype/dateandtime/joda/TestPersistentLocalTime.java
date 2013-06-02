@@ -29,6 +29,10 @@ public class TestPersistentLocalTime extends AbstractDatabaseTest<JodaLocalTimeH
 
     private static final LocalTime[] localTimes = new LocalTime[]{new LocalTime(14, 2, 25), new LocalTime(23, 59, 59), new LocalTime(0, 0, 0)};
 
+    public TestPersistentLocalTime() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

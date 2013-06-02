@@ -28,6 +28,10 @@ public class TestPersistentE164PhoneNumberWithExtension extends AbstractDatabase
 
     private static final E164PhoneNumberWithExtension[] e164PhoneNumberWithExtensions = new E164PhoneNumberWithExtension[]{E164PhoneNumberWithExtension.ofE164PhoneNumberWithExtensionString("+441963350474"), E164PhoneNumberWithExtension.ofE164PhoneNumberWithExtensionString("+441963350474;ext=000032"), null};
 
+    public TestPersistentE164PhoneNumberWithExtension() {
+    	super(TestPhoneNumberSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < e164PhoneNumberWithExtensions.length; i++) {

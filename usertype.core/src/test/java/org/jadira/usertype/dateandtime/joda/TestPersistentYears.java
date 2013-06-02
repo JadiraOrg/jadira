@@ -27,6 +27,10 @@ public class TestPersistentYears extends AbstractDatabaseTest<YearsHolder> {
 
     private static final Years[] years = new Years[]{Years.years(1), Years.years(2010), Years.years(1999)};
 
+    public TestPersistentYears() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

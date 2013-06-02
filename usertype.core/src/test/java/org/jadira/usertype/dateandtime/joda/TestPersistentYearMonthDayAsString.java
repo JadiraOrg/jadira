@@ -28,6 +28,10 @@ public class TestPersistentYearMonthDayAsString extends AbstractDatabaseTest<Yea
 
     private static final YearMonthDay[] localDates = new YearMonthDay[]{new YearMonthDay(2004, 2, 25), new YearMonthDay(1980, 3, 11)};
 
+    public TestPersistentYearMonthDayAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < localDates.length; i++) {

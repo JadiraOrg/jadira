@@ -35,6 +35,10 @@ public class TestPersistentDateTimeAndZoneWithOffset extends AbstractDatabaseTes
         new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC), 
         null };
 
+    public TestPersistentDateTimeAndZoneWithOffset() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

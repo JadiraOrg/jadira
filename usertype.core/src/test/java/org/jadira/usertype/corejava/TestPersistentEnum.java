@@ -28,6 +28,10 @@ public class TestPersistentEnum extends AbstractDatabaseTest<ISOCountryCodeWithP
 
     private static final ISOCountryCode[] isoCountryCodes = new ISOCountryCode[]{ISOCountryCode.AD, ISOCountryCode.GB, ISOCountryCode.US, ISOCountryCode.FR, null};
 
+    public TestPersistentEnum() {
+    	super(TestCoreJavaSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < isoCountryCodes.length; i++) {

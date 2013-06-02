@@ -43,6 +43,10 @@ public class TestPersistentTimestamp extends AbstractDatabaseTest<LegacyTimestam
     	dateTimes[1] = new Timestamp(GMT_CAL.getTime().getTime());
     }
 
+    public TestPersistentTimestamp() {
+    	super(TestLegacyJdkSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
 

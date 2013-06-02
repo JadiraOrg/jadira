@@ -28,6 +28,10 @@ public class TestPersistentTimeOfDayAsNanosLong extends AbstractDatabaseTest<Tim
 
     private static final TimeOfDay[] localTimes = new TimeOfDay[]{new TimeOfDay(14, 2, 25), new TimeOfDay(23, 59, 59, 999), new TimeOfDay(0, 0, 0)};
 
+    public TestPersistentTimeOfDayAsNanosLong() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < localTimes.length; i++) {

@@ -27,6 +27,10 @@ public class TestPersistentLocalDateAsString extends AbstractDatabaseTest<JodaLo
 
     private static final LocalDate[] localDates = new LocalDate[]{new LocalDate(2004, 2, 25), new LocalDate(1980, 3, 11)};
 
+    public TestPersistentLocalDateAsString() {
+    	super(TestJodaTimeSuite.getFactory());
+    }
+    
     @Test
     public void testPersist() {
         for (int i = 0; i < localDates.length; i++) {
