@@ -305,7 +305,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
     /**
      * Register the configuration file (bindings.xml) at the given URL 
      */
-    public void registerConfiguration(URL nextLocation) {
+    public final void registerConfiguration(URL nextLocation) {
         
         BindingConfiguration configuration = BindingXmlLoader.load(nextLocation);
 
