@@ -533,7 +533,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param target The target (foreign) class
 	 * @param converter The binding to be registered
 	 */
-	public <S, T> void registerBinding(Class<S> source, Class<T> target, Binding<S, T> converter) {
+	public final <S, T> void registerBinding(Class<S> source, Class<T> target, Binding<S, T> converter) {
         Class<? extends Annotation> scope = matchImplementationToScope(converter.getClass());
         registerBinding(new ConverterKey<S,T>(source, target, scope == null ? DefaultBinding.class : scope), converter);	
 	}
@@ -545,7 +545,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param target The target (output) class
 	 * @param converter The FromUnmarshaller to be registered  
 	 */
-	public <S, T> void registerUnmarshaller(Class<S> source, Class<T> target, FromUnmarshaller<S, T> converter) {
+	public final <S, T> void registerUnmarshaller(Class<S> source, Class<T> target, FromUnmarshaller<S, T> converter) {
         Class<? extends Annotation> scope = matchImplementationToScope(converter.getClass());
         registerUnmarshaller(new ConverterKey<S,T>(source, target, scope == null ? DefaultBinding.class : scope), converter);	
 	}
@@ -557,7 +557,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param target The target (output) class
 	 * @param converter The ToMarshaller to be registered
 	 */
-	public <S, T> void registerMarshaller(Class<S> source, Class<T> target, ToMarshaller<S, T> converter) {
+	public final <S, T> void registerMarshaller(Class<S> source, Class<T> target, ToMarshaller<S, T> converter) {
         Class<? extends Annotation> scope = matchImplementationToScope(converter.getClass());
         registerMarshaller(new ConverterKey<S,T>(source, target, scope == null ? DefaultBinding.class : scope), converter);	
 	}
@@ -569,7 +569,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param output The output class
 	 * @param converter The Converter to be registered   
 	 */
-	public <S, T> void registerConverter(Class<S> input, Class<T> output, Converter<S, T> converter) {
+	public final <S, T> void registerConverter(Class<S> input, Class<T> output, Converter<S, T> converter) {
         Class<? extends Annotation> scope = matchImplementationToScope(converter.getClass());
         registerConverter(new ConverterKey<S,T>(input, output, scope == null ? DefaultBinding.class : scope), converter);
     }
@@ -585,7 +585,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param converter The binding to be registered
 	 * @param qualifier The qualifier for which the binding must be registered
 	 */
-	public <S, T> void registerBinding(Class<S> source, Class<T> target, Binding<S, T> converter, Class<? extends Annotation> qualifier) {
+	public final <S, T> void registerBinding(Class<S> source, Class<T> target, Binding<S, T> converter, Class<? extends Annotation> qualifier) {
 		registerBinding(new ConverterKey<S,T>(source, target, qualifier == null ? DefaultBinding.class : qualifier), converter);
 	}
 
@@ -598,7 +598,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param key Converter Key to use
 	 * @param converter The binding to be registered
 	 */
-	public <S, T> void registerBinding(ConverterKey<S,T> key, Binding<S, T> converter) {
+	public final <S, T> void registerBinding(ConverterKey<S,T> key, Binding<S, T> converter) {
 		registerConverter(key.invert(), new FromUnmarshallerConverter<S,T>(converter));
 		registerConverter(key, new ToMarshallerConverter<S,T>(converter));
 	}
@@ -612,7 +612,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param converter The FromUnmarshaller to be registered
 	 * @param qualifier The qualifier for which the unmarshaller must be registered  
 	 */
-	public <S, T> void registerUnmarshaller(Class<S> source, Class<T> target, FromUnmarshaller<S, T> converter, Class<? extends Annotation> qualifier) {
+	public final <S, T> void registerUnmarshaller(Class<S> source, Class<T> target, FromUnmarshaller<S, T> converter, Class<? extends Annotation> qualifier) {
 		registerUnmarshaller(new ConverterKey<S,T>(source, target, qualifier == null ? DefaultBinding.class : qualifier), converter);
 	}
 
@@ -622,7 +622,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param key Converter Key to use
 	 * @param converter The FromUnmarshaller to be registered
 	 */
-	public <S, T> void registerUnmarshaller(ConverterKey<S,T> key, FromUnmarshaller<S, T> converter) {
+	public final <S, T> void registerUnmarshaller(ConverterKey<S,T> key, FromUnmarshaller<S, T> converter) {
 		registerConverter(key.invert(), new FromUnmarshallerConverter<S,T>(converter));
 	}
 	
@@ -634,7 +634,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param converter The ToMarshaller to be registered
 	 * @param qualifier The qualifier for which the marshaller must be registered 
 	 */
-	public <S, T> void registerMarshaller(Class<S> source, Class<T> target, ToMarshaller<S, T> converter, Class<? extends Annotation> qualifier) {
+	public final <S, T> void registerMarshaller(Class<S> source, Class<T> target, ToMarshaller<S, T> converter, Class<? extends Annotation> qualifier) {
 		registerMarshaller(new ConverterKey<S,T>(source, target, qualifier == null ? DefaultBinding.class : qualifier), converter);
 	}
 
@@ -644,7 +644,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param key Converter Key to use
 	 * @param converter The ToMarshaller to be registered
 	 */
-	public <S, T> void registerMarshaller(ConverterKey<S,T> key, ToMarshaller<S, T> converter) {
+	public final <S, T> void registerMarshaller(ConverterKey<S,T> key, ToMarshaller<S, T> converter) {
 		registerConverter(key, new ToMarshallerConverter<S,T>(converter));
 	}
 	
@@ -656,7 +656,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param converter The Converter to be registered
 	 * @param qualifier The qualifier for which the converter must be registered   
 	 */
-	public <S, T> void registerConverter(Class<S> input, Class<T> output, Converter<S, T> converter, Class<? extends Annotation> qualifier) {
+	public final <S, T> void registerConverter(Class<S> input, Class<T> output, Converter<S, T> converter, Class<? extends Annotation> qualifier) {
 		registerConverter(new ConverterKey<S,T>(input, output, qualifier == null ? DefaultBinding.class : qualifier), converter);
 	}
 		
@@ -666,7 +666,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * @param key Converter Key to use
 	 * @param converter The Converter to be registered
 	 */
-	public <S, T> void registerConverter(ConverterKey<S,T> key, Converter<S, T> converter) {	
+	public final <S, T> void registerConverter(ConverterKey<S,T> key, Converter<S, T> converter) {	
 
         if (key.getInputClass() == null) {
             throw new IllegalArgumentException("Input Class must not be null");
