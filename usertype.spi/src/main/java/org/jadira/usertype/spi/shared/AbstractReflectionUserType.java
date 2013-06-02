@@ -18,6 +18,7 @@ package org.jadira.usertype.spi.shared;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,6 +51,9 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
     }
     
     protected void setValueOfMethod(Method valueOfMethod) {
+    	if (!Modifier.isStatic(valueOfMethod.getModifiers())) {
+    		throw new IllegalStateException("valueOfMethod must be static: "  + valueOfMethod.toString());
+    	}
     	this.valueOfMethod = valueOfMethod;
     }
     
