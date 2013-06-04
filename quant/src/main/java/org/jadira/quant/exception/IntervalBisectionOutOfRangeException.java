@@ -26,12 +26,12 @@ public class IntervalBisectionOutOfRangeException extends RuntimeException {
 	private double upperRange;
 
 	/**
-     * Constructs an {@code IntervalBisectionOutOfRangeException} for the given range.
+     * Constructs an {@code IntervalBisectionOutOfRangeException} for the given input values.
      * @param message The detail message (which is saved for later retrieval by the
      *            {@link #getMessage()} method)
      */
     public IntervalBisectionOutOfRangeException(double lowerRange, double upperRange) {
-        super("The BisectionInterval cannot be found between {" + lowerRange + ", " + upperRange + "}");
+        super("The BisectionInterval cannot be found for the inputs {" + lowerRange + ", " + upperRange + "}");
         this.lowerRange = lowerRange;
         this.upperRange = upperRange;
     }
