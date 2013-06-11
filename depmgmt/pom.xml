@@ -320,7 +320,12 @@
 				<artifactId>fmpp</artifactId>
 				<version>0.9.14</version>
 			</dependency>
-			
+			<dependency>
+				<groupId>org.aspectj</groupId>
+				<artifactId>aspectjrt</artifactId>
+				<version>1.7.2</version>
+			</dependency>
+		
 		</dependencies>
 		
 	</dependencyManagement>
