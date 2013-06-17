@@ -846,6 +846,7 @@
 		<module>depmgmt</module>
 		<module>maven</module>
 		<module>scanner</module>
+		<module>cloning</module>
 		<module>bindings</module>
 		<!-- <module>introspector</module> -->
 		<module>cdt</module>		
