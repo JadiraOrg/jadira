@@ -17,6 +17,7 @@ package org.jadira.cloning.implementor;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.IdentityHashMap;
@@ -154,9 +155,14 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
 			try {
 				Method cloneMethod = clazz.getMethod("clone");
 				handle = MethodHandles.lookup().unreflect(cloneMethod);
-			} catch (IllegalAccessException | NoSuchMethodException | SecurityException e) {
+			} catch (IllegalAccessException e) {
 				throw new IllegalStateException("Cannot access clone() method for: " + clazz.getName(), e);
-			}
+			} catch (NoSuchMethodException e) {
+                throw new IllegalStateException("Cannot find clone() method for: " + clazz.getName(), e);
+            } catch (SecurityException e) {
+                throw new IllegalStateException("Cannot invoke clone() method for: " + clazz.getName(), e);
+            }
+			
 			context.putCloneMethod(clazz, handle);
 		}
 		T copy = performCloneForCloneableMethod(obj, context);
@@ -247,4 +253,41 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
 	protected abstract <T> void handleTransientField(T copy, F f);
 
 	protected abstract <T> void handleCloneField(T obj, T copy, CloneDriver driver, F f, IdentityHashMap<Object, Object> referencesToReuse);
+	
+    @Override
+    public void initialiseFor(Class<?>... classes) {
+
+        IdentityHashMap<Class<?>, Boolean> seenClasses = new IdentityHashMap<Class<?>, Boolean>(classes.length * 10);
+
+        for (Class<?> clazz : classes) {
+            doInitialiseFor(clazz, seenClasses);
+        }
+    }
+
+    private void doInitialiseFor(Class<?> clazz, IdentityHashMap<Class<?>, Boolean> seenClasses) {
+
+        getClassModel(clazz);
+        seenClasses.put(clazz, Boolean.TRUE);
+
+        Field[] fields = ClassUtils.collectFields(clazz);
+        for (Field f : fields) {
+
+            Class<?> type = f.getType();
+
+            if (seenClasses.containsKey(type)) {
+                continue;
+            }
+
+            if (type.isPrimitive()) {
+                continue;
+            } else if (type.isArray() && !(type.getComponentType().isPrimitive())) {
+                doInitialiseFor(type.getComponentType(), seenClasses);
+                seenClasses.put(type.getComponentType(), Boolean.TRUE);
+            } else if (!type.isArray() && !type.isPrimitive() && !type.isEnum() && !type.isInterface()
+                    && !ClassUtils.isWrapper(type) && !ClassUtils.isJdkImmutable(type)) {
+                doInitialiseFor(type, seenClasses);
+                seenClasses.put(type, Boolean.TRUE);
+            }
+        }
+    }
 }

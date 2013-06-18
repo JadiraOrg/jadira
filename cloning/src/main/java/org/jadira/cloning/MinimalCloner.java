@@ -30,7 +30,7 @@ import org.objenesis.ObjenesisException;
 
 /**
  * This is a highly reduced version of {@link Cloner}. It can deliver somewhat better throughput
- * than {@link UnsafeCloneStrategy} using the Server JVM, and around twice times the throughput of
+ * than {@link UnsafeCloneStrategy} using the Server JVM, and around twice the throughput of
  * the {@link PortableCloneStrategy}. Unlike BasicCloner, this cloner does not offer any
  * configuration options. Due to lack of configuration and special functions, this cloner is
  * unsuitable for many datatypes.

@@ -28,9 +28,10 @@ import org.jadira.cloning.portable.FieldType;
  * A set of utility methods for working with sun.misc.Unsafe. Address shallow and deep copying,
  * field access and field manipulation.
  */
+@SuppressWarnings("restriction")
 public final class UnsafeOperations {
 
-	private static final sun.misc.Unsafe THE_UNSAFE;
+    private static final sun.misc.Unsafe THE_UNSAFE;
 	private static final boolean IS_UNSAFE_AVAILABLE;
 
 	private static final UnsafeOperations INSTANCE = new UnsafeOperations();
@@ -373,27 +374,34 @@ public final class UnsafeOperations {
 
 	public final long deepSizeOf(Object o) {
 
+        IdentityHashMap<Object, Boolean> seenObjects = new IdentityHashMap<Object, Boolean>(10);
+        return doDeepSizeOf(o, seenObjects);
+    }
+
+    private long doDeepSizeOf(Object o, IdentityHashMap<Object, Boolean> seenObjects) {
+	    
 		if (o == null) {
 			return 0;
 		}
+		
+        // get offset
+        long maxSize = 0;
+        long additionalSize = 0;
 
-		Field[] fields = ClassUtils.collectFields(o.getClass());
+        Field[] fields = ClassUtils.collectFields(o.getClass());
 
-		// get offset
-		long maxSize = 0;
-		long additionalSize = 0;
-
-		for (Field f : fields) {
-			long offset = getUnsafe().objectFieldOffset(f);
-			if (offset > maxSize) {
-				maxSize = offset;
-			}
-			if (!f.getType().isPrimitive()) {
-				Object obj = getUnsafe().getObject(o, getUnsafe().objectFieldOffset(f));
-				if (obj != null) {
-					additionalSize = additionalSize + deepSizeOf(obj);
-				}
-			}
+        for (Field f : fields) {
+            long offset = getUnsafe().objectFieldOffset(f);
+            if (offset > maxSize) {
+                maxSize = offset;
+            }
+            if (!f.getType().isPrimitive()) {
+                Object obj = getUnsafe().getObject(o, getUnsafe().objectFieldOffset(f));
+                if (obj != null && !seenObjects.containsKey(o)) {
+                    seenObjects.put(o, Boolean.TRUE);
+                    additionalSize = additionalSize + doDeepSizeOf(obj, seenObjects);
+                }
+            }
 		}
 
 		return additionalSize + (((maxSize / 8) + 1) * 8); // padding

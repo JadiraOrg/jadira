@@ -21,6 +21,9 @@
 	<artifactId>cloning</artifactId>
 	<packaging>jar</packaging>
 
+    <name>Jadira Cloning</name>
+    <description>Cloning for Jadira Framework</description>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

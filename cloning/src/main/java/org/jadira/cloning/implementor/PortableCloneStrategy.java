@@ -159,12 +159,4 @@ public class PortableCloneStrategy extends AbstractCloneStrategy<PortableClassMo
 	protected PortableClassModel getClassModel(Class<?> clazz) {
 		return PortableClassModel.get(clazz);
 	}
-
-	@Override
-	public void initialiseFor(Class<?>... classes) {
-
-		for (Class<?> clazz : classes) {
-			PortableClassModel.get(clazz);
-		}
-	}
 }

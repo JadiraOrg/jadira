@@ -1,6 +1,5 @@
 package org.jadira.cloning.implementor;
 
-import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 
 import org.jadira.cloning.api.CloneDriver;
@@ -67,25 +66,6 @@ public class UnsafeCloneStrategy extends AbstractCloneStrategy<UnsafeClassModel,
             UNSAFE_OPERATIONS.putPrimitiveDefaultAtOffset(copy, f.getFieldClass(), f.getOffset());
         } else {
             UNSAFE_OPERATIONS.putNullObject(copy, f.getOffset());
-        }
-    }
-    
-    @Override
-    public void initialiseFor(Class<?> ... classes) {
-        
-        for (Class<?> clazz : classes) {
-            UnsafeClassModel.get(clazz);
-            
-            Field[] fields = ClassUtils.collectFields(clazz);
-            for (Field f: fields) {
-                if (f.getType().isPrimitive()) {
-                    continue;
-                } else if (f.getType().isArray() && !(f.getType().getComponentType().isPrimitive())) {
-                    initialiseFor(f.getType().getComponentType());
-                } else {
-                    initialiseFor(f.getType());
-                }
-            }
         }
     }
 }
