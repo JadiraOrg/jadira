@@ -30,7 +30,7 @@
 	<artifactId>fmpp-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
 
-	<name>FMPP Maven Plugin</name>
+	<name>Jadira FMPP Maven Plugin</name>
 	<description>Freemarker Pre-Processor Maven Plugin</description>
 
 	<dependencies>
