@@ -307,21 +307,21 @@ public final class UnsafeOperations {
 
 		if (componentType.getName().length() <= 7) {
 
-			if (java.lang.Boolean.TYPE.isAssignableFrom(componentType)) {
+			if (java.lang.Boolean.TYPE == componentType) {
 				result = Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);
-			} else if (java.lang.Byte.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Byte.TYPE == componentType) {
 				result = Arrays.copyOf((byte[]) origFieldValue, ((byte[]) origFieldValue).length);
-			} else if (java.lang.Character.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Character.TYPE == componentType) {
 				result = Arrays.copyOf((char[]) origFieldValue, ((char[]) origFieldValue).length);
-			} else if (java.lang.Short.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Short.TYPE == componentType) {
 				result = Arrays.copyOf((short[]) origFieldValue, ((short[]) origFieldValue).length);
-			} else if (java.lang.Integer.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Integer.TYPE == componentType) {
 				result = Arrays.copyOf((int[]) origFieldValue, ((int[]) origFieldValue).length);
-			} else if (java.lang.Long.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Long.TYPE == componentType) {
 				result = Arrays.copyOf((long[]) origFieldValue, ((long[]) origFieldValue).length);
-			} else if (java.lang.Float.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Float.TYPE == componentType) {
 				result = Arrays.copyOf((float[]) origFieldValue, ((float[]) origFieldValue).length);
-			} else if (java.lang.Double.TYPE.isAssignableFrom(componentType)) {
+			} else if (java.lang.Double.TYPE == componentType) {
 				result = Arrays.copyOf((double[]) origFieldValue, ((double[]) origFieldValue).length);
 			}
 		}
@@ -336,7 +336,7 @@ public final class UnsafeOperations {
 					}
 				} else {
 					for (int i = 0; i < array.length; i++) {
-						Object component = deepCopy(origFieldValue, visited);
+						Object component = deepCopy(array[i], visited);
 						array[i] = component;
 					}
 				}

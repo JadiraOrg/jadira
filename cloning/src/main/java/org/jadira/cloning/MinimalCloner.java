@@ -139,7 +139,7 @@ public class MinimalCloner implements Cloner, CloneDriver, CloneImplementor {
 	 */
 	@Override
 	public <T> T clone(T obj) {
-		return UNSAFE_OPERATIONS.deepCopy(obj);
+		return clone(obj, this, new IdentityHashMap<>());
 	}
 
 	/**
