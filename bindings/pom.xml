@@ -31,8 +31,8 @@
 	<artifactId>bindings</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Core Bindings Provision</name>
-	<description>Core Bindings Provision</description>
+	<name>Jadira Bindings</name>
+    <description>Bindings for Jadira Framework</description>
 
 	<dependencyManagement>
 		<dependencies>
