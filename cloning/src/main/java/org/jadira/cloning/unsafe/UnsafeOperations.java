@@ -191,7 +191,7 @@ public final class UnsafeOperations {
 		if (obj == null) {
 			return null;
 		}
-
+		
 		Class<?> clazz = obj.getClass();
 
 		if (clazz.isPrimitive()) {
@@ -204,6 +204,10 @@ public final class UnsafeOperations {
 			return deepCopyArray;
 		}
 
+		if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz) || clazz.isEnum()) {
+			return obj;
+		}
+		
 		// Handle recursive case
 		if (referencesToReuse.containsKey(obj)) {
 			@SuppressWarnings("unchecked")
@@ -243,16 +247,8 @@ public final class UnsafeOperations {
 
 			putNullObject(copy, offset);
 		} else {
-
-			Class<?> clazz = origFieldValue.getClass();
 			
-			final Object copyFieldValue;
-			if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)) {
-				copyFieldValue = origFieldValue;
-			} else {
-				copyFieldValue = deepCopy(origFieldValue, referencesToReuse);
-			}
-
+			final Object copyFieldValue = deepCopy(origFieldValue, referencesToReuse);
 			UnsafeOperations.getUnsafe().putObject(copy, offset, copyFieldValue);
 		}
 	}
