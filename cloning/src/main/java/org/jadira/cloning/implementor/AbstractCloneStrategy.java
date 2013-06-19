@@ -90,19 +90,19 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
 		if (cloneableAnnotation != null && !void.class.equals(cloneableAnnotation.implementor())) {
 			final T copy = handleCloneImplementor(obj, context, referencesToReuse, clazz, cloneableAnnotation);
 			referencesToReuse.put(obj, copy);
-			return result;
+			return copy;
 		}
 
 		if (model.getCloneImplementor() != null) {
 			final T copy = model.getCloneImplementor().clone(obj, context, referencesToReuse);
 			referencesToReuse.put(obj, copy);
-			return result;
+			return copy;
 		}
 
 		if (context.isUseCloneable() && Cloneable.class.isAssignableFrom(clazz)) {
 			final T copy = handleCloneableCloneMethod(obj, context, referencesToReuse, clazz, cloneableAnnotation);
 			referencesToReuse.put(obj, copy);
-			return result;
+			return copy;
 		}
 
 		if (clazz.isArray()) {
