@@ -1,3 +1,18 @@
+/*
+ *  Copyright 2013 Chris Pheby
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package org.jadira.cloning.implementor;
 
 import java.util.IdentityHashMap;
@@ -6,7 +21,6 @@ import org.jadira.cloning.api.CloneDriver;
 import org.jadira.cloning.api.CloneStrategy;
 import org.jadira.cloning.model.UnsafeClassModel;
 import org.jadira.cloning.model.UnsafeFieldModel;
-import org.jadira.cloning.portable.ClassUtils;
 import org.jadira.cloning.portable.FieldType;
 import org.jadira.cloning.unsafe.UnsafeOperations;
 import org.objenesis.ObjenesisException;
@@ -29,31 +43,6 @@ public class UnsafeCloneStrategy extends AbstractCloneStrategy<UnsafeClassModel,
     public static UnsafeCloneStrategy getInstance() {
         return instance;
     }
-
-    @Override
-    protected <T> void handleCloneField(T obj, T copy, CloneDriver driver, UnsafeFieldModel f, IdentityHashMap<Object, Object> referencesToReuse) {
-        
-        if (f.getFieldType() == FieldType.PRIMITIVE) {
-            UNSAFE_OPERATIONS.copyPrimitiveAtOffset(obj, copy, f.getFieldClass(), f.getOffset());
-        } else {
-            
-            Object origFieldValue = UNSAFE_OPERATIONS.getObject(obj, f.getOffset());
-            
-            if (origFieldValue == null) {
-                UNSAFE_OPERATIONS.putNullObject(copy, f.getOffset());
-            } else {
-                final Object copyFieldValue;
-                if ((ClassUtils.isJdkImmutable(f.getFieldClass()))
-                		|| (!driver.isCloneSyntheticFields() && f.isSynthetic())) {
-                    copyFieldValue = origFieldValue;
-                } else {
-                    copyFieldValue = clone(origFieldValue, driver, referencesToReuse);
-                }
-
-                UNSAFE_OPERATIONS.putObject(copy, f.getOffset(), copyFieldValue);
-            }
-        }
-    }
     
     @Override
     protected UnsafeClassModel getClassModel(Class<?> clazz) {
@@ -66,6 +55,26 @@ public class UnsafeCloneStrategy extends AbstractCloneStrategy<UnsafeClassModel,
             UNSAFE_OPERATIONS.putPrimitiveDefaultAtOffset(copy, f.getFieldClass(), f.getOffset());
         } else {
             UNSAFE_OPERATIONS.putNullObject(copy, f.getOffset());
+        }
+    }
+
+    @Override
+    protected <T> void handleClonePrimitiveField(T obj, T copy, CloneDriver driver, UnsafeFieldModel f,
+            IdentityHashMap<Object, Object> referencesToReuse) {
+        UNSAFE_OPERATIONS.copyPrimitiveAtOffset(obj, copy, f.getFieldClass(), f.getOffset());
+    }
+
+    @Override
+    protected <T> Object getFieldValue(T obj, UnsafeFieldModel f, IdentityHashMap<Object, Object> referencesToReuse) {
+        return UNSAFE_OPERATIONS.getObject(obj, f.getOffset());
+    }
+
+    @Override
+    protected <T> void putFieldValue(T obj, UnsafeFieldModel f, Object value) {
+        if (value == null) {
+            UNSAFE_OPERATIONS.putNullObject(obj, f.getOffset());
+        } else {
+            UNSAFE_OPERATIONS.putObject(obj, f.getOffset(), value);
         }
     }
 }

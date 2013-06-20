@@ -30,15 +30,14 @@ import org.objenesis.ObjenesisException;
 
 /**
  * This is a highly reduced version of {@link Cloner}. It can deliver somewhat better throughput
- * than {@link UnsafeCloneStrategy} using the Server JVM, and around twice the throughput of the
- * {@link PortableCloneStrategy}. Unlike BasicCloner, this cloner does not offer any configuration
- * options. Due to lack of configuration and special functions, this cloner is unsuitable for many
- * datatypes.
+ * than {@link UnsafeCloneStrategy} using the Server JVM, and around twice the throughput of
+ * the {@link PortableCloneStrategy}. Unlike BasicCloner, this cloner does not offer any
+ * configuration options. Due to lack of configuration and special functions, this cloner is
+ * unsuitable for many datatypes.
  * 
  * Note that MinimalCloner can be slower for certain kinds of data structure. For example, when
  * cloning a linked list, MinimalCloner must recurse through the entire data structure, whereas
- * other Cloners can use a CloneImplementor to perform cloning of this structure iteratively. For
- * very large LinkedLists, use of MinimalCloner could even reuse in StackOverflow.
+ * other Cloners can use a CloneImplementor to perform cloning of this structure iteratively.
  * 
  * In general, you are recommended to use MinimalCloner judiciously. Typically you can use it by
  * designating a data type as @Cloneable(implementor=MinimalCloner.class) so that the type known to
@@ -148,7 +147,7 @@ public class MinimalCloner implements Cloner, CloneDriver, CloneImplementor {
 	 */
 	@Override
 	public <T> T clone(T obj) {
-		return clone(obj, this, new IdentityHashMap<>());
+		return clone(obj, this, new IdentityHashMap<Object, Object>());
 	}
 
 	/**

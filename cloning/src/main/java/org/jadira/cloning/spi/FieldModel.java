@@ -33,4 +33,6 @@ public interface FieldModel {
     boolean isTransientField();
 
     boolean isTransientAnnotatedField();
+    
+    boolean isSynthetic();
 }
