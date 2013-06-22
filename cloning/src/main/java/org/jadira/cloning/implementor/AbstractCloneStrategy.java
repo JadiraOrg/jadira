@@ -35,6 +35,8 @@ import org.jadira.cloning.spi.FieldModel;
 
 public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends FieldModel> implements CloneStrategy {
 
+	private static final int REFERENCE_STACK_LIMIT = 150;
+    
     @Override
     public abstract <T> T newInstance(Class<T> c);
 
@@ -49,14 +51,21 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
         /**
          * To avoid unnecessary recursion and potential stackoverflow errors, we use an internal stack
          */
-        Deque<WorkItem> stack = new ArrayDeque<WorkItem>();
+
+        final Deque<WorkItem> stack;
+        if (REFERENCE_STACK_LIMIT <= referencesToReuse.size()) {
+            stack = new ArrayDeque<WorkItem>();
+        } else {
+            stack = null;
+        }
 
         Object objectInput;
 
-        T parentOutput = null;
+        // T parentOutput = null;
         WorkItem nextWork = null;
         
-        do {
+        while (true) {
+            
             Object objectResult;
 
             if (nextWork == null) {
@@ -82,9 +91,6 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
                 } else if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)
                         || context.getImmutableClasses().contains(clazz)
                         || context.getNonCloneableClasses().contains(clazz)) {
-                    objectResult = objectInput;
-                } else if (nextWork != null && !context.isCloneSyntheticFields()
-                        && nextWork.getFieldModel().isSynthetic()) {
                     objectResult = objectInput;
                 } else {
 
@@ -148,11 +154,22 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
                                                 && f.isTransientAnnotatedField()) {
                                             handleTransientField(objectResult, f);
                                         } else {
-                                            if (f.getFieldType() == FieldType.PRIMITIVE) {
-                                                handleClonePrimitiveField(objectInput, objectResult, context, f,
+                                            if (stack == null) {
+                                                handleCloneField(objectInput, objectResult, context, f,
                                                         referencesToReuse);
                                             } else {
-                                                stack.addFirst(new WorkItem(objectInput, objectResult, f));
+                                                if (f.getFieldType() == FieldType.PRIMITIVE) {
+                                                    handleClonePrimitiveField(objectInput, objectResult, context, f,
+                                                            referencesToReuse);
+                                                } else {
+                                                    if (!context.isCloneSyntheticFields() && f.isSynthetic()) {
+                                                        Object fieldObject = getFieldValue(objectInput, f,
+                                                                referencesToReuse);
+                                                        referencesToReuse.put(fieldObject, fieldObject);
+                                                    } else {
+                                                        stack.addFirst(new WorkItem(objectInput, objectResult, f));
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -162,17 +179,19 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
                     }
                 }
             }
-            if (nextWork == null) {
-                @SuppressWarnings("unchecked")
-                final T convertedResult = (T) objectResult;
-                parentOutput = convertedResult;
+            
+			if (nextWork == null) {
+                nextWork = (stack == null ? null : stack.pollFirst());
+                if (nextWork == null) {
+                    @SuppressWarnings("unchecked")
+                    final T convertedResult = (T) objectResult;
+                    return convertedResult;
+                }
             } else {
-                putFieldValue(nextWork.getTarget(), nextWork.getFieldModel(), objectResult);
+            	putFieldValue(nextWork.getTarget(), nextWork.getFieldModel(), objectResult);
+                nextWork = (stack == null ? null : stack.pollFirst());
             }
-
-        } while ((nextWork = stack.pollFirst()) != null);
-
-        return parentOutput;
+        }
     }
 
     private <T> T handleCloneImplementor(T obj, CloneDriver context, IdentityHashMap<Object, Object> referencesToReuse,
@@ -302,17 +321,16 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
 
         final Class<?> clazz = f.getFieldClass();
         
-
         if (clazz.isPrimitive()) {
             handleClonePrimitiveField(obj, copy, driver, f, referencesToReuse);
         } else if (!driver.isCloneSyntheticFields() && f.isSynthetic()) {
-            putFieldValue(obj, f, getFieldValue(obj, f, referencesToReuse));
+            putFieldValue(copy, f, getFieldValue(obj, f, referencesToReuse));
         } else {
 
             Object fieldObject;
             fieldObject = getFieldValue(obj, f, referencesToReuse);
             final Object fieldObjectClone = clone(fieldObject, driver, referencesToReuse);
-            putFieldValue(obj, f, fieldObjectClone);
+            putFieldValue(copy, f, fieldObjectClone);
         }
     }
     

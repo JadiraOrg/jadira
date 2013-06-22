@@ -33,478 +33,452 @@ import org.jadira.cloning.portable.FieldType;
 @SuppressWarnings("restriction")
 public final class UnsafeOperations {
 
-    private static final sun.misc.Unsafe THE_UNSAFE;
-    private static final boolean IS_UNSAFE_AVAILABLE;
+	private static final int REFERENCE_STACK_LIMIT = 150;
 
-    private static final UnsafeOperations INSTANCE = new UnsafeOperations();
+	private static final sun.misc.Unsafe THE_UNSAFE;
+	private static final boolean IS_UNSAFE_AVAILABLE;
 
-    static {
-        boolean isUnsafeAvailable = true;
-        sun.misc.Unsafe theUnsafe = null;
-        try {
-            Class.forName("android.os.Process");
-            isUnsafeAvailable = false;
+	private static final UnsafeOperations INSTANCE = new UnsafeOperations();
 
-        } catch (ClassNotFoundException e) {
-            // Ignored
-        } finally {
+	static {
+		boolean isUnsafeAvailable = true;
+		sun.misc.Unsafe theUnsafe = null;
+		try {
+			Class.forName("android.os.Process");
+			isUnsafeAvailable = false;
 
-            if (isUnsafeAvailable) {
-                try {
-                    Field f = Class.forName("sun.misc.Unsafe").getDeclaredField("theUnsafe");
-                    f.setAccessible(true);
-                    theUnsafe = (sun.misc.Unsafe) f.get(null);
-                } catch (ClassNotFoundException e) {
-                    isUnsafeAvailable = false;
-                } catch (IllegalArgumentException e) {
-                    isUnsafeAvailable = false;
-                } catch (IllegalAccessException e) {
-                    isUnsafeAvailable = false;
-                } catch (NoSuchFieldException e) {
-                    isUnsafeAvailable = false;
-                } catch (SecurityException e) {
-                    isUnsafeAvailable = false;
-                }
-            }
-        }
-        IS_UNSAFE_AVAILABLE = isUnsafeAvailable;
-        THE_UNSAFE = theUnsafe;
-    }
+		} catch (ClassNotFoundException e) {
+			// Ignored
+		} finally {
 
-    private UnsafeOperations() {
-    }
-
-    public static final UnsafeOperations getUnsafeOperations() {
-        if (isUnsafeAvailable()) {
-            return INSTANCE;
-        } else {
-            throw new IllegalStateException("Unsafe is not available");
-        }
-    }
-
-    public static boolean isUnsafeAvailable() {
-        return IS_UNSAFE_AVAILABLE;
-    }
-
-    public final <T> T allocateInstance(Class<T> clazz) throws IllegalStateException {
-
-        try {
-            @SuppressWarnings("unchecked")
-            final T result = (T) THE_UNSAFE.allocateInstance(clazz);
-            return result;
-        } catch (InstantiationException e) {
-            throw new IllegalStateException("Cannot allocate instance: " + e.getMessage(), e);
-        }
-    }
-
-    public final long getObjectFieldOffset(Field f) {
-        return THE_UNSAFE.objectFieldOffset(f);
-    }
-
-    public final <T> T shallowCopy(T obj) {
-        long size = shallowSizeOf(obj);
-        long address = THE_UNSAFE.allocateMemory(size);
-        long start = toAddress(obj);
-        THE_UNSAFE.copyMemory(start, address, size);
-
-        @SuppressWarnings("unchecked")
-        final T result = (T) fromAddress(address);
-        return result;
-    }
-
-    public final long toAddress(Object obj) {
-        Object[] array = new Object[] { obj };
-        long baseOffset = THE_UNSAFE.arrayBaseOffset(Object[].class);
-        return normalize(THE_UNSAFE.getInt(array, baseOffset));
-    }
-
-    public final Object fromAddress(long address) {
-        Object[] array = new Object[] { null };
-        long baseOffset = THE_UNSAFE.arrayBaseOffset(Object[].class);
-        THE_UNSAFE.putLong(array, baseOffset, address);
-        return array[0];
-    }
-
-    public final void copyPrimitiveField(Object obj, Object copy, Field field) {
-        copyPrimitiveAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field));
-    }
-
-    public final void copyPrimitiveAtOffset(Object obj, Object copy, Class<?> type, long offset) {
-
-        if (java.lang.Boolean.TYPE.isAssignableFrom(type)) {
-            boolean origFieldValue = THE_UNSAFE.getBoolean(obj, offset);
-            THE_UNSAFE.putBoolean(copy, offset, origFieldValue);
-        } else if (java.lang.Byte.TYPE.isAssignableFrom(type)) {
-            byte origFieldValue = THE_UNSAFE.getByte(obj, offset);
-            THE_UNSAFE.putByte(copy, offset, origFieldValue);
-        } else if (java.lang.Character.TYPE.isAssignableFrom(type)) {
-            char origFieldValue = THE_UNSAFE.getChar(obj, offset);
-            THE_UNSAFE.putChar(copy, offset, origFieldValue);
-        } else if (java.lang.Short.TYPE.isAssignableFrom(type)) {
-            short origFieldValue = THE_UNSAFE.getShort(obj, offset);
-            THE_UNSAFE.putShort(copy, offset, origFieldValue);
-        } else if (java.lang.Integer.TYPE.isAssignableFrom(type)) {
-            int origFieldValue = THE_UNSAFE.getInt(obj, offset);
-            THE_UNSAFE.putInt(copy, offset, origFieldValue);
-        } else if (java.lang.Long.TYPE.isAssignableFrom(type)) {
-            long origFieldValue = THE_UNSAFE.getLong(obj, offset);
-            THE_UNSAFE.putLong(copy, offset, origFieldValue);
-        } else if (java.lang.Float.TYPE.isAssignableFrom(type)) {
-            float origFieldValue = THE_UNSAFE.getFloat(obj, offset);
-            THE_UNSAFE.putFloat(copy, offset, origFieldValue);
-        } else if (java.lang.Double.TYPE.isAssignableFrom(type)) {
-            double origFieldValue = THE_UNSAFE.getDouble(obj, offset);
-            THE_UNSAFE.putDouble(copy, offset, origFieldValue);
-        }
-    }
-
-    public final void putPrimitiveDefaultAtOffset(Object copy, Class<?> type, long offset) {
-
-        if (java.lang.Boolean.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putBoolean(copy, offset, false);
-        } else if (java.lang.Byte.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putByte(copy, offset, (byte) 0);
-        } else if (java.lang.Character.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putChar(copy, offset, '\u0000');
-        } else if (java.lang.Short.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putShort(copy, offset, (short) 0);
-        } else if (java.lang.Integer.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putInt(copy, offset, 0);
-        } else if (java.lang.Long.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putLong(copy, offset, 0L);
-        } else if (java.lang.Float.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putFloat(copy, offset, 0.0f);
-        } else if (java.lang.Double.TYPE.isAssignableFrom(type)) {
-            THE_UNSAFE.putDouble(copy, offset, 0.0d);
-        }
-    }
-
-    public <T> T deepCopy(final T obj) {
-        return deepCopy(obj, new IdentityHashMap<Object, Object>(10));
-    }
-
-    public <T> T deepCopy(final T obj2, IdentityHashMap<Object, Object> referencesToReuse) {
-
-        /**
-         * To avoid unnecessary recursion and potential stackoverflow errors, we use an internal stack
-         */
-        Deque<WorkItem> stack = new ArrayDeque<WorkItem>();
-
-        Object objectInput;
-
-        T parentOutput = null;
-        WorkItem nextWork = null;
-        
-        do {
-            Object objectResult;
-
-            if (nextWork == null) {
-                objectInput = obj2;
-            } else {
-                objectInput = getObject(nextWork.getSource(), nextWork.getOffset());
-            }
-
-    		if (objectInput == null) {
-    		    
-    			objectResult = null;
-    			
-    		} else {
-    
-    		    Class<?> clazz = objectInput.getClass();
-    
-    		    if (clazz.isPrimitive()) {
-    		        objectResult = objectInput;
-    		    } else if (clazz.isArray()) {
-        			objectResult = deepCopyArray(objectInput, referencesToReuse);
-        		} else if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz) || clazz.isEnum()) {
-					objectResult = objectInput;
-    		    } else if (referencesToReuse.containsKey(objectInput)) {
-        			objectResult = referencesToReuse.get(objectInput);
-        		} else {
-        
-            		UnsafeClassModel model = UnsafeClassModel.get(objectInput.getClass());
-            
-                    objectResult = allocateInstance(objectInput.getClass());
-            		referencesToReuse.put(objectInput, objectResult);
-            
-            		for (UnsafeFieldModel f : model.getModelFields()) {
-            
-            			if (f.getFieldType() == FieldType.PRIMITIVE) {
-            				copyPrimitiveAtOffset(objectInput, objectResult, f.getFieldClass(), f.getOffset());
-            			} else if (f.getFieldType() == FieldType.ARRAY) {
-            				deepCopyArrayAtOffset(objectInput, objectResult, f.getFieldClass(), f.getOffset(), referencesToReuse);
-            			} else {
-            			    stack.addFirst(new WorkItem(objectInput, objectResult, f.getOffset()));
-            			}
-            		}
-        		}
-    		}
-    		
-            if (nextWork == null) {
-                @SuppressWarnings("unchecked")
-                final T convertedResult = (T) objectResult;
-                parentOutput = convertedResult;
-            } else {
-                
-                if (objectResult == null) {
-
-                    putNullObject(nextWork.getTarget(), nextWork.getOffset());
-                } else {
-                    putObject(nextWork.getTarget(), nextWork.getOffset(), objectResult);
-                }
-            }
-        } while ((nextWork = stack.pollFirst()) != null);
-
-        return parentOutput;
+			if (isUnsafeAvailable) {
+				try {
+					Field f = Class.forName("sun.misc.Unsafe").getDeclaredField("theUnsafe");
+					f.setAccessible(true);
+					theUnsafe = (sun.misc.Unsafe) f.get(null);
+				} catch (ClassNotFoundException e) {
+					isUnsafeAvailable = false;
+				} catch (IllegalArgumentException e) {
+					isUnsafeAvailable = false;
+				} catch (IllegalAccessException e) {
+					isUnsafeAvailable = false;
+				} catch (NoSuchFieldException e) {
+					isUnsafeAvailable = false;
+				} catch (SecurityException e) {
+					isUnsafeAvailable = false;
+				}
+			}
+		}
+		IS_UNSAFE_AVAILABLE = isUnsafeAvailable;
+		THE_UNSAFE = theUnsafe;
 	}
 
-    public final void deepCopyObjectAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset) {
-        deepCopyObjectAtOffset(obj, copy, fieldClass, offset, new IdentityHashMap<Object, Object>(100));
-    }
+	private UnsafeOperations() {
+	}
 
-    public final void deepCopyObjectAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset,
-            IdentityHashMap<Object, Object> referencesToReuse) {
+	public static final UnsafeOperations getUnsafeOperations() {
+		if (isUnsafeAvailable()) {
+			return INSTANCE;
+		} else {
+			throw new IllegalStateException("Unsafe is not available");
+		}
+	}
 
-        Object origFieldValue = THE_UNSAFE.getObject(obj, offset);
+	public static boolean isUnsafeAvailable() {
+		return IS_UNSAFE_AVAILABLE;
+	}
 
-        if (origFieldValue == null) {
+	public final <T> T allocateInstance(Class<T> clazz) throws IllegalStateException {
 
-            putNullObject(copy, offset);
-        } else {
+		try {
+			@SuppressWarnings("unchecked")
+			final T result = (T) THE_UNSAFE.allocateInstance(clazz);
+			return result;
+		} catch (InstantiationException e) {
+			throw new IllegalStateException("Cannot allocate instance: " + e.getMessage(), e);
+		}
+	}
 
-            Class<?> clazz = origFieldValue.getClass();
+	public final long getObjectFieldOffset(Field f) {
+		return THE_UNSAFE.objectFieldOffset(f);
+	}
 
-            final Object copyFieldValue;
-            if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)) {
-                copyFieldValue = origFieldValue;
-            } else {
-                copyFieldValue = deepCopy(origFieldValue, referencesToReuse);
-            }
+	public final <T> T shallowCopy(T obj) {
+		long size = shallowSizeOf(obj);
+		long address = THE_UNSAFE.allocateMemory(size);
+		long start = toAddress(obj);
+		THE_UNSAFE.copyMemory(start, address, size);
 
-            UnsafeOperations.THE_UNSAFE.putObject(copy, offset, copyFieldValue);
-        }
-    }
+		@SuppressWarnings("unchecked")
+		final T result = (T) fromAddress(address);
+		return result;
+	}
 
-    public final void deepCopyObjectField(Object obj, Object copy, Field field,
-            IdentityHashMap<Object, Object> referencesToReuse) {
+	public final long toAddress(Object obj) {
+		Object[] array = new Object[] { obj };
+		long baseOffset = THE_UNSAFE.arrayBaseOffset(Object[].class);
+		return normalize(THE_UNSAFE.getInt(array, baseOffset));
+	}
 
-        deepCopyObjectAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), referencesToReuse);
-    }
+	public final Object fromAddress(long address) {
+		Object[] array = new Object[] { null };
+		long baseOffset = THE_UNSAFE.arrayBaseOffset(Object[].class);
+		THE_UNSAFE.putLong(array, baseOffset, address);
+		return array[0];
+	}
 
-    public final void deepCopyObjectField(Object obj, Object copy, Field field) {
+	public final void copyPrimitiveField(Object obj, Object copy, Field field) {
+		copyPrimitiveAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field));
+	}
 
-        deepCopyObjectAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field),
-                new IdentityHashMap<Object, Object>(100));
-    }
+	public final void copyPrimitiveAtOffset(Object obj, Object copy, Class<?> type, long offset) {
 
-    public final void deepCopyArrayAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset) {
-        deepCopyArrayAtOffset(obj, copy, fieldClass, offset, new IdentityHashMap<Object, Object>(100));
-    }
+		if (java.lang.Boolean.TYPE.isAssignableFrom(type)) {
+			boolean origFieldValue = THE_UNSAFE.getBoolean(obj, offset);
+			THE_UNSAFE.putBoolean(copy, offset, origFieldValue);
+		} else if (java.lang.Byte.TYPE.isAssignableFrom(type)) {
+			byte origFieldValue = THE_UNSAFE.getByte(obj, offset);
+			THE_UNSAFE.putByte(copy, offset, origFieldValue);
+		} else if (java.lang.Character.TYPE.isAssignableFrom(type)) {
+			char origFieldValue = THE_UNSAFE.getChar(obj, offset);
+			THE_UNSAFE.putChar(copy, offset, origFieldValue);
+		} else if (java.lang.Short.TYPE.isAssignableFrom(type)) {
+			short origFieldValue = THE_UNSAFE.getShort(obj, offset);
+			THE_UNSAFE.putShort(copy, offset, origFieldValue);
+		} else if (java.lang.Integer.TYPE.isAssignableFrom(type)) {
+			int origFieldValue = THE_UNSAFE.getInt(obj, offset);
+			THE_UNSAFE.putInt(copy, offset, origFieldValue);
+		} else if (java.lang.Long.TYPE.isAssignableFrom(type)) {
+			long origFieldValue = THE_UNSAFE.getLong(obj, offset);
+			THE_UNSAFE.putLong(copy, offset, origFieldValue);
+		} else if (java.lang.Float.TYPE.isAssignableFrom(type)) {
+			float origFieldValue = THE_UNSAFE.getFloat(obj, offset);
+			THE_UNSAFE.putFloat(copy, offset, origFieldValue);
+		} else if (java.lang.Double.TYPE.isAssignableFrom(type)) {
+			double origFieldValue = THE_UNSAFE.getDouble(obj, offset);
+			THE_UNSAFE.putDouble(copy, offset, origFieldValue);
+		}
+	}
 
-    public final void deepCopyArrayAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset,
-            IdentityHashMap<Object, Object> referencesToReuse) {
+	public final void putPrimitiveDefaultAtOffset(Object copy, Class<?> type, long offset) {
 
-        Object origFieldValue = THE_UNSAFE.getObject(obj, offset);
+		if (java.lang.Boolean.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putBoolean(copy, offset, false);
+		} else if (java.lang.Byte.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putByte(copy, offset, (byte) 0);
+		} else if (java.lang.Character.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putChar(copy, offset, '\u0000');
+		} else if (java.lang.Short.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putShort(copy, offset, (short) 0);
+		} else if (java.lang.Integer.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putInt(copy, offset, 0);
+		} else if (java.lang.Long.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putLong(copy, offset, 0L);
+		} else if (java.lang.Float.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putFloat(copy, offset, 0.0f);
+		} else if (java.lang.Double.TYPE.isAssignableFrom(type)) {
+			THE_UNSAFE.putDouble(copy, offset, 0.0d);
+		}
+	}
 
-        if (origFieldValue == null) {
+	public <T> T deepCopy(final T obj) {
+		return deepCopy(obj, new IdentityHashMap<Object, Object>(10));
+	}
 
-            putNullObject(copy, offset);
-        } else {
+	public <T> T deepCopy(final T o, IdentityHashMap<Object, Object> referencesToReuse) {
 
-            final Object copyFieldValue = deepCopyArray(origFieldValue, referencesToReuse);
-            UnsafeOperations.THE_UNSAFE.putObject(copy, offset, copyFieldValue);
-        }
-    }
+		/**
+		 * To avoid unnecessary recursion and potential stackoverflow errors, we use an internal
+		 * stack
+		 */
 
-    public final void deepCopyArrayField(Object obj, Object copy, Field field,
-            IdentityHashMap<Object, Object> referencesToReuse) {
+		final Deque<WorkItem> stack;
+		if (referencesToReuse.size() >= REFERENCE_STACK_LIMIT) {
+			stack = new ArrayDeque<WorkItem>();
+		} else {
+			stack = null;
+		}
 
-        deepCopyArrayAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), referencesToReuse);
-    }
+		Object objectInput;
 
-    public final void deepCopyArrayField(Object obj, Object copy, Field field) {
+		WorkItem nextWork = null;
 
-        deepCopyArrayAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field),
-                new IdentityHashMap<Object, Object>(100));
-    }
+		while (true) {
 
-    public final Object deepCopyArray(Object origFieldValue, IdentityHashMap<Object, Object> visited) {
+			Object objectResult;
 
-        if (visited.containsKey(origFieldValue)) {
-            return visited.get(origFieldValue);
-        }
+			if (nextWork == null) {
+				objectInput = o;
+			} else {
+				objectInput = getObject(nextWork.getSource(), nextWork.getFieldModel().getOffset());
+			}
 
-        final Class<?> componentType = origFieldValue.getClass().getComponentType();
+			if (objectInput == null) {
+				objectResult = null;
+			} else {
 
-        Object result = null;
+				Class<?> clazz = objectInput.getClass();
 
-        if (componentType.getName().length() <= 7) {
+				if (clazz.isPrimitive() || clazz.isEnum()) {
+					objectResult = objectInput;
+				} else if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)) {
+					objectResult = objectInput;
+				} else {
 
-            if (java.lang.Boolean.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);
-            } else if (java.lang.Byte.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((byte[]) origFieldValue, ((byte[]) origFieldValue).length);
-            } else if (java.lang.Character.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((char[]) origFieldValue, ((char[]) origFieldValue).length);
-            } else if (java.lang.Short.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((short[]) origFieldValue, ((short[]) origFieldValue).length);
-            } else if (java.lang.Integer.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((int[]) origFieldValue, ((int[]) origFieldValue).length);
-            } else if (java.lang.Long.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((long[]) origFieldValue, ((long[]) origFieldValue).length);
-            } else if (java.lang.Float.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((float[]) origFieldValue, ((float[]) origFieldValue).length);
-            } else if (java.lang.Double.TYPE.isAssignableFrom(componentType)) {
-                result = Arrays.copyOf((double[]) origFieldValue, ((double[]) origFieldValue).length);
-            }
-        }
+					final Object result = referencesToReuse.get(objectInput);
+					if (result != null) {
+						objectResult = result;
+					} else {
+						if (clazz.isArray()) {
+							objectResult = deepCopyArray(objectInput, referencesToReuse);
+						} else {
 
-        if (result == null) {
-            Object[] array = Arrays.copyOf((Object[]) origFieldValue, ((Object[]) origFieldValue).length);
-            if (array.length > 0) {
+							UnsafeClassModel model = UnsafeClassModel.get(objectInput.getClass());
+							objectResult = allocateInstance(objectInput.getClass());
 
-                if (componentType.isArray()) {
-                    for (int i = 0; i < array.length; i++) {
-                        array[i] = deepCopyArray(array[i], visited);
-                    }
-                } else {
-                    for (int i = 0; i < array.length; i++) {
-                        Object component = deepCopy(((Object[])origFieldValue)[i], visited);
-                        array[i] = component;
-                    }
-                }
-            }
-            result = array;
-        }
+							referencesToReuse.put(objectInput, objectResult);
 
-        visited.put(origFieldValue, result);
-        return result;
-    }
+							for (UnsafeFieldModel f : model.getModelFields()) {
+								if (f.getFieldType() == FieldType.PRIMITIVE) {
+									copyPrimitiveAtOffset(objectInput, objectResult, f.getFieldClass(), f.getOffset());
+								} else if (stack == null) {
+									deepCopyObjectAtOffset(objectInput, objectResult, f.getFieldClass(), f.getOffset(), referencesToReuse);
+								} else {
+									stack.addFirst(new WorkItem(objectInput, objectResult, f));
+								}
+							}
+						}
+					}
+				}
+			}
 
-    public final long shallowSizeOf(Object obj) {
-        return shallowSizeOf(obj.getClass());
-    }
+			if (nextWork == null) {
+				nextWork = (stack == null ? null : stack.pollFirst());
+				if (nextWork == null) {
+					@SuppressWarnings("unchecked")
+					final T convertedResult = (T) objectResult;
+					return convertedResult;
+				}
+			} else if (nextWork != null) {
+				if (objectResult == null) {
+					putNullObject(nextWork.getTarget(), nextWork.getFieldModel().getOffset());
+				} else {
+					putObject(nextWork.getTarget(), nextWork.getFieldModel().getOffset(), objectResult);
+				}
+				nextWork = (stack == null ? null : stack.pollFirst());
+			}
+		}
+	}
 
-    public final long shallowSizeOf(Class<?> clazz) {
+	public final void deepCopyObjectAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset) {
+		deepCopyObjectAtOffset(obj, copy, fieldClass, offset, new IdentityHashMap<Object, Object>(100));
+	}
 
-        if (clazz == null) {
-            return 0;
-        }
+	public final void deepCopyObjectAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset, IdentityHashMap<Object, Object> referencesToReuse) {
 
-        Field[] fields = ClassUtils.collectFields(clazz);
+		Object origFieldValue = THE_UNSAFE.getObject(obj, offset);
 
-        // get offset
-        long maxSize = 0;
-        for (Field f : fields) {
-            long offset = THE_UNSAFE.objectFieldOffset(f);
-            if (offset > maxSize) {
-                maxSize = offset;
-            }
-        }
+		if (origFieldValue == null) {
 
-        return ((maxSize / 8) + 1) * 8; // padding
-    }
+			putNullObject(copy, offset);
+		} else {
 
-    public final long deepSizeOf(Object o) {
+			final Object copyFieldValue = deepCopy(origFieldValue, referencesToReuse);
+			UnsafeOperations.THE_UNSAFE.putObject(copy, offset, copyFieldValue);
+		}
+	}
 
-        IdentityHashMap<Object, Boolean> seenObjects = new IdentityHashMap<Object, Boolean>(10);
-        return doDeepSizeOf(o, seenObjects);
-    }
+	public final void deepCopyObjectField(Object obj, Object copy, Field field, IdentityHashMap<Object, Object> referencesToReuse) {
 
-    private long doDeepSizeOf(Object o2, IdentityHashMap<Object, Boolean> seenObjects) {
+		deepCopyObjectAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), referencesToReuse);
+	}
 
-        /**
-         * To avoid unnecessary recursion and potential stackoverflow errors, we use an internal stack
-         */
-        Deque<WorkItem> stack = new ArrayDeque<WorkItem>();
+	public final void deepCopyObjectField(Object obj, Object copy, Field field) {
 
-        Object objectInput;
+		deepCopyObjectAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), new IdentityHashMap<Object, Object>(100));
+	}
 
-        long bytesCount = 0L;
-        long arrayItemsCount = 0L;
-        WorkItem nextWork = null;
-        
-        do {
+	public final void deepCopyArrayAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset) {
+		deepCopyArrayAtOffset(obj, copy, fieldClass, offset, new IdentityHashMap<Object, Object>(100));
+	}
 
-            if (nextWork == null) {
-                objectInput = o2;
-            } else {
-                objectInput = getObject(nextWork.getSource(), nextWork.getOffset());
-            }
+	public final void deepCopyArrayAtOffset(Object obj, Object copy, Class<?> fieldClass, long offset, IdentityHashMap<Object, Object> referencesToReuse) {
 
-            if (objectInput != null) {
-            
-                long size = shallowSizeOf(objectInput);
-        
-                Field[] fields = ClassUtils.collectFields(objectInput.getClass());
-        
-                if (objectInput.getClass().isArray() && !objectInput.getClass().getComponentType().isPrimitive()) {
-                    Object[] objectArray = (Object[])objectInput;
-                    for (int i=0; i< objectArray.length; i++) {
-                        if (objectArray[i] != null && !seenObjects.containsKey(objectArray[i])) {
-                            seenObjects.put(objectArray[i], Boolean.TRUE);
-                            arrayItemsCount += doDeepSizeOf(objectArray[i], seenObjects);
-                        }
-                    }                    
-                }
-                for (Field f : fields) {
-                    if (!f.getType().isPrimitive()) {
-                        long itemOffset = THE_UNSAFE.objectFieldOffset(f);
-                        Object item = getObject(objectInput, itemOffset);
-                        if (item != null && !seenObjects.containsKey(item)) {
-                            seenObjects.put(item, Boolean.TRUE);
-                            stack.addFirst(new WorkItem(objectInput, item, itemOffset));
-                        }
-                    }
-                }
-                bytesCount += (((size / 8) + 1) * 8); // padding
-            }
-        } while ((nextWork = stack.pollFirst()) != null);
+		Object origFieldValue = THE_UNSAFE.getObject(obj, offset);
 
-        return bytesCount + arrayItemsCount;
-    }
+		if (origFieldValue == null) {
 
-    private static long normalize(int value) {
-        if (value >= 0) {
-            return value;
-        }
-        return (~0L >>> 32) & value;
-    }
+			putNullObject(copy, offset);
+		} else {
 
-    public final Object getObject(Object parent, long offset) {
-        return THE_UNSAFE.getObject(parent, offset);
-    }
+			final Object copyFieldValue = deepCopyArray(origFieldValue, referencesToReuse);
+			UnsafeOperations.THE_UNSAFE.putObject(copy, offset, copyFieldValue);
+		}
+	}
 
-    public final void putNullObject(Object parent, long offset) {
-        THE_UNSAFE.putObject(parent, offset, null);
-    }
+	public final void deepCopyArrayField(Object obj, Object copy, Field field, IdentityHashMap<Object, Object> referencesToReuse) {
 
-    public final void putObject(Object parent, long offset, Object value) {
-        THE_UNSAFE.putObject(parent, offset, value);
-    }
+		deepCopyArrayAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), referencesToReuse);
+	}
 
-    private class WorkItem {
+	public final void deepCopyArrayField(Object obj, Object copy, Field field) {
 
-        private final Object source;
-        private final Object target;
-        private final long offset;
+		deepCopyArrayAtOffset(obj, copy, field.getType(), getObjectFieldOffset(field), new IdentityHashMap<Object, Object>(100));
+	}
 
-        protected WorkItem(Object source, Object target, long offset) {
-            this.source = source;
-            this.target = target;
-            this.offset = offset;
-        }
+	public final Object deepCopyArray(Object origFieldValue, IdentityHashMap<Object, Object> visited) {
 
-        public Object getSource() {
-            return source;
-        }
+		if (visited.containsKey(origFieldValue)) {
+			return visited.get(origFieldValue);
+		}
 
-        public Object getTarget() {
-            return target;
-        }
+		final Class<?> componentType = origFieldValue.getClass().getComponentType();
 
-        private long getOffset() {
-            return offset;
-        }
-    }
+		Object result = null;
+
+		if (componentType.getName().length() <= 7) {
+
+			if (java.lang.Boolean.TYPE == componentType) {
+				result = Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);
+			} else if (java.lang.Byte.TYPE == componentType) {
+				result = Arrays.copyOf((byte[]) origFieldValue, ((byte[]) origFieldValue).length);
+			} else if (java.lang.Character.TYPE == componentType) {
+				result = Arrays.copyOf((char[]) origFieldValue, ((char[]) origFieldValue).length);
+			} else if (java.lang.Short.TYPE == componentType) {
+				result = Arrays.copyOf((short[]) origFieldValue, ((short[]) origFieldValue).length);
+			} else if (java.lang.Integer.TYPE == componentType) {
+				result = Arrays.copyOf((int[]) origFieldValue, ((int[]) origFieldValue).length);
+			} else if (java.lang.Long.TYPE == componentType) {
+				result = Arrays.copyOf((long[]) origFieldValue, ((long[]) origFieldValue).length);
+			} else if (java.lang.Float.TYPE == componentType) {
+				result = Arrays.copyOf((float[]) origFieldValue, ((float[]) origFieldValue).length);
+			} else if (java.lang.Double.TYPE == componentType) {
+				result = Arrays.copyOf((double[]) origFieldValue, ((double[]) origFieldValue).length);
+			}
+		}
+
+		if (result == null) {
+			Object[] array = Arrays.copyOf((Object[]) origFieldValue, ((Object[]) origFieldValue).length);
+			if (array.length > 0) {
+
+				if (componentType.isArray()) {
+					for (int i = 0; i < array.length; i++) {
+						array[i] = deepCopyArray(array[i], visited);
+					}
+				} else {
+					for (int i = 0; i < array.length; i++) {
+						Object component = deepCopy(array[i], visited);
+						array[i] = component;
+					}
+				}
+			}
+			result = array;
+		}
+
+		visited.put(origFieldValue, result);
+		return result;
+	}
+
+	public final long shallowSizeOf(Object obj) {
+		return shallowSizeOf(obj.getClass());
+	}
+
+	public final long shallowSizeOf(Class<?> clazz) {
+
+		if (clazz == null) {
+			return 0;
+		}
+
+		Field[] fields = ClassUtils.collectFields(clazz);
+
+		// get offset
+		long maxSize = 0;
+		for (Field f : fields) {
+			long offset = THE_UNSAFE.objectFieldOffset(f);
+			if (offset > maxSize) {
+				maxSize = offset;
+			}
+		}
+
+		return ((maxSize / 8) + 1) * 8; // padding
+	}
+
+	public final long deepSizeOf(Object o) {
+
+		IdentityHashMap<Object, Boolean> seenObjects = new IdentityHashMap<Object, Boolean>(10);
+		return doDeepSizeOf(o, seenObjects);
+	}
+
+	private long doDeepSizeOf(Object o, IdentityHashMap<Object, Boolean> seenObjects) {
+
+		if (o == null) {
+			return 0;
+		}
+
+		// get offset
+		long maxSize = 0;
+		long additionalSize = 0;
+
+		Field[] fields = ClassUtils.collectFields(o.getClass());
+
+		for (Field f : fields) {
+			long offset = THE_UNSAFE.objectFieldOffset(f);
+			if (offset > maxSize) {
+				maxSize = offset;
+			}
+			if (!f.getType().isPrimitive()) {
+				Object obj = THE_UNSAFE.getObject(o, THE_UNSAFE.objectFieldOffset(f));
+				if (obj != null && !seenObjects.containsKey(o)) {
+					seenObjects.put(o, Boolean.TRUE);
+					additionalSize = additionalSize + doDeepSizeOf(obj, seenObjects);
+				}
+			}
+		}
+
+		return additionalSize + (((maxSize / 8) + 1) * 8); // padding
+	}
+
+	private static long normalize(int value) {
+		if (value >= 0) {
+			return value;
+		}
+		return (~0L >>> 32) & value;
+	}
+
+	public final Object getObject(Object parent, long offset) {
+		return THE_UNSAFE.getObject(parent, offset);
+	}
+
+	public final void putNullObject(Object parent, long offset) {
+		THE_UNSAFE.putObject(parent, offset, null);
+	}
+
+	public final void putObject(Object parent, long offset, Object value) {
+		THE_UNSAFE.putObject(parent, offset, value);
+	}
+
+	private class WorkItem {
+
+		private final Object source;
+		private final Object target;
+		private final UnsafeFieldModel fieldModel;
+
+		public WorkItem(Object source, Object target, UnsafeFieldModel fieldModel) {
+			this.source = source;
+			this.target = target;
+			this.fieldModel = fieldModel;
+		}
+
+		public Object getSource() {
+			return source;
+		}
+
+		public Object getTarget() {
+			return target;
+		}
+
+		private UnsafeFieldModel getFieldModel() {
+			return fieldModel;
+		}
+	}
 }
