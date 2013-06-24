@@ -61,7 +61,7 @@
 
 	<issueManagement>
 		<system>JIRA</system>
-		<url>https://jadira.atlassian.net/BrowseProject.jspa?id=1</url>
+		<url>https://jadira.atlassian.net/browse/JDF/</url>
 	</issueManagement>	
 
 	<licenses>
