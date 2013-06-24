@@ -31,8 +31,8 @@
 	<artifactId>maven.plugins</artifactId>
 	<packaging>pom</packaging>
 
-	<name>Jadira Maven Plugins</name>
-	<description>Jadira Maven Plugins</description>
+	<name>Jadira Maven Plugins Parent</name>
+	<description>Jadira Framework Maven Plugins</description>
 
 	<dependencyManagement>
 		<dependencies>

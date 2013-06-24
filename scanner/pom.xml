@@ -31,7 +31,7 @@
 	<packaging>jar</packaging>
 	
 	<name>Jadira Scanner</name>
-	<description>Java Classpath Scanner Library</description>
+	<description>Java Classpath Scanner Library for Jadira Framework</description>
 
 	<dependencyManagement>
 		<dependencies>

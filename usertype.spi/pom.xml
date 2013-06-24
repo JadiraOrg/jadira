@@ -31,8 +31,8 @@
 	<artifactId>usertype.spi</artifactId>
 	<packaging>jar</packaging>
 
-	<name>Usertype SPI Classes for Hibernate</name>
-	<description>Shared depencies for Usertype jars</description>
+	<name>Jadira Usertype SPI Classes for Hibernate</name>
+	<description>Shared dependencies for Usertype jars</description>
 	
 	<dependencyManagement>
 		<dependencies>

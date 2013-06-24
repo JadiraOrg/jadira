@@ -20,15 +20,24 @@ import org.jadira.quant.api.QuantitativeFunction;
 import org.jadira.quant.exception.IntervalBisectionOutOfRangeException;
 
 /**
- * This function solves the root of the equation by starting with two higher and lower bound values
- * (X0 and X1) that bracket the root. The function assumes that the initial range of these end
- * points contains the root. By evaluating the function at these points f(X0), f(X1) and checking
- * that the result of the function has a change of sign we confirm that the root is within the range
- * between the two values. The assumption is that the function is continuous at root and has at
- * least one zero.
- *
- * Inspired by the example that appears in Java Methods for Financial Engineering (Philip Barker), this
- * implementation includes error handling, a functional programming model and two precision strategies.
+ * This class can be used to solve the equation f(x) = 0. It will determine the double value of x,
+ * where f is a continuous function defined on an interval between [a, b] and f(a) and f(b) have opposite
+ * signs. [a, b] are said to bracket the root since there must be at least one root between a and b that
+ * yields f(x) = 0.
+ * 
+ * For each iteration, the approach divides the interval in two by determining the midpoint of the interval, c,
+ * such that c = (a+b)/2. The method then determines the interval that brackets the root, this being either
+ * [a, c] or [c, b]. This is used as the interval for the next iteration. The process is terminated either 
+ * if the maximum number of iterations is reached, the gap between this result and the previous iteration 
+ * result is sufficiently small (if configured with {@link PrecisionStrategy#BETWEEN_RESULTS}) or the value is
+ * within the desired distance of root (if configured with {@link PrecisionStrategy#TO_INTERVAL}. 
+ * 
+ * PrecisionStrategy defaults to {@link PrecisionStrategy#TO_INTERVAL}, the method defaults to 20 iterations, 
+ * and an accuracy distance of 1e-3 (0.001). 
+ * 
+ * Inspired by the example that appears in Java Methods for Financial Engineering (Philip Barker),
+ * this implementation includes error handling, a functional programming model and two precision
+ * strategies.
  */
 public class IntervalBisection implements CompositeFunction<Double, QuantitativeFunction<Double, Double>> {
 
@@ -43,15 +52,20 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 	}
 	
 	public IntervalBisection(double lowerBound, double higherBound) {
-		iterations = 20;
-		// Defaults to 1e-3
-		precision = 0.001D; 
-		precisionStrategy = PrecisionStrategy.TO_INTERVAL;
-		
-		this.lowerBound = lowerBound;
-		this.higherBound = higherBound;
+		this(lowerBound, higherBound, 20);
 	}
 
+	/**
+	 * Create a new instance with the given number of iterations and precision
+	 * @param lowerBound The minimum bound for the range to converge from
+	 * @param higherBound The maximum bound for the range to converge from
+	 * @param iterations The number of iterations to perform
+	 */
+	public IntervalBisection(double lowerBound, double higherBound, int iterations) {
+		// Defaults precision strategy to 1e-3
+		this(lowerBound, higherBound, iterations, 0.001D, PrecisionStrategy.TO_INTERVAL);
+	}
+	
 	/**
 	 * Create a new instance with the given number of iterations and precision
 	 * @param lowerBound The minimum bound for the range to converge from
@@ -60,6 +74,17 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 	 * @param precision The requested precision
 	 */
 	public IntervalBisection(double lowerBound, double higherBound, int iterations, double precision, PrecisionStrategy precisionStrategy) {
+
+		if (iterations < 1) {
+			throw new IllegalArgumentException("iterations must be greater than 1");
+		}
+		if (Double.compare(precision, 0.0D)  < 0) {
+			throw new IllegalArgumentException("precision must be a positive number");
+		}
+		if (precisionStrategy == null) {
+			throw new IllegalArgumentException("precisionStrategy may not be null");
+		}
+		
 		this.lowerBound = lowerBound;
 		this.higherBound = higherBound;
 		this.iterations = iterations;
@@ -67,6 +92,14 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 		this.precisionStrategy = precisionStrategy;
 	}
 
+	public double getLowerBound() {
+		return lowerBound;
+	}
+	
+	public double getHigherBound() {
+		return higherBound;
+	}
+	
 	public int getIterations() {
 		return iterations;
 	}
@@ -78,10 +111,11 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 	@Override
 	public Double apply(QuantitativeFunction<Double, Double> computeFunction) {
 
-		// Check to see if we have the root within the range bounds
-		final double lowerResult = computeFunction.apply(lowerBound);
-		final double higherResult = computeFunction.apply(higherBound);
-		if (lowerResult * higherResult > 0) {
+		final double resultA = computeFunction.apply(lowerBound);
+		final double resultB = computeFunction.apply(higherBound);
+		
+		if (resultA != 0.0D && resultB != 0.0D  
+				&& (Double.compare(resultA, 0.0D) ^ Double.compare(0.0D, resultB)) != 0) {
 			throw new IntervalBisectionOutOfRangeException(lowerBound, higherBound);
 		}
 		
@@ -99,9 +133,9 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 			currentMiddle = currentLower + 0.5 * (currentHigher - currentLower);
 			midValueResult = computeFunction.apply(currentMiddle);
 
-			if (lowerResult * midValueResult < 0) {
+			if (resultA * midValueResult < 0) {
 				currentHigher = currentMiddle;
-			} else if (lowerResult * midValueResult > 0) {
+			} else if (resultA * midValueResult > 0) {
 				currentLower = currentMiddle;
 			}
 
@@ -114,7 +148,6 @@ public class IntervalBisection implements CompositeFunction<Double, Quantitative
 					break;
 			}
 		}
-
 		return currentMiddle;
 	}
 }
