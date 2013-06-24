@@ -13,6 +13,7 @@ cdt/.externalToolBuilders
 cdt/.project
 cdt/.settings
 cdt/target
+cloning/target
 depmgmt/.project
 depmgmt/.settings
 depmgmt/target
