@@ -16,7 +16,9 @@
   limitations under the License.
 		
  -->
-<document>
+<document xmlns="http://maven.apache.org/changes/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
 		
 	<properties>
 		<title>Usertype - Changes</title>
@@ -26,7 +28,11 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
-		<release version="3.1.0.CR7" date="07-07-2013" description="Fixes and Updates">
+		<release version="3.1.0.CR8" date="24-06-2013" description="Object Deep Cloning">
+			<action dev="Chris Pheby" issue="JDF-59" type="add">Initial implementation of Jadira Cloning library</action>
+		</release>
+
+		<release version="3.1.0.CR7" date="07-06-2013" description="Fixes and Updates">
 			<action dev="Chris Pheby" issue="JDF-53" type="add">Add implementation of the IntervalBisection algoithm</action>
 			<action dev="Chris Pheby" issue="JDF-57" type="add">Add an FMPP Maven Plugin</action>
 			<action dev="Chris Pheby" issue="JDF-58" type="update">Organise tests into suite to accelerate test execution</action>
@@ -49,7 +55,7 @@
 			<action dev="Chris Pheby" issue="JDF-48" type="fix">Resolved entities with multiple LocalDateTime fields are retrieved with incorrect values</action>
 		</release>
 		
-		<release version="3.1.0.CR3" date="28-04-2013" description="New Approach for the Timestamp Mapping & ThreeTenBP 0.8.1">
+		<release version="3.1.0.CR3" date="28-04-2013" description="New Approach for the Timestamp Mapping &amp; ThreeTenBP 0.8.1">
 			<action dev="Chris Pheby" issue="JDF-44" type="update">Update to ThreeTen Backport 0.8.1</action>
 			<action dev="Chris Pheby" issue="JDF-45" type="fix">Update Joda Mapping to use direct millisecond value</action>
 			<action dev="Chris Pheby" issue="JDF-46" type="add">Add PersistentMinutes mapping for Joda Time</action>
