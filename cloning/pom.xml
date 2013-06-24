@@ -17,6 +17,7 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
+	<groupId>org.jadira.cloning</groupId>
 	<artifactId>cloning</artifactId>
 	<packaging>jar</packaging>
 
