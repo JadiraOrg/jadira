@@ -617,7 +617,7 @@
           							</issueManagementSystems>
 	          						<useJql>true</useJql>
 	          						<columnNames>Key,Fix Version,Summary,Status,Resolution</columnNames>
-          							<sortColumnNames>Fix Version,Key DESC</sortColumnNames>
+          							<sortColumnNames>Fix Version DESC,Key DESC</sortColumnNames>
 							</configuration>
 						</plugin>
 						<plugin>
