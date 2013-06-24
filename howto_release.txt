@@ -5,16 +5,17 @@ mvn release:prepare -Dresume=false
 
 2) Perform the release:
 
-ssh -t username,jadira@shell.sf.net create
-exit
 mvn release:perform -P release-sign-artifacts
 
-2a) This can fail. If so:
+2a) This will fail. Then:
 
 cd target/checkout
 mvn clean install
 mvn deploy -P release-sign-artifacts -Dgpg.passphrase=password
-mvn site-deploy
+mvn site:site
+ssh -t username,jadira@shell.sf.net create
+exit
+mvn site:deploy
 
 3) Promote the release:
 
