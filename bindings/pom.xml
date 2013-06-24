@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.framework</groupId>
 		<artifactId>jadira.parent</artifactId>
-		<version>3.1.0.CR8-SNAPSHOT</version>
+		<version>3.1.0.CR8</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 	
