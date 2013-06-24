@@ -83,101 +83,7 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
             }
 
             else {
-                @SuppressWarnings("unchecked")
-                final Class<Object> clazz = (Class<Object>) objectInput.getClass();
-
-                if (clazz.isPrimitive() || clazz.isEnum()) {
-                    objectResult = objectInput;
-                } else if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)
-                        || context.getImmutableClasses().contains(clazz)
-                        || context.getNonCloneableClasses().contains(clazz)) {
-                    objectResult = objectInput;
-                } else {
-
-                    final Object result = referencesToReuse.get(objectInput);
-                    if (result != null) {
-                        objectResult = result;
-                    } else {
-
-                        final CloneImplementor cloneImplementor;
-                        if (context.isUseCloneImplementors()) {
-                            cloneImplementor = context.getImplementor(clazz);
-                        } else {
-                            cloneImplementor = context.getBuiltInImplementor(clazz);
-                        }
-                        if (cloneImplementor != null) {
-                            Object copy = cloneImplementor.clone(objectInput, context, referencesToReuse);
-                            referencesToReuse.put(objectInput, copy);
-                            objectResult = copy;
-                        } else {
-
-                            P model = getClassModel(objectInput.getClass());
-
-                            if (model.isDetectedAsImmutable() || model.isNonCloneable()) {
-                                objectResult = objectInput;
-                            } else {
-
-                                final org.jadira.cloning.annotation.Cloneable cloneableAnnotation = clazz
-                                        .getAnnotation(org.jadira.cloning.annotation.Cloneable.class);
-                                if (cloneableAnnotation != null
-                                        && !void.class.equals(cloneableAnnotation.implementor())) {
-                                    final Object copy = handleCloneImplementor(objectInput, context, referencesToReuse,
-                                            clazz, cloneableAnnotation);
-                                    referencesToReuse.put(objectInput, copy);
-                                    objectResult = copy;
-                                }
-
-                                else if (model.getCloneImplementor() != null) {
-                                    final Object copy = model.getCloneImplementor().clone(objectInput, context,
-                                            referencesToReuse);
-                                    referencesToReuse.put(objectInput, copy);
-                                    objectResult = copy;
-                                } else if (context.isUseCloneable() && Cloneable.class.isAssignableFrom(clazz)) {
-                                    final Object copy = handleCloneableCloneMethod(objectInput, context,
-                                            referencesToReuse, clazz, cloneableAnnotation);
-                                    referencesToReuse.put(objectInput, copy);
-                                    objectResult = copy;
-                                } else if (clazz.isArray()) {
-                                    final Object copy = handleArray(objectInput, context, referencesToReuse);
-                                    referencesToReuse.put(objectInput, copy);
-                                    objectResult = copy;
-                                } else {
-
-                                    objectResult = newInstance(clazz);
-                                    referencesToReuse.put(objectInput, objectResult);
-
-                                    for (F f : model.getModelFields()) {
-
-                                        if (!context.isCloneTransientFields() && f.isTransientField()) {
-                                            handleTransientField(objectResult, f);
-                                        } else if (!context.isCloneTransientAnnotatedFields()
-                                                && f.isTransientAnnotatedField()) {
-                                            handleTransientField(objectResult, f);
-                                        } else {
-                                            if (stack == null) {
-                                                handleCloneField(objectInput, objectResult, context, f,
-                                                        referencesToReuse);
-                                            } else {
-                                                if (f.getFieldType() == FieldType.PRIMITIVE) {
-                                                    handleClonePrimitiveField(objectInput, objectResult, context, f,
-                                                            referencesToReuse);
-                                                } else {
-                                                    if (!context.isCloneSyntheticFields() && f.isSynthetic()) {
-                                                        Object fieldObject = getFieldValue(objectInput, f,
-                                                                referencesToReuse);
-                                                        referencesToReuse.put(fieldObject, fieldObject);
-                                                    } else {
-                                                        stack.addFirst(new WorkItem(objectInput, objectResult, f));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                objectResult = doCloneStep(objectInput, context, referencesToReuse, stack);
             }
             
 			if (nextWork == null) {
@@ -193,6 +99,106 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
             }
         }
     }
+
+	private Object doCloneStep(Object objectInput, CloneDriver context, IdentityHashMap<Object, Object> referencesToReuse, final Deque<WorkItem> stack) {
+		Object objectResult;
+		@SuppressWarnings("unchecked")
+		final Class<Object> clazz = (Class<Object>) objectInput.getClass();
+
+		if (clazz.isPrimitive() || clazz.isEnum()) {
+		    objectResult = objectInput;
+		} else if (ClassUtils.isJdkImmutable(clazz) || ClassUtils.isWrapper(clazz)
+		        || context.getImmutableClasses().contains(clazz)
+		        || context.getNonCloneableClasses().contains(clazz)) {
+		    objectResult = objectInput;
+		} else {
+
+		    final Object result = referencesToReuse.get(objectInput);
+		    if (result != null) {
+		        objectResult = result;
+		    } else {
+
+		        final CloneImplementor cloneImplementor;
+		        if (context.isUseCloneImplementors()) {
+		            cloneImplementor = context.getImplementor(clazz);
+		        } else {
+		            cloneImplementor = context.getBuiltInImplementor(clazz);
+		        }
+		        if (cloneImplementor != null) {
+		            Object copy = cloneImplementor.clone(objectInput, context, referencesToReuse);
+		            referencesToReuse.put(objectInput, copy);
+		            objectResult = copy;
+		        } else {
+
+		            P model = getClassModel(objectInput.getClass());
+
+		            if (model.isDetectedAsImmutable() || model.isNonCloneable()) {
+		                objectResult = objectInput;
+		            } else {
+
+		                final org.jadira.cloning.annotation.Cloneable cloneableAnnotation = clazz
+		                        .getAnnotation(org.jadira.cloning.annotation.Cloneable.class);
+		                if (cloneableAnnotation != null
+		                        && !void.class.equals(cloneableAnnotation.implementor())) {
+		                    final Object copy = handleCloneImplementor(objectInput, context, referencesToReuse,
+		                            clazz, cloneableAnnotation);
+		                    referencesToReuse.put(objectInput, copy);
+		                    objectResult = copy;
+		                }
+
+		                else if (model.getCloneImplementor() != null) {
+		                    final Object copy = model.getCloneImplementor().clone(objectInput, context,
+		                            referencesToReuse);
+		                    referencesToReuse.put(objectInput, copy);
+		                    objectResult = copy;
+		                } else if (context.isUseCloneable() && Cloneable.class.isAssignableFrom(clazz)) {
+		                    final Object copy = handleCloneableCloneMethod(objectInput, context,
+		                            referencesToReuse, clazz, cloneableAnnotation);
+		                    referencesToReuse.put(objectInput, copy);
+		                    objectResult = copy;
+		                } else if (clazz.isArray()) {
+		                    final Object copy = handleArray(objectInput, context, referencesToReuse);
+		                    referencesToReuse.put(objectInput, copy);
+		                    objectResult = copy;
+		                } else {
+
+		                    objectResult = newInstance(clazz);
+		                    referencesToReuse.put(objectInput, objectResult);
+
+		                    for (F f : model.getModelFields()) {
+
+		                        if (!context.isCloneTransientFields() && f.isTransientField()) {
+		                            handleTransientField(objectResult, f);
+		                        } else if (!context.isCloneTransientAnnotatedFields()
+		                                && f.isTransientAnnotatedField()) {
+		                            handleTransientField(objectResult, f);
+		                        } else {
+		                            if (stack == null) {
+		                                handleCloneField(objectInput, objectResult, context, f,
+		                                        referencesToReuse);
+		                            } else {
+		                                if (f.getFieldType() == FieldType.PRIMITIVE) {
+		                                    handleClonePrimitiveField(objectInput, objectResult, context, f,
+		                                            referencesToReuse);
+		                                } else {
+		                                    if (!context.isCloneSyntheticFields() && f.isSynthetic()) {
+		                                        Object fieldObject = getFieldValue(objectInput, f,
+		                                                referencesToReuse);
+		                                        referencesToReuse.put(fieldObject, fieldObject);
+		                                    } else {
+		                                        stack.addFirst(new WorkItem(objectInput, objectResult, f));
+		                                    }
+		                                }
+		                            }
+		                        }
+		                    }
+		                }
+		            }
+		        }
+		    }
+		}
+		return objectResult;
+	}
 
     private <T> T handleCloneImplementor(T obj, CloneDriver context, IdentityHashMap<Object, Object> referencesToReuse,
             final Class<T> clazz, org.jadira.cloning.annotation.Cloneable cloneableAnnotation) {
@@ -271,7 +277,7 @@ public abstract class AbstractCloneStrategy<P extends ClassModel<F>, F extends F
 
         Object result = null;
 
-        if (componentType.getName().length() <= 7) {
+        if (componentType.isPrimitive()) {
 
             if (java.lang.Boolean.TYPE == componentType) {
                 result = Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);

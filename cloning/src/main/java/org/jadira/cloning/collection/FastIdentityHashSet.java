@@ -7,12 +7,14 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * A wrapper for IdentityHashMap that resolves object matches quickly using binary search
+ * A wrapper for IdentityHashMap that resolves object matches quickly for
+ * small sets using binary search
  * @param <E>
  */
 public class FastIdentityHashSet<E> implements Set<E> {
 
 	private int[] entryKeys = new int[0];
+	private static final int ARRAY_SIZE = 12;
 	
 	private IdentityHashMap<E, Boolean> hashMap = new IdentityHashMap<E, Boolean>(12);
 	
@@ -63,12 +65,16 @@ public class FastIdentityHashSet<E> implements Set<E> {
 	public boolean add(E e) {
 		boolean res = hashMap.put(e, Boolean.TRUE);
 		if (res) {
-			Object[] keys = hashMap.keySet().toArray(new Object[]{});
-			entryKeys = new int[keys.length];
-			for (int i = 0; i < keys.length; i++) {
-				entryKeys[i] = System.identityHashCode(keys[i]);
+			if (entryKeys == null || (entryKeys.length + 1 <= ARRAY_SIZE)) {
+				Object[] keys = hashMap.keySet().toArray(new Object[]{});
+				entryKeys = new int[keys.length];
+				for (int i = 0; i < keys.length; i++) {
+					entryKeys[i] = System.identityHashCode(keys[i]);
+				}
+				Arrays.sort(entryKeys);
+			} else {
+				entryKeys = null;
 			}
-			Arrays.sort(entryKeys);
 		}
 		return res;
 	}
@@ -77,12 +83,17 @@ public class FastIdentityHashSet<E> implements Set<E> {
 	public boolean remove(Object o) {
 		boolean res = hashMap.remove(o);
 		if (res) {
-			Object[] keys = hashMap.keySet().toArray(new Object[]{});
-			entryKeys = new int[keys.length];
-			for (int i = 0; i < keys.length; i++) {
-				entryKeys[i] = System.identityHashCode(keys[i]);
+			if (hashMap.size() <= ARRAY_SIZE) {
+				Object[] keys = hashMap.keySet().toArray(new Object[]{});
+		
+				entryKeys = new int[keys.length];
+				for (int i = 0; i < keys.length; i++) {
+					entryKeys[i] = System.identityHashCode(keys[i]);
+				}
+				Arrays.sort(entryKeys);
+			} else {
+				entryKeys = null;
 			}
-			Arrays.sort(entryKeys);
 		}
 		return res;	
 	}

@@ -336,7 +336,7 @@ public final class UnsafeOperations {
 
 		Object result = null;
 
-		if (componentType.getName().length() <= 7) {
+		if (componentType.isPrimitive()) {
 
 			if (java.lang.Boolean.TYPE == componentType) {
 				result = Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);

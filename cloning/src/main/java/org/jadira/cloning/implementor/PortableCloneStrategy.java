@@ -90,7 +90,7 @@ public class PortableCloneStrategy extends AbstractCloneStrategy<PortableClassMo
 
         T result = null;
 
-        if (componentType.getName().length() <= 7) {
+        if (componentType.isPrimitive()) {
 
             if (java.lang.Boolean.TYPE == componentType) {
                 result = (T) Arrays.copyOf((boolean[]) origFieldValue, ((boolean[]) origFieldValue).length);
