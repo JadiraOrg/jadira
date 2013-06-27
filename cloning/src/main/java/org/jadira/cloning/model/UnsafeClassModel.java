@@ -21,14 +21,11 @@ import java.util.Map;
 
 import org.jadira.cloning.portable.ClassUtils;
 import org.jadira.cloning.spi.ClassModel;
-import org.jadira.cloning.unsafe.UnsafeOperations;
 
 /**
  * Provides a model resulting from introspection of a class suitable for use with Unsafe
  */
 public class UnsafeClassModel extends AbstractClassModel<UnsafeFieldModel> implements ClassModel<UnsafeFieldModel>{
-    
-    private static final UnsafeOperations UNSAFE_OPERATIONS = UnsafeOperations.getUnsafeOperations();
     
     private static final Map<Class<?>, UnsafeClassModel> classModels = new IdentityHashMap<Class<?>, UnsafeClassModel>(100);
     
@@ -38,14 +35,11 @@ public class UnsafeClassModel extends AbstractClassModel<UnsafeFieldModel> imple
         }
     };
 
-    private final long size;
-
     private final UnsafeFieldModel[] modelFields;
     
     private UnsafeClassModel(Class<?> modelClass) {
         
         super(modelClass);
-        this.size = UNSAFE_OPERATIONS.shallowSizeOf(modelClass);
 
         Field[] fields = ClassUtils.collectFields(modelClass);        
         modelFields = new UnsafeFieldModel[fields.length];
@@ -70,10 +64,6 @@ public class UnsafeClassModel extends AbstractClassModel<UnsafeFieldModel> imple
             return constructingClassModels.get().get(clazz);
         }
         return new UnsafeClassModel(clazz);
-    }
-    
-    public long getSize() {
-        return size;
     }
 
     public UnsafeFieldModel[] getModelFields() {
