@@ -15,6 +15,7 @@
  */
 package org.jadira.cloning.unsafe;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -34,6 +35,24 @@ import org.jadira.cloning.portable.FieldType;
 public final class UnsafeOperations {
 
 	private static final int REFERENCE_STACK_LIMIT = 150;
+
+	private static final int SIZE_BYTES_BOOLEAN = 1;
+	private static final int SIZE_BYTES_BYTE = 1;
+	private static final int SIZE_BYTES_CHAR = 2;
+	private static final int SIZE_BYTES_SHORT = 2;
+	private static final int SIZE_BYTES_INT = 4;
+	private static final int SIZE_BYTES_LONG = 8;
+	private static final int SIZE_BYTES_FLOAT = 4;
+	private static final int SIZE_BYTES_DOUBLE = 8;
+
+	/**
+	 * The size of a page that an object will be placed in (always 8 bytes currently) (NB for
+	 * HotSpot can be retrieved using ObjectAlignmentInBytes in HotSpotDiagnosticMXBean, but
+	 * as this is always 8 for existing JVMs this is hardcoded).
+	 */
+	private static final int SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT = 8;
+
+	private static final int MIN_SIZE = 16;
 
 	private static final sun.misc.Unsafe THE_UNSAFE;
 	private static final boolean IS_UNSAFE_AVAILABLE;
@@ -56,6 +75,7 @@ public final class UnsafeOperations {
 					Field f = Class.forName("sun.misc.Unsafe").getDeclaredField("theUnsafe");
 					f.setAccessible(true);
 					theUnsafe = (sun.misc.Unsafe) f.get(null);
+
 				} catch (ClassNotFoundException e) {
 					isUnsafeAvailable = false;
 				} catch (IllegalArgumentException e) {
@@ -379,28 +399,89 @@ public final class UnsafeOperations {
 		return result;
 	}
 
-	public final long shallowSizeOf(Object obj) {
-		return shallowSizeOf(obj.getClass());
+	public final long shallowSizeOf(Class<?> clazz) {
+		return doShallowSizeOfClass(clazz);
 	}
 
-	public final long shallowSizeOf(Class<?> clazz) {
+	public final long shallowSizeOf(Object obj) {
 
-		if (clazz == null) {
+		if (obj == null) {
 			return 0;
 		}
 
-		Field[] fields = ClassUtils.collectFields(clazz);
+		if (obj.getClass().isArray()) {
+			return doShallowSizeOfArray(obj);
+		} else {
+			return doShallowSizeOfClass(obj.getClass());
+		}
+	}
 
-		// get offset
-		long maxSize = 0;
-		for (Field f : fields) {
-			long offset = THE_UNSAFE.objectFieldOffset(f);
-			if (offset > maxSize) {
-				maxSize = offset;
+	private long doShallowSizeOfArray(Object array) {
+
+		long size = getSizeOfArrayHeader();
+		final int length = Array.getLength(array);
+		if (length > 0) {
+
+			Class<?> type = array.getClass().getComponentType();
+			if (type.isPrimitive()) {
+
+				if (java.lang.Boolean.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_BOOLEAN);
+				} else if (java.lang.Byte.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_BYTE);
+				} else if (java.lang.Character.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_CHAR);
+				} else if (java.lang.Short.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_SHORT);
+				} else if (java.lang.Integer.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_INT);
+				} else if (java.lang.Long.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_LONG);
+				} else if (java.lang.Float.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_FLOAT);
+				} else if (java.lang.Double.TYPE.isAssignableFrom(type)) {
+					size = size + (length * SIZE_BYTES_DOUBLE);
+				}
+
+			} else {
+				size = size + (length * getSizeOfObjectHeader());
 			}
 		}
 
-		return ((maxSize / 8) + 1) * 8; // padding
+		size = size + SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT - 1L;
+		return size - (size % SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT);
+	}
+
+	private long doShallowSizeOfClass(Class<?> clazz) {
+
+		if (clazz.isArray()) {
+			throw new IllegalArgumentException("Shallow Size of cannot be calculated for arrays classes as component length is needed");
+		}
+		if (clazz.isPrimitive()) {
+
+			return getSizeForPrimitive(clazz);
+		}
+		if (clazz == Object.class) {
+			return MIN_SIZE;
+		}
+
+		long size = getSizeOfObjectHeader();
+
+		Field[] fields = ClassUtils.collectFields(clazz);
+
+		for (Field f : fields) {
+
+			Class<?> fieldClass = f.getType();
+			final int fieldSize = fieldClass.isPrimitive() ? getSizeForPrimitive(fieldClass) : getSizeOfObjectHeader();
+			final long offsetPlusSize = getObjectFieldOffset(f) + fieldSize;
+
+			if (offsetPlusSize > size) {
+				size = offsetPlusSize;
+			}
+		}
+
+		size = size + SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT - 1L;
+		return size - (size % SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT);
 	}
 
 	public final long deepSizeOf(Object o) {
@@ -415,29 +496,75 @@ public final class UnsafeOperations {
 			return 0;
 		}
 
-		// get offset
-		long maxSize = 0;
-		long additionalSize = 0;
-
-		Field[] fields = ClassUtils.collectFields(o.getClass());
-
-		for (Field f : fields) {
-			long offset = THE_UNSAFE.objectFieldOffset(f);
-			if (offset > maxSize) {
-				maxSize = offset;
-			}
-			if (!f.getType().isPrimitive()) {
-				Object obj = THE_UNSAFE.getObject(o, THE_UNSAFE.objectFieldOffset(f));
-				if (obj != null && !seenObjects.containsKey(o)) {
-					seenObjects.put(o, Boolean.TRUE);
-					additionalSize = additionalSize + doDeepSizeOf(obj, seenObjects);
-				}
-			}
+		Class<?> clazz = o.getClass();
+		if (clazz.isPrimitive()) {
+			return getSizeForPrimitive(clazz);
 		}
 
-		return additionalSize + (((maxSize / 8) + 1) * 8); // padding
+		seenObjects.put(o, Boolean.TRUE);
+
+		if (clazz.isArray()) {
+
+			long size = doShallowSizeOfArray(o);
+
+			if (!clazz.getComponentType().isPrimitive()) {
+
+				Object[] array = (Object[]) o;
+				for (int i = 0; i < array.length; i++) {
+					Object nextObject = array[i];
+					if (nextObject != null && !seenObjects.containsKey(nextObject)) {
+						size = size + doDeepSizeOf(nextObject, seenObjects);
+					}
+				}
+			}
+
+			return size;
+
+		} else {
+
+			if (clazz == Object.class) {
+				return MIN_SIZE;
+			}
+
+			long size = getSizeOfObjectHeader();
+			long additionalSize = 0;
+
+			Field[] fields = ClassUtils.collectFields(clazz);
+
+			for (Field f : fields) {
+
+				long objectFieldOffset = getObjectFieldOffset(f);
+
+				Class<?> fieldClass = f.getType();
+				final int fieldSize = fieldClass.isPrimitive() ? getSizeForPrimitive(fieldClass) : getSizeOfObjectHeader();
+				final long offsetPlusSize = objectFieldOffset + fieldSize;
+
+				if (offsetPlusSize > size) {
+					size = offsetPlusSize;
+				}
+
+				if (!fieldClass.isPrimitive()) {
+					Object fieldObject = getObject(o, objectFieldOffset);
+					if (fieldObject != null && !seenObjects.containsKey(fieldObject)) {
+						additionalSize += doDeepSizeOf(fieldObject, seenObjects);
+					}
+				}
+			}
+
+			size = size + SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT - 1L;
+			size = size - (size % SIZE_BYTES_PAGE_FOR_OBJECT_ALIGNMENT);
+
+			return size + additionalSize;
+		}
 	}
 
+	/**
+	 * Memory address payload is an unsigned value - we need to normalise the 'sign' to get a
+	 * meaningful value back - when we do this we need to store it into a lone
+	 * 
+	 * @param value The value to normalise
+	 * @return The normalised value as a long
+	 */
 	private static long normalize(int value) {
 		if (value >= 0) {
 			return value;
@@ -480,5 +607,51 @@ public final class UnsafeOperations {
 		private UnsafeFieldModel getFieldModel() {
 			return fieldModel;
 		}
+	}
+
+	@SuppressWarnings("unused")
+	private static final class SingleFieldHolder {
+
+		public int field;
+	}
+
+	private final int getSizeOfArrayHeader() {
+		return THE_UNSAFE.arrayBaseOffset(byte[].class);
+	}
+
+	private final int getSizeForPrimitive(Class<?> clazz) {
+
+		if (java.lang.Boolean.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_BOOLEAN;
+		} else if (java.lang.Byte.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_BYTE;
+		} else if (java.lang.Character.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_CHAR;
+		} else if (java.lang.Short.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_SHORT;
+		} else if (java.lang.Integer.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_INT;
+		} else if (java.lang.Long.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_LONG;
+		} else if (java.lang.Float.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_FLOAT;
+		} else if (java.lang.Double.TYPE.isAssignableFrom(clazz)) {
+			return SIZE_BYTES_DOUBLE;
+		}
+		throw new IllegalArgumentException("Class " + clazz.getName() + " is not primitive");
+	}
+
+	private final int getSizeOfObjectHeader() {
+		try {
+			return (int) THE_UNSAFE.objectFieldOffset(SingleFieldHolder.class.getDeclaredField("field"));
+		} catch (NoSuchFieldException e) {
+			throw new IllegalStateException("Cannot determine size of object header", e);
+		} catch (SecurityException e) {
+			throw new IllegalStateException("Cannot determine size of object header", e);
+		}
+	}
+
+	public final int getAddressSize() {
+		return THE_UNSAFE.addressSize();
 	}
 }
