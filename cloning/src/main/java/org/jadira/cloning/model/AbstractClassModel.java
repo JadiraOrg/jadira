@@ -1,5 +1,6 @@
 package org.jadira.cloning.model;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
@@ -20,7 +21,21 @@ import org.jadira.cloning.unsafe.FeatureDetection;
 public abstract class AbstractClassModel<F extends FieldModel> implements ClassModel<F>{
 
     private static final boolean MUTABILITY_DETECTOR_AVAILABLE = FeatureDetection.hasMutabilityDetector();
-        
+
+	private static final Class<Annotation> JSR305_IMMUTABLE_ANNOTATION;
+
+	static {
+		Class<Annotation> immutableAnnotation;
+		try {
+			@SuppressWarnings("unchecked")
+			final Class<Annotation> myImmutableAnnotation = (Class<Annotation>) Class.forName("javax.annotation.concurrent.Immutable");
+			immutableAnnotation = myImmutableAnnotation;
+		} catch (ClassNotFoundException e) {
+			immutableAnnotation = null;
+		}
+		JSR305_IMMUTABLE_ANNOTATION = immutableAnnotation;
+	}
+	
     private final Class<?> modelClass;
     private final boolean detectedAsImmutable;
     private final boolean nonCloneable;
@@ -32,7 +47,7 @@ public abstract class AbstractClassModel<F extends FieldModel> implements ClassM
         this.modelClass = modelClass;
         
         if ((modelClass.getAnnotation(Immutable.class) != null)
-        		|| (modelClass.getAnnotation(javax.annotation.concurrent.Immutable.class) != null)
+        		|| (JSR305_IMMUTABLE_ANNOTATION != null && modelClass.getAnnotation(JSR305_IMMUTABLE_ANNOTATION) != null)
                 || (MUTABILITY_DETECTOR_AVAILABLE && MutabilityDetector.getMutabilityDetector().isImmutable(modelClass))) {
             this.detectedAsImmutable = true;
         } else {

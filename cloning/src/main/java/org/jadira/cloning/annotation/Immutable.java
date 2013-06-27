@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 /**
  * This annotation is intended as a hint that the annotated class is immutable or effectively immutable.
- * Alternatively {@link javax.annotation.concurrent.Immutable} may be used
+ * Alternatively javax.annotation.concurrent.Immutable may be used
  */
 @Retention(RUNTIME)
 @Target({ TYPE })
