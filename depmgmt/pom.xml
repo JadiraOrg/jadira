@@ -165,14 +165,9 @@
 				<version>4.01</version>
 			</dependency>
 			<dependency>
-				<groupId>de.schlichtherle.truezip</groupId>
-				<artifactId>truezip-path</artifactId>
-				<version>7.7.1</version>
-			</dependency>
-			<dependency>
-		    		<groupId>de.schlichtherle.truezip</groupId>
-		    		<artifactId>truezip-driver-zip</artifactId>
-		    		<version>7.7.1</version>
+				<groupId>de.schlichtherle</groupId>
+				<artifactId>truezip</artifactId>
+				<version>6.8.4</version>
 			</dependency>
 			
 			<dependency>
@@ -201,7 +196,7 @@
 			<dependency>
 				<groupId>ma.glasnost.orika</groupId>
 				<artifactId>orika-core</artifactId>
-				<version>1.4.2</version>
+				<version>1.4.3</version>
 			</dependency> 
 			
 			<dependency>
@@ -444,6 +439,12 @@
                 <artifactId>aspectjtools</artifactId>
                 <version>1.7.2</version>
             </dependency>
+			
+			<dependency>
+		    	<groupId>org.ow2.asm</groupId>
+		    	<artifactId>asm</artifactId>
+		    	<version>4.1</version>
+			</dependency>
 			
 		</dependencies>
 		
