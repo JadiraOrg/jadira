@@ -305,6 +305,50 @@
 			</build>			
 		</profile>
 		<profile>
+			<id>sqlserver</id>
+			<activation>
+				<property>
+					<name>database</name>
+					<value>sqlserver</value>
+				</property>
+				<activeByDefault>false</activeByDefault> 
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.sqlserver" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>
+		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
 				<property>
