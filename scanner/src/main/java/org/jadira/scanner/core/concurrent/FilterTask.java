@@ -11,7 +11,7 @@ public class FilterTask<T> extends RecursiveTask<List<T>> {
 
 	private static final long serialVersionUID = 7688297986024541356L;
 
-	private static final int FORK_INTERVAL = 500;
+	private static final int FORK_INTERVAL = 200;
 		
 	private final Integer limit;
 	private final Filter<T> filter;
@@ -38,51 +38,42 @@ public class FilterTask<T> extends RecursiveTask<List<T>> {
 	public List<T> compute() {
 		
 		int computeIndex = currentIndex;
-		
-		final FilterTask<T> ft;
-		if ((getForkInterval() != -1) && (computeIndex > 0) && (computeIndex % getForkInterval() == 0)) {
-			ft = new FilterTask<T>(limit, filter, this.inputs, computeIndex - getForkInterval());
-			ft.fork();
-		} else {
-			ft = null;
-		}
-		
-		int myLimit = limit == null ? -1 : limit.intValue();
-		
-		final List<T> resultList = new ArrayList<T>();
-		do {
-			boolean canAdd = filter.accept(inputs.get(computeIndex));
-			if (canAdd && (myLimit == -1 || (resultList.size() < myLimit))) {
-				resultList.add(inputs.get(computeIndex));
-			}
-			computeIndex = computeIndex - 1;
-		} while (indexMatchesThisThread(computeIndex));
-		
-		if (ft != null) {
-			resultList.addAll(ft.join());
-		}
-		
-		if (myLimit != -1 && resultList.size() > myLimit) {
-			return resultList.subList(0, myLimit);
-		} else {
-			return resultList;
-		}
-	}
-	
-	private boolean indexMatchesThisThread(int computeIndex) {
-		
-		if (getForkInterval() == -1 && computeIndex >= 0) {
-			return true;
-		}
-		if (computeIndex == 0) {
-			return true;
-		}
-		if (computeIndex % getForkInterval() != 0 && computeIndex >= 0) {
-			return true;
-		}
-		return false;
-	}
-	
+
+	    final FilterTask<T> ft;
+        if ((getForkInterval() != -1) && (computeIndex > 0) && (computeIndex - getForkInterval() > getForkInterval())) {
+            ft = new FilterTask<T>(limit, filter, this.inputs, computeIndex - getForkInterval());
+            ft.fork();
+        } else {
+            ft = null;
+        }
+        
+        int floor = computeIndex - getForkInterval();
+        if (floor <= getForkInterval()) {
+            floor = -1;
+        }
+        
+        final List<T> resultList = new ArrayList<T>();
+        
+        int myLimit = limit == null ? -1 : limit.intValue();
+        
+        while (computeIndex > floor) {
+            boolean canAdd = filter.accept(inputs.get(computeIndex));
+            if (canAdd && (myLimit == -1 || (resultList.size() < myLimit))) {
+                resultList.add(inputs.get(computeIndex));
+            }
+            computeIndex = computeIndex - 1;
+        }
+        
+        if (ft != null) {
+            resultList.addAll(ft.join());
+        } 
+        if (myLimit != -1 && resultList.size() > myLimit) {
+            return resultList.subList(0, myLimit);
+        } else {
+            return resultList;
+        }
+    }
+
 	public static int getForkInterval() {
 		return FORK_INTERVAL;
 	}

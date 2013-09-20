@@ -17,6 +17,7 @@ package org.jadira.scanner.classpath.types;
 
 import java.util.Set;
 
+import javassist.bytecode.AccessFlag;
 import javassist.bytecode.ClassFile;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -41,6 +42,7 @@ public abstract class JType extends JElement {
 
     public abstract Class<?> getActualClass() throws ClasspathAccessException;
 
+    
     @Override
     public <A extends java.lang.annotation.Annotation>JAnnotation<A> getAnnotation(Class<A> annotation) throws ClasspathAccessException {
 
@@ -55,6 +57,24 @@ public abstract class JType extends JElement {
         return null;
     }
 
+    public String getModifier() {
+        return isPrivate() ? "private" :
+               isProtected() ? "protected" :
+               isPublic() ? "public" : "";
+    }
+    
+    public boolean isPublic() {
+        return AccessFlag.isPublic(classFile.getAccessFlags());
+    }
+    
+    public boolean isProtected() {
+        return AccessFlag.isProtected(classFile.getAccessFlags());
+    }
+    
+    public boolean isPrivate() {
+        return AccessFlag.isPrivate(classFile.getAccessFlags());
+    }
+    
     public ClassFile getClassFile() {
         return classFile;
     }

@@ -11,7 +11,7 @@ public class AllocatorTask<T,A> extends RecursiveTask<List<T>> {
 	
 	private static final long serialVersionUID = -5338937563634945167L;
 	
-	private static final int FORK_INTERVAL = -1;
+	private static final int FORK_INTERVAL = 50;
 	
 	private final Allocator<T,A> allocator;
 	private final List<A> inputs;
@@ -36,19 +36,25 @@ public class AllocatorTask<T,A> extends RecursiveTask<List<T>> {
 		int computeIndex = currentIndex;
 		
 		final AllocatorTask<T,A> at;
-		if ((getForkInterval() != -1) && (computeIndex > 0) && (computeIndex % getForkInterval() == 0)) {
-			at = new AllocatorTask<T, A>(allocator, this.inputs, computeIndex - getForkInterval());
+		if ((getForkInterval() != -1) && (computeIndex > 0) && (computeIndex - getForkInterval() > getForkInterval())) {
+		    at = new AllocatorTask<T, A>(allocator, this.inputs, computeIndex - getForkInterval());
 			at.fork();
 		} else {
 			at = null;
 		}
 		
+		int floor = computeIndex - getForkInterval();
+		if (floor <= getForkInterval()) {
+		    floor = -1;
+		}
+		
 		final List<T> resultList = new ArrayList<T>();
-		do {
+		
+	    while (computeIndex > floor) {
 			T myResult = allocator.allocate(inputs.get(computeIndex));
 			resultList.add(myResult);
 			computeIndex = computeIndex - 1;
-		} while (indexMatchesThisThread(computeIndex));
+	    }
 		
 		if (at != null) {
 			resultList.addAll(at.join());
@@ -56,20 +62,6 @@ public class AllocatorTask<T,A> extends RecursiveTask<List<T>> {
 		return resultList;
 	}
 	
-	private boolean indexMatchesThisThread(int computeIndex) {
-		
-		if (getForkInterval() == -1 && computeIndex >= 0) {
-			return true;
-		}
-		if (computeIndex == 0) {
-			return true;
-		}
-		if (computeIndex % getForkInterval() != 0 && computeIndex >= 0) {
-			return true;
-		}
-		return false;
-	}
-
 	public static int getForkInterval() {
 		return FORK_INTERVAL;
 	}

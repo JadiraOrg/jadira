@@ -42,6 +42,16 @@ public class JAnnotation<A extends java.lang.annotation.Annotation> extends JTyp
         super(findClassFile(annotation.annotationType().getName(), resolver), resolver);
         this.enclosingElement = enclosingElement;
     }
+    
+    public JClass getSuperType() throws ClasspathAccessException {
+
+        final String superClassFile = getClassFile().getSuperclass();
+        return JClass.getJClass(superClassFile, getResolver());
+    }
+    
+    public Class<?> getActualSuperType() throws ClasspathAccessException {
+        return getSuperType().getActualClass();
+    }
 
     public static JAnnotation<?> getJAnnotation(Annotation nextAnnotation, JElement enclosingElement, ClasspathResolver resolver) {
         return new JAnnotation<java.lang.annotation.Annotation>(nextAnnotation, enclosingElement, resolver);
@@ -96,13 +106,9 @@ public class JAnnotation<A extends java.lang.annotation.Annotation> extends JTyp
     @Override
     public Class<A> getActualClass() throws ClasspathAccessException {
 
-        try {
-            @SuppressWarnings("unchecked")
-            Class<A> retVal = (Class<A>) Class.forName(getName());
-            return retVal;
-        } catch (ClassNotFoundException e) {
-            throw new ClasspathAccessException("Could not find annotation class: " + getName(), e);
-        }
+        @SuppressWarnings("unchecked")
+        Class<A> retVal = (Class<A>) getResolver().loadClass(getClassFile().getName());
+        return retVal;
     }
 
     @Override

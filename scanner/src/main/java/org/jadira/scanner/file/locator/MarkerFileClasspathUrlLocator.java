@@ -36,13 +36,20 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
 
 	private List<String> paths;
 
-	public MarkerFileClasspathUrlLocator(String markerFilePath) {
+	private final ClassLoader[] classLoaders;
+	
+	public MarkerFileClasspathUrlLocator(String markerFilePath, ClassLoader... classLoaders) {
 		this.paths = new ArrayList<String>(1);
-		paths.add(markerFilePath);
+		paths.add(asNormalizedName(markerFilePath));
+		this.classLoaders = ClassLoaderUtils.getClassLoaders(classLoaders);
 	}
 	
-	public MarkerFileClasspathUrlLocator(List<String> markerFilePaths) {
-		this.paths = markerFilePaths;
+	public MarkerFileClasspathUrlLocator(List<String> markerFilePaths, ClassLoader... classLoaders) {
+        this.paths = new ArrayList<String>(markerFilePaths.size());
+        for (String next : markerFilePaths) {
+            paths.add(asNormalizedName(next));
+        }
+        this.classLoaders = ClassLoaderUtils.getClassLoaders(classLoaders);
 	}
 	
 	@Override
@@ -50,28 +57,29 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
 
         List<URL> list = new ArrayList<URL>();
         
-        ClassLoader classLoader = ClassLoaderUtils.getClassLoader();
-        try {
-        	for (String nextPath : paths) {
-	            for (URL nextResourceMatchedUrl : new IterableEnumeration<URL>(classLoader.getResources(nextPath))) {
-	
-	                String deploymentArchiveRoot = determineClasspathRootForResource(nextPath, nextResourceMatchedUrl);
-	                
-                    File fp = new File(deploymentArchiveRoot);
-                    
-                    if (!fp.exists()) {
-                        throw new FileAccessException("File unexpectedly does not exist: " + fp);
-                    }
-                    
-                    try {
-                        list.add(fp.toURI().toURL());
-                    } catch (MalformedURLException e) {
-                    	throw new FileAccessException("Filepath unexpectedly malformed: " + fp.getPath(), e);
-                    }
-	            }
-        	}
-        } catch (IOException e) {
-        	throw new FileAccessException("Problem resolving deployment archives: " + e.getMessage(), e);
+        for (ClassLoader classLoader : classLoaders) {
+            try {
+            	for (String nextPath : paths) {
+    	            for (URL nextResourceMatchedUrl : new IterableEnumeration<URL>(classLoader.getResources(nextPath))) {
+    	
+    	                String deploymentArchiveRoot = determineClasspathRootForResource(nextPath, nextResourceMatchedUrl);
+    	                
+                        File fp = new File(deploymentArchiveRoot);
+                        
+                        if (!fp.exists()) {
+                            throw new FileAccessException("File unexpectedly does not exist: " + fp);
+                        }
+                        
+                        try {
+                            list.add(fp.toURI().toURL());
+                        } catch (MalformedURLException e) {
+                        	throw new FileAccessException("Filepath unexpectedly malformed: " + fp.getPath(), e);
+                        }
+    	            }
+            	}
+            } catch (IOException e) {
+            	throw new FileAccessException("Problem resolving deployment archives: " + e.getMessage(), e);
+            }
         }
 		
         return list;
@@ -107,5 +115,17 @@ public class MarkerFileClasspathUrlLocator implements Locator<URL> {
         }
 
         return nextResourceMatchedPathName;
+    }
+    
+    private static String asNormalizedName(String name) {
+     
+        String result = name;        
+        if (result != null) {
+            result = result.replace("\\", "/");
+            if (result.startsWith("/")) {
+                result = result.substring(1);
+            }
+        }
+        return result;
     }
 }

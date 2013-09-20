@@ -15,6 +15,7 @@
  */
 package org.jadira.scanner.classpath.types;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -29,11 +30,18 @@ import javassist.bytecode.annotation.Annotation;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jadira.scanner.classpath.ClasspathResolver;
+import org.jadira.scanner.classpath.filter.JClassImplementsFilter;
+import org.jadira.scanner.classpath.filter.JElementTypeFilter;
+import org.jadira.scanner.classpath.filter.JTypeSubTypeOfFilter;
+import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
+import org.jadira.scanner.core.api.Projector;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 public class JInterface extends JType {
 
+    private static final Projector<File> CLASSPATH_PROJECTOR = ClasspathProjector.SINGLETON;
+    
     protected JInterface(String name, ClasspathResolver resolver) throws ClasspathAccessException {
         this(findClassFile(name, resolver), resolver);
     }
@@ -44,6 +52,7 @@ public class JInterface extends JType {
             throw new IllegalArgumentException("Argument was not interface: " + classFile.getName());
         }
     }
+    
 
     public static JInterface getJInterface(String name, ClasspathResolver resolver) throws ClasspathAccessException {
         return new JInterface(name, resolver);
@@ -63,6 +72,15 @@ public class JInterface extends JType {
         }
         return retVal;
     }
+    
+    public List<Class<?>> getActualSuperInterfaces() throws ClasspathAccessException {
+
+        List<Class<?>> classes = new ArrayList<Class<?>>();
+        for (JInterface next : getSuperInterfaces()) {
+            classes.add(next.getActualClass());
+        }
+        return classes;
+    }
 
     public List<JMethod> getMethods() {
 
@@ -80,11 +98,7 @@ public class JInterface extends JType {
 
     public Class<?> getActualInterface() throws ClasspathAccessException {
 
-        try {
-            return Class.forName(getClassFile().getName());
-        } catch (ClassNotFoundException e) {
-            throw new ClasspathAccessException("Could not find class: " + getClassFile().getName(), e);
-        }
+        return getResolver().loadClass(getClassFile().getName());
     }
 
     @Override
@@ -130,9 +144,25 @@ public class JInterface extends JType {
         return getActualInterface();
     }
 
-//    public Set<JInterface> getSubInterfaces()
+    public Set<JInterface> getSubInterfaces() {
+        
+        Set<JInterface> retVal = new HashSet<JInterface>();
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new JTypeSubTypeOfFilter(this.getActualClass()), new JElementTypeFilter(JInterface.class)); 
+        for (ClassFile classFile : classes) {
+            retVal.add(JInterface.getJInterface(classFile, getResolver()));
+        }
+        return retVal;
+    }
 
-    // public Set<JClass> getImplementingClasses()
+    public Set<JClass> getImplementingClasses() {
+        
+        Set<JClass> retVal = new HashSet<JClass>();
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new JClassImplementsFilter(this.getActualClass()), new JElementTypeFilter(JClass.class)); 
+        for (ClassFile classFile : classes) {
+            retVal.add(JClass.getJClass(classFile, getResolver()));
+        }
+        return retVal;
+    }
 
     @Override
     public void acceptVisitor(IntrospectionVisitor visitor) throws ClasspathAccessException {

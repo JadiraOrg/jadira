@@ -32,7 +32,17 @@ import org.jadira.scanner.core.helper.filenamefilter.JarFilenameFilter;
 public class JdkBaseClasspathUrlLocator implements Locator<URL> {
 
 	private static final FilenameFilter JAR_FILENAME_FILTER = new JarFilenameFilter();
+    
+	private boolean includeRtJar;
 
+	public JdkBaseClasspathUrlLocator() {
+        this(true);
+    }
+	
+	public JdkBaseClasspathUrlLocator(boolean includeRtJar) {
+	    this.includeRtJar = includeRtJar;
+	}
+	
 	@Override
 	public List<URL> locate() {
 
@@ -43,9 +53,10 @@ public class JdkBaseClasspathUrlLocator implements Locator<URL> {
 
         try {
             // Can't resolve using sun.boot.class.path - vendor specific
-
-            URL javaClasspath = new java.io.File(System.getProperty("java.home") + System.getProperty("file.separator") + "lib" + System.getProperty("file.separator") + "rt.jar").toURI().toURL();
-            classpaths.add(javaClasspath);
+            if (includeRtJar) {
+                URL javaClasspath = new java.io.File(System.getProperty("java.home") + System.getProperty("file.separator") + "lib" + System.getProperty("file.separator") + "rt.jar").toURI().toURL();
+                classpaths.add(javaClasspath);
+            }
         } catch (MalformedURLException e) {
             throw new ClasspathAccessException("Problem constructing Java classpath: " + e.getMessage(), e);
         }

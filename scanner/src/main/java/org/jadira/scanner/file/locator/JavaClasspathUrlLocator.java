@@ -30,7 +30,7 @@ import org.jadira.scanner.core.exception.ClasspathAccessException;
  * CLASSPATH
  */
 public class JavaClasspathUrlLocator implements Locator<URL> {
-
+    
 	@Override
 	public List<URL> locate() {
 

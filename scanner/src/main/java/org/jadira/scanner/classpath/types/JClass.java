@@ -15,6 +15,7 @@
  */
 package org.jadira.scanner.classpath.types;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -32,11 +33,17 @@ import javassist.bytecode.annotation.Annotation;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.jadira.scanner.classpath.ClasspathResolver;
+import org.jadira.scanner.classpath.filter.JElementTypeFilter;
+import org.jadira.scanner.classpath.filter.JTypeSubTypeOfFilter;
+import org.jadira.scanner.classpath.projector.ClasspathProjector;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
+import org.jadira.scanner.core.api.Projector;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 public class JClass extends JType {
 
+    private static final Projector<File> CLASSPATH_PROJECTOR = ClasspathProjector.SINGLETON;
+    
     protected JClass(String name, ClasspathResolver resolver) throws ClasspathAccessException {
     	this(findClassFile(name, resolver), resolver);
     }
@@ -61,12 +68,12 @@ public class JClass extends JType {
         return new JClass(clazz, resolver);
     }
 
-    public JClass getSuperClass() throws ClasspathAccessException {
+    public JClass getSuperType() throws ClasspathAccessException {
 
         final String superClassFile = getClassFile().getSuperclass();
         return JClass.getJClass(superClassFile, getResolver());
     }
-
+    
     public List<JInterface> getImplementedInterfaces() throws ClasspathAccessException {
 
         final List<JInterface> retVal = new ArrayList<JInterface>();
@@ -81,14 +88,18 @@ public class JClass extends JType {
     @Override
     public Class<?> getActualClass() throws ClasspathAccessException {
 
-        try {
-            return Class.forName(getClassFile().getName());
-        } catch (ClassNotFoundException e) {
-            throw new ClasspathAccessException("Could not find class: " + getClassFile().getName(), e);
-        }
+        return getResolver().loadClass(getClassFile().getName());
     }
 
-    // public Set<JClass> getSubClasses()
+    public Set<JClass> getSubClasses() {
+        
+        Set<JClass> retVal = new HashSet<JClass>();
+        List<? extends ClassFile> classes = getResolver().getClassFileResolver().resolveAll(null, CLASSPATH_PROJECTOR, new JTypeSubTypeOfFilter(this.getActualClass()), new JElementTypeFilter(JClass.class)); 
+        for (ClassFile classFile : classes) {
+            retVal.add(JClass.getJClass(classFile, getResolver()));
+        }
+        return retVal;
+    }
 
     public List<JInnerClass> getEnclosedClasses() throws ClasspathAccessException {
 
@@ -119,6 +130,7 @@ public class JClass extends JType {
     public List<JField> getFields() {
 
     	boolean isJavaLangThrowable = "java.lang.Throwable".equals(this.getName());
+    	boolean isJavaLangSystem = "java.lang.System".equals(this.getName());
     	
         final List<JField> retVal = new ArrayList<JField>();
         @SuppressWarnings("unchecked")
@@ -129,6 +141,9 @@ public class JClass extends JType {
         		// See http://bugs.sun.com/bugdatabase/view_bug.do;jsessionid=d7621f5189c86f127fe5737490903?bug_id=4496456
         		continue;
         	}
+        	if (isJavaLangSystem && ("security".equals(next.getName()))) {
+                continue;
+            }
             retVal.add(JField.getJField(next, this, getResolver()));
         }
         return retVal;

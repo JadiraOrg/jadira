@@ -1,0 +1,11 @@
+sun/security/ec/ECKeyPairGenerator.class
+sun/security/ec/ECDSASignature$SHA1.class
+sun/security/ec/ECDSASignature.class
+sun/security/ec/ECDSASignature$SHA384.class
+sun/security/ec/SunECEntries.class
+sun/security/ec/ECDSASignature$SHA256.class
+sun/security/ec/ECDSASignature$Raw.class
+sun/security/ec/SunEC$1.class
+sun/security/ec/ECDSASignature$SHA512.class
+sun/security/ec/SunEC.class
+sun/security/ec/ECDHKeyAgreement.class

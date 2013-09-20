@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javassist.bytecode.AccessFlag;
 import javassist.bytecode.MethodInfo;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -30,11 +31,9 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jadira.scanner.classpath.ClasspathResolver;
 import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
-import org.jadira.scanner.core.helper.JavassistMethodInfoHelper;
 
 public class JConstructor extends JOperation {
 
-	
     protected JConstructor(MethodInfo methodInfo, JClass jClass, ClasspathResolver resolver) {
         super(methodInfo, jClass, resolver);
     }
@@ -43,9 +42,27 @@ public class JConstructor extends JOperation {
         return new JConstructor(methodInfo, jClass, resolver);
     }
 
+    public String getModifier() {
+        return isPrivate() ? "private" :
+               isProtected() ? "protected" :
+               isPublic() ? "public" : "";
+    }
+    
+    public boolean isPublic() {
+        return AccessFlag.isPublic(getMethodInfo().getAccessFlags());
+    }
+    
+    public boolean isProtected() {
+        return AccessFlag.isProtected(getMethodInfo().getAccessFlags());
+    }
+     
+    public boolean isPrivate() {
+        return AccessFlag.isPrivate(getMethodInfo().getAccessFlags());
+    }
+    
     public Constructor<?> getActualConstructor() throws ClasspathAccessException {
 
-        Class<?>[] methodParams = JavassistMethodInfoHelper.getMethodParamClasses(getMethodInfo());
+        Class<?>[] methodParams = getMethodParamClasses(getMethodInfo());
 
         try {
             Class<?> clazz = ((JClass) getEnclosingType()).getActualClass();

@@ -18,6 +18,7 @@ package org.jadira.scanner.classpath.types;
 import java.lang.reflect.Method;
 import java.util.List;
 
+import javassist.bytecode.AccessFlag;
 import javassist.bytecode.MethodInfo;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -35,7 +36,7 @@ public class JMethod extends JOperation {
     public static JMethod getJMethod(MethodInfo methodInfo, JType enclosingType, ClasspathResolver resolver) {
         return new JMethod(methodInfo, enclosingType, resolver);
     }
-
+    
     @Override
     public Method getActualMethod() throws ClasspathAccessException {
 
@@ -54,6 +55,24 @@ public class JMethod extends JOperation {
         }
     }
 
+    public String getModifier() {
+        return isPrivate() ? "private" :
+               isProtected() ? "protected" :
+               isPublic() ? "public" : "";
+    }
+    
+    public boolean isPublic() {
+        return AccessFlag.isPublic(getMethodInfo().getAccessFlags());
+    }
+    
+    public boolean isProtected() {
+        return AccessFlag.isProtected(getMethodInfo().getAccessFlags());
+    }
+     
+    public boolean isPrivate() {
+        return AccessFlag.isPrivate(getMethodInfo().getAccessFlags());
+    }
+    
     @Override
     public void acceptVisitor(IntrospectionVisitor visitor) throws ClasspathAccessException {
         visitor.visit(this);

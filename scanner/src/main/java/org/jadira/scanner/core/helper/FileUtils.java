@@ -26,15 +26,12 @@ import java.util.WeakHashMap;
 
 import org.jadira.scanner.core.exception.FileAccessException;
 
-import de.schlichtherle.truezip.file.TArchiveDetector;
-import de.schlichtherle.truezip.file.TFile;
-import de.schlichtherle.truezip.file.TFileInputStream;
-import de.schlichtherle.truezip.file.TVFS;
-import de.schlichtherle.truezip.fs.FsSyncException;
+import de.schlichtherle.io.ArchiveDetector;
+import de.schlichtherle.io.ArchiveException;
 
 public final class FileUtils {
 
-    private static final WeakHashMap<String, TFile> FILE_CACHE = new WeakHashMap<String, TFile>();
+    private static final WeakHashMap<String, de.schlichtherle.io.File> FILE_CACHE = new WeakHashMap<String, de.schlichtherle.io.File>();
 	
 	private FileUtils() {
 	}
@@ -43,18 +40,18 @@ public final class FileUtils {
 
 		final String directoryPathName;
 		if (!pathName.contains("/")) {
-			directoryPathName = pathName.replace('.', TFile.separatorChar);
+			directoryPathName = pathName.replace('.', de.schlichtherle.io.File.separatorChar);
 		} else {
-			directoryPathName = pathName.replace('/', TFile.separatorChar);
+			directoryPathName = pathName.replace('/', de.schlichtherle.io.File.separatorChar);
 		}
 
-		String filePath = parentFile.getPath() + TFile.separatorChar + directoryPathName;
-		TFile cachedFile = FILE_CACHE.get(filePath);
+		String filePath = parentFile.getPath() + de.schlichtherle.io.File.separatorChar + directoryPathName;
+		de.schlichtherle.io.File cachedFile = FILE_CACHE.get(filePath);
 		if (cachedFile != null) {
 			return cachedFile;
 		}
 
-		TFile resolvedFile = new TFile(filePath, TArchiveDetector.ALL);
+		de.schlichtherle.io.File resolvedFile = new de.schlichtherle.io.File(filePath, ArchiveDetector.ALL);
 		if (resolvedFile.exists()) {
 			FILE_CACHE.put(filePath, resolvedFile);
 			return resolvedFile;
@@ -84,7 +81,7 @@ public final class FileUtils {
 			if (pathString.endsWith("/")) {
 				retVal = new File(url.toURI());
 			} else {
-				retVal = new TFile(new File(url.toURI()), TArchiveDetector.ALL);
+				retVal = new de.schlichtherle.io.File(new File(url.toURI()), ArchiveDetector.ALL);
 			}
 		} catch (URISyntaxException e) {
 			throw new FileAccessException("Could not derive file from URL: " + url, e);
@@ -98,8 +95,8 @@ public final class FileUtils {
     	InputStream fiStream = null;
 		
 		try {
-			if (file instanceof TFile) {
-				fiStream = new TFileInputStream(file);
+			if (file instanceof de.schlichtherle.io.File) {
+				fiStream = new de.schlichtherle.io.FileInputStream(file);
 			} else {
 				fiStream = new FileInputStream(file);
 			}
@@ -116,10 +113,10 @@ public final class FileUtils {
 			} catch (IOException e) {
 			} finally {
 			
-				if (file instanceof TFile) {
+				if (file instanceof de.schlichtherle.io.File) {
 					try {
-						TVFS.umount((TFile)file);
-					} catch (FsSyncException e) {
+					    de.schlichtherle.io.File.umount(); //TVFS.umount((de.schlichtherle.io.File)file);
+					} catch (ArchiveException e) { // FsSyncException e) {
 					}
 				}
 			}

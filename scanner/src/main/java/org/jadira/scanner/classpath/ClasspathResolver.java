@@ -39,9 +39,10 @@ import org.jadira.scanner.core.helper.FileUtils;
 import org.jadira.scanner.core.helper.JavassistClassFileHelper;
 import org.jadira.scanner.core.helper.filenamefilter.ClassFilenameFilter;
 import org.jadira.scanner.core.spi.AbstractFileResolver;
+import org.jadira.scanner.core.utils.reflection.ClassLoaderUtils;
 import org.jadira.scanner.file.locator.JdkBaseClasspathUrlLocator;
 
-import de.schlichtherle.truezip.file.TFileInputStream;
+import de.schlichtherle.io.FileInputStream;
 
 public class ClasspathResolver extends AbstractFileResolver<JElement> {
 
@@ -52,26 +53,39 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 	private final ClasspathAssigner assigner = new ClasspathAssigner();
 	
 	private final ClassFileResolver classFileResolver;
+
+    private final ClassLoader[] classLoaders;
 	
     public ClasspathResolver() {    	
         super(JDK_BASE_CLASSPATH_JARS);
-        classFileResolver = new ClassFileResolver();
+        this.classLoaders  = ClassLoaderUtils.getClassLoaders();
+        classFileResolver = new ClassFileResolver(classLoaders);
 	}
 
 	public ClasspathResolver(List<URL> classpaths) {
-		super(JDK_BASE_CLASSPATH_JARS);
-		classFileResolver = new ClassFileResolver(classpaths);
+		super();
+		this.classLoaders = ClassLoaderUtils.getClassLoaders();
+		classFileResolver = new ClassFileResolver(classpaths, this.classLoaders);
 		getDriverData().addAll(classpaths);
 	}
 	
-    public ClasspathResolver(ClassLoader classLoader) {    	
+    public ClasspathResolver(ClassLoader... classLoaders) {
         super(JDK_BASE_CLASSPATH_JARS);
-        classFileResolver = new ClassFileResolver(classLoader);
+        this.classLoaders  = ClassLoaderUtils.getClassLoaders(classLoaders);
+        classFileResolver = new ClassFileResolver(this.classLoaders);
 	}
 
-	public ClasspathResolver(List<URL> classpaths, ClassLoader classLoader) {
-		super(JDK_BASE_CLASSPATH_JARS);
-		classFileResolver = new ClassFileResolver(classpaths, classLoader);
+    public ClasspathResolver(List<URL> classpaths, List<ClassLoader> classLoaders) {
+        super();
+        this.classLoaders  = ClassLoaderUtils.getClassLoaders((ClassLoader[])classLoaders.toArray());
+        classFileResolver = new ClassFileResolver(classpaths, this.classLoaders);
+        getDriverData().addAll(classpaths);
+    }
+    
+	public ClasspathResolver(List<URL> classpaths, ClassLoader... classLoaders) {
+		super();
+		this.classLoaders  = ClassLoaderUtils.getClassLoaders(classLoaders);
+		classFileResolver = new ClassFileResolver(classpaths, this.classLoaders);
 		getDriverData().addAll(classpaths);
 	}
 
@@ -100,7 +114,7 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 				element = assignPackage(e);
 			} else {
 				try {
-					ClassFile f = JavassistClassFileHelper.constructClassFileForPath(e.getPath(), new TFileInputStream(e));
+					ClassFile f = JavassistClassFileHelper.constructClassFileForPath(e.getPath(), new FileInputStream(e));
 					if (f.isInterface()) {
 						return JInterface.getJInterface(f, ClasspathResolver.this);
 					} else {
@@ -135,12 +149,8 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 					}
 				});
 
-				try {
-					Package pkg = Class.forName(classFile.getName()).getPackage();
-					retVal = JPackage.getJPackage(pkg, ClasspathResolver.this);
-				} catch (ClassNotFoundException ex) {
-					throw new FileAccessException("Cannot access class file: " + ex.getMessage(), ex);
-				}
+				Package pkg = loadClass(classFile.getName()).getPackage();
+				retVal = JPackage.getJPackage(pkg, ClasspathResolver.this);
 
 				if (retVal != null) {
 					return retVal;
@@ -152,5 +162,17 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 	
 	public ClassFileResolver getClassFileResolver() {
 		return classFileResolver;
+	}
+	
+	public Class<?> loadClass(String className) {
+	    
+	    for (int i = 0; i < classLoaders.length; i++) {
+            try {
+                return Class.forName(className, true, classLoaders[i]);
+            } catch (ClassNotFoundException e) {
+                // Ignore
+            }
+	    }
+	    throw new ClasspathAccessException("Could not find class: " + className);
 	}
 }

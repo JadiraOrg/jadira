@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.WeakHashMap;
 
 import javassist.bytecode.ClassFile;
 
@@ -39,36 +40,33 @@ import org.jadira.scanner.core.spi.AbstractFileResolver;
 import org.jadira.scanner.core.utils.reflection.ClassLoaderUtils;
 import org.jadira.scanner.file.locator.JdkBaseClasspathUrlLocator;
 
-import de.schlichtherle.truezip.file.TFileInputStream;
+import de.schlichtherle.io.FileInputStream;
 
 public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 
-	private static final Projector<File> CLASSPATH_PROJECTOR = new ClasspathProjector();
+    private static final WeakHashMap<File, ClassFile> CACHED_CLASSFILES = new WeakHashMap<File, ClassFile>();
+    
+	private static final Projector<File> CLASSPATH_PROJECTOR = ClasspathProjector.SINGLETON;
 	
     private static final List<URL> JDK_BASE_CLASSPATH_JARS = new JdkBaseClasspathUrlLocator().locate();
 
 	private final ClassFileAssigner assigner = new ClassFileAssigner();
 
-	private ClassLoader classLoader = ClassLoaderUtils.getClassLoader();
+	private final ClassLoader[] classLoaders;
 	
     public ClassFileResolver() {    	
-        super(JDK_BASE_CLASSPATH_JARS);
+        this.classLoaders  = ClassLoaderUtils.getClassLoaders();
 	}
     
-    public ClassFileResolver(ClassLoader classLoader) {    	
+    public ClassFileResolver(ClassLoader... classLoaders) {    	
         super(JDK_BASE_CLASSPATH_JARS);
-        this.classLoader = classLoader;
-	}
-
-	public ClassFileResolver(List<URL> classpaths) {
-		super(JDK_BASE_CLASSPATH_JARS);
-		getDriverData().addAll(classpaths);
+        this.classLoaders  = ClassLoaderUtils.getClassLoaders(classLoaders);
 	}
 	
-	public ClassFileResolver(List<URL> classpaths, ClassLoader classLoader) {
+	public ClassFileResolver(List<URL> classpaths, ClassLoader... classLoaders) {
 		super(JDK_BASE_CLASSPATH_JARS);
 		getDriverData().addAll(classpaths);
-		this.classLoader  = classLoader;
+		this.classLoaders  = ClassLoaderUtils.getClassLoaders(classLoaders);
 	}
 
 	@Override
@@ -89,12 +87,19 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 
 		@Override
 		public ClassFile allocate(File e) {
-			
-			TFileInputStream tis = null;
+
+		    ClassFile res = CACHED_CLASSFILES.get(e);
+		    if (res != null) {
+		        return res;
+		    }
+		    
+			FileInputStream tis = null;
 			
 			try {
-				tis = new TFileInputStream(e);
-				return JavassistClassFileHelper.constructClassFileForPath(e.getPath(), tis);
+				tis = new FileInputStream(e);
+				res = JavassistClassFileHelper.constructClassFileForPath(e.getPath(), tis);
+				CACHED_CLASSFILES.put(e, res);
+				return res;
 			} catch (FileNotFoundException e1) {
 				throw new IllegalArgumentException(e + " is not a valid File", e1);
 			} catch (IOException e1) {
@@ -115,20 +120,27 @@ public class ClassFileResolver extends AbstractFileResolver<ClassFile> {
 		
 		ClassFile cf = null;
 		
-		if (classLoader != null) {
-			
-			String className = name.replace('.', '/').concat(".class");
-			InputStream is = classLoader.getResourceAsStream(className);
-			BufferedInputStream fin = new BufferedInputStream(is);
-			
-			try {
-				cf = new ClassFile(new DataInputStream(fin));
-				if (cf != null) {
-					return cf;
-				}
-			} catch (IOException e) {
-				// Ignore
-			}
+        String className = name.replace('.', '/').concat(".class");
+		
+		for (ClassLoader classLoader : classLoaders) {
+		    
+    		if (classLoader != null) {
+    			
+    			InputStream is = classLoader.getResourceAsStream(className);
+    			if (is == null) {
+    			    continue;
+    			}
+    			BufferedInputStream fin = new BufferedInputStream(is);
+    			
+    			try {
+    				cf = new ClassFile(new DataInputStream(fin));
+    				if (cf != null) {
+    					return cf;
+    				}
+    			} catch (IOException e) {
+    				// Ignore
+    			}
+    		}
 		}
 			
 		cf = resolveFirst(null, CLASSPATH_PROJECTOR, new PackageFileFilter(name, true), new NameFilter(name));

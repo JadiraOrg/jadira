@@ -40,7 +40,7 @@ import org.jadira.scanner.core.helper.JavassistAnnotationsHelper;
 
 public class JPackage extends JElement {
 
-	private static final Projector<File> CLASSPATH_PROJECTOR = new ClasspathProjector();
+	private static final Projector<File> CLASSPATH_PROJECTOR = ClasspathProjector.SINGLETON;
 	
     private Package wrappedPackage;
     
@@ -98,11 +98,9 @@ public class JPackage extends JElement {
             if (classFile.isInterface() && (classFile.getSuperclass().equals("java.lang.annotation.Annotation"))) {
                 try {
                     @SuppressWarnings("unchecked")
-                    Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) (Class.forName(classFile.getName()));
+                    Class<? extends Annotation> annotationClass = (Class<? extends Annotation>) (getResolver().loadClass(classFile.getName()));
                     Annotation theAnnotation = annotationClass.newInstance();
                     retVal.add(JAnnotation.getJAnnotation(theAnnotation, this, getResolver()));
-                } catch (ClassNotFoundException e) {
-                    throw new ClasspathAccessException("Cannot find class for annotation: " + e.getMessage(), e);
                 } catch (InstantiationException e) {
                     throw new ClasspathAccessException("Cannot instantiate annotation: " + e.getMessage(), e);
                 } catch (IllegalAccessException e) {

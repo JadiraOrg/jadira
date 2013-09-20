@@ -56,7 +56,9 @@ public class JArrayClass extends JClass {
         return this.actualClass;
     }
 
-    // public Set<JClass> getSubClasses()
+    public Set<JClass> getSubClasses() {
+        return Collections.emptySet();
+    }
 
     public List<JInnerClass> getEnclosedClasses() throws ClasspathAccessException {
 

@@ -15,6 +15,7 @@
  */
 package org.jadira.scanner.classpath.types;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -81,11 +82,7 @@ public class JParameter extends JVariable {
         if (enclosingOperation instanceof JConstructor || enclosingOperation instanceof JMethod) {
             MethodInfo methodInfo = ((JOperation) enclosingOperation).getMethodInfo();
             String[] paramTypeNames = JavassistMethodInfoHelper.getMethodParamTypeNames(methodInfo);
-            try {
-				clazz = JavassistMethodInfoHelper.decodeFieldType(paramTypeNames[getIndex()]);
-			} catch (ClassNotFoundException e) {
-				throw new ClasspathAccessException("Invalid parameter index: " + index, e);
-			}
+            clazz = decodeFieldType(paramTypeNames[getIndex()]);
 
         } else {
             throw new ClasspathAccessException("Invalid parameter index: " + index);
@@ -147,4 +144,45 @@ public class JParameter extends JVariable {
 		return new HashCodeBuilder(11, 47).append(super.hashCode())
 				.append(enclosingOperation).toHashCode();
 	}
+    
+
+    private Class<?> decodeFieldType(String componentType) {
+
+        char type = componentType.charAt(0);
+        String fieldContent = componentType.substring(1);
+
+        switch (type) {
+        // L<classname>; reference an instance of class <classname>
+        case 'L': 
+            return getResolver().loadClass(fieldContent.replace('/', '.'));
+        // B byte signed byte
+        case 'B': 
+            return Byte.class;
+        // C char Unicode character
+        case 'C': 
+            return Character.class;
+        // D double double-precision floating-point value
+        case 'D': 
+            return Double.class;
+        // F float single-precision floating-point value        
+        case 'F': 
+            return Float.class;
+        // I int integer
+        case 'I': 
+            return Integer.class;
+        // J long long integer
+        case 'J': 
+            return Long.class;
+        // S short signed short
+        case 'S': 
+            return Short.class;
+        // Z boolean true or false
+        case 'Z': 
+            return Boolean.class;
+        // [ reference one array dimension
+        case '[': 
+            return Arrays.class;
+        }
+        return null;
+    }
 }

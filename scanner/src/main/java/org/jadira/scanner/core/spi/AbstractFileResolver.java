@@ -34,7 +34,6 @@ public abstract class AbstractFileResolver<F> extends AbstractResolver<F, File, 
         super();
     }
 
-    
     protected AbstractFileResolver(List<URL> classpaths) {
         super();
         getDriverData().addAll(classpaths);

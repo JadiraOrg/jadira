@@ -68,12 +68,8 @@
 		
 		<!-- Zip Handling -->
 		<dependency>
-			<groupId>de.schlichtherle.truezip</groupId>
-			<artifactId>truezip-path</artifactId>
-		</dependency>
-		<dependency>
-		<groupId>de.schlichtherle.truezip</groupId>
-		<artifactId>truezip-driver-zip</artifactId>
+			<groupId>de.schlichtherle</groupId>
+			<artifactId>truezip</artifactId>
 		</dependency>
 
 		<!-- Collections Libraries -->		

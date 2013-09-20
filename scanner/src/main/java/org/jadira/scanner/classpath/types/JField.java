@@ -76,7 +76,7 @@ public class JField extends JVariable {
         return retVal;
     }
     
-	public static Class<?> decodeFieldType(String componentType) throws ClassNotFoundException {
+	public Class<?> decodeFieldType(String componentType) throws ClassNotFoundException {
 
 		char type = componentType.charAt(0);
 		String fieldContent = componentType.substring(1);
@@ -84,7 +84,7 @@ public class JField extends JVariable {
 		switch (type) {
 		// L<classname>; reference an instance of class <classname>		
 		case 'L': 
-			return Class.forName(fieldContent.replace('/', '.'));
+			return getResolver().loadClass(fieldContent.replace('/', '.'));
 		// B byte signed byte
 		case 'B': 
 			return Byte.class;
@@ -111,7 +111,7 @@ public class JField extends JVariable {
 			return Boolean.class;
 		// [ reference one array dimension
 		case '[': 
-			return Class.forName(componentType.replace('/', '.') + ";");
+		    return getResolver().loadClass(componentType.replace('/', '.') + ";");
 		}
 		return null;
 	}
@@ -155,7 +155,7 @@ public class JField extends JVariable {
         } catch (SecurityException e) {
             throw new ClasspathAccessException("Problem obtaining field: " + e.getMessage(), e);
         } catch (NoSuchFieldException e) {
-            throw new ClasspathAccessException("Problem finding field: " + e.getMessage(), e);
+            throw new ClasspathAccessException("Problem finding field: " + this.toString(), e);
         }
     }
 
@@ -188,6 +188,6 @@ public class JField extends JVariable {
     @Override
 	public int hashCode() {
 		return new HashCodeBuilder(11, 47).append(super.hashCode())
-				.append(jClass).toHashCode();
+				.append(jClass.getName()).toHashCode();
 	}
 }

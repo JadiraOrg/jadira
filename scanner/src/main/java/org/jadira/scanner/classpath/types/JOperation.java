@@ -48,7 +48,7 @@ public abstract class JOperation extends JElement {
     public JType getEnclosingType() {
         return enclosingType;
     }
-
+    
     @Override
     public Set<JAnnotation<?>> getAnnotations() {
 
@@ -113,7 +113,7 @@ public abstract class JOperation extends JElement {
     public Method getActualMethod() throws ClasspathAccessException {
 
         try {
-            return getEnclosingType().getActualClass().getMethod(getName(), JavassistMethodInfoHelper.getMethodParamClasses(methodInfo));
+            return getEnclosingType().getActualClass().getMethod(getName(), getMethodParamClasses(methodInfo));
         } catch (SecurityException e) {
             throw new ClasspathAccessException("Problem obtaining method: " + e.getMessage(), e);
         } catch (NoSuchMethodException e) {
@@ -163,4 +163,58 @@ public abstract class JOperation extends JElement {
 		return new HashCodeBuilder(11, 47).append(super.hashCode())
 				.append(enclosingType).toHashCode();
 	}
+    
+
+    protected Class<?>[] getMethodParamClasses(MethodInfo methodInfo) throws ClasspathAccessException {
+
+        String[] classNames = JavassistMethodInfoHelper.getMethodParamTypeNames(methodInfo);
+        Class<?>[] retArray = new Class<?>[classNames.length];
+
+        for (int i = 0; i < classNames.length; i++) {
+            if (!"".equals(classNames[i])) {
+                retArray[i] = decodeFieldType(classNames[i]);
+            }
+        }
+        return retArray;
+    }
+
+    private Class<?> decodeFieldType(String componentType) {
+
+        char type = componentType.charAt(0);
+        String fieldContent = componentType.substring(1);
+
+        switch (type) {
+        // L<classname>; reference an instance of class <classname>
+        case 'L': 
+            return getResolver().loadClass(fieldContent.replace('/', '.'));
+        // B byte signed byte
+        case 'B': 
+            return Byte.class;
+        // C char Unicode character
+        case 'C': 
+            return Character.class;
+        // D double double-precision floating-point value
+        case 'D': 
+            return Double.class;
+        // F float single-precision floating-point value        
+        case 'F': 
+            return Float.class;
+        // I int integer
+        case 'I': 
+            return Integer.class;
+        // J long long integer
+        case 'J': 
+            return Long.class;
+        // S short signed short
+        case 'S': 
+            return Short.class;
+        // Z boolean true or false
+        case 'Z': 
+            return Boolean.class;
+        // [ reference one array dimension
+        case '[': 
+            return Arrays.class;
+        }
+        return null;
+    }
 }

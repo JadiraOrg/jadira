@@ -25,6 +25,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.jadira.scanner.classpath.ClasspathResolver;
+import org.jadira.scanner.classpath.visitor.IntrospectionVisitor;
 import org.jadira.scanner.core.exception.ClasspathAccessException;
 
 public class JInnerClass extends JClass {
@@ -50,6 +51,33 @@ public class JInnerClass extends JClass {
         return getEnclosingClass();
     }
      
+    @Override
+    public void acceptVisitor(IntrospectionVisitor visitor) throws ClasspathAccessException {
+        visitor.visit(this);
+
+        for (JInterface next : getImplementedInterfaces()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JInnerClass next : getEnclosedClasses()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JField next : getFields()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JConstructor next : getConstructors()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JMethod next : getMethods()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JStaticInitializer next : getStaticInitializers()) {
+            next.acceptVisitor(visitor);
+        }
+        for (JAnnotation<?> next : getAnnotations()) {
+            next.acceptVisitor(visitor);
+        }
+    }
+    
     @Override
     public String toString() {
     	
