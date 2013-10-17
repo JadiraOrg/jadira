@@ -81,7 +81,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
     public Timestamp toNonNullValue(ZonedDateTime value) {
 
         ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(value.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
+        int adjustment = TimeZone.getDefault().getOffset(value.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
         final Timestamp timestamp = new Timestamp((value.toEpochSecond() * MILLIS_IN_SECOND) - adjustment);
         timestamp.setNanos(value.getNano());
