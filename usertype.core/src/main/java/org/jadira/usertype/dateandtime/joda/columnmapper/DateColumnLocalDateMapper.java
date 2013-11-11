@@ -56,10 +56,11 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     	}
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+
+        long dateMillis = value.getTime();
+        int adjustment = TimeZone.getDefault().getOffset(dateMillis) - currentDatabaseZone.getOffset(dateMillis);
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
-        
-        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        DateTime dateTime = new DateTime(dateMillis + adjustment, currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
         
         return localDate;
@@ -79,10 +80,11 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     	
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay(currentDatabaseZone));
-        
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+
+        long zonedValueMillis = zonedValue.getMillis();
+        int adjustment = TimeZone.getDefault().getOffset(zonedValueMillis) - currentDatabaseZone.getOffset(zonedValueMillis);
     	
-        final Date date = new Date(zonedValue.getMillis() - adjustment);
+        final Date date = new Date(zonedValueMillis - adjustment);
         return date;
     }
     
