@@ -59,7 +59,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         DateTimeZone currentJavaZone = javaZone == null ? ZoneHelper.getDefault() : javaZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
         
         DateTime dateTime = new DateTime(value.getTime() + adjustment);
         DateTime dateTimeWithZone = dateTime.withZone(currentJavaZone);
@@ -77,7 +77,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
         
         final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
         return timestamp;
