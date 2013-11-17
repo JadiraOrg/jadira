@@ -88,7 +88,7 @@ public class TimestampColumnOffsetTimeMapper extends AbstractTimestampColumnMapp
     	OffsetDateTime odt = value.atDate(LocalDate.of(1970, 1, 1));
         
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(odt.toEpochSecond()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
+        int adjustment = TimeZone.getDefault().getOffset(odt.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
         final Timestamp timestamp = new Timestamp((odt.toEpochSecond() * MILLIS_IN_SECOND) - adjustment);
         timestamp.setNanos(value.getNano());
