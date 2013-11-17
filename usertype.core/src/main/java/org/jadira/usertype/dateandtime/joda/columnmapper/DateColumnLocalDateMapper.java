@@ -55,14 +55,14 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     		return new LocalDate(value.toString());
     	}
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+        DateTimeZone currentDatabaseZone = databaseZone;
+
+        long dateMillis = value.getTime();
+        int adjustment = TimeZone.getDefault().getOffset(dateMillis) - currentDatabaseZone.getOffset(dateMillis);
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
-        
-        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
-        LocalDate localDate = dateTime.toLocalDate();
-        
-        return localDate;
+        DateTime dateTime = new DateTime(dateMillis + adjustment, currentDatabaseZone);
+
+        return dateTime.toLocalDate();
     }
 
     @Override
@@ -77,13 +77,14 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
         	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
         }
     	
-    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
+    	DateTimeZone currentDatabaseZone = databaseZone;
     	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay(currentDatabaseZone));
-        
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
-    	
-        final Date date = new Date(zonedValue.getMillis() - adjustment);
-        return date;
+
+        long zonedValueMillis = zonedValue.getMillis();
+        int adjustment = TimeZone.getDefault().getOffset(zonedValueMillis) - currentDatabaseZone.getOffset(zonedValueMillis);
+
+
+        return new Date(zonedValueMillis - adjustment);
     }
     
     @Override
