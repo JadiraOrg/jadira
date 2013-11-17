@@ -31,18 +31,18 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> implements DatabaseZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = 6734385103313158326L;
-    
+
     private DateTimeZone databaseZone = DateTimeZone.UTC;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
     public TimeColumnLocalTimeMapper() {
     }
-    
+
     public TimeColumnLocalTimeMapper(DateTimeZone databaseZone) {
     	this.databaseZone = databaseZone;
     }
-    
+
     @Override
     public LocalTime fromNonNullString(String s) {
         return new LocalTime(s);
@@ -52,15 +52,15 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     public LocalTime fromNonNullValue(Time value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-        
+
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
-        
+
         return localTime;
     }
-    
+
     @Override
     public String toNonNullString(LocalTime value) {
         return value.toString();
@@ -73,9 +73,9 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     	DateTime zonedValue = new LocalDateTime(
     			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
     	).toDateTime(currentDatabaseZone);
-    	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
-    	
+
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(zonedValue.getMillis());
+
         final Time time = new Time(zonedValue.getMillis() - adjustment);
         return time;
     }
