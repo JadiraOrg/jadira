@@ -49,7 +49,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getMillis());
         
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
@@ -70,7 +70,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
     	).toDateTime(currentDatabaseZone);
     	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
     	
         final Timestamp timestamp = new Timestamp(zonedValue.getMillis() - adjustment);
         return timestamp;

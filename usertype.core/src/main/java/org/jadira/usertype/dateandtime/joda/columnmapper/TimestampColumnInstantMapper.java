@@ -47,7 +47,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getMillis());
         
         Instant instant = new Instant(value.getTime() + adjustment);       
         return instant;
@@ -63,7 +63,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
         
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
         
         final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
         return timestamp;

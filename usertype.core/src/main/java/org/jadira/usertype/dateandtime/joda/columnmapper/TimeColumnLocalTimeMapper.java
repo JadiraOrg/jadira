@@ -53,7 +53,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getMillis());
         
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
@@ -74,7 +74,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
     	).toDateTime(currentDatabaseZone);
     	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
     	
         final Time time = new Time(zonedValue.getMillis() - adjustment);
         return time;

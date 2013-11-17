@@ -60,7 +60,7 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getMillis());
         
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         YearMonthDay localDate = dateTime.toYearMonthDay();
@@ -83,7 +83,7 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	DateTime zonedValue = value.toDateTime(value.toLocalDate().toDateTimeAtStartOfDay(currentDatabaseZone));
         
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
     	
         final Date date = new Date(zonedValue.getMillis() - adjustment);
         return date;
