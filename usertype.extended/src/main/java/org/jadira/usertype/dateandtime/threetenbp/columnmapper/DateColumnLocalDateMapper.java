@@ -59,8 +59,11 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     	}
 
 		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-        
-		int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+
+        Instant valueAsInstant = Instant.ofEpochMilli(value.getTime());
+        int defaultTimezoneOffset = TimeZone.getDefault().getOffset(value.getTime());
+        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
+        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
         
         ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
@@ -82,13 +85,16 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     	
 		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
     	ZonedDateTime zonedValue = value.atStartOfDay(currentDatabaseZone);
-        
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+
+        Instant valueAsInstant = Instant.ofEpochSecond(zonedValue.toEpochSecond());
+        int defaultTimezoneOffset = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND);
+        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
+        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
     	
         final Date date = new Date(zonedValue.toEpochSecond() - adjustment);
         return date;
     }
-    
+
     private static ZoneOffset getDefault() {
 
     	ZoneOffset zone = null;
