@@ -24,7 +24,6 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapp
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateHolder;
 import org.jadira.usertype.dateandtime.joda.testmodel.LocalDateJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
-import org.joda.time.DateTime;
 import org.joda.time.DateTimeUtils;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;

@@ -22,7 +22,6 @@ import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
