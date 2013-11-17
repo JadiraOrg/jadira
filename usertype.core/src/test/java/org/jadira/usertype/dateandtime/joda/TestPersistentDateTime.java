@@ -22,13 +22,18 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 import org.hamcrest.core.IsEqual;
+import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.dateandtime.joda.testmodel.DateTimeJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeUtils;
 import org.joda.time.DateTimeZone;
 import org.junit.Ignore;
 import org.junit.Test;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHolder> {
 
@@ -150,6 +155,66 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
             assertThat("For record {" + i + "}", readItem.getDateTime(), IsEqual.equalTo(dt.withZone(DateTimeZone.UTC)));
 
             dt = dt.plusHours(1);
+        }
+    }
+
+    @Test
+    public void testMapperWithDatabaseZoneAndDstTransitionForward() {
+        final String timeZoneId = "Europe/Berlin";
+        DateTimeZone timeZoneEurope = DateTimeZone.forID(timeZoneId);
+        final TimestampColumnDateTimeMapper mapper =
+                new TimestampColumnDateTimeMapper(DateTimeZone.UTC, timeZoneEurope);
+        DateTimeZone zoneWithDaylightSavings = timeZoneEurope;
+
+        mapper.setDatabaseZone(zoneWithDaylightSavings);
+
+        final DateTime inSummer = new DateTime(2013, 9, 17, 16, 0, 0, timeZoneEurope);
+
+
+        long nextTransition = zoneWithDaylightSavings.nextTransition(inSummer.getMillis());
+
+        try
+        {
+            DateTimeUtils.setCurrentMillisFixed(nextTransition);
+            Timestamp timestamp = mapper.toNonNullValue(inSummer);
+
+            final Date db = timestamp;
+
+            assertEquals(db.getHours(), 16);
+        }
+        finally
+        {
+            DateTimeUtils.setCurrentMillisSystem();
+        }
+    }
+
+    @Test
+    public void testMapperWithDatabaseZoneAndDstTransitionBackward() {
+        final String timeZoneId = "Europe/Berlin";
+        DateTimeZone timeZoneEurope = DateTimeZone.forID(timeZoneId);
+        final TimestampColumnDateTimeMapper mapper =
+                new TimestampColumnDateTimeMapper(DateTimeZone.UTC, timeZoneEurope);
+        DateTimeZone zoneWithDaylightSavings = timeZoneEurope;
+
+        mapper.setDatabaseZone(zoneWithDaylightSavings);
+
+        final DateTime inSummer = new DateTime(2013, 9, 17, 16, 0, 0, timeZoneEurope);
+
+
+        long prevTransition = zoneWithDaylightSavings.previousTransition(inSummer.getMillis());
+
+        try
+        {
+            DateTimeUtils.setCurrentMillisFixed(prevTransition);
+            Timestamp timestamp = mapper.toNonNullValue(inSummer);
+
+            final Date db = timestamp;
+
+            assertEquals(db.getHours(), 16);
+        }
+        finally
+        {
+            DateTimeUtils.setCurrentMillisSystem();
         }
     }
 }
