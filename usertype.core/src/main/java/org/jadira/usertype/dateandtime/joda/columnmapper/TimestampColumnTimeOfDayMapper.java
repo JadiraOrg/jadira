@@ -38,11 +38,11 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
 	public TimestampColumnTimeOfDayMapper() {
 	}
-    
+
     public TimestampColumnTimeOfDayMapper(DateTimeZone databaseZone) {
     	this.databaseZone = databaseZone;
     }
-    
+
     @Override
     public TimeOfDay fromNonNullString(String s) {
         return new TimeOfDay(s);
@@ -52,16 +52,16 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     public TimeOfDay fromNonNullValue(Timestamp value) {
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-        
+
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
-        
+
         final TimeOfDay timeOfDay = new TimeOfDay(localTime.getHourOfDay(), localTime.getMinuteOfHour(), localTime.getSecondOfMinute(), localTime.getMillisOfSecond(), localTime.getChronology());
         return timeOfDay;
     }
-    
+
     @Override
     public String toNonNullString(TimeOfDay value) {
         return value.toString();
@@ -74,9 +74,9 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
     	DateTime zonedValue = new LocalDateTime(
     			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
     	).toDateTime(currentDatabaseZone);
-    	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
-    	
+
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(zonedValue.getMillis());
+
         final Timestamp timestamp = new Timestamp(zonedValue.getMillis() - adjustment);
         return timestamp;
     }
@@ -85,7 +85,7 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 	public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
-    
+
 	@Override
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);

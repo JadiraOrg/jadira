@@ -35,14 +35,14 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
     private DateTimeZone databaseZone = null;
-    
+
     public DateColumnLocalDateMapper() {
     }
-    
+
     public DateColumnLocalDateMapper(DateTimeZone databaseZone) {
     	this.databaseZone = databaseZone;
     }
-    
+
     @Override
     public LocalDate fromNonNullString(String s) {
         return new LocalDate(s);
@@ -56,12 +56,12 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     	}
 
         DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
+
         int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-        
+
         DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
-        
+
         return localDate;
     }
 
@@ -72,25 +72,25 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     @Override
     public Date toNonNullValue(LocalDate value) {
-    	
+
         if (databaseZone==null) {
         	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
         }
-    	
+
     	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay(currentDatabaseZone));
-        
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
-    	
+
+        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(zonedValue.getMillis());
+
         final Date date = new Date(zonedValue.getMillis() - adjustment);
         return date;
     }
-    
+
     @Override
     public void setDatabaseZone(DateTimeZone databaseZone) {
         this.databaseZone = databaseZone;
     }
-    
+
 	@Override
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
