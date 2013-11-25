@@ -16,32 +16,26 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
-public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnInstantMapper extends AbstractTimestampThreeTenBPColumnMapper<Instant> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
     public static final DateTimeFormatter LOCAL_DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();
 
-	private static final int MILLIS_IN_SECOND = 1000;
-
-    private ZoneOffset databaseZone = ZoneOffset.of("Z");
-
 	public TimestampColumnInstantMapper() {
+		super();
 	}
 
 	public TimestampColumnInstantMapper(ZoneOffset databaseZone) {
-		this.databaseZone = databaseZone;
+		super(databaseZone);
 	}
     
     @Override
@@ -52,11 +46,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Instant fromNonNullValue(Timestamp value) {
 
-    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
+    	Instant instant = Instant.ofEpochMilli(value.getTime());
         instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
 
         return instant;
@@ -70,45 +60,13 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Timestamp toNonNullValue(Instant value) {
 
-    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(value.toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        final Timestamp timestamp = new Timestamp(value.toEpochMilli() - adjustment);
+        final Timestamp timestamp = new Timestamp(value.toEpochMilli());
         timestamp.setNanos(value.getNano());
         return timestamp;
-    }
-
-    private static ZoneOffset getDefault() {
-
-    	ZoneOffset zone = null;
-        try {
-            try {
-                String id = System.getProperty("user.timezone");
-                if (id != null) {
-                    zone = ZoneOffset.of(id);
-                }
-            } catch (RuntimeException ex) {
-                zone = null;
-            }
-            if (zone == null) {
-                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
-            }
-        } catch (RuntimeException ex) {
-            zone = null;
-        }
-        if (zone == null) {
-            zone = ZoneOffset.of("Z");
-        }
-        return zone;
-    }
-    
-    @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
     }
     
 	@Override
 	public ZoneOffset parseZone(String zoneString) {
 		return ZoneOffset.of(zoneString);
-	}
+	}	
 }

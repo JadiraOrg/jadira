@@ -16,11 +16,11 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
-import java.util.TimeZone;
+import java.util.Calendar;
 
-import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeDateType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -55,11 +55,7 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     		return new LocalDate(value.toString());
     	}
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-
-        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        DateTime dateTime = new DateTime(value.getTime());
         LocalDate localDate = dateTime.toLocalDate();
 
         return localDate;
@@ -77,12 +73,9 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
         	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
         }
 
-    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-    	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay(currentDatabaseZone));
+    	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay());
 
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(zonedValue.getMillis());
-
-        final Date date = new Date(zonedValue.getMillis() - adjustment);
+        final Date date = new Date(zonedValue.getMillis());
         return date;
     }
 
@@ -95,4 +88,9 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
+	
+    @Override
+    public final DstSafeDateType getHibernateType() {
+    	return databaseZone == null ? DstSafeDateType.INSTANCE : new DstSafeDateType(Calendar.getInstance(databaseZone.toTimeZone()));
+    }
 }

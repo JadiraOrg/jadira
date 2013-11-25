@@ -28,7 +28,8 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
-		<release version="3.1.0.CR9" date="TBC" description="Fixes and Updates">
+		<release version="3.1.0.CR9" date="24-11-2013" description="Fixes and Updates">
+			<action dev="Chris Pheby" type="fix">New implementation for databaseZone that uses the overloaded set/getTimestamp methods in JDBC</action>
 			<action dev="Chris Pheby" issue="JDF-59" type="fix">JDF-69 Fix issues with DST transition. Thanks to Matt Drees, Victor Volle and Dennis Brakhane</action>
 			<action dev="Chris Pheby" type="add">Add PersistentDateTimeAsUtcString. Thanks to DWijnand</action>
 		</release>

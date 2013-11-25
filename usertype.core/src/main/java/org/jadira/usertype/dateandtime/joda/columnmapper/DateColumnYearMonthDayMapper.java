@@ -16,11 +16,11 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
-import java.util.TimeZone;
+import java.util.Calendar;
 
-import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeDateType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
@@ -37,7 +37,8 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 
 	public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
-    private DateTimeZone databaseZone = DateTimeZone.UTC;
+    /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
+    private DateTimeZone databaseZone = null;
 
     public DateColumnYearMonthDayMapper() {
     }
@@ -58,11 +59,7 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
     		return new YearMonthDay(value.toString());
     	}
 
-    	DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-
-        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        DateTime dateTime = new DateTime(value.getTime());
         YearMonthDay localDate = dateTime.toYearMonthDay();
 
         return localDate;
@@ -80,12 +77,9 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
         	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate)(value.toLocalDate())));
         }
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-    	DateTime zonedValue = value.toDateTime(value.toLocalDate().toDateTimeAtStartOfDay(currentDatabaseZone));
+    	DateTime zonedValue = value.toDateTime(value.toLocalDate().toDateTimeAtStartOfDay());
 
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(zonedValue.getMillis());
-
-        final Date date = new Date(zonedValue.getMillis() - adjustment);
+        final Date date = new Date(zonedValue.getMillis());
         return date;
     }
 
@@ -98,4 +92,9 @@ public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearM
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
+	
+    @Override
+    public final DstSafeDateType getHibernateType() {
+    	return databaseZone == null ? DstSafeDateType.INSTANCE : new DstSafeDateType(Calendar.getInstance(databaseZone.toTimeZone()));
+    }
 }

@@ -41,7 +41,7 @@ public class TestPersistentLocalTime extends AbstractDatabaseTest<JodaLocalTimeH
             item.setName("test_" + i);
             item.setLocalTime(localTimes[i]);
 
-            persist(item);
+            persist(item); 	
         }
 
         for (int i = 0; i < localTimes.length; i++) {

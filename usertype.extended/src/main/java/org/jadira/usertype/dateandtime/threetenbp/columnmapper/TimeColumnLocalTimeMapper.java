@@ -16,9 +16,7 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Time;
-import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
@@ -29,15 +27,13 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimeColumnLocalTimeMapper extends AbstractTimeThreeTenBPColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
-    private ZoneOffset databaseZone = ZoneOffset.of("Z");
+    private ZoneOffset databaseZone = null;
     
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-
-	private static final int MILLIS_IN_SECOND = 1000;
 
 	public TimeColumnLocalTimeMapper() {
 	}
@@ -56,9 +52,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     	
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
-    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        ZonedDateTime dateTime = Instant.ofEpochMilli(value.getTime() + adjustment).atZone(currentDatabaseZone);
+        ZonedDateTime dateTime = Instant.ofEpochMilli(value.getTime()).atZone(currentDatabaseZone);
         LocalTime localTime = dateTime.toLocalTime();
         
         return localTime;
@@ -78,9 +72,7 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     				1970, 1, 1, value.getHour(), value.getMinute(), value.getSecond(), value.getNano()
     			).atOffset(currentDatabaseZone);
     	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-    	
-        final Time time = new Time(zonedValue.toInstant().toEpochMilli() - adjustment);
+        final Time time = new Time(zonedValue.toInstant().toEpochMilli());
         return time;
     }
     

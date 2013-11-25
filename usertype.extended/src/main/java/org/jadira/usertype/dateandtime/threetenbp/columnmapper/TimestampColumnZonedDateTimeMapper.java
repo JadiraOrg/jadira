@@ -18,9 +18,7 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import static org.jadira.usertype.dateandtime.threetenbp.utils.ZoneHelper.getDefaultZoneOffset;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 import org.threeten.bp.Instant;
@@ -33,7 +31,7 @@ import org.threeten.bp.temporal.ChronoField;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimestampColumnMapper<ZonedDateTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
+public class TimestampColumnZonedDateTimeMapper extends AbstractTimestampThreeTenBPColumnMapper<ZonedDateTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -41,15 +39,14 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
 
 	private static final int MILLIS_IN_SECOND = 1000;
 
-    private ZoneOffset databaseZone = ZoneOffset.UTC;
-
     private ZoneOffset javaZone = null;
 
 	public TimestampColumnZonedDateTimeMapper() {
+		super();
 	}
 
 	public TimestampColumnZonedDateTimeMapper(ZoneOffset databaseZone, ZoneOffset javaZone) {
-		this.databaseZone = databaseZone;
+		super(databaseZone);
 		this.javaZone = javaZone;
 	}
     
@@ -61,12 +58,10 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
     @Override
     public ZonedDateTime fromNonNullValue(Timestamp value) {
 
-        ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;
+        ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefaultZoneOffset() : getDatabaseZone();
         ZoneOffset currentJavaZone = javaZone == null ? getDefaultZoneOffset() : javaZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
+        ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
         dateTime = dateTime.with(ChronoField.NANO_OF_SECOND, value.getNanos()).withZoneSameInstant(currentJavaZone);
         
         return dateTime;
@@ -79,18 +74,10 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimes
 
     @Override
     public Timestamp toNonNullValue(ZonedDateTime value) {
-
-        ZoneOffset currentDatabaseZone = databaseZone == null ? getDefaultZoneOffset() : databaseZone;        
-        int adjustment = TimeZone.getDefault().getOffset(value.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp((value.toEpochSecond() * MILLIS_IN_SECOND) - adjustment);
+        final Timestamp timestamp = new Timestamp((value.toEpochSecond() * MILLIS_IN_SECOND));
         timestamp.setNanos(value.getNano());
         return timestamp;    	
-    }
-
-    @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
     }
     
     @Override

@@ -16,12 +16,15 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.TimeZone;
 
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
+import org.jadira.usertype.spi.shared.VersionableColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,7 +33,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampColumnMapper<DateTime> implements DatabaseZoneConfigured<DateTimeZone>, JavaZoneConfigured<DateTimeZone> {
+public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampColumnMapper<DateTime> implements DatabaseZoneConfigured<DateTimeZone>, JavaZoneConfigured<DateTimeZone>, VersionableColumnMapper<DateTime, Timestamp>  {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -56,12 +59,9 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     @Override
     public DateTime fromNonNullValue(Timestamp value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
         DateTimeZone currentJavaZone = javaZone == null ? ZoneHelper.getDefault() : javaZone;
 
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-        
-        DateTime dateTime = new DateTime(value.getTime() + adjustment);
+        DateTime dateTime = new DateTime(value.getTime());
         DateTime dateTimeWithZone = dateTime.withZone(currentJavaZone);
         
         return dateTimeWithZone;
@@ -74,12 +74,8 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 
     @Override
     public Timestamp toNonNullValue(DateTime value) {
-
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
-        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
-        
-        final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
+    	
+        final Timestamp timestamp = new Timestamp(value.getMillis());
         return timestamp;
     }
 
@@ -97,4 +93,9 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
+	
+    @Override
+    public final DstSafeTimestampType getHibernateType() {
+    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone.toTimeZone()));
+    }
 }

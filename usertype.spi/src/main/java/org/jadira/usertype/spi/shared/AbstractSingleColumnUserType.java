@@ -61,14 +61,13 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
         return copyOf(sqlTypes);
     }
 
-    @SuppressWarnings({ "unchecked" })
     @Override
     public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
         
     	beforeNullSafeOperation(session);
     	
     	try {
-	    	J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
+	    	J converted = doNullSafeGet(resultSet, strings, session, object);
 	
 	        if (converted == null) {
 	            return null;
@@ -81,7 +80,13 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     	}
     }
 
-    @Override
+    protected J doNullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+		@SuppressWarnings("unchecked")
+		final J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
+		return converted;
+	}
+
+	@Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
@@ -95,14 +100,18 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
 	            transformedValue = getColumnMapper().toNonNullValue(myValue);
 	        }
 	
-	        getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
+	        doNullSafeSet(preparedStatement, transformedValue, index, session);
 	        
     	} finally {
     		afterNullSafeOperation(session);
     	}
     }
 
-    @Override
+    protected void doNullSafeSet(PreparedStatement preparedStatement, J transformedValue, int index, SessionImplementor session) throws SQLException {
+    	getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
+	}
+
+	@Override
     public String objectToSQLString(Object object) {
         @SuppressWarnings("unchecked") final T myObject = (T) object;
         J convertedObject = myObject == null ? null : getColumnMapper().toNonNullValue(myObject);

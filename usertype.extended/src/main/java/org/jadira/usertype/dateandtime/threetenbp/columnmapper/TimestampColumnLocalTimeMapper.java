@@ -16,9 +16,9 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
@@ -30,7 +30,7 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
-public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenBPColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 
@@ -38,14 +38,13 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
 
 	private static final int MILLIS_IN_SECOND = 1000;
-
-    private ZoneOffset databaseZone = ZoneOffset.of("Z");
-
+    
 	public TimestampColumnLocalTimeMapper() {
+		super(null);
 	}
 
 	public TimestampColumnLocalTimeMapper(ZoneOffset databaseZone) {
-		this.databaseZone = databaseZone;
+		super(databaseZone);
 	}
     
     @Override
@@ -55,20 +54,14 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
 
     @Override
     public LocalTime fromNonNullValue(Timestamp value) {
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(value.getTime());
     	
-    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        Instant instant = Instant.ofEpochMilli(value.getTime() + adjustment);
-        instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
-        
-        LocalDateTime ldt = LocalDateTime.ofInstant(instant, currentDatabaseZone);
-        LocalTime localTime = ldt.toLocalTime();
-        
-        return localTime;
+        LocalTime time = LocalTime.of(cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND), cal.get(Calendar.MILLISECOND) * 1000000);
+        return time;
     }
-
+    	
     @Override
     public String toNonNullString(LocalTime value) {
         return value.toString();
@@ -77,13 +70,16 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-    	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();        
     	
     	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
-        int adjustment = TimeZone.getDefault().getOffset(zdt.toInstant().toEpochMilli()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+        Instant ins = zdt.toInstant();
+
+    	ZoneOffset off = getDefault();
+        int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli() - adjustment);
+        final Timestamp timestamp = new Timestamp(ins.toEpochMilli() - adjustment);
         timestamp.setNanos(value.getNano());
         return timestamp;
     }
@@ -110,11 +106,6 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampColumnMappe
             zone = ZoneOffset.of("Z");
         }
         return zone;
-    }
-    
-    @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
     }
     
 	@Override

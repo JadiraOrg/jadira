@@ -18,26 +18,21 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import static org.jadira.usertype.dateandtime.threetenbp.utils.ZoneHelper.getDefaultZoneOffset;
 
 import java.sql.Time;
-import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.OffsetTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
+public class TimeColumnOffsetTimeMapper extends AbstractTimeThreeTenBPColumnMapper<OffsetTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
-
-	private static final int MILLIS_IN_SECOND = 1000;
 
     private ZoneOffset databaseZone = ZoneOffset.UTC;
 
@@ -61,9 +56,9 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetT
 
     	ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
         
-    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+//    	int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
-        OffsetDateTime dateTime = Instant.ofEpochMilli(value.getTime() + adjustment).atOffset(currentDatabaseZone);
+        OffsetDateTime dateTime = Instant.ofEpochMilli(value.getTime()).atOffset(currentDatabaseZone);
         return dateTime.toOffsetTime().withOffsetSameInstant(javaZone);
     }
 

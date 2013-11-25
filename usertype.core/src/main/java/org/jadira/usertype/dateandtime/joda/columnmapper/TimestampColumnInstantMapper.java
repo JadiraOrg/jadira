@@ -16,11 +16,11 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
-import java.util.TimeZone;
+import java.util.Calendar;
 
-import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 
@@ -45,11 +45,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Instant fromNonNullValue(Timestamp value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(value.getTime());
-        
-        Instant instant = new Instant(value.getTime() + adjustment);       
+        Instant instant = new Instant(value.getTime());       
         return instant;
     }
 
@@ -61,11 +57,7 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
     @Override
     public Timestamp toNonNullValue(Instant value) {
         
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
-        int adjustment = TimeZone.getDefault().getOffset(value.getMillis()) - currentDatabaseZone.getOffset(value.getMillis());
-        
-        final Timestamp timestamp = new Timestamp(value.getMillis() - adjustment);
+        final Timestamp timestamp = new Timestamp(value.getMillis());
         return timestamp;
     }
 
@@ -78,4 +70,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
+		
+    @Override
+    public final DstSafeTimestampType getHibernateType() {
+    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone.toTimeZone()));
+    }
 }
