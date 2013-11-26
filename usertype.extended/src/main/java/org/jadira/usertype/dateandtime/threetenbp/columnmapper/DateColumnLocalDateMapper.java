@@ -16,34 +16,28 @@
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Date;
-import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> implements DatabaseZoneConfigured<ZoneOffset> {
+public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMapper<LocalDate> implements DatabaseZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
-	private static final int MILLIS_IN_SECOND = 1000;
-
-    /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
-    private ZoneOffset databaseZone = null;
+//	private static final int MILLIS_IN_SECOND = 1000;
     
 	public DateColumnLocalDateMapper() {
 	}
 
 	public DateColumnLocalDateMapper(ZoneOffset databaseZone) {
-		this.databaseZone = databaseZone;
+		super(databaseZone);
 	}
     
     @Override
@@ -54,15 +48,13 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     @Override
     public LocalDate fromNonNullValue(Date value) {
 
-		if (databaseZone == null) {
+		if (getDatabaseZone() == null) {
     		return LocalDate.parse(value.toString(), LOCAL_DATE_FORMATTER);
     	}
 
-		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
         
-		int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
-        
-        ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime() + adjustment), currentDatabaseZone);
+        ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
         
         return localDate;
@@ -76,19 +68,22 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     @Override
     public Date toNonNullValue(LocalDate value) {
     	
-        if (databaseZone==null) {
+        if (getDatabaseZone() == null) {
         	return Date.valueOf(LOCAL_DATE_FORMATTER.format((LocalDate) value));
         }
     	
-		ZoneOffset currentDatabaseZone = databaseZone == null ? getDefault() : databaseZone;
+		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
     	ZonedDateTime zonedValue = value.atStartOfDay(currentDatabaseZone);
-        
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND) - (currentDatabaseZone.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+
+//        Instant valueAsInstant = Instant.ofEpochSecond(zonedValue.toEpochSecond());
+//        int defaultTimezoneOffset = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND);
+//        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
+//        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
     	
-        final Date date = new Date(zonedValue.toEpochSecond() - adjustment);
+        final Date date = new Date(zonedValue.toEpochSecond());
         return date;
     }
-    
+
     private static ZoneOffset getDefault() {
 
     	ZoneOffset zone = null;
@@ -111,11 +106,6 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
             zone = ZoneOffset.of("Z");
         }
         return zone;
-    }
-    
-    @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
-        this.databaseZone = databaseZone;
     }
     
 	@Override

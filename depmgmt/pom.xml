@@ -24,7 +24,7 @@
 	<artifactId>jadira.depmgmt</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.CR9-SNAPSHOT</version>
+	<version>3.1.0.GA-SNAPSHOT</version>
 
 	<name>Jadira Framework Dependency Management</name>
 	<description>Dependency Management for Jadira Framework</description>
@@ -331,11 +331,6 @@
 				<artifactId>spring-orm</artifactId>
 				<version>3.2.3.RELEASE</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>3.2.3.RELEASE</version>
-			</dependency>
 
 			<dependency>
 				<groupId>org.springframework.integration</groupId>
@@ -495,7 +490,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<reportPlugins>
 					</reportPlugins>

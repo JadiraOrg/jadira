@@ -18,12 +18,12 @@ package org.jadira.usertype.dateandtime.legacyjdk.columnmapper;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 
 /**
  * Maps a precise timestamp column for storage. The GMT Zone will be used to store the value
@@ -59,11 +59,7 @@ public class TimestampColumnTimestampMapper extends AbstractVersionableTimestamp
     @Override
     public java.sql.Timestamp fromNonNullValue(Timestamp value) {
 
-    	TimeZone currentDatabaseZone = databaseZone == null ? TimeZone.getDefault() : databaseZone;
-
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(new Date().getTime());
-
-        final Timestamp timestamp = new Timestamp(value.getTime() + adjustment);
+        final Timestamp timestamp = new Timestamp(value.getTime());
         timestamp.setNanos(value.getNanos());
 
         return timestamp;
@@ -98,11 +94,7 @@ public class TimestampColumnTimestampMapper extends AbstractVersionableTimestamp
     @Override
     public Timestamp toNonNullValue(java.sql.Timestamp value) {
 
-    	TimeZone currentDatabaseZone = databaseZone == null ? TimeZone.getDefault() : databaseZone;
-        
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(new Date().getTime());
-        
-        final Timestamp timestamp = new Timestamp(value.getTime() - adjustment);
+        final Timestamp timestamp = new Timestamp(value.getTime());
         timestamp.setNanos(value.getNanos());
         
         return timestamp;
@@ -117,4 +109,9 @@ public class TimestampColumnTimestampMapper extends AbstractVersionableTimestamp
 	public TimeZone parseZone(String zoneString) {
 		return TimeZone.getTimeZone(zoneString);
 	}
+		
+    @Override
+    public final DstSafeTimestampType getHibernateType() {
+    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone));
+    }
 }

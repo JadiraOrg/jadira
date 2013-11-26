@@ -16,11 +16,11 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
-import java.util.TimeZone;
+import java.util.Calendar;
 
-import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeTimeType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
@@ -31,18 +31,18 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> implements DatabaseZoneConfigured<DateTimeZone> {
 
     private static final long serialVersionUID = 6734385103313158326L;
-    
-    private DateTimeZone databaseZone = DateTimeZone.UTC;
+
+    private DateTimeZone databaseZone = null;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
     public TimeColumnLocalTimeMapper() {
     }
-    
+
     public TimeColumnLocalTimeMapper(DateTimeZone databaseZone) {
     	this.databaseZone = databaseZone;
     }
-    
+
     @Override
     public LocalTime fromNonNullString(String s) {
         return new LocalTime(s);
@@ -51,16 +51,12 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     @Override
     public LocalTime fromNonNullValue(Time value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
-        
-        int adjustment = TimeZone.getDefault().getOffset(value.getTime()) - currentDatabaseZone.getOffset(null);
-        
-        DateTime dateTime = new DateTime(value.getTime() + adjustment, currentDatabaseZone);
+        DateTime dateTime = new DateTime(value.getTime());
         LocalTime localTime = dateTime.toLocalTime();
-        
+
         return localTime;
     }
-    
+
     @Override
     public String toNonNullString(LocalTime value) {
         return value.toString();
@@ -69,14 +65,11 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     @Override
     public Time toNonNullValue(LocalTime value) {
 
-        DateTimeZone currentDatabaseZone = databaseZone == null ? ZoneHelper.getDefault() : databaseZone;
     	DateTime zonedValue = new LocalDateTime(
     			1970,1,1,value.getHourOfDay(), value.getMinuteOfHour(), value.getSecondOfMinute(), value.getMillisOfSecond(), value.getChronology()
-    	).toDateTime(currentDatabaseZone);
-    	
-        int adjustment = TimeZone.getDefault().getOffset(zonedValue.getMillis()) - currentDatabaseZone.getOffset(null);
-    	
-        final Time time = new Time(zonedValue.getMillis() - adjustment);
+    	).toDateTime();
+
+        final Time time = new Time(zonedValue.getMillis());
         return time;
     }
 
@@ -89,4 +82,9 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
 	public DateTimeZone parseZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
+	
+    @Override
+    public final DstSafeTimeType getHibernateType() {
+    	return databaseZone == null ? DstSafeTimeType.INSTANCE : new DstSafeTimeType(Calendar.getInstance(databaseZone.toTimeZone()));
+    }
 }

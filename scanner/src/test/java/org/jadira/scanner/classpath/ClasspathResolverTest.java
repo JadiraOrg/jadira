@@ -18,12 +18,7 @@ package org.jadira.scanner.classpath;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.jadira.scanner.classpath.types.JAnnotation;
 import org.jadira.scanner.classpath.types.JClass;
@@ -69,9 +64,16 @@ public class ClasspathResolverTest {
         assertEquals(1, constructors.size());
         assertEquals("JConstructor[name=<init>,enclosingType=JClass[name=org.jadira.scanner.classpath.A],parameters=[JParameter[name=first,type=JClass[name=java.lang.String],enclosingType=JClass[name=org.jadira.scanner.classpath.A]], JParameter[name=second,type=JClass[name=java.lang.Integer],enclosingType=JClass[name=org.jadira.scanner.classpath.A]]]]", constructors.get(0).toString());
 
-        assertEquals(2, firstClass.getEnclosedClasses().size());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
+
+        List<JInnerClass> realEnclosedClassesList = firstClass.getEnclosedClasses();
+        Set<String> realEnclosedClassesSet = buildSet(realEnclosedClassesList);
+        String enclosingClass = "enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]";
+
+        String classA1 = "JInnerClass[name=org.jadira.scanner.classpath.A$1," + enclosingClass;
+        String classAB = "JInnerClass[name=org.jadira.scanner.classpath.A$B," + enclosingClass;
+        Set<String> expectedEnclosedClassesSet = buildSet(classA1, classAB);
+
+        assertEquals(realEnclosedClassesSet, expectedEnclosedClassesSet);
 
         assertEquals("JClass[name=org.jadira.scanner.classpath.A]", firstClass.toString());
 
@@ -85,6 +87,22 @@ public class ClasspathResolverTest {
         assertEquals("JConstructor[name=<init>,enclosingType=JClass[name=org.jadira.scanner.classpath.ClasspathResolverTest],parameters=[]]", constructors3.get(0).toString());
 
         assertEquals(4, thirdClass.getEnclosedClasses().size());
+    }
+
+    private Set<String> buildSet(String... args) {
+        Set<String> result = new HashSet<String>();
+        for ( String arg : args ) {
+            result.add(arg);
+        }
+        return result;
+    }
+
+    private Set<String> buildSet(List<? extends Object> list) {
+        Set<String> result = new HashSet<String>();
+        for ( Object o : list ) {
+            result.add(o.toString());
+        }
+        return result;
     }
 
     @Test
@@ -114,9 +132,15 @@ public class ClasspathResolverTest {
         assertEquals(1, constructors.size());
         assertEquals("JConstructor[name=<init>,enclosingType=JClass[name=org.jadira.scanner.classpath.A],parameters=[JParameter[name=first,type=JClass[name=java.lang.String],enclosingType=JClass[name=org.jadira.scanner.classpath.A]], JParameter[name=second,type=JClass[name=java.lang.Integer],enclosingType=JClass[name=org.jadira.scanner.classpath.A]]]]", constructors.get(0).toString());
 
-        assertEquals(2, firstClass.getEnclosedClasses().size());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$1,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(0).toString());
-        assertEquals("JInnerClass[name=org.jadira.scanner.classpath.A$B,enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]", firstClass.getEnclosedClasses().get(1).toString());
+
+        List<JInnerClass> realEnclosedClassesList = firstClass.getEnclosedClasses();
+        Set<String> realEnclosedClassesSet = buildSet(realEnclosedClassesList);
+        String enclosingClass = "enclosingClass=JClass[name=org.jadira.scanner.classpath.A]]";
+        String classA1 = "JInnerClass[name=org.jadira.scanner.classpath.A$1," + enclosingClass;
+        String classAB = "JInnerClass[name=org.jadira.scanner.classpath.A$B," + enclosingClass;
+        Set<String> expectedEnclosedClassesSet = buildSet(classA1, classAB);
+
+        assertEquals(realEnclosedClassesSet, expectedEnclosedClassesSet);
 
         assertEquals("JClass[name=org.jadira.scanner.classpath.A]", firstClass.toString());
 

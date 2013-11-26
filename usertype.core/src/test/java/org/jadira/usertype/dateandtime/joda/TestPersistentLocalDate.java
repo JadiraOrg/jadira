@@ -24,6 +24,8 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnLocalDateMapp
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaLocalDateHolder;
 import org.jadira.usertype.dateandtime.joda.testmodel.LocalDateJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.joda.time.DateTimeUtils;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -94,5 +96,51 @@ public class TestPersistentLocalDate extends AbstractDatabaseTest<JodaLocalDateH
     	final LocalDate out = mapper.fromNonNullValue(db);
     	
         assertEquals(in, out);
+    }
+
+    @Test
+    public void testMapperWithDatabaseZoneAndDstTransitionForward() {
+        final DateColumnLocalDateMapper mapper = new DateColumnLocalDateMapper();
+        DateTimeZone zoneWithDaylightSavings = DateTimeZone.forID("America/Denver");
+
+        mapper.setDatabaseZone(zoneWithDaylightSavings);
+
+        final LocalDate in = new LocalDate("2012-10-15");
+        long nextTransition = zoneWithDaylightSavings.nextTransition(in.toDateTimeAtStartOfDay().getMillis());
+
+        try
+        {
+            DateTimeUtils.setCurrentMillisFixed(nextTransition);
+            final Date db = mapper.toNonNullValue(in);
+
+            assertEquals(db.toString(), "2012-10-15");
+        }
+        finally
+        {
+            DateTimeUtils.setCurrentMillisSystem();
+        }
+    }
+
+    @Test
+    public void testMapperWithDatabaseZoneAndDstTransitionBackward() {
+        final DateColumnLocalDateMapper mapper = new DateColumnLocalDateMapper();
+        DateTimeZone zoneWithDaylightSavings = DateTimeZone.forID("America/Denver");
+
+        mapper.setDatabaseZone(zoneWithDaylightSavings);
+
+        final Date in = Date.valueOf("2013-01-15");
+        long nextTransition = zoneWithDaylightSavings.nextTransition(in.getTime());
+
+        try
+        {
+            DateTimeUtils.setCurrentMillisFixed(nextTransition);
+            final LocalDate out = mapper.fromNonNullValue(in);
+
+            assertEquals(out.toString(), "2013-01-15");
+        }
+        finally
+        {
+            DateTimeUtils.setCurrentMillisSystem();
+        }
     }
 }
