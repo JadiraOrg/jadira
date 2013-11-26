@@ -24,7 +24,7 @@
 	<artifactId>jadira.parent</artifactId>
 	<packaging>pom</packaging>
 
-	<version>3.1.0.CR9-SNAPSHOT</version>
+	<version>3.1.0.CR9</version>
 
 	<name>Jadira Framework Parent</name>
 	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
@@ -94,7 +94,7 @@
 	    <connection>scm:git:git@github.com:JadiraOrg/jadira.git</connection>
 	    <url>scm:git:git@github.com:JadiraOrg/jadira.git</url>
 	    <developerConnection>scm:git:git@github.com:JadiraOrg/jadira.git</developerConnection>
-	  <tag>HEAD</tag>
+	  <tag>jadira.parent-3.1.0.CR9</tag>
   </scm>
   	
   	<distributionManagement>
