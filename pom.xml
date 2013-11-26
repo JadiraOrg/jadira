@@ -91,9 +91,9 @@
 
 	<!-- See http://blog.sonatype.com/people/2009/09/maven-tips-and-tricks-using-github/ -->	
 	<scm>
-	    <connection>scm:git:git@github.com:JadiraOrg/jadira.git</connection>
-	    <url>scm:git:git@github.com:JadiraOrg/jadira.git</url>
-	    <developerConnection>scm:git:git@github.com:JadiraOrg/jadira.git</developerConnection>
+	    <connection>scm:git:https://github.com/JadiraOrg/jadira.git</connection>
+	    <url>scm:git:https://github.com/JadiraOrg/jadira.git</url>
+	    <developerConnection>scm:git:https://github.com/JadiraOrg/jadira.git</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
   	
@@ -545,7 +545,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>3.2</version>
+				<version>3.3</version>
 				<configuration>
 					<reportPlugins>
 						<plugin>
