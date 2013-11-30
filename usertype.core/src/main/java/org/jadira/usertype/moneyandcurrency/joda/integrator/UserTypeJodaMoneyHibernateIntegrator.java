@@ -35,13 +35,13 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 		boolean found = false;
 
 		try {
-			Class.forName("org.joda.time.DateTime", false, ClassLoaderUtils.getClassLoader());
+			Class.forName("org.joda.money.BigMoney", false, ClassLoaderUtils.getClassLoader());
 			found = true;
 		} catch (ClassNotFoundException e) {
 		}
 
 		try {
-			Class.forName("org.joda.time.DateTime");
+			Class.forName("org.joda.money.BigMoney");
 			found = true;
 		} catch (ClassNotFoundException e) {
 		}
