@@ -33,25 +33,51 @@ import org.jadira.usertype.dateandtime.threetenbp.PersistentZoneIdAsString;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentZoneOffsetAsString;
 import org.jadira.usertype.dateandtime.threetenbp.PersistentZonedDateTime;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
+import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 
 public class UserTypeThreeTenBPHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
-	private static final UserType[] USER_TYPES = new UserType[]{
-		new PersistentDurationAsString(),
-		new PersistentInstantAsTimestamp(),
-		new PersistentLocalDate(),
-		new PersistentLocalDateTime(), 
-		new PersistentLocalTime(), 
-		new PersistentMonthDayAsString(),
-		new PersistentOffsetDateTime(), 
-		new PersistentOffsetTimeAsTimestamp(), 
-		new PersistentPeriodAsString(), 
-		new PersistentZoneIdAsString(), 
-		new PersistentYear(), 
-		new PersistentYearMonthAsString(), 
-		new PersistentZonedDateTime(), 
-		new PersistentZoneOffsetAsString()
-	};
+	private static UserType[] userTypes;
+	
+	static {
+		
+		boolean found = false;
+
+		try {
+			Class.forName("org.threeten.bp.LocalTime", false, ClassLoaderUtils.getClassLoader());
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+
+		try {
+			Class.forName("org.threeten.bp.LocalTime");
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+		
+		if (found) {
+	
+			userTypes = new UserType[]{
+				new PersistentDurationAsString(),
+				new PersistentInstantAsTimestamp(),
+				new PersistentLocalDate(),
+				new PersistentLocalDateTime(), 
+				new PersistentLocalTime(), 
+				new PersistentMonthDayAsString(),
+				new PersistentOffsetDateTime(), 
+				new PersistentOffsetTimeAsTimestamp(), 
+				new PersistentPeriodAsString(), 
+				new PersistentZoneIdAsString(), 
+				new PersistentYear(), 
+				new PersistentYearMonthAsString(), 
+				new PersistentZonedDateTime(), 
+				new PersistentZoneOffsetAsString()
+			};
+			
+		} else {
+			userTypes = new UserType[]{};		
+		}
+	}
 
 	private static final CompositeUserType[] COMPOSITE_USER_TYPES = new CompositeUserType[]{};
 	
@@ -68,6 +94,6 @@ public class UserTypeThreeTenBPHibernateIntegrator extends AbstractUserTypeHiber
 	 */
 	@Override
 	protected UserType[] getUserTypes() {
-		return USER_TYPES;
+		return userTypes;
 	}	
 }
