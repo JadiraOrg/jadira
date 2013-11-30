@@ -29,7 +29,7 @@
 
 		<!-- types are add, fix, remove, update -->
 		
-		<release version="3.1.0.CR9" date="24-11-2013" description="Fixes and Updates">
+		<release version="3.1.0.CR9" date="30-11-2013" description="Fixes and Updates">
 			<action dev="Chris Pheby" issue="JDF-70" type="fix">Fix auto-registration for JBoss Wildfly</action>
 		</release>
 		
