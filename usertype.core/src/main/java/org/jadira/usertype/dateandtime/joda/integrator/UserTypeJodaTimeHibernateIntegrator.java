@@ -40,31 +40,44 @@ public class UserTypeJodaTimeHibernateIntegrator extends AbstractUserTypeHiberna
 	private static CompositeUserType[] compositeUserTypes;
 
 	static {
-		
+
+		boolean found = false;
+
 		try {
 			Class.forName("org.joda.time.DateTime", false, ClassLoaderUtils.getClassLoader());
-			
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+
+		try {
+			Class.forName("org.joda.time.DateTime");
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+
+		if (found) {
+
 			userTypes = new UserType[] {
-				new PersistentDateTime(),
-				new PersistentDurationAsString(),
-				new PersistentInstantAsTimestamp(),
-				new PersistentLocalDate(),
-				new PersistentLocalDateTime(),
-				new PersistentLocalTime(),
-				new PersistentMonthDayAsString(),
-				new PersistentPeriodAsString(),
-				new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
-				new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),
-				new PersistentYears(),
-				new PersistentMinutes(),
+					new PersistentDateTime(),
+					new PersistentDurationAsString(),
+					new PersistentInstantAsTimestamp(),
+					new PersistentLocalDate(),
+					new PersistentLocalDateTime(),
+					new PersistentLocalTime(),
+					new PersistentMonthDayAsString(),
+					new PersistentPeriodAsString(),
+					new org.jadira.usertype.dateandtime.joda.PersistentTimeOfDay(),
+					new org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay(),
+					new PersistentYears(), new PersistentMinutes(), 
 			};
 			compositeUserTypes = new CompositeUserType[] {
-				new PersistentDateMidnight(),
-				new PersistentInterval(),
+					new PersistentDateMidnight(), 
+					new PersistentInterval(), 
 			};
-		} catch (ClassNotFoundException e) {
-			userTypes = new UserType[]{};
-			compositeUserTypes = new CompositeUserType[]{};
+
+		} else {
+			userTypes = new UserType[] {};
+			compositeUserTypes = new CompositeUserType[] {};
 		}
 	}
 	

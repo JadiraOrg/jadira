@@ -32,8 +32,21 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 
 	static {
 		
+		boolean found = false;
+
 		try {
 			Class.forName("org.joda.money.BigMoney", false, ClassLoaderUtils.getClassLoader());
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+
+		try {
+			Class.forName("org.joda.money.BigMoney");
+			found = true;
+		} catch (ClassNotFoundException e) {
+		}
+		
+		if (found) {
 			
 			userTypes = new UserType[]{
 				new PersistentBigMoneyAmount(),
@@ -41,7 +54,8 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 				new PersistentCurrency(),
 				new PersistentCurrencyUnit()
 			};
-		} catch (ClassNotFoundException e) {
+			
+		} else {
 			userTypes = new UserType[]{};
 		}
 	}
