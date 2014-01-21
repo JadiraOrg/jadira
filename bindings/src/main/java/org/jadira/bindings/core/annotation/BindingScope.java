@@ -26,9 +26,8 @@ import java.lang.annotation.Target;
  * scope. A ToString scope is used to qualify a ToString method so that it is
  * only invoked for the given scope.
  * 
- * Anyone can define a new scope. A scope annotation is annotated with
- * 
- * @BindingScope, @Retention(RUNTIME), and typically @Documented. For example:
+ * Anyone can define a new scope. A scope annotation is annotated with @BindingScope, @Retention(RUNTIME), 
+ * and typically @Documented. For example:
  * 
  * <pre>
  * &#064;java.lang.annotation.Documented
@@ -36,7 +35,7 @@ import java.lang.annotation.Target;
  * &#064;BindingScope
  * public @interface JdbcDateTime {
  * }
- * @author Sousan Rassoul
+ * </pre>
  */
 @Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)

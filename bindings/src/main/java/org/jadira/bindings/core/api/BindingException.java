@@ -24,7 +24,7 @@ public class BindingException extends RuntimeException {
 
 	/**
 	 * Creates a new instance
-	 * @param message
+	 * @param message The message
 	 */
 	public BindingException(String message) {
 		super(message);
@@ -32,7 +32,8 @@ public class BindingException extends RuntimeException {
 	
 	/**
 	 * Creates a new instance
-	 * @param message
+	 * @param message The message
+	 * @param cause The cause
 	 */
 	public BindingException(String message, Throwable cause) {
 		super(message, cause);

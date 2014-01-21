@@ -31,7 +31,7 @@ import org.jadira.bindings.core.annotation.DefaultBinding;
  * {@link org.jadira.bindings.core.api.FromUnmarshaller}, 
  * or {@link org.jadira.bindings.core.api.Converter} together with an optional
  * qualifier, b) an arbitrary class to be inspected for annotations or other
- * configuration meaningful to a {@link org.jadira.bindings.core.api.Provider}, 
+ * configuration meaningful to a Provider, 
  * or c) an explicit definitionof a method for marshalling or unmarshalling 
  * and/or constructor (either from method or from constructor can be defined but 
  * not both).

@@ -27,7 +27,7 @@ public final class ClassLoaderUtils {
     
     /**
      * Gets an appropriate {@link ClassLoader} for the current thread
-     * @return
+     * @return The ClassLoader
      */
     public static ClassLoader getClassLoader() {
 

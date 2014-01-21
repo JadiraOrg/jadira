@@ -23,6 +23,8 @@ public interface StringBinder {
 	 * Convert a String to the given target class
 	 * @param output The target class to convert the object to
 	 * @param object The String to be converted
+	 * @param <T> The type of the target class
+	 * @return An instance of the target class
 	 */
 	<T> T convertFromString(Class<T> output, String object);
 	
@@ -31,6 +33,8 @@ public interface StringBinder {
 	 * @param output The target class to convert the object to
 	 * @param object The String to be converted
 	 * @param qualifier The qualifier for which the binding must be registered
+	 * @param <T> The type of the target class
+	 * @return An instance of the target class
 	 */
 	<T> T convertFromString(Class<T> output, String object, Class<? extends Annotation> qualifier);    
 
@@ -38,6 +42,7 @@ public interface StringBinder {
 	 * Convert an object to String
 	 * This method infers the source type for the conversion from the runtime type of object.
 	 * @param object The object to be converted
+	 * @return A String
 	 */
 	String convertToString(Object object);
 	
@@ -46,14 +51,16 @@ public interface StringBinder {
 	 * This method infers the source type for the conversion from the runtime type of object.
 	 * @param object The object to be converted
 	 * @param qualifier The qualifier for which the binding must be registered
+	 * @return A String
 	 */
 	String convertToString(Object object, Class<? extends Annotation> qualifier);
 	
 	/**
 	 * Convert an object which is an instance of source class to String
 	 * @param input The class of the object to be converted
-	 * @param output The target class to convert the object to
 	 * @param object The object to be converted
+	 * @param <S> The type of the input class
+	 * @return A String
 	 */
 	<S> String convertToString(Class<S> input, Object object);
 
@@ -62,6 +69,8 @@ public interface StringBinder {
 	 * @param input The class of the object to be converted
 	 * @param object The object to be converted
 	 * @param qualifier Match the converter with the given qualifier
+	 * @param <S> The type of the input class
+	 * @return A String
 	 */
 	<S> String convertToString(Class<S> input, Object object, Class<? extends Annotation> qualifier);
 }

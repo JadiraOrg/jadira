@@ -262,6 +262,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
      * jars on the classpath. It is given protected scope to allow subclasses to register
      * additional configurations
      * @param bindingsConfiguration An enumeration of the URLs to process
+     * @param <X> Internally used type argument
      */
     protected <X> void registerConfigurations(Enumeration<URL> bindingsConfiguration) {
         List<BindingConfiguration> configs = new ArrayList<BindingConfiguration>();
@@ -363,6 +364,8 @@ public class BasicBinder implements Binder, RegisterableBinder {
     /**
      * Register a particular binding configuration entry.
      * @param theBinding The entry to be registered
+     * @param <S> The Source type for the binding
+     * @param <T> The Target type for the binding
      */
 	protected <S,T> void registerBindingConfigurationEntry(BindingConfigurationEntry theBinding) {
 		
@@ -478,7 +481,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
     
 	/**
 	 * Inspect each of the supplied classes, processing any of the annotated methods found
-	 * @param classesToInspect
+	 * @param classesToInspect The classes to inspect for annotations
 	 */
 	public void registerAnnotatedClasses(Class<?>... classesToInspect) {
 		
@@ -502,7 +505,10 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	
     /**
      * Register a custom, typesafe binder implementation which can be retrieved later
+	 * @param iface The interface for the provider to be registered.
      * @param provider The implementation.
+     * @param <I> The class to be registered
+     * @param <T> Implementation of the binder type, I.
      */
     protected <I, T extends I> void registerExtendedBinder(Class<I> iface, T provider) {
         extendedBinders.put(iface, provider);
@@ -510,7 +516,9 @@ public class BasicBinder implements Binder, RegisterableBinder {
     
     /**
      * Retrieves an extended binder
-     * @param provider The implementation.
+     * @param cls The implementation.
+     * @param <I> Interface type for the extended binder
+     * @return The found extended binder
      */
     @SuppressWarnings("unchecked")
 	protected <I> I getExtendedBinder(Class<I> cls) {
@@ -967,8 +975,8 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	/**
 	 * Resolve a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param input The input class
-	 * @param output The output class
+	 * @param source The source class
+	 * @param target The target class
 	 * @param qualifier The qualifier for which the marshaller must be registered   
 	 */
 	public <S, T> Converter<S, T> findConverter(Class<S> source, Class<T> target, Class<? extends Annotation> qualifier) {

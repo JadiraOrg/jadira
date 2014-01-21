@@ -211,7 +211,7 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
 
 	/**
 	 * Subclasses can override this template method with their own matching strategy
-	 * @param method The constructor to be determined
+	 * @param constructor The constructor to be determined
 	 * @return True if match
 	 */
 	protected boolean isFromMatch(Constructor<?> constructor) {
@@ -231,7 +231,8 @@ public class AbstractAnnotationMatchingConverterProvider<T extends Annotation, F
      * Returns the qualifiers for this method, setting the Default qualifier if none are found
      * Qualifiers can be either explicitly applied to the method, or implicit on account of being found
      * in the annotation itself (for example @Plus would have a default binding scope of @PlusOperator)
-     * @param annotations Array of Annotations on the target method
+     * @param bindingAnnotation The Annotation for the binding to check if it specifies a binding scope.
+     * @param allAnnotations Array of Annotations on the target method to check if they specify a scope
      * @return True if method can be matched for the given scope
      */
     protected List<Class<? extends Annotation>> determineQualifiers(Annotation bindingAnnotation, Annotation... allAnnotations) {

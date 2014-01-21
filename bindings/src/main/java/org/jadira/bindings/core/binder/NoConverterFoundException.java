@@ -26,7 +26,7 @@ public class NoConverterFoundException extends RuntimeException {
 
 	/**
 	 * Creates a new instance for the given {@link ConverterKey}
-	 * @param converterKey
+	 * @param converterKey The ConverterKey for the converter that could not be found 
 	 */
 	public NoConverterFoundException(ConverterKey<?,?> converterKey) {
 		super("No converter found for: " + converterKey.toString());

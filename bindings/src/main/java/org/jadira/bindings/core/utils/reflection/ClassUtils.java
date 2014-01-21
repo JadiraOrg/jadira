@@ -91,7 +91,7 @@ public final class ClassUtils {
 
     /**
      * Given a readable class name determine the JVM Qualified Name
-     * @param readableClassName The name to convert
+     * @param className The name to convert
      * @return The JVM Qualified representation
      */
     public static String determineQualifiedName(String className) {
@@ -125,7 +125,7 @@ public final class ClassUtils {
     
     /**
      * Given a JVM Qualified Name produce a readable classname
-     * @param readableClassName The Qualified Name
+     * @param qualifiedName The Qualified Name
      * @return The readable classname
      */
     public static String determineReadableClassName(String qualifiedName) {

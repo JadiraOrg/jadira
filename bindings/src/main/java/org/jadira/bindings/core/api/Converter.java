@@ -38,13 +38,13 @@ public interface Converter<I, O> {
     
     /**
      * Obtain the bound class
-     * @return Class<I>
+     * @return Class
      */
     Class<I> getInputClass();
     
     /**
      * Obtain the bound class
-     * @return Class<O>
+     * @return Class
      */
     Class<O> getOutputClass();
 }

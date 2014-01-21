@@ -26,7 +26,8 @@ import org.jadira.bindings.core.api.ToMarshaller;
 public interface RegisterableBinder {
 
     /**
-     * Register the configuration file (bindings.xml) at the given URL 
+     * Register the configuration file (bindings.xml) at the given URL
+     * @param nextLocation The URL to register 
      */    
     void registerConfiguration(URL nextLocation);
 	
@@ -38,6 +39,8 @@ public interface RegisterableBinder {
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
 	 * @param key The converter key
 	 * @param converter The binding to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type
 	 */
     <S, T> void registerBinding(ConverterKey<S,T> key, Binding<S, T> converter);
     
@@ -45,7 +48,9 @@ public interface RegisterableBinder {
 	 * Register an UnMarshaller with the given source and target class.
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param key The converter key
-	 * @param converter The FromUnmarshaller to be registered  
+	 * @param converter The FromUnmarshaller to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type  
 	 */
 	<S, T> void registerUnmarshaller(ConverterKey<S,T> key, FromUnmarshaller<S, T> converter);
 	
@@ -53,7 +58,9 @@ public interface RegisterableBinder {
 	 * Register a Marshaller with the given source and target class.
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param key The converter key
-	 * @param converter The ToMarshaller to be registered 
+	 * @param converter The ToMarshaller to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type 
 	 */
 	<S, T> void registerMarshaller(ConverterKey<S,T> key, ToMarshaller<S, T> converter);
     
@@ -61,7 +68,9 @@ public interface RegisterableBinder {
 	 * Register a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
 	 * @param key The converter key
-	 * @param converter The Converter to be registered   
+	 * @param converter The Converter to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type   
 	 */
     <S, T> void registerConverter(ConverterKey<S,T> key, Converter<S, T> converter);
 	
@@ -71,36 +80,44 @@ public interface RegisterableBinder {
 	 * 
 	 * The source class is considered the owning class of the binding. The source can be marshalled
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
-	 * @param source The source (owning) class
-	 * @param target The target (foreign) class
+	 * @param sourceClass The source (owning) class
+	 * @param targetClass The target (foreign) class
 	 * @param converter The binding to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type
 	 */
     <S, T> void registerBinding(final Class<S> sourceClass, Class<T> targetClass, Binding<S, T> converter);
 
 	/**
 	 * Register an UnMarshaller with the given source and target class.
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param source The source (input) class
-	 * @param target The target (output) class
-	 * @param converter The FromUnmarshaller to be registered  
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
+	 * @param converter The FromUnmarshaller to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type  
 	 */
 	<S, T> void registerUnmarshaller(Class<S> sourceClass, Class<T> targetClass, FromUnmarshaller<S, T> converter);
 	
 	/**
 	 * Register a Marshaller with the given source and target class.
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param source The source (input) class
-	 * @param target The target (output) class
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
 	 * @param converter The ToMarshaller to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type
 	 */
 	<S, T> void registerMarshaller(Class<S> sourceClass, Class<T> targetClass, ToMarshaller<S, T> converter);
     
 	/**
 	 * Register a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param input The input class
-	 * @param output The output class
-	 * @param converter The Converter to be registered   
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
+	 * @param converter The Converter to be registered
+	 * @param <S> Source type
+	 * @param <T> Target type   
 	 */
     <S, T> void registerConverter(final Class<S> sourceClass, Class<T> targetClass, Converter<S, T> converter);
 
@@ -110,40 +127,48 @@ public interface RegisterableBinder {
 	 * 
 	 * The source class is considered the owning class of the binding. The source can be marshalled
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
-	 * @param source The source (owning) class
-	 * @param target The target (foreign) class
+	 * @param sourceClass The source (owning) class
+	 * @param targetClass The target (foreign) class
 	 * @param converter The binding to be registered
 	 * @param qualifier The qualifier for which the binding must be registered
+	 * @param <S> Source type
+	 * @param <T> Target type
 	 */
     <S, T> void registerBinding(final Class<S> sourceClass, Class<T> targetClass, Binding<S, T> converter, Class<? extends Annotation> qualifier);
     
 	/**
 	 * Register an UnMarshaller with the given source and target class.
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param source The source (input) class
-	 * @param target The target (output) class
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
 	 * @param converter The FromUnmarshaller to be registered
-	 * @param qualifier The qualifier for which the unmarshaller must be registered  
+	 * @param qualifier The qualifier for which the unmarshaller must be registered
+	 * @param <S> Source type
+	 * @param <T> Target type  
 	 */
 	<S, T> void registerUnmarshaller(Class<S> sourceClass, Class<T> targetClass, FromUnmarshaller<S, T> converter, Class<? extends Annotation> qualifier);
 	
 	/**
 	 * Register a Marshaller with the given source and target class.
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param source The source (input) class
-	 * @param target The target (output) class
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
 	 * @param converter The ToMarshaller to be registered
-	 * @param qualifier The qualifier for which the marshaller must be registered 
+	 * @param qualifier The qualifier for which the marshaller must be registered
+	 * @param <S> Source type
+	 * @param <T> Target type 
 	 */
 	<S, T> void registerMarshaller(Class<S> sourceClass, Class<T> targetClass, ToMarshaller<S, T> converter, Class<? extends Annotation> qualifier);
     
 	/**
 	 * Register a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param input The input class
-	 * @param output The output class
+	 * @param sourceClass The source (input) class
+	 * @param targetClass The target (output) class
 	 * @param converter The Converter to be registered
-	 * @param qualifier The qualifier for which the converter must be registered   
+	 * @param qualifier The qualifier for which the converter must be registered
+	 * @param <S> Source type
+	 * @param <T> Target type   
 	 */
     <S, T> void registerConverter(final Class<S> sourceClass, Class<T> targetClass, Converter<S, T> converter, Class<? extends Annotation> qualifier);
     
@@ -153,7 +178,6 @@ public interface RegisterableBinder {
 	 */
 	void registerAnnotatedClasses(Class<?>... classesToInspect);
 	
-    
 	/**
 	 * Return an iterable collection of ConverterKeys, one for each currently registered conversion
 	 */

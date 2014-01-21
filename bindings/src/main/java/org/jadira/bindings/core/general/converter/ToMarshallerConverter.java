@@ -29,7 +29,7 @@ public class ToMarshallerConverter<S,T> implements Converter<S,T> {
 
 	/**
 	 * Create a new instance of a {@link Converter} wrapping the given {@link ToMarshaller}
-	 * @param unmarshaller The ToMarshaller to wrap
+	 * @param marshaller The ToMarshaller to wrap
 	 */
 	public ToMarshallerConverter(ToMarshaller<S,T> marshaller) {
 		this.marshaller = marshaller;

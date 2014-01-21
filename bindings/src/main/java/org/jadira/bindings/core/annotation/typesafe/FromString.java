@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
  * This annotation, when applied to a method indicates that it is suitable for
  * converting a String to a given representation as indicated by the method signature.
  * <p>
- * For any given {@link ConverterScope}, this annotation can be defined once for
+ * For any given ConverterScope, this annotation can be defined once for
  * a given output class.
  * <p>
  * The annotation may be applied to either a static method or a constructor. In

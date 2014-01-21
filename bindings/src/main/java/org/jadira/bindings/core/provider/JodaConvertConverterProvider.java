@@ -38,7 +38,7 @@ public class JodaConvertConverterProvider extends AbstractAnnotationMatchingConv
 
 	/**
 	 * Subclasses can override this template method with their own matching strategy
-	 * @param method The constructor to be determined
+	 * @param constructor The constructor to be determined
 	 * @return True if match
 	 */
 	protected boolean isFromMatch(Constructor<?> constructor) {

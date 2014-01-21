@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
  * converting an object to or from a given representation as indicated by the
  * method signature.
  * <p>
- * For any given {@link ConverterScope}, this annotation can be defined once for
+ * For any given ConverterScope, this annotation can be defined once for
  * any related input / output class pair.
  * <p>
  * The annotation may be applied to either a static method, a constructor, or an
@@ -35,7 +35,7 @@ import java.lang.annotation.Target;
  * constructor, this must be for the bound output class. The instance method
  * takes no parameters, must be applied to the source (input) type and returns
  * the output type.
- * @see For disambiguation, {@link From} and {@link To} may be used instead 
+ * For disambiguation, @From and @To may be used instead 
  */
 @Target({ ElementType.METHOD, ElementType.CONSTRUCTOR })
 @Retention(RetentionPolicy.RUNTIME)

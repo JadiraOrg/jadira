@@ -28,20 +28,20 @@ public interface FromUnmarshaller<S, T> {
 
     /**
      * Converts from the given String into the specified object
-     * @param inputString String to transform, not null
+     * @param inputObject Object to transform, not null
      * @return transformed instance of T (this can be null if appropriate)
      */
     S unmarshal(T inputObject);
     
     /**
      * Obtain the bound class
-     * @return Class<S>
+     * @return Class
      */
     Class<S> getBoundClass();
     
     /**
      * Obtain the bound class
-     * @return Class<T>
+     * @return Class
      */
     Class<T> getTargetClass();
 }

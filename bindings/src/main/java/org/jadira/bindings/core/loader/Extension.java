@@ -16,22 +16,22 @@
 package org.jadira.bindings.core.loader;
 
 /**
- * Represents a provider in the bindings configuration file
+ * Represents a extension in the bindings configuration file
  */
 public class Extension<T> {
 
 	/**
-	 * The provider's type
+	 * The extension's type
 	 */
     private Class<T> extensionClass;
     /**
-     * The implementation of the provider which will be registered
+     * The implementation of the extension which will be registered
      */
 	private Class<? extends T> implementationClass;
 
     /**
      * Creates a new instance
-     * @param providerClass The provider's class
+     * @param extensionClass The extensions's class
      * @param implementationClass The implementation class
      */
     public Extension(Class<T> extensionClass, Class<? extends T> implementationClass) {
@@ -40,7 +40,7 @@ public class Extension<T> {
     }
 
     /**
-     * @return The provider's class
+     * @return The extension's class
      */
     public Class<T> getExtensionClass() {
         return extensionClass;

@@ -18,11 +18,12 @@ package org.jadira.bindings.core.api;
 /**
  * Interface for explicitly defining conversions to a target object from a specific
  * object type (marshalling).
- * <p>
+ * <br>
  * Implementations of this class should be idempotent (behaviour should not vary
- * between calls) and thread-safe.
- * @param <S> Bound type for the conversion
- * @param <T> Target type
+ * between calls) and thread-safe. 
+ * <br>
+ * S refers to the bound type for the conversion <br>
+ * T refers to the target type
  */
 public interface ToMarshaller<S, T> {
 
@@ -35,13 +36,13 @@ public interface ToMarshaller<S, T> {
     
     /**
      * Obtain the bound class
-     * @return Class<S>
+     * @return Class
      */
     Class<S> getBoundClass();
     
     /**
      * Obtain the bound class
-     * @return Class<T>
+     * @return Class
      */
     Class<T> getTargetClass();
 }

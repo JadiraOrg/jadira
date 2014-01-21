@@ -24,6 +24,9 @@ public interface ConversionBinder {
 	 * This method infers the source type for the conversion from the runtime type of object.
 	 * @param output The target class to convert the object to
 	 * @param object The object to be converted
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The result of the conversion
 	 */
 	<S,T> T convertTo(Class<T> output, Object object);
 	
@@ -33,18 +36,22 @@ public interface ConversionBinder {
 	 * @param output The target class to convert the object to
 	 * @param object The object to be converted
 	 * @param qualifier The qualifier for which the binding must be registered
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The result of the conversion
 	 */
 	<S,T> T convertTo(Class<T> output, Object object, Class<? extends Annotation> qualifier);
 	
-	/**
-	 * TODO Add find methods equating to convertTo
-	 */
+	// TODO Add find methods equating to convertTo
     
 	/**
 	 * Convert an object which is an instance of source class to the given target class
 	 * @param input The class of the object to be converted
 	 * @param output The target class to convert the object to
 	 * @param object The object to be converted
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The result of the conversion
 	 */
 	<S, T> T convertTo(Class<S> input, Class<T> output, Object object);
 
@@ -54,6 +61,9 @@ public interface ConversionBinder {
 	 * @param output The target class to convert the object to
 	 * @param object The object to be converted
 	 * @param qualifier Match the converter with the given qualifier
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The result of the conversion
 	 */
 	<S, T> T convertTo(Class<S> input, Class<T> output, Object object, Class<? extends Annotation> qualifier);
 
@@ -61,6 +71,9 @@ public interface ConversionBinder {
 	 * Convert an object which is an instance of source class to the given target class
 	 * @param key The converter key
 	 * @param object The object to be converted
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The result of the conversion
 	 */
 	<S, T> T convertTo(ConverterKey<S,T> key, Object object);
 }

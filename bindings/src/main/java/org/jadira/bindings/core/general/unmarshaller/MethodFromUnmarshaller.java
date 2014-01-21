@@ -26,7 +26,7 @@ import org.jadira.bindings.core.api.FromUnmarshaller;
 /**
  * Binding that supports an unmarshal method. The
  * unmarshal method must be statically scoped. It must accept a single parameter
- * of type S and return a type of T. For example: </p>
+ * of type S and return a type of T. For example:
  * <p>
  * {@code public static BoundType unmarshal(String string)}
  * </p>

@@ -32,6 +32,7 @@ public class ConverterKey<I,O> {
 	 * Creates a new ConverterKey instance
 	 * @param input The Input class
 	 * @param output The output class
+	 * @param qualifier The qualifier for the annotation
 	 */
 	public ConverterKey(Class<I> input, Class<O> output, Class<? extends Annotation> qualifier) {
 		this.input = input;

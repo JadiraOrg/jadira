@@ -31,39 +31,53 @@ public interface SearchableBinder {
 	 * The source class is considered the owning class of the binding. The source can be marshalled
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
 	 * @param key The converter key
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Binding
 	 */
     <S, T> Binding<S, T> findBinding(ConverterKey<S,T> key);
     
 	/**
 	 * Resolve a Marshaller with the given source and target class.
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param key The converter key 
+	 * @param key The converter key
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Marshaller
 	 */
     <S, T> ToMarshaller<S, T> findMarshaller(ConverterKey<S,T> key);
     
 	/**
 	 * Resolve a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param key The converter key  
+	 * @param key The converter key
+	 * @param <S> The Source type
+	 * @param <T> The Target type  
+	 * @return The found Converter
 	 */
     <S, T> Converter<S, T> findConverter(ConverterKey<S,T> key);
     
 	/**
 	 * Resolve an UnMarshaller with the given source and target class.
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
-	 * @param key The converter key 
+	 * @param key The converter key
+	 * @param <S> The Source type
+	 * @param <T> The Target type 
+	 * @return The found Unmarshaller
 	 */
     <S, T> FromUnmarshaller<S, T> findUnmarshaller(ConverterKey<S,T> key);
 
-	
 	/**
 	 * Resolve a Binding with the given source and target class.
 	 * A binding unifies a marshaller and an unmarshaller and both must be available to resolve a binding.
-	 * 
+	 * <br>
 	 * The source class is considered the owning class of the binding. The source can be marshalled
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
 	 * @param source The source (owning) class
 	 * @param target The target (foreign) class
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Binding
 	 */
     <S, T> Binding<S, T> findBinding(final Class<S> source, final Class<T> target);
     
@@ -71,15 +85,21 @@ public interface SearchableBinder {
 	 * Resolve a Marshaller with the given source and target class.
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param source The source (input) class
-	 * @param target The target (output) class 
+	 * @param target The target (output) class
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Marshaller
 	 */
     <S, T> ToMarshaller<S, T> findMarshaller(final Class<S> source, final Class<T> target);
     
 	/**
 	 * Resolve a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param input The input class
-	 * @param output The output class  
+	 * @param source The input class
+	 * @param target The output class
+	 * @param <S> The Source type
+	 * @param <T> The Target type  
+	 * @return The found Converter
 	 */
     <S, T> Converter<S, T> findConverter(final Class<S> source, final Class<T> target);
     
@@ -87,19 +107,25 @@ public interface SearchableBinder {
 	 * Resolve an UnMarshaller with the given source and target class.
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param source The source (input) class
-	 * @param target The target (output) class 
+	 * @param target The target (output) class
+	 * @param <S> The Source type
+	 * @param <T> The Target type 
+	 * @return The found Unmarshaller
 	 */
     <S, T> FromUnmarshaller<S, T> findUnmarshaller(final Class<S> source, final Class<T> target);
     
 	/**
 	 * Resolve a Binding with the given source and target class.
 	 * A binding unifies a marshaller and an unmarshaller and both must be available to resolve a binding.
-	 * 
+	 * <br>
 	 * The source class is considered the owning class of the binding. The source can be marshalled
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
 	 * @param source The source (owning) class
 	 * @param target The target (foreign) class
 	 * @param qualifier The qualifier for which the binding must be registered
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Binding
 	 */
     <S, T> Binding<S, T> findBinding(final Class<S> source, final Class<T> target, final Class<? extends Annotation> qualifier);
     
@@ -108,16 +134,22 @@ public interface SearchableBinder {
 	 * The marshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param source The source (input) class
 	 * @param target The target (output) class
-	 * @param qualifier The qualifier for which the marshaller must be registered 
+	 * @param qualifier The qualifier for which the marshaller must be registered
+	 * @param <S> The Source type
+	 * @param <T> The Target type
+	 * @return The found Marshaller 
 	 */
     <S, T> ToMarshaller<S, T> findMarshaller(final Class<S> source, final Class<T> target, final Class<? extends Annotation> qualifier);
     
 	/**
 	 * Resolve a Converter with the given input and output classes. Instances of the input class can be converted into 
 	 * instances of the output class
-	 * @param input The input class
-	 * @param output The output class
-	 * @param qualifier The qualifier for which the marshaller must be registered   
+	 * @param source The input class
+	 * @param target The output class
+	 * @param qualifier The qualifier for which the marshaller must be registered
+	 * @param <S> The Source type
+	 * @param <T> The Target type  
+	 * @return The found Converter 
 	 */
     <S, T> Converter<S, T> findConverter(final Class<S> source, final Class<T> target, final Class<? extends Annotation> qualifier);
     
@@ -126,7 +158,10 @@ public interface SearchableBinder {
 	 * The unmarshaller is used as follows: Instances of the source can be marshalled into the target class.
 	 * @param source The source (input) class
 	 * @param target The target (output) class 
-	 * @param qualifier The qualifier for which the unmarshaller must be registered 
+	 * @param qualifier The qualifier for which the unmarshaller must be registered
+	 * @param <S> The Source type
+	 * @param <T> The Target type 
+	 * @return The found Unmarshaller
 	 */
     <S, T> FromUnmarshaller<S, T> findUnmarshaller(final Class<S> source, final Class<T> target, final Class<? extends Annotation> qualifier);
 }

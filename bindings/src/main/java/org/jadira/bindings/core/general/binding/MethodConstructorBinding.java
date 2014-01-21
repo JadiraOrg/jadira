@@ -54,9 +54,9 @@ public final class MethodConstructorBinding<S, T> extends MethodToMarshaller<S, 
     }
 
     /**
-     * @{inheritDoc}
+     * {@inheritDoc}
      */
-    /* @Override */
+    @Override
     public S unmarshal(T str) {
         try {
             return unmarshal.newInstance(str);

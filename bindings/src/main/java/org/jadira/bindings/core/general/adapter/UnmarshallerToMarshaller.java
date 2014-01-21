@@ -29,7 +29,7 @@ public class UnmarshallerToMarshaller<S, T> implements ToMarshaller<S, T> {
 
 	/**
 	 * Create a new instance of a {@link ToMarshaller} wrapping the given {@link FromUnmarshaller}
-	 * @param marshaller The FromUnmarshaller to wrap
+	 * @param unmarshaller The FromUnmarshaller to wrap
 	 */
 	public UnmarshallerToMarshaller(FromUnmarshaller<T, S> unmarshaller) {
 		this.unmarshaller = unmarshaller;
