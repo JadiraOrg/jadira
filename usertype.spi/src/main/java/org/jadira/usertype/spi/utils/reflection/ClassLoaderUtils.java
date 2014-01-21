@@ -25,7 +25,7 @@ public final class ClassLoaderUtils {
     
     /**
      * Gets an appropriate {@link ClassLoader} for the current thread
-     * @return
+     * @return The ClassLoader
      */
     public static ClassLoader getClassLoader() {
 
@@ -42,7 +42,7 @@ public final class ClassLoaderUtils {
      * Attempts to instantiate the named class, using the context ClassLoader for the current thread,
      * or Class.forName if this does not work
      * @param name The class name
-     * @return The Class<?> instance
+     * @return The Class instance
      * @throws ClassNotFoundException If the class cannot be found
      */
 	public static Class<?> classForName(String name) throws ClassNotFoundException {

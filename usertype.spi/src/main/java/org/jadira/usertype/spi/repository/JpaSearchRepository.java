@@ -54,6 +54,7 @@ public abstract class JpaSearchRepository<T extends Serializable, ID extends Ser
 	 * <code>@PersistenceContext</code> and/or used with a dependency injection container such as
 	 * Spring for injecting the manager. You are required to override this method so you can decide
 	 * whether to use an annotation or other configuration to drive the injection.
+	 * @param entityManager The entityManager to be used
 	 */
 	protected void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
@@ -70,8 +71,7 @@ public abstract class JpaSearchRepository<T extends Serializable, ID extends Ser
 
 	/**
 	 * Returns the class for the entity type associated with this repository.
-	 * 
-	 * @return Class<T>
+	 * @return Class
 	 */
 	protected final Class<T> getEntityClass() {
 
@@ -82,8 +82,7 @@ public abstract class JpaSearchRepository<T extends Serializable, ID extends Ser
 
 	/**
 	 * Returns the class for the ID field for the entity type associated with this repository.
-	 * 
-	 * @return Class<ID>
+	 * @return Class for the ID
 	 */
 	protected final Class<ID> getIdClass() {
 
@@ -95,6 +94,8 @@ public abstract class JpaSearchRepository<T extends Serializable, ID extends Ser
 	/**
 	 * Executes a query that returns a single record. In the case of no result, rather than throwing
 	 * an exception, null is returned.
+	 * @param q Query to Execute
+	 * @return T The instance to return, or null if no result.
 	 */
 	protected T getSingleResult(Query q) {
 		try {

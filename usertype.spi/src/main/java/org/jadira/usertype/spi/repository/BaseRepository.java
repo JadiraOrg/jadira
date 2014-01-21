@@ -47,7 +47,7 @@ public interface BaseRepository<T extends Serializable, ID extends Serializable>
 	 * unattached entity. This means you do not need to consider whether an entity is detached when
 	 * calling this method. This is especially useful with multi-tier applications.
 	 * 
-	 * @param entity The entity to be removed
+	 * @param entityId The ID for the entity to be removed
 	 */
 	void remove(ID entityId);
 

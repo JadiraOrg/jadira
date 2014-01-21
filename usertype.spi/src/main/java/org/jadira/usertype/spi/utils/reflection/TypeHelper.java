@@ -60,6 +60,7 @@ public final class TypeHelper {
      * Get the actual type arguments a child class has used to extend a generic base class.
      * @param baseClass the base class
      * @param childClass the child class
+	 * @param <T> The type of the base class against which the type arguments relate
      * @return a list of the raw classes for the actual type arguments.
      */
     public static <T> List<Class<?>> getTypeArguments(Class<T> baseClass, Class<? extends T> childClass) {
