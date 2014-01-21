@@ -175,7 +175,11 @@
 				<artifactId>commons-lang3</artifactId>
 				<version>3.1</version>
 			</dependency>
-			
+			<dependency>
+			    <groupId>org.dynalang</groupId>
+			    <artifactId>dynalink</artifactId>
+			    <version>0.7</version>
+			</dependency>
 			
 			<dependency>
 				<groupId>org.objenesis</groupId>
@@ -436,9 +440,9 @@
             </dependency>
 			
 			<dependency>
-		    	<groupId>org.ow2.asm</groupId>
-		    	<artifactId>asm</artifactId>
-		    	<version>4.1</version>
+				<groupId>org.ow2.asm</groupId>
+				<artifactId>asm-all</artifactId>
+				<version>4.1</version>
 			</dependency>
 			
 		</dependencies>
