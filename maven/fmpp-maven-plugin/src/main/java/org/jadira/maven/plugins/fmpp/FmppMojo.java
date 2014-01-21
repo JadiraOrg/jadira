@@ -20,6 +20,9 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
 import fmpp.ProcessingException;
@@ -32,51 +35,42 @@ import fmpp.util.MiscUtil;
  * A Maven front-end for FMPP. Inspired by Faisal Feroz' FMPP-Maven-Plugin, this implementation
  * gives the same general behaviour, but also allows configuration of whether the generated sources are
  * added to src or test. The default configuration adds the generated-sources to compile scope (not test)
- * @goal generate
- * @phase generate-sources
+ * @author Chris Pheby
  */
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 public class FmppMojo extends AbstractMojo {
 
-	/**
-	 * @parameter default-value="${project}"
-	 * @required
-	 * @readonly
-	 **/
+	@Parameter(defaultValue="${project}", required=true, readonly=true)
 	private MavenProject project;
 
 	/**
 	 * If true, the generated sources are added as a source compilation root.
-	 * @parameter property="compileSourceRoot" default-value="true"
 	 */
+	@Parameter(defaultValue="true", property="compileSourceRoot")
 	private boolean compileSourceRoot;
 
 	/**
 	 * If true, the generated sources are added as a test-source compilation root.
-	 * @parameter property="testCompileSourceRoot" default-value="false"
 	 */
+	@Parameter(defaultValue="false", property="testCompileSourceRoot")
 	private boolean testCompileSourceRoot;
 
 	/**
 	 * The location of the FreeMarker configuration file to use.
-	 * @parameter property="cfgFile" default-value="src/main/resources/fmpp/config.fmpp"
-	 * @required
 	 */
+	@Parameter(defaultValue="src/main/resources/fmpp/config.fmpp", required=true, property="cfgFile")
 	private File cfgFile;
 
 	/**
 	 * The location where the FreeMarker template files to be processed are stored.
-	 * 
-	 * @parameter property="templateDirectory" default-value="src/main/resources/fmpp/templates/"
-	 * @required
 	 */
+	@Parameter(defaultValue="src/main/resources/fmpp/templates/", required=true, property="templateDirectory")
 	private File templateDirectory;
 
 	/**
 	 * The directory where generated sources should be output
-	 * @parameter property="outputDirectory"
-	 *            default-value="${project.build.directory}/generated-sources/fmpp/"
-	 * @required
 	 */
+	@Parameter(defaultValue="${project.build.directory}/generated-sources/fmpp/", required=true, property="outputDirectory")
 	private File outputDirectory;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
