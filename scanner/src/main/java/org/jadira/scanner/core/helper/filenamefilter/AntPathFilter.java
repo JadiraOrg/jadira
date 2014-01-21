@@ -85,10 +85,9 @@ public class AntPathFilter implements FilenameFilter {
     }
 
     /**
-     * Match the start of the path against the given pattern
-     * @param pattern The pattern
+     * Match the start of the path against this pattern
      * @param path The path to match
-     * @return True if the path begins with the given pattern
+     * @return True if the path begins with the current pattern
      */
     public boolean matchStart(String path) {
         return doMatch(pattern, path, false);

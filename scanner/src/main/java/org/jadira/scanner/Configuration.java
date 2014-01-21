@@ -24,20 +24,23 @@ import org.jadira.scanner.core.api.Locator;
 public interface Configuration {
 
     /** 
-     * URLs to be scanned 
+     * @return URLs to be scanned 
      */
     List<URL> getUrls();
 
     /** 
-     * Locators used to construct additional URLs to be scanned 
+     * @return Locators used to construct additional URLs to be scanned 
      */
     List<Locator<URL>> getLocators();
 
     /**
-     * ClassLoaders to be used for resolution, if none are set the context ClassLoader or a statically defined
+     * @return ClassLoaders to be used for resolution, if none are set the context ClassLoader or a statically defined
      * ClassLoader will be used
      */
     List<ClassLoader> getClassLoaders();
 
+    /**
+     * @return Filters to used
+     */
     List<Filter<?>> getFilters();
 }

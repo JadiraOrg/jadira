@@ -57,7 +57,8 @@ public class IterableEnumeration<E> implements Iterable<E> {
 
     /**
      * Typesafe factory method for construction convenience
-     * @param enumeration The enumeration to be wrapped with type-arg of E
+     * @param enumeration The enumeration to be wrapped
+     * @param <E> Type-arg for the relevant enumeration
      * @return An Iterable instance for subject type, E
      */
     public static <E> Iterable<E> wrapEnumeration(Enumeration<E> enumeration) {

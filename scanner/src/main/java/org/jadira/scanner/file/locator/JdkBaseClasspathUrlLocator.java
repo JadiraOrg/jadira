@@ -26,8 +26,7 @@ import org.jadira.scanner.core.exception.ClasspathAccessException;
 import org.jadira.scanner.core.helper.filenamefilter.JarFilenameFilter;
 
 /**
- * Resolves a list of classpaths representing the core 'rt.jar' and any endorsed
- * @return Array of URLs from the Classpath
+ * Resolves a list of classpaths representing the core 'rt.jar' and any endorsed libraries
  */
 public class JdkBaseClasspathUrlLocator implements Locator<URL> {
 
