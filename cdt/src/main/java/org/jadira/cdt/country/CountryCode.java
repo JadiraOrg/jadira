@@ -46,7 +46,7 @@ public interface CountryCode {
 	
 	/**
 	 * Gets the <a href="http://en.wikipedia.org/wiki/E.164">International Direct Dial</a> prefix for the country
-	 * @return
+	 * @return The dialling region code
 	 */
 	Integer getDiallingRegionCode();
 

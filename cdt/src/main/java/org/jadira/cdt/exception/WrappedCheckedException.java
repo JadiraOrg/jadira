@@ -79,6 +79,7 @@ public abstract class WrappedCheckedException extends Exception {
 
 	/**
 	 * Retrieves the ultimate root cause for this exception, or null
+	 * @return The root cause
 	 */
 	public Throwable getRootCause() {
 		
@@ -96,6 +97,7 @@ public abstract class WrappedCheckedException extends Exception {
 	/**
 	 * Returns the next parent exception of the given type, or null
 	 * @param exceptionType the exception type to match
+	 * @param <E> The Exception type
 	 * @return The matched exception of the target type, or null
 	 */
 	public <E extends Exception> E findWrapped(Class<E> exceptionType) {

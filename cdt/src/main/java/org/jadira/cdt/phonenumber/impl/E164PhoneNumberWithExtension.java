@@ -76,9 +76,8 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
 
     /**
      * Creates a new E164 Phone Number with the given extension.
-     * @param e164PhoneNumber The phone number in E164 format. The extension may be appended.  
+     * @param e164PhoneNumberWithExtension The phone number in E164 format. The extension may be appended.  
      * Any extension is appended to the number with the extension prefix given as ';ext='
-     * @return A new instance of E164PhoneNumberWithExtension
      */
     protected E164PhoneNumberWithExtension(String e164PhoneNumberWithExtension) {
 
@@ -112,7 +111,6 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
      * Creates a new E164 Phone Number with the given extension.
      * @param e164PhoneNumber The phone number in E164 format
      * @param extension The extension, or null for no extension
-     * @return A new instance of E164PhoneNumberWithExtension
      */
     protected E164PhoneNumberWithExtension(String e164PhoneNumber, String extension) {
 
@@ -134,7 +132,6 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
      * Creates a new E164 Phone Number.
      * @param phoneNumber The phone number in arbitrary parseable format (may be a national format)
      * @param defaultCountryCode The Country to apply if no country is indicated by the phone number
-     * @return A new instance of E164PhoneNumberWithExtension
      */
     protected E164PhoneNumberWithExtension(String phoneNumber, CountryCode defaultCountryCode) {
 
@@ -151,7 +148,6 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
      * @param phoneNumber The phone number in arbitrary parseable format (may be a national format)
      * @param extension The extension, or null for no extension
      * @param defaultCountryCode The Country to apply if no country is indicated by the phone number
-     * @return A new instance of E164PhoneNumberWithExtension
      */
     protected E164PhoneNumberWithExtension(String phoneNumber, String extension, CountryCode defaultCountryCode) {
 
@@ -220,6 +216,7 @@ public class E164PhoneNumberWithExtension implements PhoneNumber, Serializable {
     /**
      * Returns the underlying LibPhoneNumber {@link Phonenumber.PhoneNumber} instance. 
      * To preserve the immutability of E164PhoneNumber, a copy is made.
+     * @return The underlying PhoneNumber instance
      */
     public Phonenumber.PhoneNumber getUnderlyingPhoneNumber() {
         

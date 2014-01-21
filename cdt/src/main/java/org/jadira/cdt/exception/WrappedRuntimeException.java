@@ -44,6 +44,7 @@ public abstract class WrappedRuntimeException extends RuntimeException {
 	/**
 	 * Return the detail message, including the message from the wrapped
 	 * exception if there is one.
+	 * @return The message
 	 */
 	@Override
 	public String getMessage() {
@@ -79,6 +80,7 @@ public abstract class WrappedRuntimeException extends RuntimeException {
 
 	/**
 	 * Retrieves the ultimate root cause for this exception, or null
+	 * @return The root cause
 	 */
 	public Throwable getRootCause() {
 		
@@ -96,6 +98,7 @@ public abstract class WrappedRuntimeException extends RuntimeException {
 	/**
 	 * Returns the next parent exception of the given type, or null
 	 * @param exceptionType the exception type to match
+	 * @param <E> The exception type
 	 * @return The matched exception of the target type, or null
 	 */
 	public <E extends Exception> E findWrapped(Class<E> exceptionType) {

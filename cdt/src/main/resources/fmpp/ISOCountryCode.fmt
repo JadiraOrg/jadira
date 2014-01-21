@@ -30,7 +30,7 @@ import org.jadira.cdt.country.CountryCode;
 * The Enum names of this enumeration themselves are represented by
 * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>
 * codes. 
-* Instance methods return country name ({@link ISOCountryCode#getName()}), 
+* Instance methods return country name (getName()), 
 * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3" >ISO 3166-1 alpha-3</a> codes ({@link ISOCountryCode#getAlpha3Code()}),
 * <a href="http://en.wikipedia.org/wiki/ISO_3166-1_numericCode">ISO 3166-1 numericCode</a> codes ({@link ISOCountryCode#getNumericCode()}),
 * <a href="http://en.wikipedia.org/wiki/E.164">and E.164 the dialling region</a> code ({@link ISOCountryCode#getDiallingRegionCode()})
@@ -38,7 +38,7 @@ import org.jadira.cdt.country.CountryCode;
 * corresponds to a given code.
 * </p>
 * <p>
-* To update this class, populate using countrynames.txt, downloadable from <a href="http://opengeocode.org/download/countrynames.txt"/>.
+* To update this class, populate using countrynames.txt, downloadable from <a href="http://opengeocode.org/download/countrynames.txt">OpenGeoCode</a>.
 * For the purpose of FMPP, all but one line of header must be removed. 
 * 
 */
@@ -151,7 +151,6 @@ public enum ISOCountryCode implements CountryCode {
 	 * @param code An ISO 3166-1 <a href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">alpha-3</a> code.
 	 * @return A ISOCountryCode instance, or null if not found.
 	 */
-
 	public static ISOCountryCode getByAlpha3Code(String code) {
 		return alpha3CodeMap.get(code);
 	}
