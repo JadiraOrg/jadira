@@ -25,7 +25,7 @@ import org.joda.time.DateTime;
 
 /**
  * Persist {@link DateTime} via Hibernate. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDateTime} however
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentDateTime however
  * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the

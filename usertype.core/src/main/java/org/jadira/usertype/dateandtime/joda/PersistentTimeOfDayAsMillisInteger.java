@@ -21,12 +21,12 @@ import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate using milliseconds of the day. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentTimeOfDayExact} however
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentTimeOfDayExact however
  * you should note that JodaTime's {@link org.joda.time.TimeOfDay} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  * @see PersistentTimeOfDayAsNanosLong
- * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.TimeOfDay} and {@link PersistentTimeOfDayAsTimestampMillisInteger}
+ * @deprecated Recommend replacing use of {@link org.joda.time.TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsMillisInteger}
  */
 public class PersistentTimeOfDayAsMillisInteger extends AbstractSingleColumnUserType<TimeOfDay, Integer, IntegerColumnTimeOfDayMapper> {
 

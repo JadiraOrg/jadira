@@ -21,7 +21,7 @@ import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentTimeOfDayAsString} however
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentTimeOfDayAsString however
  * you should note that JodaTime's {@link org.joda.time.TimeOfDay} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda Time will
  * round down to the nearest millisecond.

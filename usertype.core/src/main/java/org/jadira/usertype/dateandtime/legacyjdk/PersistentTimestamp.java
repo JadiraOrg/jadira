@@ -22,8 +22,7 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
  * Persist {@link java.util.Date} via Hibernate. The type is stored using UTC timezone.
- *
- * Alternatively provide the 'databaseZone' parameter in the {@link java.util.DateZone#forID(String)} format
+  * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#getTimeZone(String)} format
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */

@@ -25,7 +25,7 @@ import org.joda.time.LocalDate;
 
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
- * representation with {@link org.joda.time.contrib.hibernate.PersistentLocalDate}
+ * representation with org.joda.time.contrib.hibernate.PersistentLocalDate
  * 
  * The type is stored using the JVM timezone by default.
  *

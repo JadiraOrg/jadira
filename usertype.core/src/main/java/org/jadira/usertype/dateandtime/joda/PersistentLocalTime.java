@@ -25,8 +25,8 @@ import org.joda.time.LocalTime;
 
 /**
  * Persist {@link LocalTime} via Hibernate as a SQL TIME datatype - note that sub-second values will not
- * be retained. This type is basically compatible with {@link org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime}.
- * However, note that {@link org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime} contains a bug where times written
+ * be retained. This type is basically compatible with org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime.
+ * However, note that org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime contains a bug where times written
  * down will be offset from GMT due to its use of {@link java.sql.Time#setTime(long)}. This class is not affected by this
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes. 
  * 

@@ -25,11 +25,8 @@ import org.joda.time.YearMonthDay;
 
 /**
  * Persist {@link YearMonthDay} via Hibernate. This type shares database
- * representation with {@link org.joda.time.contrib.hibernate.PersistentYearMonthDay}
- * 
- * 
+ * representation with org.joda.time.contrib.hibernate.PersistentYearMonthDay
  * The type is stored using UTC timezone.
- *
  * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
  * to indicate the zone of the database. 
  * N.B. To use the zone of the JVM for the database zone you can supply 'jvm'

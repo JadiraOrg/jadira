@@ -21,7 +21,7 @@ import org.joda.time.TimeOfDay;
 
 /**
  * Persist {@link TimeOfDay} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with
- * Joda Time's {@link org.joda.time.contrib.hibernate.PersistentLocalTimeExact} because that class uses a millisecond rather than nanosecond
+ * Joda Time's org.joda.time.contrib.hibernate.PersistentLocalTimeExact because that class uses a millisecond rather than nanosecond
  * absolute value. For compatibility use {@link PersistentLocalTimeAsMillisInteger}
  * @see PersistentLocalTimeAsMillisInteger
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsNanosLong}

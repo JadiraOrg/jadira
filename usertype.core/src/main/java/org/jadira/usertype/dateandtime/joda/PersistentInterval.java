@@ -25,7 +25,7 @@ import org.joda.time.Interval;
 
 /**
  * Persist {@link Interval} via Hibernate. The interval type is intended to be compatible with
- * {@link org.joda.time.contrib.hibernate.PersistentInterval} and stores beginning and end values
+ * org.joda.time.contrib.hibernate.PersistentInterval and stores beginning and end values
  * using the UTC zone and presented in the
  * JVM using the JVM's default zone.
  *

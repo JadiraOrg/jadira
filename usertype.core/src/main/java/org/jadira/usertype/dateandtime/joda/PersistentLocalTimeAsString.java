@@ -21,7 +21,7 @@ import org.joda.time.LocalTime;
 
 /**
  * Persist {@link LocalTime} via Hibernate. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentLocalTimeAsString} however
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentLocalTimeAsString however
  * you should note that JodaTime's {@link org.joda.time.LocalTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda Time will
  * round down to the nearest millisecond.

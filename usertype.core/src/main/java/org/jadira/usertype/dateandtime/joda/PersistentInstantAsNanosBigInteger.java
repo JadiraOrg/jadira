@@ -23,7 +23,7 @@ import org.joda.time.Instant;
 
 /**
  * Persist {@link Instant} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with
- * Joda Time's {@link org.joda.time.contrib.hibernate.PersistentInstantExact} because that class uses a millisecond rather than nanosecond
+ * Joda Time's org.joda.time.contrib.hibernate.PersistentInstantExact because that class uses a millisecond rather than nanosecond
  * absolute value. For compatibility use {@link PersistentInstantAsMillisLong}
  * @see PersistentInstantAsMillisLong
  */
