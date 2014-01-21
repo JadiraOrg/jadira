@@ -34,6 +34,7 @@ public class StringColumnPeriodMapper extends AbstractStringColumnMapper<Period>
 
     /**
      * Returns a string representation of the amount of time.
+     * @param value Period to convert to a String
      * @return the amount of time in ISO8601 string format
      */
     public String toString(Period value) {

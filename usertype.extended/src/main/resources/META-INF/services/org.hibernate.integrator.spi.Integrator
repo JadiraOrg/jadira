@@ -1,1 +1,2 @@
 org.jadira.usertype.dateandtime.threetenbp.integrator.UserTypeThreeTenBPHibernateIntegrator
+org.jadira.usertype.dateandtime.threeten.integrator.UserTypeThreeTenHibernateIntegrator

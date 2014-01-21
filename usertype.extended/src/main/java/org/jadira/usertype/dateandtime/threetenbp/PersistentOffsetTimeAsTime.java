@@ -29,7 +29,7 @@ import org.threeten.bp.OffsetTime;
  * The type is stored using UTC timezone and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link javax.time.calendar.TimeZone#forID(String)} format
+ * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#getTimeZone(String)} format
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'

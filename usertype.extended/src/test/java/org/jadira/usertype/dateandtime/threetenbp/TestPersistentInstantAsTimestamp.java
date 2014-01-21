@@ -23,9 +23,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.InstantJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.jadira.usertype.dateandtime.threetenbp.testmodel.InstantAsTimestampHolder;
-import org.jadira.usertype.dateandtime.threetenbp.testmodel.InstantJoda;
 import org.joda.time.DateTimeZone;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

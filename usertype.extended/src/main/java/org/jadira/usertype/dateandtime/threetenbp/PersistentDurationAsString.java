@@ -21,8 +21,8 @@ import org.threeten.bp.Duration;
 
 /**
  * Maps a {@link Duration} to and from String for Hibernate. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentDuration} however
- * you should not that JodaTime's {@link org.joda.time.Duration} has only millisecond precision,
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentDuration however
+ * you should not that JodaTime's org.joda.time.Duration has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
  */

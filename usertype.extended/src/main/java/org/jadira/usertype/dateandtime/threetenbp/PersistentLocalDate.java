@@ -25,7 +25,7 @@ import org.threeten.bp.LocalDate;
 
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
- * representation with {@link org.joda.time.contrib.hibernate.PersistentLocalDate}
+ * representation with org.joda.time.contrib.hibernate.PersistentLocalDate
  */
 public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 

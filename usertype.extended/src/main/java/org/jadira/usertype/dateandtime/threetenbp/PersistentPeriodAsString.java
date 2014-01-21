@@ -21,8 +21,8 @@ import org.threeten.bp.Period;
 
 /**
  * Maps a {@link Period} to and from String for Hibernate. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentPeriod} however
- * you should note that JodaTime's {@link org.joda.time.Period} has only millisecond precision,
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentPeriod however
+ * you should note that JodaTime's org.joda.time.Period has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda Time will
  * round down to the nearest millisecond.
  */

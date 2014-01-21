@@ -23,9 +23,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.LocalDateTimeJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.jadira.usertype.dateandtime.threetenbp.testmodel.LocalDateTimeHolder;
-import org.jadira.usertype.dateandtime.threetenbp.testmodel.LocalDateTimeJoda;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

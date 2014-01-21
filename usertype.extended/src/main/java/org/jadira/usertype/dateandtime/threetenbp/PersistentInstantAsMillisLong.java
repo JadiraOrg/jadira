@@ -21,11 +21,11 @@ import org.threeten.bp.Instant;
 
 /**
  * Persist {@link Instant} via Hibernate using milliseconds of the day. This type is
- * mostly compatible with {@link org.joda.time.contrib.hibernate.PersistentInstantExact} however
- * you should note that JodaTime's {@link org.joda.time.Instant} has only millisecond precision,
+ * mostly compatible with org.joda.time.contrib.hibernate.PersistentInstantExact however
+ * you should note that JodaTime's org.joda.time.Instant has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
- * @see PersistentInstantAsNanosLong
+ * @see PersistentInstantAsNanosBigInteger
  */
 public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<Instant, Long, LongColumnInstantMapper> {
 

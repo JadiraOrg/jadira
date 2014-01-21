@@ -23,10 +23,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Table;
 
+import org.jadira.usertype.dateandtime.joda.testmodel.LocalTimeExactJoda;
+import org.jadira.usertype.dateandtime.joda.testmodel.TimeOfDayExactJoda;
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
 import org.jadira.usertype.dateandtime.threetenbp.testmodel.LocalTimeAsMillisIntegerHolder;
-import org.jadira.usertype.dateandtime.threetenbp.testmodel.LocalTimeExactJoda;
-import org.jadira.usertype.dateandtime.threetenbp.testmodel.TimeOfDayExactJoda;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
