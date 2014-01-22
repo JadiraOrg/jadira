@@ -1,4 +1,4 @@
-package org.jadira.cloning;
+ package org.jadira.cloning;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -16,19 +16,23 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.jadira.cloning.api.Cloner;
 import org.jadira.cloning.data.DeepCopyHolder;
 import org.jadira.cloning.data.ExampleEnum;
 import org.jadira.cloning.data.IdHolder;
 import org.jadira.cloning.data.ReferencesHolder;
-import org.jadira.cloning.implementor.PortableCloneStrategy;
-import org.jadira.cloning.unsafe.UnsafeOperations;
+import org.jadira.reflection.access.unsafe.UnsafeOperations;
+import org.jadira.reflection.cloning.BasicCloner;
+import org.jadira.reflection.cloning.MinimalCloner;
+import org.jadira.reflection.cloning.api.Cloner;
+import org.jadira.reflection.cloning.implementor.AsmCloneStrategy;
+import org.jadira.reflection.cloning.implementor.InvokeDynamicCloneStrategy;
+import org.jadira.reflection.cloning.implementor.PortableCloneStrategy;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TestCloner {
 
-	private static final Cloner[] CLONERS = new Cloner[] { new BasicCloner(), new BasicCloner(new PortableCloneStrategy()), new MinimalCloner() };
+	private static final Cloner[] CLONERS = new Cloner[] { new BasicCloner(), new BasicCloner(new InvokeDynamicCloneStrategy()), new BasicCloner(new AsmCloneStrategy()), new BasicCloner(new PortableCloneStrategy()), new MinimalCloner() };
 
 	/**
 	 * Test that verifies that JDK types are handled correctly
@@ -198,6 +202,7 @@ public class TestCloner {
 	}
 	
 	public void doTestLinkedList(Cloner cloner) {
+		
 		final LinkedList<Object> linkedList = new LinkedList<Object>();
 
 		linkedList.add(100D); 

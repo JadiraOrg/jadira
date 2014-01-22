@@ -13,14 +13,14 @@ import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import org.jadira.cloning.data.DeepCopyHolder;
 import org.jadira.cloning.data.IdHolder;
-import org.jadira.cloning.orika.ClonerConverter;
+import org.jadira.reflection.cloning.orika.ClonerConverter;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ClonerConverterTest {
 
     @Test
-    public void unsafeCopyConverter() throws DatatypeConfigurationException {
+    public void clonerConverter() throws DatatypeConfigurationException {
 
         ClonerConverter cc2 = new ClonerConverter(DeepCopyHolder.class);
 
