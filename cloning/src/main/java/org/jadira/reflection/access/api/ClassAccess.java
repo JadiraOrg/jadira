@@ -18,6 +18,8 @@ package org.jadira.reflection.access.api;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import org.jadira.reflection.access.model.ClassModel;
+
 /**
  * Defines a mechanism for accessing the capabilities of a class
  * @param <C> The class to be access
@@ -42,25 +44,49 @@ public interface ClassAccess<C> {
 	 * Gets a field accessor for each field in the class
 	 * @return Array of FieldAccess
 	 */
-	FieldAccess<C>[] getFieldAccessors();
+	FieldAccess<C>[] getDeclaredFieldAccessors();
 	
 	/**
 	 * Get a field accessor for the given field
 	 * @param f The Field to be accessed
 	 * @return The matching FieldAccess
 	 */
-	FieldAccess<C> getFieldAccess(Field f);
+	FieldAccess<C> getDeclaredFieldAccess(Field f);
 	
 	/**
 	 * Gets a method accessor for each method in the class
 	 * @return Array of MethodAccess
 	 */
-	MethodAccess<C>[] getMethodAccessors();
+	MethodAccess<C>[] getDeclaredMethodAccessors();
 	
 	/**
 	 * Get a method accessor for the given method
 	 * @param m The Method to be accessed
 	 * @return The matching MethodAccess
 	 */
-	MethodAccess<C> getMethodAccess(Method f);
+	MethodAccess<C> getDeclaredMethodAccess(Method m);
+	
+	/**
+	 * Return the ClassModel used by this ClassAccess instance
+	 * @return The associated ClassModel
+	 */
+	ClassModel<C> getClassModel();
+	
+	/**
+	 * Get the Class being accessed
+	 * @return The class
+	 */
+	ClassAccess<? super C> getSuperClassAccess();
+
+	/**
+	 * True if the hashCode method is overridden by this class
+	 * @return True if hashCode provided
+	 */
+	boolean providesHashCode();
+
+	/**
+	 * True if the equals method is overridden by this class
+	 * @return True if equals provided
+	 */
+	boolean providesEquals();
 }

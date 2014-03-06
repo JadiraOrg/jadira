@@ -15,17 +15,23 @@
  */
 package org.jadira.reflection.access.asm;
 
+import static org.objectweb.asm.Opcodes.AALOAD;
 import static org.objectweb.asm.Opcodes.ACC_PUBLIC;
 import static org.objectweb.asm.Opcodes.ACC_SUPER;
+import static org.objectweb.asm.Opcodes.ACC_VARARGS;
+import static org.objectweb.asm.Opcodes.ACONST_NULL;
 import static org.objectweb.asm.Opcodes.ALOAD;
 import static org.objectweb.asm.Opcodes.ARETURN;
+import static org.objectweb.asm.Opcodes.ASTORE;
 import static org.objectweb.asm.Opcodes.ATHROW;
+import static org.objectweb.asm.Opcodes.BIPUSH;
 import static org.objectweb.asm.Opcodes.CHECKCAST;
 import static org.objectweb.asm.Opcodes.DLOAD;
 import static org.objectweb.asm.Opcodes.DRETURN;
 import static org.objectweb.asm.Opcodes.DUP;
 import static org.objectweb.asm.Opcodes.FLOAD;
 import static org.objectweb.asm.Opcodes.FRETURN;
+import static org.objectweb.asm.Opcodes.F_APPEND;
 import static org.objectweb.asm.Opcodes.F_SAME;
 import static org.objectweb.asm.Opcodes.GETFIELD;
 import static org.objectweb.asm.Opcodes.ILOAD;
@@ -52,12 +58,15 @@ import static org.objectweb.asm.Type.SHORT;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jadira.reflection.access.AbstractClassAccess;
 import org.jadira.reflection.access.api.ClassAccess;
 import org.jadira.reflection.access.api.FieldAccess;
+import org.jadira.reflection.access.api.MethodAccess;
 import org.jadira.reflection.access.classloader.AccessClassLoader;
 import org.jadira.reflection.access.portable.PortableFieldAccess;
 import org.jadira.reflection.core.misc.ClassUtils;
@@ -71,33 +80,24 @@ import org.objectweb.asm.Type;
  * ClassAccess implementation which uses ASM to generate accessors
  * @param <C> The Class to be accessed
  */
-public abstract class AsmClassAccess<C> implements ClassAccess<C> {
+public abstract class AsmClassAccess<C> extends AbstractClassAccess<C> implements ClassAccess<C> {
 
     private static final ConcurrentHashMap<Class<?>, AsmClassAccess<?>> CLASS_ACCESSES = new ConcurrentHashMap<Class<?>, AsmClassAccess<?>>();
     
 	private static final String CLASS_ACCESS_NM = ClassAccess.class.getName().replace('.', '/');
 
 	private static final String ASM_CLASS_ACCESS_NM = AsmClassAccess.class.getName().replace('.', '/');
-
-	/**
-	 * The class to be accessed
-	 */
-	protected Class<C> clazz;
-
-	/**
-	 * An ordered array giving the names of the fields in the class to accessed
-	 */
-	protected final String[] fieldNames;
-
-	/**
-	 * An ordered array giving the Fields in the class to accessed
-	 */
-	protected final Field[] fields;
-
-	private final FieldAccess<C>[] fieldAccess;
-
+    
 	private boolean isNonStaticMemberClass;
-	
+		
+	/**
+	 * Constructor, intended for use by generated subclasses
+	 * @param clazz The Class to be accessed
+	 */
+	protected AsmClassAccess(Class<C> clazz) {
+		super(clazz);
+	}
+
 	/**
 	 * Indicates if the class being accessed is a non-static member class
 	 * @return True if the class is a non-static member class
@@ -105,67 +105,13 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 	public boolean isNonStaticMemberClass() {
 		return isNonStaticMemberClass;
 	}
-
-	/**
-	 * Constructor, intended for use by generated subclasses
-	 * @param clazz The Class to be accessed
-	 */
-	@SuppressWarnings("unchecked")
-	protected AsmClassAccess(Class<C> clazz) {
-		this.clazz = clazz;
-
-		Field[] myFields = ClassUtils.collectInstanceFields(clazz);
-
-		String[] unsortedFieldNames = new String[myFields.length];
-		for (int i = 0; i < unsortedFieldNames.length; i++) {
-			unsortedFieldNames[i] = myFields[i].getName();
-		}
-		fieldNames = Arrays.copyOf(unsortedFieldNames, unsortedFieldNames.length);
-		Arrays.sort(fieldNames);
-
-		final FieldAccess<C>[] myFieldAccess = (FieldAccess<C>[]) new FieldAccess[myFields.length];
-		fields = new Field[myFields.length];
-
-		for (int i = 0; i < fields.length; i++) {
-
-			String fieldName = unsortedFieldNames[i];
-			for (int tIdx = 0; tIdx < unsortedFieldNames.length; tIdx++) {
-				if (fieldName.equals(fieldNames[tIdx])) {
-					if ((myFields[i].getModifiers() & Modifier.PRIVATE) != 0) {
-						myFieldAccess[tIdx] = PortableFieldAccess.get(myFields[i]);
-					} else {
-						myFieldAccess[tIdx] = AsmFieldAccess.get(this, myFields[i]);
-					}
-					fields[tIdx] = myFields[i];
-					break;
-				}
-			}
-
-		}
-		fieldAccess = myFieldAccess;
-	}
-
-	@Override
-	public Class<C> getType() {
-		return clazz;
-	}
-
-	@Override
-	public FieldAccess<C>[] getFieldAccessors() {
-		return fieldAccess;
-	}
-
-	@Override
-	public FieldAccess<C> getFieldAccess(Field f) {
-		int idx = Arrays.binarySearch(fieldNames, f.getName());
-		return fieldAccess[idx];
-	}
-
+	
 	/**
 	 * Get a new instance that can access the given Class. If the ClassAccess for this class
 	 * has not been obtained before, then the specific AsmClassAccess is created by generating
 	 * a specialised subclass of this class and returning it. 
 	 * @param clazz Class to be accessed
+	 * @param <C> The type of class
 	 * @return New AsmClassAccess instance
 	 */
 	public static <C> AsmClassAccess<C> get(Class<C> clazz) {
@@ -181,8 +127,10 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 		final boolean isNonStaticMemberClass = determineNonStaticMemberClass(clazz, enclosingType);
 
 		String clazzName = clazz.getName();
+		
 		Field[] fields = ClassUtils.collectInstanceFields(clazz, false, false, true);
-
+		Method[] methods = ClassUtils.collectMethods(clazz);
+		
 		String accessClassName = constructAccessClassName(clazzName);
 
 		Class<?> accessClass = null;
@@ -232,7 +180,7 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 				enhanceForPutValuePrimitive(cw, accessClassNm, clazzNm, fields, Type.FLOAT_TYPE);
 				enhanceForGetValuePrimitive(cw, accessClassNm, clazzNm, fields, Type.CHAR_TYPE);
 				enhanceForPutValuePrimitive(cw, accessClassNm, clazzNm, fields, Type.CHAR_TYPE);
-				// enhanceForInvoke
+				enhanceForInvokeMethod(cw, accessClassNm, clazzNm, methods);
 
 				cw.visitEnd();
 
@@ -270,6 +218,15 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 		return labels;
 	}
 
+	private static Label[] constructLabels(Method[] methods) {
+
+		Label[] labels = new Label[methods.length];
+		for (int i = 0, n = labels.length; i < n; i++) {
+			labels[i] = new Label();
+		}
+		return labels;
+	}
+	
 	private static <C> String determineEnclosingClassNm(Class<C> clazz, Class<?> enclosingType, final boolean isNonStaticMemberClass) {
 
 		final String enclosingClassNm;
@@ -277,20 +234,9 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 		if (!isNonStaticMemberClass) {
 
 			enclosingClassNm = null;
-			try {
-				clazz.getConstructor((Class[]) null);
-			} catch (Exception ex) {
-				throw new IllegalArgumentException("Class does not have a no-arg constructor" + clazz.getName());
-			}
-
 		} else {
 
 			enclosingClassNm = enclosingType.getName().replace('.', '/');
-			try {
-				clazz.getConstructor(enclosingType); // Inner classes should have this.
-			} catch (Exception ex) {
-				throw new IllegalArgumentException("Inner Class does not have a no-arg constructor" + clazz.getName());
-			}
 		}
 		return enclosingClassNm;
 	}
@@ -723,6 +669,142 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 		mv.visitInsn(ATHROW);
 	}
 
+	private static void enhanceForInvokeMethod(ClassVisitor cw, String accessClassNm, String clazzNm, Method[] methods) {
+
+		MethodVisitor mv = cw.visitMethod(ACC_PUBLIC  + ACC_VARARGS, "invokeMethod", "(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;", null, null);              
+        mv.visitCode();
+
+        if (methods.length > 0) {
+        	
+            mv.visitVarInsn(ALOAD, 1);
+            mv.visitTypeInsn(CHECKCAST, clazzNm);
+            
+            mv.visitVarInsn(ASTORE, 4);
+            mv.visitVarInsn(ALOAD, 0);
+            mv.visitVarInsn(ALOAD, 2);
+            mv.visitMethodInsn(INVOKESPECIAL, "org/jadira/reflection/access/asm/AsmClassAccess", "getMethodIndex", "(Ljava/lang/reflect/Method;)I");            
+            mv.visitVarInsn(ISTORE, 5);
+    		mv.visitVarInsn(ILOAD, 5);
+
+            Label[] labels = constructLabels(methods);
+			Label defaultLabel = new Label();
+
+			mv.visitTableSwitchInsn(0, labels.length - 1, defaultLabel, labels);
+
+			for (int i = 0; i < labels.length; i++) {
+
+				Method method = methods[i];
+				Class<?>[] parameterTypes = method.getParameterTypes();
+
+				mv.visitLabel(labels[i]);
+
+				if (i == 0) {
+					mv.visitFrame(F_APPEND, 1, new Object[] { clazzNm }, 0, null);
+				} else {
+					mv.visitFrame(F_SAME, 0, null, 0, null);
+				}
+				mv.visitVarInsn(ALOAD, 4);
+
+				StringBuilder methodDescriptor = new StringBuilder("(");
+                for (int parameterIdx = 0; parameterIdx < parameterTypes.length; parameterIdx++) {
+                	
+                	Type type = Type.getType(parameterTypes[parameterIdx]);
+                	
+                	mv.visitVarInsn(ALOAD, 3);
+                    mv.visitIntInsn(BIPUSH, parameterIdx);
+                    mv.visitInsn(AALOAD);
+                                
+					switch (type.getSort()) {
+					case Type.BOOLEAN:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Boolean");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Boolean", "booleanValue", "()Z");
+						break;
+					case Type.BYTE:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Byte");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Byte", "byteValue", "()B");
+						break;
+					case Type.CHAR:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Character");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Character", "charValue", "()C");
+						break;
+					case Type.SHORT:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Short");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Short", "shortValue", "()S");
+						break;
+					case Type.INT:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Integer");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Integer", "intValue", "()I");
+						break;
+					case Type.FLOAT:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Float");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Float", "floatValue", "()F");
+						break;
+					case Type.LONG:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Long");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Long", "longValue", "()J");
+						break;
+					case Type.DOUBLE:
+						mv.visitTypeInsn(CHECKCAST, "java/lang/Double");
+						mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D");
+						break;
+					case Type.ARRAY:
+						mv.visitTypeInsn(CHECKCAST, type.getDescriptor());
+						break;
+					case Type.OBJECT:
+						mv.visitTypeInsn(CHECKCAST, type.getInternalName());
+						break;
+					}
+                    methodDescriptor.append(type.getDescriptor());
+                }
+
+                methodDescriptor.append(')');
+                methodDescriptor.append(Type.getDescriptor(method.getReturnType()));
+                
+                mv.visitMethodInsn(INVOKEVIRTUAL, clazzNm, method.getName(), methodDescriptor.toString());
+
+                switch (Type.getType(method.getReturnType()).getSort()) {
+                case Type.VOID:
+                        mv.visitInsn(ACONST_NULL);
+                        break;
+                case Type.BOOLEAN:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Boolean", "valueOf", "(Z)Ljava/lang/Boolean;");
+                        break;
+                case Type.BYTE:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Byte", "valueOf", "(B)Ljava/lang/Byte;");
+                        break;
+                case Type.CHAR:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Character", "valueOf", "(C)Ljava/lang/Character;");
+                        break;
+                case Type.SHORT:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Short", "valueOf", "(S)Ljava/lang/Short;");
+                        break;
+                case Type.INT:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Integer", "valueOf", "(I)Ljava/lang/Integer;");
+                        break;
+                case Type.FLOAT:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Float", "valueOf", "(F)Ljava/lang/Float;");
+                        break;
+                case Type.LONG:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Long", "valueOf", "(J)Ljava/lang/Long;");
+                        break;
+                case Type.DOUBLE:
+                        mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;");
+                        break;
+                }
+
+                mv.visitInsn(ARETURN);
+            }
+
+            mv.visitLabel(defaultLabel);
+            mv.visitFrame(F_SAME, 0, null, 0, null);
+        }
+        
+        enhanceForThrowingException(mv, IllegalArgumentException.class, "Method not found", "Ljava/lang/Object;", ALOAD, 2);
+        
+        mv.visitMaxs(8, 6);
+        mv.visitEnd();		
+	}
+	
 	@Override
 	public abstract C newInstance();
 
@@ -869,4 +951,66 @@ public abstract class AsmClassAccess<C> implements ClassAccess<C> {
 	 * @param value The new double value
 	 */
 	public abstract void putDoubleValue(C object, String fieldName, double value);
+
+	/**
+	 * Invoke the given method on the given instance
+	 * @param target The target object
+	 * @param method The method to invoke
+	 * @param args The parameters to pass
+	 * @return The result of the invocation (null for a void method)
+	 */
+	public abstract Object invokeMethod(Object target, Method method, Object[] args);
+	
+	String foo = new String();
+	
+	public Object invokeMethod2(Object target, Method method, Object[] args) {
+		return getMethodIndex(method);
+	}
+	
+	private int getMethodIndex(Method m) {
+		int idx = Arrays.binarySearch(getDeclaredMethodNames(), m.getName());
+		if (getDeclaredMethodAccessors()[idx].method().equals(m)) {
+			return idx;
+		}
+		int backTrack = idx;
+		while (true) {
+			if (getDeclaredMethodAccessors()[backTrack].method().equals(m)) {
+				return idx;
+			}
+			if (!(getDeclaredMethodAccessors()[backTrack].method().getName()
+					.equals(m.getName()))) {
+				break;
+			}
+			backTrack = backTrack - 1;
+		}
+		while (true) {
+			idx = idx + 1;
+			if (getDeclaredMethodAccessors()[idx].method().equals(m)) {
+				return idx;
+			}
+			if (!(getDeclaredMethodAccessors()[idx].method().getName().equals(m.getName()))) {
+				break;
+			}
+		}
+		return -1;
+	}
+	
+	@Override
+	protected MethodAccess<C> constructMethodAccess(Method method) {
+		return AsmMethodAccess.get(this, method);
+	}
+	
+	@Override
+	protected FieldAccess<C> constructFieldAccess(Field field) {
+		if ((field.getModifiers() & Modifier.PRIVATE) != 0) {
+			return PortableFieldAccess.get(field);
+		} else {
+			return AsmFieldAccess.get(this, field);
+		}
+	}
+	
+	@Override
+	protected <X> ClassAccess<X> constructClassAccess(Class<X> clazz) {
+		return AsmClassAccess.get(clazz);
+	}
 }

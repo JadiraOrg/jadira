@@ -43,7 +43,7 @@ public class AsmCloneStrategy extends AbstractCloneStrategy implements CloneStra
 
     /**
      * Returns a shared instance of AsmCloneStrategy
-     * @return
+     * @return The instance
      */
 	public static AsmCloneStrategy getInstance() {
 		return instance;
@@ -108,7 +108,7 @@ public class AsmCloneStrategy extends AbstractCloneStrategy implements CloneStra
 
 	@Override
 	protected <W> ClassModel<W> getClassModel(Class<W> clazz) {
-		return ClassModel.get(AsmClassAccess.get(clazz));
+		return AsmClassAccess.get(clazz).getClassModel();
 	}
 
 	@Override

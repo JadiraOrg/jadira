@@ -163,6 +163,7 @@ public class PortableFieldAccess<C> implements FieldAccess<C> {
 	/**
 	 * Get a new instance that can access the given Field
 	 * @param f Field to be accessed
+	 * @param <C> The type of class being accessed
 	 * @return New PortableFieldAccess instance
 	 */
 	public static <C> PortableFieldAccess<C> get(Field f) {

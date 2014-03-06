@@ -57,7 +57,7 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 	
 	/**
 	 * Get the offset position (in bytes) for this field
-	 * @return
+	 * @return Offset as a long
 	 */
 	public long fieldOffset() {
 		return fieldOffset;
@@ -160,6 +160,7 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 	/**
 	 * Get a new instance that can access the given Field
 	 * @param f Field to be accessed
+	 * @param <C> The type of class containing the field to be accessed
 	 * @return New UnsafeFieldAccess instance
 	 */
 	public static <C> UnsafeFieldAccess<C> get(Field f) {
@@ -203,8 +204,22 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		}
 
 		@Override
+		public Boolean getValue(C parent) {
+			return Boolean.valueOf(getBooleanValue(parent));
+		}
+		
+		@Override
 		public boolean getBooleanValue(C parent) {
 			return UNSAFE_OPERATIONS.getBoolean(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Boolean) {
+				putBooleanValue(parent, ((Boolean)newFieldValue).booleanValue());
+			} else {
+				throw new IllegalArgumentException("Only a boolean value can be supplied to a boolean field");
+			}
 		}
 		
 		@Override
@@ -228,8 +243,22 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		}
 
 		@Override
+		public Byte getValue(C parent) {
+			return Byte.valueOf(getByteValue(parent));
+		}
+		
+		@Override
 		public byte getByteValue(C parent) {
 			return UNSAFE_OPERATIONS.getByte(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Byte) {
+				putByteValue(parent, ((Byte)newFieldValue).byteValue());
+			} else {
+				throw new IllegalArgumentException("Only a byte value can be supplied to a byte field");
+			}
 		}
 		
 		@Override
@@ -251,10 +280,24 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		public UnsafeCharFieldAccess(Field f) {
 			super(f);
 		}
+		
+		@Override
+		public Character getValue(C parent) {
+			return Character.valueOf(getCharValue(parent));
+		}
 
 		@Override
 		public char getCharValue(C parent) {
 			return UNSAFE_OPERATIONS.getChar(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Character) {
+				putCharValue(parent, ((Character)newFieldValue).charValue());
+			} else {
+				throw new IllegalArgumentException("Only a character value can be supplied to a char field");
+			}
 		}
 		
 		@Override
@@ -278,8 +321,24 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		}
 
 		@Override
+		public Short getValue(C parent) {
+			return Short.valueOf(getShortValue(parent));
+		}
+		
+		@Override
 		public short getShortValue(C parent) {
 			return UNSAFE_OPERATIONS.getShort(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Short) {
+				putShortValue(parent, ((Short)newFieldValue).shortValue());
+			} else if (newFieldValue instanceof Byte) {
+				putShortValue(parent, ((Byte)newFieldValue).shortValue());
+			} else {
+				throw new IllegalArgumentException("Only a short, or byte value can be supplied to a short field");
+			}
 		}
 		
 		@Override
@@ -301,10 +360,28 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		public UnsafeIntFieldAccess(Field f) {
 			super(f);
 		}
+		
+		@Override
+		public Integer getValue(C parent) {
+			return Integer.valueOf(getIntValue(parent));
+		}
 
 		@Override
 		public int getIntValue(C parent) {
 			return UNSAFE_OPERATIONS.getInt(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Integer) {
+				putIntValue(parent, ((Integer)newFieldValue).intValue());
+			} else if (newFieldValue instanceof Short) {
+				putIntValue(parent, ((Short)newFieldValue).intValue());
+			} else if (newFieldValue instanceof Byte) {
+				putIntValue(parent, ((Byte)newFieldValue).intValue());
+			} else {
+				throw new IllegalArgumentException("Only an integer, short, or byte value can be supplied to an int field");
+			}
 		}
 		
 		@Override
@@ -328,8 +405,28 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		}
 
 		@Override
+		public Long getValue(C parent) {
+			return Long.valueOf(getLongValue(parent));
+		}
+		
+		@Override
 		public long getLongValue(C parent) {
 			return UNSAFE_OPERATIONS.getLong(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Long) {
+				putLongValue(parent, ((Long)newFieldValue).longValue());
+			} else if (newFieldValue instanceof Integer) {
+				putLongValue(parent, ((Integer)newFieldValue).longValue());
+			} else if (newFieldValue instanceof Short) {
+				putLongValue(parent, ((Short)newFieldValue).longValue());
+			} else if (newFieldValue instanceof Byte) {
+				putLongValue(parent, ((Byte)newFieldValue).longValue());
+			} else {
+				throw new IllegalArgumentException("Only a long, integer, short, or byte value can be supplied to a long field");
+			}
 		}
 		
 		@Override
@@ -351,11 +448,25 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		public UnsafeFloatFieldAccess(Field f) {
 			super(f);
 		}
+		
+		@Override
+		public Float getValue(C parent) {
+			return Float.valueOf(getFloatValue(parent));
+		}
 
 		@Override
 		public float getFloatValue(C parent) {
 			return UNSAFE_OPERATIONS.getFloat(parent, super.fieldOffset);
 		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Float) {
+				putFloatValue(parent, ((Float)newFieldValue).floatValue());
+			} else {
+				throw new IllegalArgumentException("Only a float value can be supplied to a float field");
+			}
+		}		
 		
 		@Override
 		public void putFloatValue(C parent, float newFieldValue) {
@@ -378,8 +489,22 @@ public class UnsafeFieldAccess<C> implements FieldAccess<C> {
 		}
 
 		@Override
+		public Double getValue(C parent) {
+			return Double.valueOf(getDoubleValue(parent));
+		}
+		
+		@Override
 		public double getDoubleValue(C parent) {
 			return UNSAFE_OPERATIONS.getDouble(parent, super.fieldOffset);
+		}
+		
+		@Override
+		public void putValue(C parent, Object newFieldValue) {
+			if (newFieldValue instanceof Double) {
+				putDoubleValue(parent, ((Double)newFieldValue).doubleValue());
+			} else {
+				throw new IllegalArgumentException("Only a double value can be supplied to a double field");
+			}
 		}
 		
 		@Override

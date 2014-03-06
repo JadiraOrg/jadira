@@ -63,6 +63,7 @@ public class AsmFieldAccess<C> implements FieldAccess<C> {
 	 * Get a new instance that can access the given Field
 	 * @param classAccess The AsmClassAccess instance to be delegated to
 	 * @param f Field to be accessed
+	 * @param <C> The type of class
 	 * @return New AsmFieldAccess instance
 	 */
 	public static final <C> AsmFieldAccess<C> get(AsmClassAccess<C> classAccess, Field f) {

@@ -181,30 +181,35 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 								referencesToReuse.put(objectInput, objectResult);
 							}
 
-							for (FieldModel<Object> f : model.getModelFields()) {
-
-								if (!context.isCloneTransientFields() && f.isTransientField()) {
-									handleTransientField(objectResult, f);
-								} else if (!context.isCloneTransientAnnotatedFields() && f.isTransientAnnotatedField()) {
-									handleTransientField(objectResult, f);
-								} else {
-									if (stack == null) {
-										handleCloneField(objectInput, objectResult, context, f, referencesToReuse, stackDepth);
+							ClassModel<Object> classModelInHierarchy = model;
+							while (classModelInHierarchy != null) {
+							
+								for (FieldModel<Object> f : classModelInHierarchy.getModelFields()) {
+	
+									if (!context.isCloneTransientFields() && f.isTransientField()) {
+										handleTransientField(objectResult, f);
+									} else if (!context.isCloneTransientAnnotatedFields() && f.isTransientAnnotatedField()) {
+										handleTransientField(objectResult, f);
 									} else {
-										if (f.getFieldType() == FieldType.PRIMITIVE) {
-											handleClonePrimitiveField(objectInput, objectResult, context, f, referencesToReuse);
+										if (stack == null) {
+											handleCloneField(objectInput, objectResult, context, f, referencesToReuse, stackDepth);
 										} else {
-											if (!context.isCloneSyntheticFields() && f.isSynthetic()) {
-												Object fieldObject = getFieldValue(objectInput, f);
-												if (referencesToReuse != null) {
-													referencesToReuse.put(fieldObject, fieldObject);
-												}
+											if (f.getFieldType() == FieldType.PRIMITIVE) {
+												handleClonePrimitiveField(objectInput, objectResult, context, f, referencesToReuse);
 											} else {
-												stack.addFirst(new WorkItem(objectInput, objectResult, f));
+												if (!context.isCloneSyntheticFields() && f.isSynthetic()) {
+													Object fieldObject = getFieldValue(objectInput, f);
+													if (referencesToReuse != null) {
+														referencesToReuse.put(fieldObject, fieldObject);
+													}
+												} else {
+													stack.addFirst(new WorkItem(objectInput, objectResult, f));
+												}
 											}
 										}
 									}
 								}
+								classModelInHierarchy = classModelInHierarchy.getSuperClassModel();
 							}
 						}
 					}
@@ -260,6 +265,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * Helper method for performing cloning for objects of classes implementing java.lang.Cloneable
 	 * @param object The object to be cloned.
 	 * @param context The CloneDriver to be used
+     * @param <T> The type being copied
 	 * @return The cloned object
 	 */
 	protected <T> T performCloneForCloneableMethod(T object, CloneDriver context) {
@@ -279,6 +285,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	/**
 	 * Obtain a ClassModel instance for the given class
 	 * @param clazz Class to model
+     * @param <W> The type of class
 	 * @return The ClassModel
 	 */
 	protected abstract <W> ClassModel<W> getClassModel(Class<W> clazz);
@@ -289,6 +296,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * @param context The CloneDriver
 	 * @param visited Used for tracking objects that have already been seen
 	 * @param stackDepth The current depth of the stack - used to switch from recursion to iteration if the stack grows too deep.
+     * @param <T> The type being copied
 	 * @return A clone of the array
 	 */
 	protected <T> T handleArray(T origFieldValue, CloneDriver context, IdentityHashMap<Object, Object> visited, long stackDepth) {
@@ -356,12 +364,13 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 
 	/**
 	 * Clone a Field
-	 * @param orig The original object
+	 * @param obj The original object
 	 * @param copy The destination object
 	 * @param driver The CloneDriver
 	 * @param f The FieldModel for the target field
 	 * @param referencesToReuse Used for tracking objects that have already been seen
 	 * @param stackDepth The current depth of the stack - used to switch from recursion to iteration if the stack grows too deep.
+     * @param <T> The type containing the field being cloned
 	 */
 	protected <T> void handleCloneField(T obj, T copy, CloneDriver driver, FieldModel<T> f, IdentityHashMap<Object, Object> referencesToReuse, long stackDepth) {
 
@@ -373,8 +382,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 			putFieldValue(copy, f, getFieldValue(obj, f));
 		} else {
 
-			Object fieldObject;
-			fieldObject = getFieldValue(obj, f);
+			final Object fieldObject = getFieldValue(obj, f);
 			final Object fieldObjectClone = clone(fieldObject, driver, referencesToReuse, stackDepth);
 			putFieldValue(copy, f, fieldObjectClone);
 		}
@@ -384,6 +392,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * Implementations should ensure that transient fields are left with the correct default (unset) value
 	 * @param copy The target object
 	 * @param f The FieldModel for the Field that should stay as a default
+     * @param <T> The type containing the field
 	 */
 	protected abstract <T> void handleTransientField(T copy, FieldModel<T> f);
 
@@ -394,6 +403,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * @param driver The CloneDriver to use
 	 * @param f The FieldModel for the Field that should stay as a default
 	 * @param referencesToReuse Used for tracking objects that have already been seen
+     * @param <T> The type being copied
 	 */
 	protected abstract <T> void handleClonePrimitiveField(T obj, T copy, CloneDriver driver, FieldModel<T> f, IdentityHashMap<Object, Object> referencesToReuse);
 
@@ -401,6 +411,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * Method to retrieve the value of a particular field
 	 * @param obj Source object
 	 * @param f The FieldModel for the Field that should stay as a default
+     * @param <T> The type containing the field
 	 * @return The value in the given field
 	 */
 	protected abstract <T> Object getFieldValue(T obj, FieldModel<T> f);
@@ -409,6 +420,7 @@ public abstract class AbstractCloneStrategy implements CloneStrategy {
 	 * Put the given value into the target field
 	 * @param obj Source object
 	 * @param f The FieldModel for the Field that should stay as a default
+     * @param <T> The type containing the field
 	 * @param value The value to put
 	 */
 	protected abstract <T> void putFieldValue(T obj, FieldModel<T> f, Object value);

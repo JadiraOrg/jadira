@@ -17,6 +17,7 @@ import org.jadira.reflection.cloning.implementor.reflection.ReflectionMethodImpl
 import org.jadira.reflection.cloning.mutability.MutabilityDetector;
 import org.jadira.reflection.core.misc.ClassUtils;
 import org.jadira.reflection.core.platform.FeatureDetection;
+import org.mutabilitydetector.checkers.MutabilityAnalysisException;
 
 /**
  * Provides a base model resulting from introspection of a class
@@ -27,7 +28,7 @@ public class ClassModel<C> {
 
 	private static final Class<Annotation> JSR305_IMMUTABLE_ANNOTATION;
 
-    private static final ConcurrentHashMap<String, ClassModel<?>> classModels = new ConcurrentHashMap<String, ClassModel<?>>(100);
+    private static final ConcurrentHashMap<String, ClassModel<?>> classModels = new ConcurrentHashMap<String, ClassModel<?>>(16);
     
 	private static final Object MONITOR = new Object();
 	
@@ -53,12 +54,14 @@ public class ClassModel<C> {
 	private final ClassAccess<C> classAccess;
 
 	private FieldModel<C>[] modelFields;
+	
+	private ClassModel<? super C> superClassModel;
 
     /**
      * Returns a class model for the given ClassAccess instance. If a ClassModel 
      * already exists, it will be reused.
      * @param classAccess The ClassAccess
-     * @param fieldAccess The ClassAccess that can be used to introspect the class
+     * @param <C> The type of class
      * @return The Field Model
      */
 	@SuppressWarnings("unchecked")
@@ -90,13 +93,16 @@ public class ClassModel<C> {
 
 		this.classAccess = classAccess;
 		this.modelClass = classAccess.getType();
-
-		if ((modelClass.getAnnotation(Immutable.class) != null) || (JSR305_IMMUTABLE_ANNOTATION != null && modelClass.getAnnotation(JSR305_IMMUTABLE_ANNOTATION) != null)
-				|| (MUTABILITY_DETECTOR_AVAILABLE && MutabilityDetector.getMutabilityDetector().isImmutable(modelClass))) {
-			this.detectedAsImmutable = true;
-		} else {
-			this.detectedAsImmutable = false;
+		
+		boolean myDetectedAsImmutable = false;
+		try {
+			if (((modelClass == Object.class) || modelClass.getAnnotation(Immutable.class) != null) || (JSR305_IMMUTABLE_ANNOTATION != null && modelClass.getAnnotation(JSR305_IMMUTABLE_ANNOTATION) != null)
+					|| (MUTABILITY_DETECTOR_AVAILABLE && MutabilityDetector.getMutabilityDetector().isImmutable(modelClass))) {
+				myDetectedAsImmutable = true; 
+			}
+		} catch (MutabilityAnalysisException e) {
 		}
+		this.detectedAsImmutable = myDetectedAsImmutable;
 
 		Method clonerMethod = null;
 		Constructor<?> clonerConstructor = null;
@@ -137,14 +143,19 @@ public class ClassModel<C> {
 
 		this.flat = modelClass.getAnnotation(Flat.class) != null;
 		
-		Field[] fields = ClassUtils.collectInstanceFields(modelClass);
+		Field[] fields = ClassUtils.collectDeclaredInstanceFields(modelClass);
 		
 		@SuppressWarnings("unchecked")
 		final FieldModel<C>[] myModelFields = (FieldModel<C>[])new FieldModel[fields.length];
 		for (int i=0; i < fields.length; i++) {
-			myModelFields[i] = FieldModel.get(fields[i], classAccess.getFieldAccess(fields[i]));
+			myModelFields[i] = FieldModel.get(fields[i], classAccess.getDeclaredFieldAccess(fields[i]));
 		}
 		modelFields = myModelFields;
+
+		ClassAccess<? super C> superClassAccess = classAccess.getSuperClassAccess();
+		if (superClassAccess != null) {
+			superClassModel = ClassModel.get(superClassAccess);
+		}
 	}
 	
 	/**
@@ -161,6 +172,14 @@ public class ClassModel<C> {
      */
 	public ClassAccess<C> getClassAccess() {
 		return classAccess;
+	}
+	
+	/**
+	 * Access the model for the super class
+	 * @return The associated ClassModel
+	 */
+	public ClassModel<? super C> getSuperClassModel() {
+		return superClassModel;
 	}
 
     /**

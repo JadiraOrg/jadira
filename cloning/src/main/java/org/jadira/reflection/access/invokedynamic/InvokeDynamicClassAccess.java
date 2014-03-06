@@ -31,14 +31,13 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jadira.reflection.access.AbstractClassAccess;
 import org.jadira.reflection.access.api.ClassAccess;
 import org.jadira.reflection.access.api.FieldAccess;
+import org.jadira.reflection.access.api.MethodAccess;
 import org.jadira.reflection.access.classloader.AccessClassLoader;
-import org.jadira.reflection.access.portable.PortableFieldAccess;
-import org.jadira.reflection.core.misc.ClassUtils;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.MethodVisitor;
@@ -49,43 +48,14 @@ import org.objectweb.asm.MethodVisitor;
  * similar to standard ASM based access
  * @param <C> The Class to be accessed
  */
-public abstract class InvokeDynamicClassAccess<C> implements ClassAccess<C> {
+public abstract class InvokeDynamicClassAccess<C> extends AbstractClassAccess<C> implements ClassAccess<C> {
 
     private static final ConcurrentHashMap<Class<?>, InvokeDynamicClassAccess<?>> CLASS_ACCESSES = new ConcurrentHashMap<Class<?>, InvokeDynamicClassAccess<?>>();
     
     private static final String CLASS_ACCESS_NM = ClassAccess.class.getName().replace('.', '/');
 
     private static final String INVOKEDYNAMIC_CLASS_ACCESS_NM = InvokeDynamicClassAccess.class.getName().replace('.', '/');
- 
-	/**
-	 * The class to be accessed
-	 */
-    protected Class<C> clazz;
 
-	/**
-	 * An ordered array giving the names of the fields in the class to accessed
-	 */
-    protected final String[] fieldNames;
-    
-	/**
-	 * An ordered array giving the Fields in the class to accessed
-	 */
-    protected final Field[] fields;
-
-    private final FieldAccess<C>[] fieldAccess;
-
-	/**
-	 * An ordered array giving the names of the methods in the class to accessed
-	 */
-    protected final String[] methodNames;
-    
-	/**
-	 * An ordered array giving the Methods in the class to accessed
-	 */
-    protected final Method[] methods;
-
-    private final InvokeDynamicMethodAccess<C>[] methodAccess;
-    
     private boolean isNonStaticMemberClass;
     
 	/**
@@ -100,81 +70,8 @@ public abstract class InvokeDynamicClassAccess<C> implements ClassAccess<C> {
 	 * Constructor, intended for use by generated subclasses
 	 * @param clazz The Class to be accessed
 	 */
-    @SuppressWarnings("unchecked")
     protected InvokeDynamicClassAccess(Class<C> clazz) {
-        this.clazz = clazz;
-
-        Field[] myFields = ClassUtils.collectInstanceFields(clazz);
-
-        String[] unsortedFieldNames = new String[myFields.length];
-        for (int i = 0; i < unsortedFieldNames.length; i++) {
-            unsortedFieldNames[i] = myFields[i].getName();
-        }
-        fieldNames = Arrays.copyOf(unsortedFieldNames, unsortedFieldNames.length);
-        Arrays.sort(fieldNames);
-
-        final FieldAccess<C>[] myFieldAccess = (FieldAccess<C>[]) new FieldAccess[myFields.length];
-        fields = new Field[myFields.length];
-
-        for (int i = 0; i < fields.length; i++) {
-
-            String fieldName = unsortedFieldNames[i];
-            for (int tIdx = 0; tIdx < unsortedFieldNames.length; tIdx++) {
-                if (fieldName.equals(fieldNames[tIdx])) {
-                    if ((myFields[i].getModifiers() & Modifier.PRIVATE) != 0) {
-                        myFieldAccess[tIdx] = PortableFieldAccess.get(myFields[i]);
-                    } else {
-                        myFieldAccess[tIdx] = InvokeDynamicFieldAccess.get(this, myFields[i]);
-                    }
-                    fields[tIdx] = myFields[i];
-                    break;
-                }
-            }
-
-        }
-        fieldAccess = myFieldAccess;
-        
-        Method[] myMethods = ClassUtils.collectMethods(clazz);
-        
-        String[] unsortedMethodNames = new String[myMethods.length];
-        for (int i=0; i < unsortedMethodNames.length; i++) {
-            unsortedMethodNames[i] = myMethods[i].getName();
-        }
-        methodNames = Arrays.copyOf(unsortedMethodNames, unsortedMethodNames.length);
-        Arrays.sort(methodNames);
-        
-        final InvokeDynamicMethodAccess<C>[] myMethodAccess = (InvokeDynamicMethodAccess<C>[])new InvokeDynamicMethodAccess[myMethods.length];
-        methods = new Method[myMethods.length];
-        
-        for (int i=0; i < methods.length; i++) {
-   
-            String methodName = unsortedMethodNames[i];
-            for (int tIdx = 0; tIdx < unsortedMethodNames.length; tIdx++) {
-                if (methodName.equals(methodNames[tIdx])) {
-                    myMethodAccess[tIdx] = InvokeDynamicMethodAccess.get(myMethods[i]);
-                    methods[tIdx] = myMethods[i];
-                    break;
-                }
-            }
-            
-        }
-        methodAccess = myMethodAccess;
-    }
-
-    @Override
-    public Class<C> getType() {
-        return clazz;
-    }
-
-    @Override
-    public FieldAccess<C>[] getFieldAccessors() {
-        return fieldAccess;
-    }
-
-    @Override
-    public FieldAccess<C> getFieldAccess(Field f) {
-        int idx = Arrays.binarySearch(fieldNames, f.getName());
-        return fieldAccess[idx];
+        super(clazz);
     }
     
 	/**
@@ -182,6 +79,7 @@ public abstract class InvokeDynamicClassAccess<C> implements ClassAccess<C> {
 	 * has not been obtained before, then the specific InvokeDynamicClassAccess is created by 
 	 * generating a specialised subclass of this class and returning it. 
 	 * @param clazz Class to be accessed
+	 * @param <C> The type of class
 	 * @return New InvokeDynamicClassAccess instance
 	 */
     public static <C> InvokeDynamicClassAccess<C> get(Class<C> clazz) {
@@ -271,20 +169,9 @@ public abstract class InvokeDynamicClassAccess<C> implements ClassAccess<C> {
         if (!isNonStaticMemberClass) {
 
             enclosingClassNm = null;
-            try {
-                clazz.getConstructor((Class[]) null);
-            } catch (Exception ex) {
-                throw new IllegalArgumentException("Class does not have a no-arg constructor" + clazz.getName());
-            }
-
         } else {
 
             enclosingClassNm = enclosingType.getName().replace('.', '/');
-            try {
-                clazz.getConstructor(enclosingType); // Inner classes should have this.
-            } catch (Exception ex) {
-                throw new IllegalArgumentException("Inner Class does not have a no-arg constructor" + clazz.getName());
-            }
         }
         return enclosingClassNm;
     }
@@ -341,15 +228,19 @@ public abstract class InvokeDynamicClassAccess<C> implements ClassAccess<C> {
     
     @Override
     public abstract C newInstance();
-
-    @Override
-    public InvokeDynamicMethodAccess<C>[] getMethodAccessors() {
-        return methodAccess;
-    }
     
-    @Override
-    public InvokeDynamicMethodAccess<C> getMethodAccess(Method m) {
-        int idx = Arrays.binarySearch(methodNames, m.getName());
-        return methodAccess[idx];
-    }
- }
+	@Override
+	protected MethodAccess<C> constructMethodAccess(Method method) {
+		return InvokeDynamicMethodAccess.get(method);
+	}
+	
+	@Override
+	protected FieldAccess<C> constructFieldAccess(Field field) {
+		return InvokeDynamicFieldAccess.get(this, field);
+	}
+	
+	@Override
+	protected <X> ClassAccess<X> constructClassAccess(Class<X> clazz) {
+		return InvokeDynamicClassAccess.get(clazz);
+	}
+}

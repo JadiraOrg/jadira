@@ -51,7 +51,7 @@ public class PortableCloneStrategy extends AbstractCloneStrategy implements Clon
 
     /**
      * Returns a shared instance of PortableCloneStrategy
-     * @return
+     * @return The instance
      */
 	public static PortableCloneStrategy getInstance() {
 		return instance;
@@ -92,7 +92,7 @@ public class PortableCloneStrategy extends AbstractCloneStrategy implements Clon
 
 	@Override
 	protected <W> ClassModel<W> getClassModel(Class<W> clazz) {
-		return ClassModel.get(PortableClassAccess.get(clazz));
+		return PortableClassAccess.get(clazz).getClassModel();
 	}
 
 	@Override

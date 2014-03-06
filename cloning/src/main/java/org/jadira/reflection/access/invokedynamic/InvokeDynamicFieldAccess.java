@@ -78,6 +78,7 @@ public class InvokeDynamicFieldAccess<C> implements FieldAccess<C> {
 	 * Get a new instance that can access the given Field
 	 * @param classAccess The InvokeDynamicClassAccess instance to be delegated to
 	 * @param f Field to be accessed
+	 * @param <C> The type of class being accessed
 	 * @return New InvokeDynamicFieldAccess instance
 	 */
 	public static final <C> InvokeDynamicFieldAccess<C> get(InvokeDynamicClassAccess<C> classAccess, Field f) {

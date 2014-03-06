@@ -17,11 +17,12 @@ package org.jadira.reflection.access.portable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.jadira.reflection.access.AbstractClassAccess;
 import org.jadira.reflection.access.api.ClassAccess;
-import org.jadira.reflection.core.misc.ClassUtils;
+import org.jadira.reflection.access.api.FieldAccess;
+import org.jadira.reflection.access.api.MethodAccess;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 
@@ -30,77 +31,20 @@ import org.objenesis.ObjenesisStd;
  * Uses Reflection to access methods, and Objenesis to invoke constructors.
  * @param <C> The Class to be accessed
  */
-public class PortableClassAccess<C> implements ClassAccess<C> {
+public class PortableClassAccess<C> extends AbstractClassAccess<C> implements ClassAccess<C> {
 
     private static final ConcurrentHashMap<Class<?>, PortableClassAccess<?>> CLASS_ACCESSES = new ConcurrentHashMap<Class<?>, PortableClassAccess<?>>();
     
     private static final Objenesis OBJENESIS = new ObjenesisStd();
-	
-	private Class<C> clazz;
-
-	private String[] fieldNames;
-	private PortableFieldAccess<C>[] fieldAccess;
-	
-	private String[] methodNames;
-	private PortableMethodAccess<C>[] methodAccess;
-	
+		
 	private PortableClassAccess(Class<C> clazz) {
-		
-		this.clazz = clazz;
-
-		Field[] fields = ClassUtils.collectInstanceFields(clazz);
-		
-		String[] unsortedFieldNames = new String[fields.length];
-		for (int i=0; i < unsortedFieldNames.length; i++) {
-			unsortedFieldNames[i] = fields[i].getName();
-		}
-		fieldNames = Arrays.copyOf(unsortedFieldNames, unsortedFieldNames.length);
-		Arrays.sort(fieldNames);
-		
-		@SuppressWarnings("unchecked")
-		final PortableFieldAccess<C>[] myFieldAccess = (PortableFieldAccess<C>[])new PortableFieldAccess[fields.length];
-		for (int i=0; i < fields.length; i++) {
-			
-			String fieldName = unsortedFieldNames[i];
-			for (int tIdx = 0; tIdx < unsortedFieldNames.length; tIdx++) {
-				if (fieldName.equals(fieldNames[tIdx])) {
-					myFieldAccess[tIdx] = PortableFieldAccess.get(fields[i]);
-					break;
-				}
-			}
-			
-		}
-		fieldAccess = myFieldAccess;
-		
-		Method[] methods = ClassUtils.collectMethods(clazz);
-		
-		String[] unsortedMethodNames = new String[methods.length];
-		for (int i=0; i < unsortedMethodNames.length; i++) {
-			unsortedMethodNames[i] = methods[i].getName();
-		}
-		methodNames = Arrays.copyOf(unsortedMethodNames, unsortedMethodNames.length);
-		Arrays.sort(methodNames);
-		
-		@SuppressWarnings("unchecked")
-		final PortableMethodAccess<C>[] myMethodAccess = (PortableMethodAccess<C>[])new PortableMethodAccess[methods.length];
-		for (int i=0; i < methods.length; i++) {
-			
-			String methodName = unsortedMethodNames[i];
-			for (int tIdx = 0; tIdx < unsortedMethodNames.length; tIdx++) {
-				if (methodName.equals(methodNames[tIdx])) {
-					myMethodAccess[tIdx] = PortableMethodAccess.get(methods[i]);
-					break;
-				}
-			}
-			
-		}
-		methodAccess = myMethodAccess;
+		super(clazz);
 	}
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	public C newInstance() {
-		return (C) OBJENESIS.newInstance(clazz);
+		return (C) OBJENESIS.newInstance(getType());
 	}
 
 	/**
@@ -108,6 +52,7 @@ public class PortableClassAccess<C> implements ClassAccess<C> {
 	 * has not been obtained before, then the specific PortableClassAccess is created by generating
 	 * a specialised subclass of this class and returning it. 
 	 * @param clazz Class to be accessed
+	 * @param <C> The type of class
 	 * @return New PortableClassAccess instance
 	 */
 	public static <C> PortableClassAccess<C> get(Class<C> clazz) {
@@ -123,29 +68,17 @@ public class PortableClassAccess<C> implements ClassAccess<C> {
 	}
 
 	@Override
-	public Class<C> getType() {
-		return clazz;
-	}
-
-	@Override
-	public PortableFieldAccess<C>[] getFieldAccessors() {
-		return fieldAccess;
+	protected MethodAccess<C> constructMethodAccess(Method method) {
+		return PortableMethodAccess.get(method);
 	}
 	
 	@Override
-	public PortableFieldAccess<C> getFieldAccess(Field f) {
-		int idx = Arrays.binarySearch(fieldNames, f.getName());
-		return fieldAccess[idx];
-	}
-
-	@Override
-	public PortableMethodAccess<C>[] getMethodAccessors() {
-		return methodAccess;
+	protected FieldAccess<C> constructFieldAccess(Field field) {
+		return PortableFieldAccess.get(field);
 	}
 	
 	@Override
-	public PortableMethodAccess<C> getMethodAccess(Method m) {
-		int idx = Arrays.binarySearch(methodNames, m.getName());
-		return methodAccess[idx];
+	protected <X> ClassAccess<X> constructClassAccess(Class<X> clazz) {
+		return PortableClassAccess.get(clazz);
 	}
 }

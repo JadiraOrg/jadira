@@ -43,7 +43,7 @@ public class InvokeDynamicCloneStrategy extends AbstractCloneStrategy implements
 
     /**
      * Returns a shared instance of InvokeDynamicCloneStrategy
-     * @return
+     * @return The instance
      */
 	public static InvokeDynamicCloneStrategy getInstance() {
 		return instance;
@@ -108,7 +108,7 @@ public class InvokeDynamicCloneStrategy extends AbstractCloneStrategy implements
 
 	@Override
 	protected <W> ClassModel<W> getClassModel(Class<W> clazz) {
-		return ClassModel.get(InvokeDynamicClassAccess.get(clazz));
+		return InvokeDynamicClassAccess.get(clazz).getClassModel();
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class UnsafeCloneStrategy extends AbstractCloneStrategy implements CloneS
 
     /**
      * Returns a shared instance of UnsafeCloneStrategy
-     * @return
+     * @return The instance
      */
     public static UnsafeCloneStrategy getInstance() {
         return instance;
@@ -53,7 +53,7 @@ public class UnsafeCloneStrategy extends AbstractCloneStrategy implements CloneS
     
     @Override
     protected <W> ClassModel<W> getClassModel(Class<W> clazz) {
-        return ClassModel.get(UnsafeClassAccess.get(clazz));
+        return UnsafeClassAccess.get(clazz).getClassModel();
     }
     
     @Override

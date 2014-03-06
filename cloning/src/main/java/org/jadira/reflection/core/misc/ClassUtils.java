@@ -102,11 +102,16 @@ public final class ClassUtils {
         }
         return false;
     }
-
-//    public static Field[] collectFields(Class<?> c) {
-//        
-//        return collectFields(c, 0, 0);
-//    }
+    
+    /**
+     * Produces an array with all the instance fields of the specified class
+     * @param c The class specified
+     * @return The array of matched Fields
+     */
+    public static Field[] collectDeclaredInstanceFields(Class<?> c) {
+    	
+        return collectInstanceFields(c, c.getSuperclass());
+    }
     
     /**
      * Produces an array with all the instance fields of the specified class
@@ -118,6 +123,18 @@ public final class ClassUtils {
         return collectFields(c, 0, Modifier.STATIC);
     }
 
+    /**
+     * Produces an array with all the instance fields of the specified class
+     * @param c The class specified
+     * @param limitExclusive Fields from this class or higher in the hierarchy will not be returned
+     * @return The array of matched Fields
+     */
+    public static Field[] collectInstanceFields(Class<?> c, Class<?> limitExclusive) {
+    	
+        return collectFields(c, 0, Modifier.STATIC, limitExclusive);
+    }
+
+    
     /**
 	 * Produces an array with all the instance fields of the specified class which match the supplied rules
      * @param c The class specified
@@ -143,18 +160,63 @@ public final class ClassUtils {
     	
         return collectFields(c, inclusiveModifiers, exclusiveModifiers);
     }
+
+    /**
+     * Produces an array with all the fields of the specified class
+     * @param c The class specified
+     * @return The array of matched Fields
+     */
+    public static Field[] collectDeclaredFields(Class<?> c) {
+    	
+        return collectFields(c, c.getSuperclass());
+    }
+
+    /**
+     * Produces an array with all the fields of the specified class
+     * @param c The class specified
+     * @return The array of matched Fields
+     */
+    public static Field[] collectFields(Class<?> c) {
+    	
+        return collectFields(c, 0, 0);
+    }
+
+    /**
+     * Produces an array with all the fields of the specified class
+     * @param c The class specified
+     * @param limitExclusive Fields from this class or higher in the hierarchy will not be returned
+     * @return The array of matched Fields
+     */
+    public static Field[] collectFields(Class<?> c, Class<?> limitExclusive) {
+    	
+    	return collectFields(c, 0, 0, limitExclusive);
+    }
+
     
     /**
 	 * Produces an array with all the instance fields of the specified class which match the supplied rules
      * @param c The class specified
      * @param inclusiveModifiers An int indicating the {@link Modifier}s that may be applied
-     * @param excludeModifiers An int indicating the {@link Modifier}s that must be excluded
+     * @param exclusiveModifiers An int indicating the {@link Modifier}s that must be excluded
      * @return The array of matched Fields
      */
     public static Field[] collectFields(Class<?> c, int inclusiveModifiers, int exclusiveModifiers) {
         
+        return collectFields(c, inclusiveModifiers, exclusiveModifiers, Object.class);
+    }
+    
+    /**
+	 * Produces an array with all the instance fields of the specified class which match the supplied rules
+     * @param c The class specified
+     * @param inclusiveModifiers An int indicating the {@link Modifier}s that may be applied
+     * @param exclusiveModifiers An int indicating the {@link Modifier}s that must be excluded
+     * @param limitExclusive Fields from this class or higher in the hierarchy will not be returned
+     * @return The array of matched Fields
+     */
+    public static Field[] collectFields(Class<?> c, int inclusiveModifiers, int exclusiveModifiers, Class<?> limitExclusive) {
+        
         Set<Field> fields = new HashSet<Field>();
-        while (c != Object.class) {
+        while (c != limitExclusive) {
             for (Field f : c.getDeclaredFields()) {
                 if (((f.getModifiers() & exclusiveModifiers) == 0)
                 		&& ((f.getModifiers() & inclusiveModifiers) == inclusiveModifiers)) {
@@ -166,6 +228,16 @@ public final class ClassUtils {
         }
         return fields.toArray(new Field[]{});
     }
+
+    /**
+     * Produces an array with all the methods of the specified class
+     * @param c The class specified
+     * @return The array of matched Methods
+     */
+    public static Method[] collectDeclaredMethods(Class<?> c) {
+        return collectMethods(c, 0, 0, c.getSuperclass());
+    }
+
     
     /**
      * Produces an array with all the methods of the specified class
@@ -180,14 +252,39 @@ public final class ClassUtils {
     /**
      * Produces an array with all the methods of the specified class
      * @param c The class specified
+     * @param limitExclusive Methods from this class or higher in the hierarchy will not be returned
+     * @return The array of matched Methods
+     */
+    public static Method[] collectMethods(Class<?> c, Class<?> limitExclusive) {
+    	
+        return collectMethods(c, 0, 0, limitExclusive);
+    }
+
+    
+    /**
+     * Produces an array with all the methods of the specified class
+     * @param c The class specified
      * @param inclusiveModifiers An int indicating the {@link Modifier}s that may be applied
-     * @param excludeModifiers An int indicating the {@link Modifier}s that must be excluded
+     * @param exclusiveModifiers An int indicating the {@link Modifier}s that must be excluded
      * @return The array of matched Methods
      */
     public static Method[] collectMethods(Class<?> c, int inclusiveModifiers, int exclusiveModifiers) {
+    
+    	return collectMethods(c, inclusiveModifiers, exclusiveModifiers, Object.class);
+    }
+    
+    /**
+     * Produces an array with all the methods of the specified class
+     * @param c The class specified
+     * @param inclusiveModifiers An int indicating the {@link Modifier}s that may be applied
+     * @param exclusiveModifiers An int indicating the {@link Modifier}s that must be excluded
+     * @param limitExclusive Methods from this class or higher in the hierarchy will not be returned
+     * @return The array of matched Methods
+     */
+    public static Method[] collectMethods(Class<?> c, int inclusiveModifiers, int exclusiveModifiers, Class<?> limitExclusive) {
         
         Set<Method> methods = new HashSet<Method>();
-        while (c != Object.class) {
+        while (c != limitExclusive) {
             for (Method f : c.getDeclaredMethods()) {
                 if (((f.getModifiers() & exclusiveModifiers) == 0)
                 		&& ((f.getModifiers() & inclusiveModifiers) == inclusiveModifiers)) {

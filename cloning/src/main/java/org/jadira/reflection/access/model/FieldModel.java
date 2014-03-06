@@ -71,6 +71,7 @@ public class FieldModel<C> {
      * already exists, it will be reused.
      * @param f The Field
      * @param fieldAccess The Field Access that can be used to introspect the field
+     * @param <C> The type of class being accessed
      * @return The Field Model
      */
     @SuppressWarnings("unchecked")

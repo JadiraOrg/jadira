@@ -22,6 +22,8 @@ import java.util.Arrays;
 import java.util.Deque;
 import java.util.IdentityHashMap;
 
+import org.jadira.reflection.access.api.ClassAccess;
+import org.jadira.reflection.access.api.FieldAccess;
 import org.jadira.reflection.core.misc.ClassUtils;
 
 /**
@@ -116,6 +118,7 @@ public final class UnsafeOperations {
 	/**
 	 * Construct and allocate on the heap an instant of the given class, without calling the class constructor
 	 * @param clazz Class to create instant for
+	 * @param <T> Type of the instance to be constructed
 	 * @return The new instance
 	 * @throws IllegalStateException Indicates a problem occurred
 	 */
@@ -144,6 +147,7 @@ public final class UnsafeOperations {
 	 * Performs a shallow copy of the given object - a new instance is allocated with the same contents. Any object
 	 * references inside the copy will be the same as the original object.
 	 * @param obj Object to copy
+	 * @param <T> The type being copied
 	 * @return A new instance, identical to the original
 	 */
 	public final <T> T shallowCopy(T obj) {
@@ -261,6 +265,7 @@ public final class UnsafeOperations {
 	 * The identity of referenced objects is preserved, so, for example, if the object graph contains two 
 	 * references to the same object, the cloned object will preserve this structure.
 	 * @param obj The object to perform a deep copy for.
+	 * @param <T> The type being copied
 	 * @return A deep copy of the original object.
 	 */
 	public <T> T deepCopy(final T obj) {
@@ -271,9 +276,10 @@ public final class UnsafeOperations {
 	 * Performs a deep copy of the object. With a deep copy all references from the object are also copied.
 	 * The identity of referenced objects is preserved, so, for example, if the object graph contains two 
 	 * references to the same object, the cloned object will preserve this structure.
-	 * @param obj The object to perform a deep copy for.
+	 * @param o The object to perform a deep copy for.
 	 * @param referencesToReuse An identity map of references to reuse - this is further populated as the copy progresses.
 	 * The key is the original object reference - the value is the copied instance for that original.
+	 * @param <T> The type being copied
 	 * @return A deep copy of the original object.
 	 */
 	public <T> T deepCopy(final T o, IdentityHashMap<Object, Object> referencesToReuse) {
@@ -333,16 +339,24 @@ public final class UnsafeOperations {
 
 							referencesToReuse.put(objectInput, objectResult);
 
-							for (@SuppressWarnings("rawtypes") UnsafeFieldAccess f : classAccess.getFieldAccessors()) {
-								if (f.fieldClass().isPrimitive()) {
-									copyPrimitiveAtOffset(objectInput, objectResult, f.fieldClass(), f.fieldOffset());
-								} else if (stack == null) {
-									deepCopyObjectAtOffset(objectInput, objectResult, f.fieldClass(), f.fieldOffset(), referencesToReuse);
-								} else {
-									@SuppressWarnings({ "unchecked", "rawtypes" })
-									final WorkItem item = new WorkItem(objectInput, objectResult, f);
-									stack.addFirst(item);
+							ClassAccess<?> classInHierarchy = classAccess;
+							
+							while (!classInHierarchy.getType().equals(java.lang.Object.class)) {
+							
+								for (FieldAccess<?> f : classInHierarchy.getDeclaredFieldAccessors()) {
+									
+									UnsafeFieldAccess<?> uf = (UnsafeFieldAccess<?>)f;
+									if (f.fieldClass().isPrimitive()) {
+										copyPrimitiveAtOffset(objectInput, objectResult, f.fieldClass(), uf.fieldOffset());
+									} else if (stack == null) {
+										deepCopyObjectAtOffset(objectInput, objectResult, f.fieldClass(), uf.fieldOffset(), referencesToReuse);
+									} else {
+										@SuppressWarnings({ "unchecked", "rawtypes" })
+										final WorkItem item = new WorkItem(objectInput, objectResult, uf);
+										stack.addFirst(item);
+									}
 								}
+							classInHierarchy = classInHierarchy.getSuperClassAccess();
 							}
 						}
 					}
@@ -420,7 +434,7 @@ public final class UnsafeOperations {
 	/**
 	 * Copies the object of the specified type from the given field in the source object 
 	 * to the same field in the copy, visiting the object during the copy so that its fields are also copied
-	 * @param source The object to copy from
+	 * @param obj The object to copy from
 	 * @param copy The target object
 	 * @param field Field to be copied
 	 */	
@@ -468,7 +482,7 @@ public final class UnsafeOperations {
 	/**
 	 * Copies the array of the specified type from the given field in the source object 
 	 * to the same field in the copy, visiting the array  during the copy so that its contents are also copied
-	 * @param source The object to copy from
+	 * @param obj The object to copy from
 	 * @param copy The target object
 	 * @param field Field to be copied
 	 * @param referencesToReuse An identity map of references to reuse - this is further populated as the copy progresses.
@@ -482,7 +496,7 @@ public final class UnsafeOperations {
 	/**
 	 * Copies the array of the specified type from the given field in the source object 
 	 * to the same field in the copy, visiting the array  during the copy so that its contents are also copied
-	 * @param source The object to copy from
+	 * @param obj The object to copy from
 	 * @param copy The target object
 	 * @param field Field to be copied
 	 */	
@@ -496,7 +510,7 @@ public final class UnsafeOperations {
 	 * The identity of referenced objects is preserved, so, for example, if the object graph contains two 
 	 * references to the same object, the cloned object will preserve this structure.
 	 * @param arrayOriginal The array to perform a deep copy for.
-	 * @param referencesToReuse An identity map of references to reuse - this is further populated as the copy progresses.
+	 * @param visited An identity map of references to reuse - this is further populated as the copy progresses.
 	 * The key is the original object reference - the value is the copied instance for that original.
 	 * @return A deep copy of the original array.
 	 */
@@ -564,7 +578,7 @@ public final class UnsafeOperations {
 
 	/**
 	 * Determines the shallow memory size of the given object (object or array)
-	 * @param clazz The object instance to calculate the shallow size for
+	 * @param obj The object instance to calculate the shallow size for
 	 * @return Size in bytes
 	 */
 	public final long shallowSizeOf(Object obj) {
@@ -650,7 +664,7 @@ public final class UnsafeOperations {
 
 	/**
 	 * Determines the deep memory size of the given object (object or array), visiting all its references
-	 * @param clazz The object instance to calculate the deep size for
+	 * @param o The object instance to calculate the deep size for
 	 * @return Size in bytes
 	 */
 	public final long deepSizeOf(Object o) {
