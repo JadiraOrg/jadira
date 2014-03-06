@@ -21,7 +21,7 @@
 	<parent>
 		<groupId>org.jadira.framework</groupId>
 		<artifactId>jadira.parent</artifactId>
-		<version>3.1.0.GA-SNAPSHOT</version>
+		<version>3.1.0.CR11</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -107,18 +107,18 @@
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR11</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.spi</artifactId>
-			<version>3.1.0.GA-SNAPSHOT</version>
+			<version>3.1.0.CR11</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
@@ -206,14 +206,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                <property name="compile_classpath" refid="maven.compile.classpath" />
                                 <exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
-                                    <arg value="-Dretrolambda.bytecodeVersion=51"/>
-                                    <arg value="-Dretrolambda.inputDir=${project.build.outputDirectory}"/>
-                                    <arg value="-Dretrolambda.classpath=${compile_classpath}"/>
-                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar"/>
-                                    <arg value="-jar"/>
-                                    <arg value="${project.build.directory}/retrolambda.jar"/>
+                                    <arg value="-Dretrolambda.bytecodeVersion=51" />
+                                    <arg value="-Dretrolambda.inputDir=${project.build.outputDirectory}" />
+                                    <arg value="-Dretrolambda.classpath=${compile_classpath}" />
+                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar" />
+                                    <arg value="-jar" />
+                                    <arg value="${project.build.directory}/retrolambda.jar" />
                                 </exec>
                             </target>
                         </configuration>
@@ -226,14 +226,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <property name="test_classpath" refid="maven.test.classpath"/>
+                                <property name="test_classpath" refid="maven.test.classpath" />
                                 <exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
-                                    <arg value="-Dretrolambda.bytecodeVersion=51"/>
-                                    <arg value="-Dretrolambda.inputDir=${project.build.testOutputDirectory}"/>
-                                    <arg value="-Dretrolambda.classpath=${test_classpath}"/>
-                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar"/>
-                                    <arg value="-jar"/>
-                                    <arg value="${project.build.directory}/retrolambda.jar"/>
+                                    <arg value="-Dretrolambda.bytecodeVersion=51" />
+                                    <arg value="-Dretrolambda.inputDir=${project.build.testOutputDirectory}" />
+                                    <arg value="-Dretrolambda.classpath=${test_classpath}" />
+                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar" />
+                                    <arg value="-jar" />
+                                    <arg value="${project.build.directory}/retrolambda.jar" />
                                 </exec>
                             </target>
                         </configuration>
