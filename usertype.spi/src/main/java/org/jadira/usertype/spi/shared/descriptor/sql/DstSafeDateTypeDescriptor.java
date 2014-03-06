@@ -15,6 +15,7 @@
  */
 package org.jadira.usertype.spi.shared.descriptor.sql;
 
+import java.sql.CallableStatement;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,6 +74,22 @@ public class DstSafeDateTypeDescriptor extends DateTypeDescriptor {
 					return javaTypeDescriptor.wrap(rs.getDate(name), options);
 				} else {
 					return javaTypeDescriptor.wrap(rs.getDate(name, cal), options);	
+				}
+			}
+			
+			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					return javaTypeDescriptor.wrap(statement.getDate(index), options);
+				} else {
+					return javaTypeDescriptor.wrap(statement.getDate(index, cal), options);	
+				}
+			}
+
+			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					return javaTypeDescriptor.wrap(statement.getDate(name), options);
+				} else {
+					return javaTypeDescriptor.wrap(statement.getDate(name, cal), options);	
 				}
 			}
 		};

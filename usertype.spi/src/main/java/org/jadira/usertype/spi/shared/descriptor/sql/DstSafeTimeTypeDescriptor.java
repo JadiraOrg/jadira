@@ -15,6 +15,7 @@
  */
 package org.jadira.usertype.spi.shared.descriptor.sql;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,6 +75,22 @@ public class DstSafeTimeTypeDescriptor extends TimeTypeDescriptor {
 					return javaTypeDescriptor.wrap(rs.getTime(name), options);
 				} else {
 					return javaTypeDescriptor.wrap(rs.getTime(name, cal), options);	
+				}
+			}
+			
+			protected X doExtract(CallableStatement statement, int index, WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					return javaTypeDescriptor.wrap(statement.getTime(index), options);
+				} else {
+					return javaTypeDescriptor.wrap(statement.getTime(index, cal), options);	
+				}
+			}
+
+			protected X doExtract(CallableStatement statement, String name, WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					return javaTypeDescriptor.wrap(statement.getTime(name), options);
+				} else {
+					return javaTypeDescriptor.wrap(statement.getTime(name, cal), options);	
 				}
 			}
 		};
