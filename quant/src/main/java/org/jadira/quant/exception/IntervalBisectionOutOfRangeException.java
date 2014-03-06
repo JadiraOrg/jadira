@@ -27,8 +27,8 @@ public class IntervalBisectionOutOfRangeException extends RuntimeException {
 
 	/**
      * Constructs an {@code IntervalBisectionOutOfRangeException} for the given input values.
-     * @param message The detail message (which is saved for later retrieval by the
-     *            {@link #getMessage()} method)
+     * @param lowerRange The requested lower range for the failed bisection
+     * @param upperRange The requested upper range for the failed bisection
      */
     public IntervalBisectionOutOfRangeException(double lowerRange, double upperRange) {
         super("The BisectionInterval cannot be found for the inputs {" + lowerRange + ", " + upperRange + "}");
