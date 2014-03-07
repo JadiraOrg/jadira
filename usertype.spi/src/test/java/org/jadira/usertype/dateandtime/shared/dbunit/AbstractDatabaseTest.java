@@ -29,15 +29,12 @@ import org.junit.Before;
  * <ul>
  * <li>Create/destroy the entity manager factory before/after class</li>
  * <li>Clear the database table before each test</li>
- * <li>Provides methods to</li>
- * <ul>
- * <li>Find entities by primary key</li>
- * <li>Persist entities</li>
+ * <li>Provides methods to: Find entities by primary key and Persist entities</li>
  * </ul>
- * </ul>
- * <p/>
+ * <p>
  * Implementing test classes has to set the generic parameter T of the used entity
  * and pass T's class to the parent constructor.
+ * </p>
  */
 public abstract class AbstractDatabaseTest<T extends Serializable> extends DatabaseCapable {
 
