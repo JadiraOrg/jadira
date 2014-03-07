@@ -744,7 +744,7 @@
 						<plugin>
 							<groupId>org.codehaus.mojo</groupId> 
 							<artifactId>findbugs-maven-plugin</artifactId> 
-							<version>2.5.3</version>
+							<version>2.4.0</version> <!-- skip 2.5.1, 2.5.2 and 2.5.3 doesn't work -->
 							<configuration>
 								 <!-- <includeFilterFile>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/findbugs.xml</includeFilterFile> -->
 							</configuration>
