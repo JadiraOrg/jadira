@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 		
-  Copyright 2010, 2011, 2012, 2013 Christopher Pheby
+  Copyright 2010, 2011-2014 Christopher Pheby
 		
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,6 +28,19 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
+
+		<release version="3.1.0.CR11" date="06-03-2014" description="Final Candidate Release for 3.1.0">
+			<action dev="Chris Pheby" issue="JDF-72" type="add">Java 8 JSR-310 user types support (without backport)</action>
+			<action dev="Chris Pheby" issue="JDF-62" type="add">Add an AsmCloneStrategy</action>
+			<action dev="Chris Pheby" issue="JDF-63" type="update">Refactor Cloning to support additional Object walking use cases</action>
+			<action dev="Chris Pheby" issue="JDF-64" type="add">Add equals implementation to Cloning module</action>
+			<action dev="Chris Pheby" issue="JDF-65" type="add">Add hashCode implementation to Cloning module</action>
+			<action dev="Chris Pheby" issue="JDF-67" type="update">Make reference tracking optional and provide an alternative mechanism for avoiding stackoverflow in cloning</action>
+			<action dev="Chris Pheby" issue="JDF-68" type="add">Add concept of @Flat (like Fast Serialization) to Cloning</action>
+			<action dev="Chris Pheby" issue="JDF-73" type="fix">Fmpp Maven Plugin now uses Annotations rather than Javadoc Tags</action>
+			<action dev="Chris Pheby" type="update">Update to Hibernate 4.3.4</action>
+			<action dev="Chris Pheby" type="update">Javadoc now generated using JDK 8</action>
+		</release>
 		
 		<release version="3.1.0.CR10" date="30-11-2013" description="Fixes and Updates">
 			<action dev="Chris Pheby" issue="JDF-70" type="fix">Fix auto-registration for JBoss Wildfly</action>

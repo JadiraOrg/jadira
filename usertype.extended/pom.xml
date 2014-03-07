@@ -206,14 +206,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <property name="compile_classpath" refid="maven.compile.classpath"/>
+                                <property name="compile_classpath" refid="maven.compile.classpath" />
                                 <exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
-                                    <arg value="-Dretrolambda.bytecodeVersion=51"/>
-                                    <arg value="-Dretrolambda.inputDir=${project.build.outputDirectory}"/>
-                                    <arg value="-Dretrolambda.classpath=${compile_classpath}"/>
-                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar"/>
-                                    <arg value="-jar"/>
-                                    <arg value="${project.build.directory}/retrolambda.jar"/>
+                                    <arg value="-Dretrolambda.bytecodeVersion=51" />
+                                    <arg value="-Dretrolambda.inputDir=${project.build.outputDirectory}" />
+                                    <arg value="-Dretrolambda.classpath=${compile_classpath}" />
+                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar" />
+                                    <arg value="-jar" />
+                                    <arg value="${project.build.directory}/retrolambda.jar" />
                                 </exec>
                             </target>
                         </configuration>
@@ -226,14 +226,14 @@
                         </goals>
                         <configuration>
                             <target>
-                                <property name="test_classpath" refid="maven.test.classpath"/>
+                                <property name="test_classpath" refid="maven.test.classpath" />
                                 <exec executable="${env.JAVA_HOME}/bin/java" failonerror="true">
-                                    <arg value="-Dretrolambda.bytecodeVersion=51"/>
-                                    <arg value="-Dretrolambda.inputDir=${project.build.testOutputDirectory}"/>
-                                    <arg value="-Dretrolambda.classpath=${test_classpath}"/>
-                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar"/>
-                                    <arg value="-jar"/>
-                                    <arg value="${project.build.directory}/retrolambda.jar"/>
+                                    <arg value="-Dretrolambda.bytecodeVersion=51" />
+                                    <arg value="-Dretrolambda.inputDir=${project.build.testOutputDirectory}" />
+                                    <arg value="-Dretrolambda.classpath=${test_classpath}" />
+                                    <arg value="-javaagent:${project.build.directory}/retrolambda.jar" />
+                                    <arg value="-jar" />
+                                    <arg value="${project.build.directory}/retrolambda.jar" />
                                 </exec>
                             </target>
                         </configuration>
