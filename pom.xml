@@ -384,7 +384,7 @@
 		        <extension>
 		            <groupId>org.apache.maven.wagon</groupId>
 		            <artifactId>wagon-ssh</artifactId>
-		            <version>2.6</version>
+		            <version>2.5</version> <!-- 2.6 does not work -->
 		        </extension>
     		</extensions>
 	
@@ -907,6 +907,7 @@
 	<modules>
 		<module>depmgmt</module>
 		<module>maven</module>
+		<!-- lang -->
 		<module>scanner</module>
 		<module>cloning</module>
 		<module>bindings</module>
