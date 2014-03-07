@@ -36,9 +36,6 @@ public class BasicBinderTest {
 
     private static final Binder BINDER = new BasicBinder();
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.binder.BasicBinder#convertTo(java.lang.Object)}.
-     */
     @Test
     public void testConvertToString() {
 
@@ -49,34 +46,22 @@ public class BasicBinderTest {
         assertEquals("Test:MARSHALLED_BY_A", BINDER.convertTo(SubjectC.class, String.class, sub));
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#convertToString(java.lang.Object, java.lang.Class)}.
-     */
     @Test
     public void testConvertToStringWithQualifier() {
         SubjectD sub = new SubjectD("Test");
         assertEquals("Test:MARSHALLED_BY_A", BINDER.convertTo(SubjectD.class, String.class, sub, Narrow.class));
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#convertFromString(java.lang.Class, java.lang.String)}.
-     */
     @Test
     public void testConvertFromString() {
         assertEquals(new SubjectD("Test"), BINDER.convertTo(String.class, SubjectD.class, "Test:MARSHALLED_BY_B"));
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#convertFromString(java.lang.Class, java.lang.String, java.lang.Class)}.
-     */
     @Test
     public void testConvertFromStringWithQualifier() {
         assertEquals(new SubjectD("Test"), BINDER.convertTo(String.class, SubjectD.class, "Test", Narrow.class));
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.binder.BasicBinder#findBinding(java.lang.Class, java.lang.Class)}.
-     */
     @Test
     public void testFindBinding() {
         Binding<SubjectD, String> match = BINDER.findBinding(SubjectD.class, String.class);
@@ -86,9 +71,6 @@ public class BasicBinderTest {
         assertEquals(AtomicBooleanStringBinding.class, match2.getClass());
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#findBinding(java.lang.Class, java.lang.Class)}.
-     */
     @Test
     public void testFindBindingWithQualifier() {
         Binding<SubjectD, String> match = BINDER.findBinding(SubjectD.class, String.class, Narrow.class);
@@ -98,9 +80,6 @@ public class BasicBinderTest {
         assertEquals(AtomicBooleanStringBinding.class, match2.getClass());
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#findMarshaller(java.lang.Class)}.
-     */
     @Test
     public void testFindMarshaller() {
         ToMarshaller<SubjectD, String> match = BINDER.findMarshaller(SubjectD.class, String.class);
@@ -110,9 +89,6 @@ public class BasicBinderTest {
         assertEquals(AtomicBooleanStringBinding.class, match2.getClass());
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#findMarshaller(java.lang.Class, java.lang.Class)}.
-     */
     @Test
     public void testFindMarshallerWithQualifier() {
         ToMarshaller<SubjectD, String> match = BINDER.findMarshaller(SubjectD.class, String.class, Narrow.class);
@@ -122,9 +98,6 @@ public class BasicBinderTest {
         assertEquals(AtomicBooleanStringBinding.class, match2.getClass());
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#findUnmarshaller(java.lang.Class)}.
-     */
     @Test
     public void testFindUnmarshaller() {
         FromUnmarshaller<SubjectD, String> match = BINDER.findUnmarshaller(SubjectD.class, String.class);
@@ -134,9 +107,6 @@ public class BasicBinderTest {
         assertEquals(AtomicBooleanStringBinding.class, match2.getClass());
     }
 
-    /**
-     * Test method for {@link org.jadira.bindings.core.BasicStringBinder#findUnmarshaller(java.lang.Class, java.lang.Class)}.
-     */
     @Test
     public void testFindUnmarshallerWithQualifier() {
         FromUnmarshaller<SubjectD, String> match = BINDER.findUnmarshaller(SubjectD.class, String.class, Narrow.class);
