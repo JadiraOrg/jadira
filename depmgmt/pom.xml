@@ -114,7 +114,7 @@
 			<dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
-				<version>3.16.1-GA</version>
+				<version>3.18.1-GA</version>
 				<scope>runtime</scope>
 				<optional>true</optional>
 			</dependency>
@@ -234,9 +234,9 @@
 				</exclusions>
 		        </dependency>
 			<dependency>
-				<groupId>org.jboss.jbossts.jta</groupId>
-				<artifactId>narayana-jta</artifactId>
-				<version>4.17.4.Final</version>
+				<groupId>org.jboss.narayana.jta</groupId>
+				<artifactId>narayana-jta-all</artifactId>
+				<version>5.0.1.Final</version>
 				<scope>test</scope>
 			</dependency>	
 
@@ -436,7 +436,7 @@
 			<dependency>
 				<groupId>org.ow2.asm</groupId>
 				<artifactId>asm-all</artifactId>
-				<version>4.1</version>
+				<version>4.2</version>
 			</dependency>
 			
 		</dependencies>
