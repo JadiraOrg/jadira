@@ -71,6 +71,131 @@ private LocalDateTime dateTime;
 private OffsetDateTime startDateTime;
 		]]></pre>
 			</subsection>
+			
+			<subsection name="Temporal Types">
+				<p>
+					Temporal types supported by Jadira include JSR 310 with Java 8, ThreeTen Backport,
+					Joda Time and the legacy JDK Date and Time types. The support for Java 8 temporal
+					types does not use setObject currently, so it does not require a JDBC 4.2 driver.
+				</p>
+			</subsection>
+			
+			<subsection name="Types Qualified by a Zone">
+				<p>
+					Many types have a logical zone associated with them. Jadira makes it possible
+					to configure what zone you want to use when you inflate these types from the 
+					database, and also what zone to use. You do this by setting parameters on the
+					type. Consult the Javadoc for individual types
+					to review the available options. For most types, Jadira defaults to using UTC
+					in the database, and the JVM zone in the application. The following gives an example
+					of setting the zone for PersistentDateTime:
+				</p>
+				<pre><![CDATA[
+@Column
+@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime",
+	parameters = { @Parameter(name = "databaseZone", value = "UTC"),
+         @Parameter(name = "javaZone", value = "jvm")})
+private DateTime dateTime;
+					]]></pre>
+			</subsection>
+
+			<subsection name="Money Types">
+				<p>
+					Money Types typically consist of a currency and amount. Jadira makes it possible to 
+					store only the amount to the database with the currency configured using a parameter.
+					For example:
+				</p>
+				<pre><![CDATA[
+@Column
+@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount",
+	parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "USD")})
+private DateTime dateTime;
+					]]></pre>
+				<p>
+					Alternatively, with other types two columns to hold the amount an currency:
+				</p>
+				<pre><![CDATA[
+@Columns(columns = { @Column(name = "MY_CURRENCY"), @Column(name = "MY_AMOUNT") })
+@Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmountAndCurrency")
+private DateTime dateTime;
+					]]></pre>
+			</subsection>
+			
+			<subsection name="JDK Enums">
+				<p>
+					Jadira provides PersistentEnum that can map any arbitray enum. The following gives an example:
+				</p>
+				<pre><![CDATA[
+@Columns(columns = { @Column(name = "MY_CURRENCY"), @Column(name = "MY_AMOUNT") })
+@Type(type = "org.jadira.usertype.corejava.PersistentEnum",
+	parameters = {@Parameter(name = "enumClass", value = "my.EnumType"),
+	{@Parameter(name = "identifierMethod", value = "name"),
+	{@Parameter(name = "valueOfMethod", value = "valueOf")})
+private EnumType enum;
+					]]></pre>
+				<p>
+					You don't need to specify identifierMethod or valueOfMethod if you are happy with the defaults
+					of name() and valueOf().
+				</p>
+			</subsection>
+			
+			<subsection name="Other Types">
+				<p>
+					Jadira aims to provide all the type primitives necessary to bootstrap building a rich,
+					typesafe domain model. For example, it also supports other types, including Country Codes and Libphonenumber.
+					Refer to the Javadoc for each class.
+				</p>
+			</subsection>
+			
+			<subsection name="Global Configuration Options">
+				<p>
+					Jadira provides Global Configuration options that can reduce the verbosity of your mapping. For example:
+				</p>
+				<pre><![CDATA[
+<persistence-unit ...>
+	<properties>
+		
+		...
+		
+		<!-- Integrator and globalised configuration functionality  -->
+					
+		<property name="jadira.usertype.autoRegisterUserTypes" value="true" />
+		<property name="jadira.usertype.javaZone" value="UTC" />
+		<property name="jadira.usertype.databaseZone" value="UTC" />
+				
+	</properties>
+</persistence-unit>
+					]]></pre>
+				<p>
+					These are configured as JPA properties or Hibernate properties. 
+					
+					'jadira.usertype.javaZone' and 'jadira.usertype.databaseZone' provide defaults for Java and Database timezones,
+					saving you from needing to specify these as parameters on your usertypes.
+					
+					'jadira.usertype.currencyCode' can be used to specify the default currency code to use when persisting unqualified
+					monetary values.
+					
+					'jadira.usertype.seed' can be used to specify a Hibernate Seed to be used for generating Timestamps used for versioning.
+					Jadira provides two implementations of a seed - DbTimestampSeed which acquires the value from the database and JvmTimestampSeed 
+					which uses the local JVM. These types address zoning differences correctly.
+										
+					'jadira.usertype.autoRegisterUserTypes' is
+					used to autoregister the most commonly used types. This means for any of the autoregistered types you do not
+					need to supply a type annotation. For the full list of supported types, review the subclasses 
+					of 'AbstractUserTypeHibernateIntegrator'.
+				</p>
+			</subsection>
+			
+			<subsection name="JPA Repositories">
+				<p>
+					Jadira provides typesafe repository implementations (JpaBaseRepository and JpaSearchRepository) for read/write and read-only
+					requirements respectively. Simply provide and use a concrete subclass parameterized with your types - no further implementation
+					is required.
+					
+					These repositories are especially useful when propagating entities across tiers as they detect when merges and persist requests
+					are required, freeing the application developer from these concerns.
+				</p>
+			</subsection>
 
 		</section>
 
