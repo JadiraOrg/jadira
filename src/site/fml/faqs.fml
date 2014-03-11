@@ -7,8 +7,13 @@
   <part id="background"> 
     
     <faq id="dateTimeOffsetting">
-      <question>What is the Date and Time offsetting problem</question> 
+      <question>What is the Date and Time offsetting problem?</question> 
       <answer>Details are available at the <a href="http://blog.jadira.co.uk/blog/2010/5/1/javasqldate-types-and-the-offsetting-problem.html">Jadira Blog</a></answer>
+    </faq>
+    
+    <faq id="mysql">
+          <question>My date and time are being offset incorrectly on MySQL</question> 
+          <answer>First ensure you are using MySQL driver version 5.1.5 or later. Set the connection property 'useLegacyDatetimeCode=false'. For example, 'jdbc:mysql://server:port/schema?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=UTC'.</answer>
     </faq>
    
   </part> 
