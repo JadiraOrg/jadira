@@ -29,66 +29,44 @@
 
 		<!-- types are add, fix, remove, update -->
 
-		<release version="3.1.0.CR11" date="06-03-2014" description="Final Candidate Release for 3.1.0">
+		<release version="3.1.0.GA" date="11-03-2014" description="Cloning Library, JSR310 (Java 8) & ThreeTen Backport, New Types, Better Zoning">
 			<action dev="Chris Pheby" issue="JDF-72" type="add">Java 8 JSR-310 user types support (without backport)</action>
 			<action dev="Chris Pheby" issue="JDF-62" type="add">Add an AsmCloneStrategy</action>
-			<action dev="Chris Pheby" issue="JDF-63" type="update">Refactor Cloning to support additional Object walking use cases</action>
+			<action dev="Chris Pheby" issue="JDF-59" type="add">Implementation of Jadira Cloning library</action>
 			<action dev="Chris Pheby" issue="JDF-64" type="add">Add equals implementation to Cloning module</action>
 			<action dev="Chris Pheby" issue="JDF-65" type="add">Add hashCode implementation to Cloning module</action>
-			<action dev="Chris Pheby" issue="JDF-67" type="update">Make reference tracking optional and provide an alternative mechanism for avoiding stackoverflow in cloning</action>
 			<action dev="Chris Pheby" issue="JDF-68" type="add">Add concept of @Flat (like Fast Serialization) to Cloning</action>
-			<action dev="Chris Pheby" issue="JDF-73" type="fix">Fmpp Maven Plugin now uses Annotations rather than Javadoc Tags</action>
-			<action dev="Chris Pheby" type="update">Update to Hibernate 4.3.4</action>
-			<action dev="Chris Pheby" type="update">Javadoc now generated using JDK 8</action>
-		</release>
-		
-		<release version="3.1.0.CR10" date="30-11-2013" description="Fixes and Updates">
-			<action dev="Chris Pheby" issue="JDF-70" type="fix">Fix auto-registration for JBoss Wildfly</action>
-		</release>
-		
-		<release version="3.1.0.CR9" date="24-11-2013" description="Fixes and Updates">
-			<action dev="Chris Pheby" type="fix">New implementation for databaseZone that uses the overloaded set/getTimestamp methods in JDBC</action>
-			<action dev="Chris Pheby" issue="JDF-59" type="fix">JDF-69 Fix issues with DST transition. Thanks to Matt Drees, Victor Volle and Dennis Brakhane</action>
-			<action dev="Chris Pheby" type="add">Add PersistentDateTimeAsUtcString. Thanks to DWijnand</action>
-		</release>
-		
-		<release version="3.1.0.CR8" date="24-06-2013" description="Object Deep Cloning">
-			<action dev="Chris Pheby" issue="JDF-59" type="add">Initial implementation of Jadira Cloning library</action>
-		</release>
-
-		<release version="3.1.0.CR7" date="07-06-2013" description="Fixes and Updates">
-			<action dev="Chris Pheby" issue="JDF-53" type="add">Add implementation of the IntervalBisection algoithm</action>
+			<action dev="Chris Pheby" issue="JDF-53" type="add">Add implementation of the IntervalBisection algorithm</action>
 			<action dev="Chris Pheby" issue="JDF-57" type="add">Add an FMPP Maven Plugin</action>
+			<action dev="Chris Pheby" issue="JDF-25" type="add">usertype.extended and Threenten project synchronization</action>
+			<action dev="Chris Pheby" issue="JDF-32" type="add">Add Classpath Introspection capability</action>
+			<action dev="Chris Pheby" issue="JDF-31" type="add">Create Dependency Management Pom.xml</action>
+			<action dev="Chris Pheby" type="add">Add PersistentDateTimeAsUtcString. Thanks to DWijnand</action>
+			<action dev="Chris Pheby" issue="JDF-46" type="add">Add PersistentMinutes mapping for Joda Time</action>
+			<action dev="Chris Pheby" issue="JDF-42" type="add">Adding Oracle Profile to Verify Timezone Handling on Oracle</action>
+			<action dev="Chris Pheby" issue="JDF-63" type="update">Refactor Cloning to support additional Object walking use cases</action>
+			<action dev="Chris Pheby" issue="JDF-67" type="update">Make reference tracking optional and provide an alternative mechanism for avoiding stackoverflow in cloning</action>
 			<action dev="Chris Pheby" issue="JDF-58" type="update">Organise tests into suite to accelerate test execution</action>
-			<action dev="Chris Pheby" issue="JDF-55" type="fix">Apply Sonar Ruleset Compliance</action>
-			<action dev="Chris Pheby" issue="JDF-56" type="fix">Better warning for non-static methods with heuristic types</action>
-		</release>
-
-		<release version="3.1.0.CR6" date="12-05-2013" description="Fixes and Updates">
 			<action dev="Chris Pheby" issue="JDF-50" type="update">Remove Maven Eclipse and Idea Plugins</action>
 			<action dev="Chris Pheby" issue="JDF-51" type="update">Switch to Github for Source Code Hosting</action>
 			<action dev="Chris Pheby" issue="JDF-52" type="update">Update to Hibernate 4.2.x</action>
-		</release>
-
-		<release version="3.1.0.CR5" date="03-05-2013" description="Support databaseZone with multicolumn types">
 			<action dev="Chris Pheby" issue="JDF-49" type="update">DatabaseZone parameter can be applied to multicolumn types</action>
-		</release>
-		
-		<release version="3.1.0.CR4" date="29-04-2013" description="New Approach for the Date and Time Mapping">
-			<action dev="Chris Pheby" issue="JDF-47" type="fix">Update Joda Mapping for Date and Time types</action>
-			<action dev="Chris Pheby" issue="JDF-48" type="fix">Resolved entities with multiple LocalDateTime fields are retrieved with incorrect values</action>
-		</release>
-		
-		<release version="3.1.0.CR3" date="28-04-2013" description="New Approach for the Timestamp Mapping &amp; ThreeTenBP 0.8.1">
 			<action dev="Chris Pheby" issue="JDF-44" type="update">Update to ThreeTen Backport 0.8.1</action>
-			<action dev="Chris Pheby" issue="JDF-45" type="fix">Update Joda Mapping to use direct millisecond value</action>
-			<action dev="Chris Pheby" issue="JDF-46" type="add">Add PersistentMinutes mapping for Joda Time</action>
-		</release>
-
-		<release version="3.1.0.CR2" date="24-03-2013" description="Support Joda Time 2.2 and incremental bugfixes">
-			<action dev="Chris Pheby" issue="JDF-42" type="add">Adding Oracle Profile to Verify Timezone Handling on Oracle</action>
 			<action dev="Chris Pheby" issue="JDF-35" type="update">Update Bindings to Use Method Handle. Also introduces a dependency on Java 7 or later (for bindings module)</action>
 			<action dev="Chris Pheby" issue="JDF-38" type="update">Update to Joda Money 0.8 and Joda Time 2.2</action>
+			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for Joda's PersistentInstant</action>
+			<action dev="Chris Pheby" issue="JDF-30" type="update">Remove use of Spring API deprecated in 3.1+</action>
+			<action dev="Chris Pheby" issue="JDF-73" type="fix">Fmpp Maven Plugin now uses Annotations rather than Javadoc Tags</action>
+			<action dev="Chris Pheby" type="update">Update to Hibernate 4.3.4</action>
+			<action dev="Chris Pheby" type="update">Javadoc now generated using JDK 8</action>
+			<action dev="Chris Pheby" issue="JDF-70" type="fix">Fix auto-registration for JBoss Wildfly</action>
+			<action dev="Chris Pheby" type="fix">New implementation for databaseZone that uses the overloaded set/getTimestamp methods in JDBC</action>
+			<action dev="Chris Pheby" issue="JDF-59" type="fix">JDF-69 Fix issues with DST transition. Thanks to Matt Drees, Victor Volle and Dennis Brakhane</action>
+			<action dev="Chris Pheby" issue="JDF-55" type="fix">Apply Sonar Ruleset Compliance</action>
+			<action dev="Chris Pheby" issue="JDF-56" type="fix">Better warning for non-static methods with heuristic types</action>
+			<action dev="Chris Pheby" issue="JDF-47" type="fix">Update Joda Mapping for Date and Time types</action>
+			<action dev="Chris Pheby" issue="JDF-48" type="fix">Resolved entities with multiple LocalDateTime fields are retrieved with incorrect values</action>
+			<action dev="Chris Pheby" issue="JDF-45" type="fix">Update Joda Mapping to use direct millisecond value</action>
 			<action dev="Chris Pheby" issue="JDF-33" type="fix">Correct service loader configuration for Bindings</action>
 			<action dev="Chris Pheby" issue="JDF-34" type="fix">Retrieving classes in package should not return inner classes</action>			
 			<action dev="Chris Pheby" issue="JDF-36" type="fix">PersistentEnum does not convert constants in HQL Queries. Resolution proposed by Adriano Machado</action>
@@ -96,16 +74,8 @@
 			<action dev="Chris Pheby" issue="JDF-39" type="fix">Work around JDK Compilation Guard</action>
 			<action dev="Chris Pheby" issue="JDF-40" type="fix">Fix error in JpaBaseRepository</action>
 			<action dev="Chris Pheby" issue="JDF-41" type="fix">Printing not supported exception thrown in StringColumnLocalTimeMapper with Joda Time 2.2. Reported by Marko Lavikainen</action>			
-		</release>
-				
-		<release version="3.1.0.CR1" date="11-02-2013" description="Support for Threeten Backport and Classpath Introspection">
-			<action dev="Chris Pheby" issue="JDF-25" type="add">usertype.extended and Threenten project synchronization</action>
-			<action dev="Chris Pheby" issue="JDF-32" type="add">Add Classpath Introspection capability</action>
-			<action dev="Chris Pheby" issue="JDF-31" type="add">Create Dependency Management Pom.xml</action>
-			<action dev="Chris Pheby" issue="JDF-27" type="update">Zone is now configurable for Joda's PersistentInstant</action>
 			<action dev="Chris Pheby" issue="JDF-28" type="fix">For Joda's PersistentPeriodAsString, PeriodType is now persisted for Periods that are have a non-standard (i.e. not standard()) type. Reported by Phil at Inversebit</action>
 			<action dev="Chris Pheby" issue="JDF-29" type="fix">Correct Services Entry for Bindings</action>
-			<action dev="Chris Pheby" issue="JDF-30" type="update">Remove use of Spring API deprecated in 3.1+</action>
 		</release>
 		
 		<release version="3.0.0.GA" date="21-10-2012" description="New Types, (including for LibPhonenumber and Joda Money), Autoregistration, Hibernate 4, and Bugfixes">
