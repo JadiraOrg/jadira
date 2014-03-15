@@ -917,6 +917,8 @@
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
+		<module>usertype.spi-hibernate36</module>
+		<module>usertype.core-hibernate36</module>
 		<module>quant</module>
 	</modules>
 	
