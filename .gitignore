@@ -80,3 +80,16 @@ usertype.spi/usertype.spi.iml
 /cloning/.project
 /cloning/.settings
 /cloning/cloning.iml
+/usertype.spi-hibernate36/.classpath
+/usertype.spi-hibernate36/.project
+/usertype.spi-hibernate36/.externalToolBuilders
+/usertype.spi-hibernate36/.settings
+/usertype.spi-hibernate36/maven-eclipse.xml
+/usertype.spi-hibernate36/target
+/usertype.core-hibernate36/.checkstyle
+/usertype.core-hibernate36/.classpath
+/usertype.core-hibernate36/.project
+/usertype.core-hibernate36/maven-eclipse.xml
+/usertype.core-hibernate36/.externalToolBuilders
+/usertype.core-hibernate36/.settings
+/usertype.core-hibernate36/target
