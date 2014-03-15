@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <dateTimeZoneAsString ID="0" DATETIMEZONE="+04:00" NAME="test_0"/>
+  <dateTimeZoneAsString ID="1" DATETIMEZONE="UTC" NAME="test_1"/>
+  <dateTimeZoneAsString ID="2" NAME="test_2"/>
+</dataset>

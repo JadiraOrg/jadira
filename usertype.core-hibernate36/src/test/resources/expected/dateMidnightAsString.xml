@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <dateMidnightAsString ID="0" MY_DATE="2004-02-25" MY_OFFSET="+04:00" NAME="test_0"/>
+  <dateMidnightAsString ID="1" MY_DATE="1980-03-11" MY_OFFSET="UTC" NAME="test_1"/>
+  <dateMidnightAsString ID="2" NAME="test_2"/>
+</dataset>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <dateTimeAsString ID="0" MY_DATETIME="2004-056T08:11:10.000" MY_OFFSET="UTC" NAME="test_0"/>
+  <dateTimeAsString ID="1" MY_DATETIME="1980-071T13:12:11.500" MY_OFFSET="UTC" NAME="test_1"/>
+  <dateTimeAsString ID="2" NAME="test_2"/>
+</dataset>

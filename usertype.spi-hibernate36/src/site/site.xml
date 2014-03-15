@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Copyright 2010, 2011 Christopher Pheby
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+ -->
+<project xmlns="http://maven.apache.org/DECORATION/1.0.1"
+  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.1 http://maven.apache.org/xsd/decoration-1.0.1.xsd">
+	
+	<publishDate position="navigation-bottom" format="yyyy-MM-dd" />
+
+	<poweredBy>
+		<logo name="Hosted by SourceForge" href="http://www.sourceforge.net/" img="http://sourceforge.net/sflogo.php?group_id=16035&amp;type=1" />
+		<logo name="Built using Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-button-green.png" />
+		<logo name="Jadira Open Source" href="http://blog.jadira.co.uk/" img="../images/jadira-small.png" />
+	</poweredBy>
+
+	<body>
+		
+		<menu name="Documentation">
+			<item name="Overview" href="../index.html" />
+			<item name="Usertypes Guide" href="../usertype-userguide.html" />
+			<item name="Bindings Guide" href="../bindings-userguide.html" />
+			<item name="Javadoc (Release)" href="../apidocs/index.html" />
+			<item name="HowTo" href="../howto.html" />
+			<item name="Bugs and limitations" href="../limitation.html" />
+			<item name="FAQs" href="../faqs.html"/>
+			<item name="License" href="../licensecover.html" />
+			<item name="Release notes" href="../changes-report.html" />
+			<item name="Blog" href="http://blog.jadira.co.uk/" />
+		</menu>
+
+		<menu name="Development">
+			<item name="Sourceforge" href="http://sourceforge.net/projects/jadira/" />
+			<item name="Mailing lists" href="../mail-lists.html" />
+			<item name="Jira" href="http://jadira.atlassian.net/" />
+			<item name="Confluence" href="http://jadira.atlassian.net/wiki/" />
+			<item name="GitHub" href="https://github.com/JadiraOrg/jadira/" />
+			<item name="Jenkins" href="http://jenkins.jadira.co.uk/" />
+			<item name="Sonar" href="http://sonar.jadira.co.uk/" />
+			<item name="Maven Central" href="http://repo1.maven.org/maven2/org/jadira/" />
+		</menu>
+		
+
+		<menu ref="reports" />
+		
+	</body>
+
+	<skin>
+	        <groupId>com.googlecode.fluido-skin</groupId>
+	        <artifactId>fluido-skin</artifactId>
+	        <version>1.3</version>
+	</skin>
+	
+</project>

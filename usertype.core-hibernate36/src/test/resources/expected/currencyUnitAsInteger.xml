@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <currencyUnitAsInteger ID="0" CURRENCYUNIT="978" NAME="test_0"/>
+  <currencyUnitAsInteger ID="1" CURRENCYUNIT="840" NAME="test_1"/>
+  <currencyUnitAsInteger ID="2" CURRENCYUNIT="826" NAME="test_2"/>
+  <currencyUnitAsInteger ID="3" CURRENCYUNIT="682" NAME="test_3"/>
+  <currencyUnitAsInteger ID="4" NAME="test_4"/>
+</dataset>
