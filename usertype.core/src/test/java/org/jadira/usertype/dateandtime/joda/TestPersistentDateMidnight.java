@@ -25,6 +25,7 @@ import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
+@SuppressWarnings("deprecation")
 public class TestPersistentDateMidnight extends AbstractDatabaseTest<JodaDateMidnightHolder> {
 
     private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};

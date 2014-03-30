@@ -24,11 +24,12 @@ import org.joda.time.LocalDate;
 /**
  * Persist {@link DateMidnight} via Hibernate. The offset will be stored in an extra column.
  */
+@SuppressWarnings("deprecation")
 public abstract class AbstractMultiColumnDateMidnight extends AbstractMultiColumnUserType<DateMidnight> {
 
     private static final long serialVersionUID = 7061588330446583269L;
 
-    @Override
+	@Override
     protected DateMidnight fromConvertedColumns(Object[] convertedColumns) {
 
         LocalDate datePart = (LocalDate) convertedColumns[0];
@@ -51,7 +52,7 @@ public abstract class AbstractMultiColumnDateMidnight extends AbstractMultiColum
         return result;
     }
 
-    @Override
+	@Override
     protected Object[] toConvertedColumns(DateMidnight value) {
 
     	return new Object[] { value.toLocalDate(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };

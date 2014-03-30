@@ -23,6 +23,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("deprecation")
 public class TestPersistentDateMidnightAsString extends AbstractDatabaseTest<JodaDateMidnightAsStringHolder> {
 
     private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};

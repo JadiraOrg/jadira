@@ -23,7 +23,7 @@ import javax.persistence.EntityManager;
 import org.jadira.usertype.dateandtime.joda.testmodel.DurationJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDurationAsStringHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
-import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 import org.joda.time.LocalDateTime;
@@ -37,7 +37,7 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
         Duration.ZERO, 
         new Duration(30 * 1000), 
         new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
-        new Duration(new DateMidnight(2010, 4, 1, DateTimeZone.UTC).minusMonths(3), new DateMidnight(2010, 4, 1, DateTimeZone.UTC)) };
+        new Duration(new DateTime(2010, 4, 1, 0, 0, 0, DateTimeZone.UTC).minusMonths(3), new DateTime(2010, 4, 1, 0, 0, 0, DateTimeZone.UTC)) };
     
     public TestPersistentDurationAsString() {
     	super(TestJodaTimeSuite.getFactory());
