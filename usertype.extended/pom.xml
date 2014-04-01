@@ -54,6 +54,12 @@
 		</dependency>
 		
 		<dependency>
+		    <groupId>org.javamoney</groupId>
+		    <artifactId>moneta</artifactId>
+		    <optional>true</optional>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<optional>true</optional>
@@ -113,7 +119,6 @@
 			<groupId>org.jadira.usertype</groupId>
 			<artifactId>usertype.core</artifactId>
 			<version>3.1.1.GA-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jadira.usertype</groupId>

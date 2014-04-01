@@ -44,8 +44,8 @@ public class TestPersistentDurationAsString extends DatabaseCapable {
         org.joda.time.Duration.ZERO,
         new org.joda.time.Duration(30 * 1000),
         new org.joda.time.Period(0, 0, 30, 0).toDurationFrom(new org.joda.time.LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(org.joda.time.DateTimeZone.UTC)),
-        new org.joda.time.Duration(new org.joda.time.DateMidnight(
-                2010, 4, 1, org.joda.time.DateTimeZone.UTC).minusMonths(3), new org.joda.time.DateMidnight(2010, 4, 1, org.joda.time.DateTimeZone.UTC)) };
+        new org.joda.time.Duration(new org.joda.time.DateTime(
+                2010, 4, 1, 0, 0, 0, org.joda.time.DateTimeZone.UTC).minusMonths(3), new org.joda.time.DateTime(2010, 4, 1, 0, 0, 0, org.joda.time.DateTimeZone.UTC)) };
 
     private static EntityManagerFactory factory;
 
