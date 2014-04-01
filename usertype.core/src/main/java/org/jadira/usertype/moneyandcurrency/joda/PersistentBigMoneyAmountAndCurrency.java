@@ -17,8 +17,8 @@ package org.jadira.usertype.moneyandcurrency.joda;
 
 import java.math.BigDecimal;
 
-import org.jadira.usertype.moneyandcurrency.joda.columnmapper.BigDecimalBigDecimalColumnMapper;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyUnitMapper;
+import org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper.BigDecimalBigDecimalColumnMapper;
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.joda.money.BigMoney;

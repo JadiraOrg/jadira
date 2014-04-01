@@ -13,17 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.moneyandcurrency.joda;
+package org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper;
 
 import java.util.Currency;
 
-import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyMapper;
-import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 
-/**
- * Maps a {@link Currency} to and from String for Hibernate.
- */
-public class PersistentCurrency extends AbstractSingleColumnUserType<Currency, String, StringColumnCurrencyMapper> {
+public class StringColumnCurrencyMapper extends AbstractStringColumnMapper<Currency> {
 
-	private static final long serialVersionUID = -2015829087239519037L;
+    private static final long serialVersionUID = 4205713919952452881L;
+
+    @Override
+    public Currency fromNonNullValue(String s) {
+        return Currency.getInstance(s);
+    }
+
+    @Override
+    public String toNonNullValue(Currency value) {
+        return value.getCurrencyCode();
+    }
 }

@@ -13,31 +13,33 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
+package org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper;
 
-import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
+import java.math.BigDecimal;
 
-public class LongLongColumnMapper<T> extends AbstractLongColumnMapper<Long> {
+import org.jadira.usertype.spi.shared.AbstractBigDecimalColumnMapper;
 
-	private static final long serialVersionUID = 5643216342990842237L;
+public class BigDecimalBigDecimalColumnMapper extends AbstractBigDecimalColumnMapper<BigDecimal> {
+
+	private static final long serialVersionUID = -9337890199015880L;
 
 	@Override
-	public Long fromNonNullValue(Long value) {
+	public BigDecimal fromNonNullValue(BigDecimal value) {
 		return value;
 	}
 
 	@Override
-	public Long fromNonNullString(String s) {
-		return Long.parseLong(s);
+	public BigDecimal fromNonNullString(String s) {
+		return new BigDecimal(s);
 	}
 
 	@Override
-	public Long toNonNullValue(Long value) {
+	public BigDecimal toNonNullValue(BigDecimal value) {
 		return value;
 	}
 
 	@Override
-	public String toNonNullString(Long value) {
+	public String toNonNullString(BigDecimal value) {
 		return value.toString();
 	}
 }

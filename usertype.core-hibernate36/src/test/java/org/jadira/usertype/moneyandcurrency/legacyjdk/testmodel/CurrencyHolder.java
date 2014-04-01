@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.moneyandcurrency.joda.testmodel;
+package org.jadira.usertype.moneyandcurrency.legacyjdk.testmodel;
 
 import java.io.Serializable;
 import java.util.Currency;
@@ -25,7 +25,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.moneyandcurrency.joda.PersistentCurrency;
+import org.jadira.usertype.moneyandcurrency.legacyjdk.PersistentCurrency;
 
 @Entity
 @Table(name = "currency")

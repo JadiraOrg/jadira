@@ -31,6 +31,7 @@ import org.joda.time.DateMidnight;
 @Entity
 @Table(name = "dateMidnight")
 @TypeDef(name = "testjoda_DateMidnightType", typeClass = PersistentDateMidnight.class)
+@SuppressWarnings("deprecation")
 public class JodaDateMidnightHolder implements Serializable {
 
     private static final long serialVersionUID = -1674416082110551506L;

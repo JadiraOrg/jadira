@@ -15,8 +15,8 @@
  */
 package org.jadira.usertype.moneyandcurrency.joda;
 
-import org.jadira.usertype.moneyandcurrency.joda.columnmapper.LongLongColumnMapper;
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyUnitMapper;
+import org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper.LongLongColumnMapper;
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.joda.money.CurrencyUnit;

@@ -13,15 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.moneyandcurrency.joda;
+package org.jadira.usertype.moneyandcurrency.legacyjdk;
 
-import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
-import org.jadira.usertype.moneyandcurrency.joda.testmodel.CurrencyHolder;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.Currency;
 
-import static org.junit.Assert.*;
+import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
+import org.jadira.usertype.moneyandcurrency.joda.TestJodaMoneySuite;
+import org.jadira.usertype.moneyandcurrency.legacyjdk.testmodel.CurrencyHolder;
+import org.junit.Test;
 
 public class TestPersistentCurrency extends AbstractDatabaseTest<CurrencyHolder> {
 

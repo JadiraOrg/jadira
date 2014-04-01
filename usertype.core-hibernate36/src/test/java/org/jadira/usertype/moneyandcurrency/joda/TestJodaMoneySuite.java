@@ -20,7 +20,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestPersistentBigMoneyMinorAmount.class,
 		TestPersistentBigMoneyMinorAmountAndCurrency.class,
 		TestPersistentBigMoneyMinorAmountAndCurrencyAsInteger.class,
-		TestPersistentCurrency.class,
 		TestPersistentCurrencyUnit.class,
 		TestPersistentCurrencyUnitAsInteger.class,
 		TestPersistentMoneyAmount.class,

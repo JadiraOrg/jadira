@@ -15,17 +15,20 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateMidnightAsStringHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTimeZone;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
+@SuppressWarnings("deprecation")
 public class TestPersistentDateMidnightAsString extends AbstractDatabaseTest<JodaDateMidnightAsStringHolder> {
 
-    private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};
+	private static final DateMidnight[] dateMidnights = new DateMidnight[]{new DateMidnight(2004, 2, 25, DateTimeZone.forOffsetHours(4)), new DateMidnight(1980, 3, 11, DateTimeZone.UTC), null};
 
     public TestPersistentDateMidnightAsString() {
     	super(TestJodaTimeSuite.getFactory());

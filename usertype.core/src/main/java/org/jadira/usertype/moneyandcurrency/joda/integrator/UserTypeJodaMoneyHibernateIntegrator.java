@@ -19,7 +19,6 @@ import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentBigMoneyAmount;
-import org.jadira.usertype.moneyandcurrency.joda.PersistentCurrency;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentCurrencyUnit;
 import org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
@@ -51,7 +50,6 @@ public class UserTypeJodaMoneyHibernateIntegrator extends AbstractUserTypeHibern
 			userTypes = new UserType[]{
 				new PersistentBigMoneyAmount(),
 				new PersistentMoneyAmount(),
-				new PersistentCurrency(),
 				new PersistentCurrencyUnit()
 			};
 			

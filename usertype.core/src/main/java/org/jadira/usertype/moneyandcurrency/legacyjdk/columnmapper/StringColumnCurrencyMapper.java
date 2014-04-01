@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.moneyandcurrency.joda.columnmapper;
+package org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper;
 
 import java.util.Currency;
 
