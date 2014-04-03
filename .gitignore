@@ -93,3 +93,9 @@ usertype.spi/usertype.spi.iml
 /usertype.core-hibernate36/.externalToolBuilders
 /usertype.core-hibernate36/.settings
 /usertype.core-hibernate36/target
+/usertype.core/src/main/java/org/jadira/usertype/corejava/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/legacyjdk/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/phonenumber/testmodel/*_.java
