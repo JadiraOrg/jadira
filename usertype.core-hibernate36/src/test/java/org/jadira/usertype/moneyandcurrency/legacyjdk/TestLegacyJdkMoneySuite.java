@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses(value = { 
-		TestPersistentCurrency.class,
+		TestPersistentCurrency.class
 })
 public class TestLegacyJdkMoneySuite {
 
