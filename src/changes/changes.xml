@@ -29,6 +29,13 @@
 
 		<!-- types are add, fix, remove, update -->
 
+		<release version="3.2.0.GA" date="TBC" description="JSR354, Backport to Hibernate 3.6 and Bugfixes">
+			<action dev="Chris Pheby" issue="JDF-76" type="add">Support Java Money (Moneta)</action>
+			<action dev="Chris Pheby" type="add">Backport to Hibernate 3.6</action>
+			<action dev="Chris Pheby" type="fix">Fix incorrect conversion in ThreeTen DateColumnLocalDateMapper from LocalDate to sql.Date (Reported by Jeff Stano)</action>
+			<action dev="Chris Pheby" type="fix">Fix incorrect conversion in ThreeTenBP DateColumnLocalDateMapper from LocalDate to sql.Date (Reported by Jeff Stano)</action>
+		</release>
+
 		<release version="3.1.0.GA" date="11-03-2014" description="Cloning Library, JSR310 (Java 8) & ThreeTen Backport, New Types, Better Zoning">
 			<action dev="Chris Pheby" issue="JDF-72" type="add">Java 8 JSR-310 user types support (without backport)</action>
 			<action dev="Chris Pheby" issue="JDF-62" type="add">Add an AsmCloneStrategy</action>
