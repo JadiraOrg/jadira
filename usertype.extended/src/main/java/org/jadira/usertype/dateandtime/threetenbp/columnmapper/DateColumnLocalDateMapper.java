@@ -80,7 +80,7 @@ public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMappe
 //        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
 //        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
     	
-        final Date date = new Date(zonedValue.toEpochSecond());
+    	final Date date = new Date(zonedValue.toInstant().toEpochMilli());
         return date;
     }
 
