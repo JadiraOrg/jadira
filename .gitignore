@@ -80,6 +80,7 @@ usertype.spi/usertype.spi.iml
 /cloning/.project
 /cloning/.settings
 /cloning/cloning.iml
+/cloning/dependency-reduced-pom.xml
 /usertype.spi-hibernate36/.classpath
 /usertype.spi-hibernate36/.project
 /usertype.spi-hibernate36/.externalToolBuilders
@@ -99,3 +100,7 @@ usertype.spi/usertype.spi.iml
 /usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/*_.java
 /usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/legacyjdk/testmodel/*_.java
 /usertype.core/src/main/java/org/jadira/usertype/phonenumber/testmodel/*_.java
+/lang/.classpath
+/lang/.gitignore
+/lang/.project
+/lang/.settings

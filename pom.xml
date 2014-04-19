@@ -46,7 +46,7 @@
 				<role>Architect</role>
 				<role>Developer</role>
 			</roles>
-			<timezone>+8</timezone>
+			<timezone>+0</timezone>
 		</developer>
 	</developers>
 
@@ -533,7 +533,13 @@
 						<artifactId>umlgraph</artifactId>
 						<version>5.6.6</version>
 					</docletArtifact>
-					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)|(com.ibm.*)</additionalparam>
+					<sourceFileExcludes>
+    					<!--  Not working in 2.9, workaround below
+    					<exclude>org/jadira/usertype/spi/jta/SpringWebSphereUowTransactionManager.java</exclude>
+    					 -->
+    					 <exclude>org/jadira/usertype/spi/jta/*.java</exclude>
+					</sourceFileExcludes>
 					<reportSets>
 						<reportSet>
 							<id>aggregate</id>
@@ -612,7 +618,13 @@
 									<artifactId>umlgraph</artifactId>
 									<version>5.6.6</version>
 								</docletArtifact>
-								<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)</additionalparam>	
+								<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)|(com.ibm.*)</additionalparam>
+								<sourceFileExcludes>
+    								<!--  Not working in 2.9, workaround below
+    								<exclude>org/jadira/usertype/spi/jta/SpringWebSphereUowTransactionManager.java</exclude>
+    								 -->
+    								 <exclude>org/jadira/usertype/spi/jta/*.java</exclude>
+								</sourceFileExcludes>
 								<reportSets>
 									<reportSet>
 										<id>aggregate</id>
@@ -907,13 +919,12 @@
 	<modules>
 		<module>depmgmt</module>
 		<module>maven</module>
-		<!-- lang -->
+		<module>lang</module>
 		<module>scanner</module>
 		<module>cloning</module>
 		<module>bindings</module>
-		<!-- <module>introspector</module> -->
 		<module>cdt</module>		
-		<!-- <module>refdata</module> -->
+		<module>refdata</module>
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
