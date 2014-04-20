@@ -15,6 +15,8 @@
  */
 package org.jadira.usertype.spi.shared;
 
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.cfg.Configuration;
@@ -24,6 +26,7 @@ import org.hibernate.metamodel.source.MetadataImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
+import org.jadira.usertype.spi.utils.runtime.JavaVersion;
 
 public abstract class AbstractUserTypeHibernateIntegrator implements Integrator {
 
@@ -34,8 +37,10 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	private static final String DEFAULT_SEED_KEY = "jadira.usertype.seed";
 	private static final String DEFAULT_CURRENCYCODE_KEY = "jadira.usertype.currencyCode";
 	
+	private static final String JDBC42_API_KEY = "jadira.usertype.useJdbc42Apis";
+	
 	public void integrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
-		
+	    
 		try {
 			ConfigurationHelper.setCurrentSessionFactory(sessionFactory);
 		
@@ -44,11 +49,17 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 			String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
 			String seed = configuration.getProperty(DEFAULT_SEED_KEY);
 			String currencyCode = configuration.getProperty(DEFAULT_CURRENCYCODE_KEY);
-			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode);
+			
+			String jdbc42Apis = configuration.getProperty(JDBC42_API_KEY);
+			
+			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode, jdbc42Apis);
 		
 			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
 				autoRegisterUsertypes(configuration);
 			}
+			
+			final boolean use42Api = use42Api(configuration, sessionFactory);
+			ConfigurationHelper.setUse42Api(sessionFactory, use42Api);
 			
 			doIntegrate(configuration, sessionFactory, serviceRegistry);
 		} finally {
@@ -56,7 +67,40 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		}
 	}
 
-	private void autoRegisterUsertypes(Configuration configuration) {
+	@SuppressWarnings("deprecation")
+    private boolean use42Api(Configuration configuration, SessionFactoryImplementor sessionFactory) {
+
+	    String jdbc42Apis = configuration.getProperty(JDBC42_API_KEY);
+	    
+	    boolean use42Api;
+        if (jdbc42Apis == null) {
+
+            if (JavaVersion.getMajorVersion() >= 1 && JavaVersion.getMinorVersion() >= 8) {
+             try {
+                    DatabaseMetaData dmd = sessionFactory.getJdbcServices().getConnectionProvider().getConnection().getMetaData();
+                    int driverMajorVersion = dmd.getDriverMajorVersion();
+                    int driverMinorVersion = dmd.getDriverMinorVersion();
+                    
+                    if (driverMajorVersion >= 5) {
+                        use42Api = true;
+                    } else if (driverMajorVersion >= 4 && driverMinorVersion >= 2) {
+                        use42Api = true;
+                    } else {
+                        use42Api = false;
+                    }
+                } catch (SQLException e) {
+                    use42Api = false;
+                }
+            } else {
+                use42Api = false;
+            }
+        } else {
+            use42Api = Boolean.parseBoolean(jdbc42Apis);
+        }
+        return use42Api;
+    }
+
+    private void autoRegisterUsertypes(Configuration configuration) {
 	
 		for(UserType next : getUserTypes()) {
 
@@ -69,12 +113,13 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		}
 	}
 
-	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed, String currencyCode) {
+	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed, String currencyCode, String jdbc42Apis) {
 		Properties properties = new Properties();
 		if (databaseZone != null) { properties.put("databaseZone", databaseZone); }
 		if (javaZone != null) { properties.put("javaZone", javaZone); }
 		if (seed != null) { properties.put("seed", seed); }
 		if (currencyCode != null) { properties.put("currencyCode", currencyCode); }
+		if (jdbc42Apis != null) { properties.put("jdbc42Apis", jdbc42Apis); }
 		ConfigurationHelper.configureDefaultProperties(sessionFactory, properties);
 	}
 

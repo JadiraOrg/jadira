@@ -19,6 +19,7 @@ import java.util.Properties;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
+import org.jadira.usertype.spi.utils.runtime.JavaVersion;
 
 public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C> implements ParameterizedType, IntegratorConfiguredType {
 
@@ -43,6 +44,12 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
     
 	private <Z> void doApplyConfiguration() {
 
+	    if (JavaVersion.getMajorVersion() >= 1 &&
+	            JavaVersion.getMinorVersion() >= 8 &&
+	            Jdbc42Configured.class.isAssignableFrom(this.getClass())) {
+	        Jdbc42Configured next = (Jdbc42Configured)this;
+	        performJdbc42Configuration(next);
+	    }
 		if (DatabaseZoneConfigured.class.isAssignableFrom(this.getClass())) {
 				
 			@SuppressWarnings("unchecked")
@@ -110,4 +117,23 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
             }
         }
 	}
+	
+	private void performJdbc42Configuration(Jdbc42Configured next) {
+        
+        Boolean jdbc42Apis = null;
+        if (getParameterValues() != null) {
+            String apisString = getParameterValues().getProperty("jdbc42Apis");
+            if (apisString != null) {
+                jdbc42Apis = Boolean.parseBoolean(apisString);
+            }
+        }
+        if (jdbc42Apis == null) {
+            jdbc42Apis = ConfigurationHelper.getUse42Api();
+        }
+        if (jdbc42Apis == null) {
+            jdbc42Apis = Boolean.FALSE;
+        }
+        
+        next.setUseJdbc42Apis(jdbc42Apis);
+    }
 }

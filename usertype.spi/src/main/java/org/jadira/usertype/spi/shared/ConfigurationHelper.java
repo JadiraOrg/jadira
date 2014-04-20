@@ -27,6 +27,8 @@ public final class ConfigurationHelper {
 	
 	private static final Map<SessionFactory, Properties> DEFAULT_PROPERTIES = new HashMap<SessionFactory, Properties>();
 	
+	private static final Map<SessionFactory, Boolean> DEFAULT_USEJDBC42 = new HashMap<SessionFactory, Boolean>();
+	
     private ConfigurationHelper() {
     }
     
@@ -40,6 +42,18 @@ public final class ConfigurationHelper {
     		}
     	}
     	return null;
+    }
+    
+    public static boolean getUse42Api() {
+        SessionFactory current = currentSessionFactory.get();
+        if (current != null) {
+            return DEFAULT_USEJDBC42.get(current);
+        }
+        return false;        
+    }
+    
+    static void setUse42Api(SessionFactory sessionFactory, boolean use42Api) {
+        DEFAULT_USEJDBC42.put(sessionFactory, use42Api);
     }
 
 	static void setCurrentSessionFactory(SessionFactory sessionFactory) {
