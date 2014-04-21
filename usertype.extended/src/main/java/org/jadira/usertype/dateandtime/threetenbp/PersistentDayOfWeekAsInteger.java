@@ -13,17 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threeten;
+package org.jadira.usertype.dateandtime.threetenbp;
 
-import java.time.DayOfWeek;
-
-import org.jadira.usertype.dateandtime.threeten.columnmapper.IntegerColumnDayOfWeekMapper;
+import org.jadira.usertype.dateandtime.threetenbp.columnmapper.IntegerColumnDayOfWeekMapper;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
+import org.threeten.bp.DayOfWeek;
 
 /**
  * Persist {@link DayOfWeek} via Hibernate using integer value.
  */
-public class PersistentDayOfWeek extends AbstractSingleColumnUserType<DayOfWeek, Integer, IntegerColumnDayOfWeekMapper> {
+public class PersistentDayOfWeekAsInteger extends AbstractSingleColumnUserType<DayOfWeek, Integer, IntegerColumnDayOfWeekMapper> {
 
     private static final long serialVersionUID = 4694981953643179773L;
 }

@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses(value = { 
-		TestPersistentDayOfWeek.class,
+		TestPersistentDayOfWeekAsInteger.class,
 		TestPersistentDayOfWeekAsString.class,
 		TestPersistentDurationAsString.class,
 		TestPersistentInstantAsMillisLong.class,

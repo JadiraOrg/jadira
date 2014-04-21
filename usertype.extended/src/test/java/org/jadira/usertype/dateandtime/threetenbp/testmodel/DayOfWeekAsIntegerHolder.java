@@ -24,14 +24,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threetenbp.PersistentDayOfWeek;
+import org.jadira.usertype.dateandtime.threetenbp.PersistentDayOfWeekAsInteger;
 import org.threeten.bp.DayOfWeek;
 
 
 @Entity
-@Table(name = "dayOfWeek")
-@TypeDef(name = "test_DayOfWeekType", typeClass = PersistentDayOfWeek.class)
-public class DayOfWeekHolder implements Serializable {
+@Table(name = "dayOfWeekAsInteger")
+@TypeDef(name = "test_DayOfWeekAsIntegerType", typeClass = PersistentDayOfWeekAsInteger.class)
+public class DayOfWeekAsIntegerHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
 
@@ -42,7 +42,7 @@ public class DayOfWeekHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_DayOfWeekType")
+    @Type(type = "test_DayOfWeekAsIntegerType")
     private DayOfWeek dayOfWeek;
 
     public long getId() {

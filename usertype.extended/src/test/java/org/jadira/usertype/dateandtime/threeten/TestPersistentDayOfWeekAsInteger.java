@@ -26,12 +26,12 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.jadira.usertype.dateandtime.threeten.testmodel.DayOfWeekJdk8;
+import org.jadira.usertype.dateandtime.threeten.testmodel.DayOfWeekAsIntegerJdk8;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestPersistentDayOfWeek extends DatabaseCapable {
+public class TestPersistentDayOfWeekAsInteger extends DatabaseCapable {
 
     private static final DayOfWeek[] days = new DayOfWeek[] { DayOfWeek.of(1), DayOfWeek.of(2), DayOfWeek.of(7) };
 
@@ -56,7 +56,7 @@ public class TestPersistentDayOfWeek extends DatabaseCapable {
 
         for (int i = 0; i < days.length; i++) {
 
-            DayOfWeekJdk8 item = new DayOfWeekJdk8();
+            DayOfWeekAsIntegerJdk8 item = new DayOfWeekAsIntegerJdk8();
             item.setId(i);
             item.setName("test_" + i);
             item.setDayOfWeek(days[i]);
@@ -74,7 +74,7 @@ public class TestPersistentDayOfWeek extends DatabaseCapable {
 
         for (int i = 0; i < days.length; i++) {
 
-            DayOfWeekJdk8 item = manager.find(DayOfWeekJdk8.class, Long.valueOf(i));
+            DayOfWeekAsIntegerJdk8 item = manager.find(DayOfWeekAsIntegerJdk8.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -82,7 +82,7 @@ public class TestPersistentDayOfWeek extends DatabaseCapable {
             assertEquals(days[i], item.getDayOfWeek());
         }
 
-        verifyDatabaseTable(manager, DayOfWeekJdk8.class.getAnnotation(Table.class).name());
+        verifyDatabaseTable(manager, DayOfWeekAsIntegerJdk8.class.getAnnotation(Table.class).name());
 
         manager.close();
     }
