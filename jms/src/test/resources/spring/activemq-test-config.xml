@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://activemq.apache.org/schema/core 
+                        http://activemq.apache.org/schema/core/activemq-core.xsd
+                        http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Transaction Manager to use -->
+	<bean id="jbossTransactionManager"
+		class="com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple">
+		<property name="transactionTimeout" value="300" />
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<property name="transactionManager">
+			<ref bean="jbossTransactionManager" />
+		</property>
+		<property name="allowCustomIsolationLevels" value="true" />
+	</bean>
+
+	<!-- Embedded ActiveMQ Broker -->
+	<amq:broker id="activeMQBroker" useJmx="false" persistent="false">
+		<amq:transportConnectors>
+			<amq:transportConnector uri="tcp://localhost:43232" />
+		</amq:transportConnectors>
+	</amq:broker>
+
+	<bean id="activeMQConnectionFactory" class="org.apache.activemq.ActiveMQXAConnectionFactory"
+		depends-on="activeMQBroker">
+		<property name="brokerURL"
+			value="tcp://localhost:43232?jms.redeliveryPolicy.maximumRedeliveries=1" />
+	</bean>
+
+	<bean id="jmsConnectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory" ref="activeMQConnectionFactory" />
+		<property name="sessionCacheSize" value="2" />
+	</bean>
+
+	<!-- ActiveMQ destinations to use -->
+	<amq:queue id="testDestination" physicalName="org.jadira.jms.test" />
+
+	<!-- Example Listener -->
+	<bean id="testMessageListener" class="org.jadira.jms.container.TestMessageListener" />
+
+	<!-- The Container -->
+	<bean id="messageListenerContainer"
+		class="org.jadira.jms.container.BatchedMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destinationName" value="testDestination" />
+		<property name="messageListener" ref="testMessageListener" />
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="exceptionListener" ref="jmsConnectionFactory" />
+		<property name="concurrency" value="2-5" />
+		<property name="maxMessagesPerTransaction" value="100" />
+	</bean>
+
+</beans>

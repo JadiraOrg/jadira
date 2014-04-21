@@ -920,6 +920,7 @@
 		<module>depmgmt</module>
 		<module>maven</module>
 		<module>lang</module>
+		<module>jms</module>
 		<module>scanner</module>
 		<module>cloning</module>
 		<module>bindings</module>

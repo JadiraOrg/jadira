@@ -95,6 +95,7 @@ usertype.spi/usertype.spi.iml
 /usertype.core-hibernate36/.settings
 /usertype.core-hibernate36/target
 /usertype.core/src/main/java/org/jadira/usertype/corejava/testmodel/*_.java
+/usertype.core/src/main/java/org/jadira/usertype/country/testmodel/ISOCountryCodeHolder_.java
 /usertype.core/src/main/java/org/jadira/usertype/dateandtime/joda/testmodel/*_.java
 /usertype.core/src/main/java/org/jadira/usertype/dateandtime/legacyjdk/testmodel/*_.java
 /usertype.core/src/main/java/org/jadira/usertype/moneyandcurrency/joda/testmodel/*_.java
@@ -104,3 +105,8 @@ usertype.spi/usertype.spi.iml
 /lang/.gitignore
 /lang/.project
 /lang/.settings
+
+/jms/.classpath
+/jms/.gitignore
+/jms/.project
+/jms/.settings

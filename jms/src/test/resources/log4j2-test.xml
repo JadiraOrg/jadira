@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- For JavaSE deployment, setting monitor interval allows logging policies to be changed at runtime For JavaEE, do not 
+    use monitorInterval, instead deploy to the shared library path <configuration monitorInterval="30"> -->
+<configuration status="OFF">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+    </appenders>
+    <loggers>
+        <logger name="org.hibernate.SQL" level="debug" />
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" />
+        <root level="info">
+            <appender-ref ref="Console" />
+        </root>
+    </loggers>
+</configuration>
