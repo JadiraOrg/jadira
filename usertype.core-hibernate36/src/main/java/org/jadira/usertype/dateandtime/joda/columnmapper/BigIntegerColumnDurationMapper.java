@@ -17,10 +17,10 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.math.BigInteger;
 
-import org.jadira.usertype.spi.shared.AbstractVersionableBigIntegerColumnMapper;
+import org.jadira.usertype.spi.shared.AbstractBigIntegerColumnMapper;
 import org.joda.time.Duration;
 
-public class BigIntegerColumnDurationMapper extends AbstractVersionableBigIntegerColumnMapper<Duration> {
+public class BigIntegerColumnDurationMapper extends AbstractBigIntegerColumnMapper<Duration> {
 
     private static final long serialVersionUID = 8408450977695192938L;
 
