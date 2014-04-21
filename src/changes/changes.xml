@@ -37,6 +37,7 @@
 			<action dev="Chris Pheby" type="add">Backport to Hibernate 3.6</action>
 			<action dev="Chris Pheby" issue="JDF-80" type="add">Sniffing for JDBC 4.2 API</action>
 			<action dev="Chris Pheby" issue="JDF-80" type="add">New PersistentDuration types</action>
+			<action dev="Chris Pheby" issue="JDF-80" type="add">Renamed PersistentMonthAsInteger, PersistentOffsetTime, PersistentYearAsInteger</action>
 			<action dev="Chris Pheby" type="fix">Fix incorrect conversion in ThreeTen DateColumnLocalDateMapper from LocalDate to sql.Date (Reported by Jeff Stano)</action>
 			<action dev="Chris Pheby" type="fix">Fix incorrect conversion in ThreeTenBP DateColumnLocalDateMapper from LocalDate to sql.Date (Reported by Jeff Stano)</action>
 		</release>
