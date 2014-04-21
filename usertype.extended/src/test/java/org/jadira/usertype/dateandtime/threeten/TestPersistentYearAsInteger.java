@@ -13,10 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threetenbp;
+package org.jadira.usertype.dateandtime.threeten;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.time.Year;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,13 +26,12 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.jadira.usertype.dateandtime.threetenbp.testmodel.YearHolder;
+import org.jadira.usertype.dateandtime.threeten.testmodel.YearAsIntegerJdk8;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.threeten.bp.Year;
 
-public class TestPersistentYear extends DatabaseCapable {
+public class TestPersistentYearAsInteger extends DatabaseCapable {
 
     private static final Year[] years = new Year[] { Year.of(1), Year.of(2010), Year.of(1999) };
 
@@ -55,7 +56,7 @@ public class TestPersistentYear extends DatabaseCapable {
 
         for (int i = 0; i < years.length; i++) {
 
-            YearHolder item = new YearHolder();
+            YearAsIntegerJdk8 item = new YearAsIntegerJdk8();
             item.setId(i);
             item.setName("test_" + i);
             item.setYear(years[i]);
@@ -73,7 +74,7 @@ public class TestPersistentYear extends DatabaseCapable {
 
         for (int i = 0; i < years.length; i++) {
 
-            YearHolder item = manager.find(YearHolder.class, Long.valueOf(i));
+            YearAsIntegerJdk8 item = manager.find(YearAsIntegerJdk8.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -81,7 +82,7 @@ public class TestPersistentYear extends DatabaseCapable {
             assertEquals(years[i], item.getYear());
         }
 
-        verifyDatabaseTable(manager, YearHolder.class.getAnnotation(Table.class).name());
+        verifyDatabaseTable(manager, YearAsIntegerJdk8.class.getAnnotation(Table.class).name());
 
         manager.close();
     }

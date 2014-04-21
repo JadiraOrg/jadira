@@ -13,15 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threeten;
+package org.jadira.usertype.dateandtime.threetenbp;
 
 import java.sql.Time;
-import java.time.OffsetTime;
 
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.dateandtime.threeten.columnmapper.TimeColumnOffsetTimeMapper;
+import org.jadira.usertype.dateandtime.threetenbp.columnmapper.TimeColumnOffsetTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
+import org.threeten.bp.OffsetTime;
 
 /**
  * Persist {@link OffsetTime} via Hibernate. This uses java.sql.Time and the time datatype of your database. You
@@ -34,7 +34,7 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentOffsetTimeAsTime extends AbstractParameterizedUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentOffsetTime extends AbstractParameterizedUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5138742305537333265L;
 }

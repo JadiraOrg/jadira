@@ -15,15 +15,15 @@
  */
 package org.jadira.usertype.dateandtime.threeten;
 
-import java.time.Month;
+import java.time.Year;
 
-import org.jadira.usertype.dateandtime.threeten.columnmapper.IntegerColumnMonthMapper;
+import org.jadira.usertype.dateandtime.threeten.columnmapper.IntegerColumnYearMapper;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 
 /**
- * Persist {@link Month} via Hibernate using integer value.
+ * Persist {@link Year} via Hibernate using integer value.
  */
-public class PersistentMonth extends AbstractSingleColumnUserType<Month, Integer, IntegerColumnMonthMapper> {
+public class PersistentYearAsInteger extends AbstractSingleColumnUserType<Year, Integer, IntegerColumnYearMapper> {
 
     private static final long serialVersionUID = 4694981953643179773L;
 }

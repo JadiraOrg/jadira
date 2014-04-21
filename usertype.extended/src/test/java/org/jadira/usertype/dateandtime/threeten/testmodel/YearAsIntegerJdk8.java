@@ -13,9 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threetenbp.testmodel;
+package org.jadira.usertype.dateandtime.threeten.testmodel;
 
 import java.io.Serializable;
+import java.time.Year;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,14 +25,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threetenbp.PersistentMonth;
-import org.threeten.bp.Month;
-
+import org.jadira.usertype.dateandtime.threeten.PersistentYearAsInteger;
 
 @Entity
-@Table(name = "month")
-@TypeDef(name = "test_MonthType", typeClass = PersistentMonth.class)
-public class MonthHolder implements Serializable {
+@Table(name = "yearAsInteger")
+@TypeDef(name = "test_YearAsIntegerJdk8Type", typeClass = PersistentYearAsInteger.class)
+public class YearAsIntegerJdk8 implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
 
@@ -42,8 +41,8 @@ public class MonthHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_MonthType")
-    private Month month;
+    @Type(type = "test_YearAsIntegerJdk8Type")
+    private Year year;
 
     public long getId() {
         return id;
@@ -61,11 +60,11 @@ public class MonthHolder implements Serializable {
         this.name = name;
     }
 
-    public Month getMonth() {
-        return month;
+    public Year getYear() {
+        return year;
     }
 
-    public void setMonth(Month month) {
-        this.month = month;
+    public void setYear(Year year) {
+        this.year = year;
     }
 }

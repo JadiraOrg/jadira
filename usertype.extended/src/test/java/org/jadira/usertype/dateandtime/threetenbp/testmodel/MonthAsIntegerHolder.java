@@ -24,14 +24,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threetenbp.PersistentYear;
-import org.threeten.bp.Year;
+import org.jadira.usertype.dateandtime.threetenbp.PersistentMonthAsInteger;
+import org.threeten.bp.Month;
 
 
 @Entity
-@Table(name = "year")
-@TypeDef(name = "test_YearType", typeClass = PersistentYear.class)
-public class YearHolder implements Serializable {
+@Table(name = "monthAsInteger")
+@TypeDef(name = "test_MonthType", typeClass = PersistentMonthAsInteger.class)
+public class MonthAsIntegerHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
 
@@ -42,8 +42,8 @@ public class YearHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_YearType")
-    private Year year;
+    @Type(type = "test_MonthType")
+    private Month month;
 
     public long getId() {
         return id;
@@ -61,11 +61,11 @@ public class YearHolder implements Serializable {
         this.name = name;
     }
 
-    public Year getYear() {
-        return year;
+    public Month getMonth() {
+        return month;
     }
 
-    public void setYear(Year year) {
-        this.year = year;
+    public void setMonth(Month month) {
+        this.month = month;
     }
 }

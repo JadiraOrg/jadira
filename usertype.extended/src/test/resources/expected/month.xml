@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<dataset>
-  <month ID="0" MONTH="1" NAME="test_0"/>
-  <month ID="1" MONTH="2" NAME="test_1"/>
-  <month ID="2" MONTH="12" NAME="test_2"/>
-</dataset>

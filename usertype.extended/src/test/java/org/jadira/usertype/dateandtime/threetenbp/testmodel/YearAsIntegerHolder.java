@@ -13,10 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threeten.testmodel;
+package org.jadira.usertype.dateandtime.threetenbp.testmodel;
 
 import java.io.Serializable;
-import java.time.Year;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,12 +24,14 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threeten.PersistentYear;
+import org.jadira.usertype.dateandtime.threetenbp.PersistentYearAsInteger;
+import org.threeten.bp.Year;
+
 
 @Entity
-@Table(name = "year")
-@TypeDef(name = "test_YearJdk8Type", typeClass = PersistentYear.class)
-public class YearJdk8 implements Serializable {
+@Table(name = "yearAsInteger")
+@TypeDef(name = "test_YearAsIntegerType", typeClass = PersistentYearAsInteger.class)
+public class YearAsIntegerHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
 
@@ -41,7 +42,7 @@ public class YearJdk8 implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_YearJdk8Type")
+    @Type(type = "test_YearAsIntegerType")
     private Year year;
 
     public long getId() {

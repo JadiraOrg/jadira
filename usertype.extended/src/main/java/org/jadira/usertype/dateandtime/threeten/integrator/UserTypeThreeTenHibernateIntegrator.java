@@ -27,7 +27,7 @@ import org.jadira.usertype.dateandtime.threeten.PersistentMonthDayAsString;
 import org.jadira.usertype.dateandtime.threeten.PersistentOffsetDateTime;
 import org.jadira.usertype.dateandtime.threeten.PersistentOffsetTimeAsTimestamp;
 import org.jadira.usertype.dateandtime.threeten.PersistentPeriodAsString;
-import org.jadira.usertype.dateandtime.threeten.PersistentYear;
+import org.jadira.usertype.dateandtime.threeten.PersistentYearAsInteger;
 import org.jadira.usertype.dateandtime.threeten.PersistentYearMonthAsString;
 import org.jadira.usertype.dateandtime.threeten.PersistentZoneIdAsString;
 import org.jadira.usertype.dateandtime.threeten.PersistentZoneOffsetAsString;
@@ -68,7 +68,7 @@ public class UserTypeThreeTenHibernateIntegrator extends AbstractUserTypeHiberna
 				new PersistentOffsetTimeAsTimestamp(), 
 				new PersistentPeriodAsString(), 
 				new PersistentZoneIdAsString(), 
-				new PersistentYear(), 
+				new PersistentYearAsInteger(), 
 				new PersistentYearMonthAsString(), 
 				new PersistentZonedDateTime(), 
 				new PersistentZoneOffsetAsString()

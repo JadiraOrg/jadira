@@ -13,12 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threeten;
+package org.jadira.usertype.dateandtime.threetenbp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.time.Month;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,12 +24,13 @@ import javax.persistence.Persistence;
 import javax.persistence.Table;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.DatabaseCapable;
-import org.jadira.usertype.dateandtime.threeten.testmodel.MonthJdk8;
+import org.jadira.usertype.dateandtime.threetenbp.testmodel.MonthAsIntegerHolder;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.threeten.bp.Month;
 
-public class TestPersistentMonth extends DatabaseCapable {
+public class TestPersistentMonthAsInteger extends DatabaseCapable {
 
     private static final Month[] months = new Month[] { Month.of(1), Month.of(2), Month.of(12) };
 
@@ -56,7 +55,7 @@ public class TestPersistentMonth extends DatabaseCapable {
 
         for (int i = 0; i < months.length; i++) {
 
-            MonthJdk8 item = new MonthJdk8();
+            MonthAsIntegerHolder item = new MonthAsIntegerHolder();
             item.setId(i);
             item.setName("test_" + i);
             item.setMonth(months[i]);
@@ -74,7 +73,7 @@ public class TestPersistentMonth extends DatabaseCapable {
 
         for (int i = 0; i < months.length; i++) {
 
-            MonthJdk8 item = manager.find(MonthJdk8.class, Long.valueOf(i));
+            MonthAsIntegerHolder item = manager.find(MonthAsIntegerHolder.class, Long.valueOf(i));
 
             assertNotNull(item);
             assertEquals(i, item.getId());
@@ -82,7 +81,7 @@ public class TestPersistentMonth extends DatabaseCapable {
             assertEquals(months[i], item.getMonth());
         }
 
-        verifyDatabaseTable(manager, MonthJdk8.class.getAnnotation(Table.class).name());
+        verifyDatabaseTable(manager, MonthAsIntegerHolder.class.getAnnotation(Table.class).name());
 
         manager.close();
     }

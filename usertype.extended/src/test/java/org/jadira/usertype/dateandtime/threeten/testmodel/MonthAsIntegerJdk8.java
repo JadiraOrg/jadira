@@ -25,12 +25,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.dateandtime.threeten.PersistentMonth;
+import org.jadira.usertype.dateandtime.threeten.PersistentMonthAsInteger;
 
 @Entity
-@Table(name = "month")
-@TypeDef(name = "test_MonthJdk8Type", typeClass = PersistentMonth.class)
-public class MonthJdk8 implements Serializable {
+@Table(name = "monthAsInteger")
+@TypeDef(name = "test_MonthAsIntegerJdk8Type", typeClass = PersistentMonthAsInteger.class)
+public class MonthAsIntegerJdk8 implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
 
@@ -41,7 +41,7 @@ public class MonthJdk8 implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_MonthJdk8Type")
+    @Type(type = "test_MonthAsIntegerJdk8Type")
     private Month month;
 
     public long getId() {
