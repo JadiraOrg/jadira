@@ -23,4 +23,14 @@ public class JavaVersion {
     public static final int getMinorVersion() {
         return MINOR_VERSION;
     }
+    
+    public static boolean isJava8OrLater() {
+        if (getMajorVersion() > 1) {
+            return true;
+        } else if (getMajorVersion() == 1 && getMinorVersion() >= 8) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
