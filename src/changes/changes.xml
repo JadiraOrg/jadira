@@ -29,7 +29,7 @@
 
 		<!-- types are add, fix, remove, update -->
 
-		<release version="3.2.0.GA" date="TBC" description="JSR354, Backport to Hibernate 3.6, JTA APIs, JMS Batching, Preparation for JDBC 4.2 and Bugfixes">
+		<release version="3.2.0.GA" date="23-04-2014" description="JSR354, Backport to Hibernate 3.6, JTA APIs, JMS Batching, Preparation for JDBC 4.2 and Bugfixes">
 			<action dev="Chris Pheby" issue="JDF-76" type="add">Support Java Money (Moneta)</action>
 			<action dev="Chris Pheby" issue="JDF-77" type="add">Add Adapters for Commons-IO to Commons-NIO</action>
 			<action dev="Chris Pheby" issue="JDF-78" type="add">Implement Spring / Hibernate / JTA Integration</action>
