@@ -15,8 +15,6 @@
  */
 package org.jadira.usertype.dateandtime.joda;
 
-import java.sql.Timestamp;
-
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
 import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
@@ -36,7 +34,7 @@ import org.joda.time.DateTime;
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
  */
-public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentDateTime extends AbstractVersionableUserType<DateTime, DateTime, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -6656619988954550389L;
 
