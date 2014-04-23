@@ -18,6 +18,9 @@
 
     <artifactId>jms</artifactId>
     <packaging>jar</packaging>
+    
+    <name>Jadira JMS</name>
+    <description>Jadira JMS</description>
 
     <dependencyManagement>
         <dependencies>

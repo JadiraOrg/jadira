@@ -105,8 +105,9 @@ usertype.spi/usertype.spi.iml
 /lang/.gitignore
 /lang/.project
 /lang/.settings
-
 /jms/.classpath
 /jms/.gitignore
 /jms/.project
 /jms/.settings
+/jms/target
+/lang/target
