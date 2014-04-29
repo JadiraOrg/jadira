@@ -15,6 +15,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <groupId>org.jadira.jms</groupId>
     <artifactId>jms</artifactId>
     <packaging>jar</packaging>
     
