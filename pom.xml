@@ -305,6 +305,50 @@
 			</build>			
 		</profile>
 		<profile>
+			<id>postgresql</id>
+			<activation>
+				<property>
+					<name>database</name>
+					<value>postgresql</value>
+				</property>
+				<activeByDefault>false</activeByDefault> 
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<id>copy-test-persistence</id>
+								<phase>process-test-resources</phase>
+								<configuration>
+									<target>
+										<copy file="${project.build.testSourceDirectory}/../resources/META-INF/persistence.xml.postgresql" tofile="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>restore-persistence</id>
+								<phase>prepare-package</phase>
+								<configuration>
+									<target>
+										<delete file="${project.build.testOutputDirectory}/META-INF/persistence.xml" failonerror="false" quiet="true" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>			
+		</profile>
+		<profile>
 			<id>sqlserver</id>
 			<activation>
 				<property>
@@ -381,12 +425,12 @@
 		<defaultGoal>install</defaultGoal>	
 
 		<extensions>
-		        <extension>
-		            <groupId>org.apache.maven.wagon</groupId>
-		            <artifactId>wagon-ssh</artifactId>
-		            <version>2.5</version> <!-- 2.6 does not work -->
-		        </extension>
-    		</extensions>
+	        <extension>
+	            <groupId>org.apache.maven.wagon</groupId>
+	            <artifactId>wagon-ssh</artifactId>
+	            <version>2.5</version> <!-- 2.6 does not work -->
+	        </extension>
+   		</extensions>
 	
 		<resources>
 			<resource>
@@ -929,8 +973,14 @@
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
 		<module>usertype.extended</module>
+		<!--
+			These are commented as they won't be re-released until
+			there is a sufficient range of new features / fixes
+			to justify backporting again
+			
 		<module>usertype.spi-hibernate36</module>
 		<module>usertype.core-hibernate36</module>
+		-->
 		<module>quant</module>
 	</modules>
 	

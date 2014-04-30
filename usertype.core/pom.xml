@@ -117,14 +117,13 @@
 			<optional>true</optional>
 		</dependency>
 		
-		<!-- Uncomment for MySQL
+		<!-- MySQL -->
 		<dependency>
 	    		<groupId>mysql</groupId>
 	    		<artifactId>mysql-connector-java</artifactId>
 	    		<version>5.1.20</version>
     			<scope>test</scope>
 		</dependency>
-		-->
 		
 		<!-- Uncomment for Oracle
 		<dependency>
@@ -134,6 +133,14 @@
 			<scope>test</scope>
 		</dependency>
 		-->
+		
+		<!-- Postgres -->
+		<dependency>
+		    <groupId>org.postgresql</groupId>
+		    <artifactId>postgresql</artifactId>
+		    <version>9.3-1101-jdbc41</version>
+		    <optional>true</optional>
+		</dependency>
 	
 	</dependencies>
 

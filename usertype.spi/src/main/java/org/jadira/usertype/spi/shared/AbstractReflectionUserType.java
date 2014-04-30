@@ -50,11 +50,19 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
     	this.identifierMethod = identifierMethod;
     }
     
+    protected Method getIdentifierMethod() {
+        return identifierMethod;
+    }
+    
     protected void setValueOfMethod(Method valueOfMethod) {
     	if (!Modifier.isStatic(valueOfMethod.getModifiers())) {
     		throw new IllegalStateException("valueOfMethod must be static: "  + valueOfMethod.toString());
     	}
     	this.valueOfMethod = valueOfMethod;
+    }
+    
+    protected Method getValueOfMethod() {
+        return valueOfMethod;
     }
     
 	public void setParameterValues(Properties parameters) {
