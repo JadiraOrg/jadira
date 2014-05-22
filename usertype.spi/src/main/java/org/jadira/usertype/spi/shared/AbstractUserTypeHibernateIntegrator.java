@@ -15,6 +15,7 @@
  */
 package org.jadira.usertype.spi.shared;
 
+import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -76,8 +77,11 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
         if (jdbc42Apis == null) {
 
             if (JavaVersion.getMajorVersion() >= 1 && JavaVersion.getMinorVersion() >= 8) {
+             
+             Connection conn = null;
              try {
-                    DatabaseMetaData dmd = sessionFactory.getJdbcServices().getConnectionProvider().getConnection().getMetaData();
+                    conn = sessionFactory.getJdbcServices().getConnectionProvider().getConnection();
+                    DatabaseMetaData dmd = conn.getMetaData();
                     int driverMajorVersion = dmd.getDriverMajorVersion();
                     int driverMinorVersion = dmd.getDriverMinorVersion();
                     
@@ -90,6 +94,15 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
                     }
                 } catch (SQLException e) {
                     use42Api = false;
+                } finally {
+                    
+                    if (conn != null) {
+                        try {
+                            conn.close();
+                        } catch (SQLException e) {
+                            // Ignore
+                        }
+                    }
                 }
             } else {
                 use42Api = false;
