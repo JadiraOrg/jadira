@@ -31,7 +31,8 @@
 
 		<release version="4.0.0.GA" date="TBC" description="New Features">
 			<action dev="Chris Pheby" type="add">Support for PostgreSQL Enum Type (Suggested by Rudi Wijaya)</action>
-			<action dev="Chris Pheby" type="fix">* Fix Connection leak in Integrator (Reported by Brett Wooldridge)</action>
+			<action dev="Chris Pheby" type="fix">Fix Connection leak in Integrator (Reported by Brett Wooldridge)</action>
+			<action dev="Chris Pheby" issue="JDF-81" type="fix">Disable detection of JDBC 4.2.x API when Hibernate JDBC Services don't resolve (occurs on Hibernate 4.2.x) (Reported by Rudi Wijaya)</action>
 		</release>
 
 		<release version="3.2.0.GA" date="23-04-2014" description="JSR354, Backport to Hibernate 3.6, JTA APIs, JMS Batching, Preparation for JDBC 4.2 and Bugfixes">

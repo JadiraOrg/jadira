@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.metamodel.source.MetadataImplementor;
@@ -80,7 +81,9 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
              
              Connection conn = null;
              try {
-                    conn = sessionFactory.getJdbcServices().getConnectionProvider().getConnection();
+                    JdbcServices jdbcServices = sessionFactory.getJdbcServices();
+                    conn = jdbcServices.getConnectionProvider().getConnection();
+                    
                     DatabaseMetaData dmd = conn.getMetaData();
                     int driverMajorVersion = dmd.getDriverMajorVersion();
                     int driverMinorVersion = dmd.getDriverMinorVersion();
@@ -93,6 +96,9 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
                         use42Api = false;
                     }
                 } catch (SQLException e) {
+                    use42Api = false;
+                } catch (NoSuchMethodError e) {
+                  // Occurs in Hibernate 4.2.12
                     use42Api = false;
                 } finally {
                     
