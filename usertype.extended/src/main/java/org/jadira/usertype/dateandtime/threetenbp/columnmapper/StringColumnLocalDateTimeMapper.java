@@ -34,6 +34,6 @@ public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<
 
     @Override
     public String toNonNullValue(LocalDateTime value) {
-        return value.toString();
+        return DATETIME_FORMATTER.format(value);
     }
 }
