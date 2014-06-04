@@ -43,6 +43,8 @@ public class PersistentEnumAsPostgreSQLEnum extends PersistentEnum {
         if (identifier instanceof PGobject) {
             PGobject pg = (PGobject) identifier;
             return getValueOfMethod().invoke(getMappedClass(), new Object[] { pg.getValue() });
+        } else if (identifier instanceof String) { // some PostgreSQL Dialects / Versions return String not PGObject
+            return getValueOfMethod().invoke(getMappedClass(), new Object[] { (String) identifier });
         } else {
             throw new IllegalArgumentException("PersistentEnum type expected PGobject, received " + identifier.getClass().getName() + " with value of '" + identifier + "'");
         }
