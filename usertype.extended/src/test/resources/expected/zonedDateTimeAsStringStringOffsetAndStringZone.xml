@@ -17,6 +17,6 @@
 
  -->
 <dataset>
-  <zonedDateTimeAsStringStringOffsetAndStringZone ID="0" NAME="test_0" MY_DATETIME="2004-02-25T17:03:45.000000760" MY_ZONE="+02:00"/>
-  <zonedDateTimeAsStringStringOffsetAndStringZone ID="1" NAME="test_1" MY_DATETIME="1980-03-11T02:03:45" MY_ZONE="+02:00"/>
+  <zonedDateTimeAsStringStringOffsetAndStringZone ID="0" NAME="test_0" MY_DATETIME="2004-02-25T17:03:45.00000076" MY_ZONE="+02:00"/>
+  <zonedDateTimeAsStringStringOffsetAndStringZone ID="1" NAME="test_1" MY_DATETIME="1980-03-11T02:03:45.0" MY_ZONE="+02:00"/>
 </dataset>
