@@ -15,16 +15,14 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-
 import java.math.BigDecimal;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.moneta.testmodel.MoneyMinorAmountAndCurrencyHolder;
 import org.javamoney.moneta.Money;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class TestPersistentMoneyMinorAmountAndCurrency extends AbstractDatabaseTest<MoneyMinorAmountAndCurrencyHolder> {
 
@@ -54,7 +52,7 @@ public class TestPersistentMoneyMinorAmountAndCurrency extends AbstractDatabaseT
             if (moneys[i] == null) {
                 assertNull(item.getMoney());
             } else {
-                assertEquals(moneys[i].toString(), item.getMoney().toString());
+                assertTrue(moneys[i].isEqualTo(item.getMoney()));
             }
         }
 
