@@ -12,6 +12,12 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(value = { 
 		TestPersistentCurrencyUnit.class,
+        TestPersistentMoneyAmount.class,
+        TestPersistentMoneyAmountAndCurrency.class,
+        TestPersistentMoneyMajorAmount.class,
+        TestPersistentMoneyMajorAmountAndCurrency.class,
+        TestPersistentMoneyMinorAmount.class,
+        TestPersistentMoneyMinorAmountAndCurrency.class
 })
 public class TestMonetaMoneySuite {
 

@@ -37,8 +37,6 @@ public class PersistentMoneyMinorAmountAndCurrency extends AbstractMultiColumnUs
 
     private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amountMinor" };
 	
-	private static final BigDecimal TEN = BigDecimal.valueOf(10L);
-    
 	@Override
 	protected ColumnMapper<?, ?>[] getColumnMappers() {
 		return COLUMN_MAPPERS;
@@ -50,24 +48,18 @@ public class PersistentMoneyMinorAmountAndCurrency extends AbstractMultiColumnUs
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         Long amountMinorPart = (Long) convertedColumns[1];
         
-        BigDecimal majorVal = BigDecimal.valueOf(amountMinorPart);
-    	for (int i = 0; i < currencyUnitPart.getDefaultFractionDigits(); i++) {
-    		majorVal = majorVal.divide(TEN);
-    	}
-        Money money = Money.of(currencyUnitPart, majorVal);
+        BigDecimal majorVal = BigDecimal.valueOf(amountMinorPart, currencyUnitPart.getDefaultFractionDigits());
 
-        return money;
+		return Money.of(currencyUnitPart, majorVal);
     }
 
     @Override
     protected Object[] toConvertedColumns(MonetaryAmount value) {
 
     	BigDecimal minorVal = value.getNumber().numberValue(BigDecimal.class);
-    	for (int i = 0; i < value.getCurrency().getDefaultFractionDigits(); i++) {
-    		minorVal = minorVal.divide(TEN);
-    	}
+		minorVal = minorVal.movePointRight(value.getCurrency().getDefaultFractionDigits());
     	
-        return new Object[] { value.getCurrency(), minorVal };
+        return new Object[] { value.getCurrency(), minorVal.longValue() };
     }
     
     @Override
