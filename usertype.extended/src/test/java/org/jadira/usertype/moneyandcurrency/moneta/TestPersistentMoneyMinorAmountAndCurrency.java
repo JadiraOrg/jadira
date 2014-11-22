@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 
 public class TestPersistentMoneyMinorAmountAndCurrency extends AbstractDatabaseTest<MoneyMinorAmountAndCurrencyHolder> {
 
-	private static final Money[] moneys = new Money[]{ Money.of("USD", BigDecimal.valueOf(100)), Money.of("USD", new BigDecimal("100.10")), Money.of("EUR", new BigDecimal("0.99")), Money.of("EUR", new BigDecimal("-0.99")), null};
+	private static final Money[] moneys = new Money[]{ Money.of(BigDecimal.valueOf(100), "USD"), Money.of(new BigDecimal("100.10"), "USD"), Money.of(new BigDecimal("0.99"), "EUR"), Money.of(new BigDecimal("-0.99"), "EUR"), null};
 
     public TestPersistentMoneyMinorAmountAndCurrency() {
     	super(TestMonetaMoneySuite.getFactory());

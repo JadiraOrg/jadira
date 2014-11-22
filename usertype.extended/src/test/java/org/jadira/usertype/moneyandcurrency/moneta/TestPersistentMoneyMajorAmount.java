@@ -24,12 +24,12 @@ import java.math.BigDecimal;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.moneta.testmodel.MoneyMajorAmountHolder;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryFunctions;
+import org.javamoney.moneta.function.MonetaryUtil;
 import org.junit.Test;
 
 public class TestPersistentMoneyMajorAmount extends AbstractDatabaseTest<MoneyMajorAmountHolder> {
 
-	private static final Money[] moneys = new Money[]{ Money.of("USD", BigDecimal.valueOf(100)), Money.of("USD", new BigDecimal("100.10")), Money.of("USD", new BigDecimal("0.99")), null};
+	private static final Money[] moneys = new Money[]{ Money.of(BigDecimal.valueOf(100), "USD"), Money.of(new BigDecimal("100.10"), "USD"), Money.of(new BigDecimal("0.99"), "USD"), null};
 	
     public TestPersistentMoneyMajorAmount() {
     	super(TestMonetaMoneySuite.getFactory());
@@ -55,7 +55,7 @@ public class TestPersistentMoneyMajorAmount extends AbstractDatabaseTest<MoneyMa
             if (moneys[i] == null) {
                 assertNull(item.getMoney());
             } else {
-                assertEquals(MonetaryFunctions.majorPart().apply(moneys[i]).toString(), item.getMoney().toString());
+                assertEquals(MonetaryUtil.majorPart().apply(moneys[i]).toString(), item.getMoney().toString());
             }
         }
 

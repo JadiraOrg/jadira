@@ -50,7 +50,7 @@ public class PersistentFastMoneyMinorAmountAndCurrency extends AbstractMultiColu
         
         BigDecimal majorVal = BigDecimal.valueOf(amountMinorPart, currencyUnitPart.getDefaultFractionDigits());
 
-		return FastMoney.of(currencyUnitPart, majorVal);
+		return FastMoney.of(majorVal, currencyUnitPart);
     }
 
     @Override

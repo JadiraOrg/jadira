@@ -23,7 +23,7 @@ import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.StringColumnCurr
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.javamoney.moneta.FastMoney;
-import org.javamoney.moneta.function.MonetaryFunctions;
+import org.javamoney.moneta.function.MonetaryUtil;
 
 /**
  * Persists the minor amount and currency from a FastMoney instance
@@ -46,15 +46,14 @@ public class PersistentFastMoneyMajorAmountAndCurrency extends AbstractMultiColu
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         Long amountMajorPart = (Long) convertedColumns[1];
-        FastMoney money = FastMoney.of(currencyUnitPart, amountMajorPart);
 
-        return money;
+        return FastMoney.of(amountMajorPart, currencyUnitPart);
     }
 
     @Override
     protected Object[] toConvertedColumns(MonetaryAmount value) {
 
-        return new Object[] { value.getCurrency(), MonetaryFunctions.majorPart().apply(value).getNumber().longValue() };
+        return new Object[] { value.getCurrency(), MonetaryUtil.majorPart().apply(value).getNumber().longValue() };
     }
     
     @Override

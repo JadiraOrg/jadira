@@ -33,7 +33,7 @@ public class BigDecimalColumnMoneyMapper extends AbstractBigDecimalColumnMapper<
 
     @Override
     public Money fromNonNullValue(BigDecimal val) {
-        return Money.of(currencyUnit, val);
+        return Money.of(val, currencyUnit);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class BigDecimalColumnMoneyMapper extends AbstractBigDecimalColumnMapper<
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 		
-		return Money.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
+		return Money.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
 	}
 
 	@Override

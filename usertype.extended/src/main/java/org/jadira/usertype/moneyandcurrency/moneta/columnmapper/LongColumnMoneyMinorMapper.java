@@ -34,7 +34,7 @@ public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Monetar
     @Override
     public Money fromNonNullValue(Long val) {
     	BigDecimal minorVal = BigDecimal.valueOf(val, currencyUnit.getDefaultFractionDigits());
-    	return Money.of(currencyUnit, minorVal);
+    	return Money.of(minorVal, currencyUnit);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Monetar
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 
-		return Money.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
+		return Money.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
 	}
 
 	@Override
