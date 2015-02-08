@@ -47,9 +47,8 @@ public class PersistentFastMoneyAmountAndCurrency extends AbstractMultiColumnUse
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         BigDecimal amountPart = (BigDecimal) convertedColumns[1];
-        FastMoney money = FastMoney.of(currencyUnitPart, amountPart);
 
-        return money;
+        return FastMoney.of(amountPart, currencyUnitPart);
     }
 
     @Override

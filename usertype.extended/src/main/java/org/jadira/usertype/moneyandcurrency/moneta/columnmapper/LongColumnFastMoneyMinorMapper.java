@@ -24,24 +24,18 @@ import javax.money.MonetaryCurrencies;
 import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.FastMoney;
-import org.javamoney.moneta.function.MonetaryFunctions;
 
 public class LongColumnFastMoneyMinorMapper extends AbstractLongColumnMapper<MonetaryAmount> implements CurrencyUnitConfigured {
 
     private static final long serialVersionUID = 4205713919952452881L;
 
-	private static final BigDecimal TEN = BigDecimal.valueOf(10L);
-	
     private CurrencyUnit currencyUnit;
 
     @Override
     public FastMoney fromNonNullValue(Long val) {
     	
-    	BigDecimal minorVal = BigDecimal.valueOf(val);
-    	for (int i = 0; i < currencyUnit.getDefaultFractionDigits(); i++) {
-    		minorVal = minorVal.divide(TEN);
-    	}
-    	return FastMoney.of(currencyUnit, minorVal);
+    	BigDecimal minorVal = BigDecimal.valueOf(val, currencyUnit.getDefaultFractionDigits());
+    	return FastMoney.of(minorVal, currencyUnit);
     }
 
     @Override
@@ -49,13 +43,9 @@ public class LongColumnFastMoneyMinorMapper extends AbstractLongColumnMapper<Mon
     	if (!currencyUnit.equals(value.getCurrency())) {
     		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrency());
     	}
-        BigDecimal val = MonetaryFunctions.majorPart().apply(value).getNumber().numberValue(BigDecimal.class);
-    	for (int i = 0; i < currencyUnit.getDefaultFractionDigits(); i++) {
-    		val = val.multiply(TEN);
-    	}
-    	val.add(MonetaryFunctions.minorPart().apply(value).getNumber().numberValue(BigDecimal.class));
+		BigDecimal val = value.getNumber().numberValue(BigDecimal.class);
     	
-    	return val.longValue();
+    	return val.movePointRight(currencyUnit.getDefaultFractionDigits()).longValue();
     }
 
 	@Override
@@ -66,7 +56,7 @@ public class LongColumnFastMoneyMinorMapper extends AbstractLongColumnMapper<Mon
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 		
-		return FastMoney.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
+		return FastMoney.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
 	}
 
 	@Override
