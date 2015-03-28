@@ -31,39 +31,40 @@ import org.javamoney.moneta.Money;
  */
 public class PersistentMoneyMinorAmountAndCurrency extends AbstractMultiColumnUserType<MonetaryAmount> {
 
-	private static final long serialVersionUID = -3990523657883978202L;
+    private static final long serialVersionUID = -3990523657883978202L;
 
-	private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnCurrencyUnitMapper(), new LongLongColumnMapper<Long>() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] {
+            new StringColumnCurrencyUnitMapper(), new LongLongColumnMapper<Long>() };
 
-    private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amountMinor" };
-	
-	@Override
-	protected ColumnMapper<?, ?>[] getColumnMappers() {
-		return COLUMN_MAPPERS;
-	}
+    private static final String[] PROPERTY_NAMES = new String[] { "currencyUnit", "amountMinor" };
+
+    @Override
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
+        return COLUMN_MAPPERS;
+    }
 
     @Override
     protected Money fromConvertedColumns(Object[] convertedColumns) {
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         Long amountMinorPart = (Long) convertedColumns[1];
-        
+
         BigDecimal majorVal = BigDecimal.valueOf(amountMinorPart, currencyUnitPart.getDefaultFractionDigits());
 
-		return Money.of(currencyUnitPart, majorVal);
+        return Money.of(majorVal, currencyUnitPart);
     }
 
     @Override
     protected Object[] toConvertedColumns(MonetaryAmount value) {
 
-    	BigDecimal minorVal = value.getNumber().numberValue(BigDecimal.class);
-		minorVal = minorVal.movePointRight(value.getCurrency().getDefaultFractionDigits());
-    	
+        BigDecimal minorVal = value.getNumber().numberValue(BigDecimal.class);
+        minorVal = minorVal.movePointRight(value.getCurrency().getDefaultFractionDigits());
+
         return new Object[] { value.getCurrency(), minorVal.longValue() };
     }
-    
+
     @Override
-	public String[] getPropertyNames() {
-		return PROPERTY_NAMES;
-	}
+    public String[] getPropertyNames() {
+        return PROPERTY_NAMES;
+    }
 }

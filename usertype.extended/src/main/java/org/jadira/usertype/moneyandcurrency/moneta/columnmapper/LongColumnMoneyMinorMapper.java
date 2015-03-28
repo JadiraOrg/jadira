@@ -25,7 +25,8 @@ import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.Money;
 
-public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<MonetaryAmount> implements CurrencyUnitConfigured {
+public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<MonetaryAmount> implements
+        CurrencyUnitConfigured {
 
     private static final long serialVersionUID = 4205713919952452881L;
 
@@ -33,37 +34,38 @@ public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Monetar
 
     @Override
     public Money fromNonNullValue(Long val) {
-    	BigDecimal minorVal = BigDecimal.valueOf(val, currencyUnit.getDefaultFractionDigits());
-    	return Money.of(currencyUnit, minorVal);
+        BigDecimal minorVal = BigDecimal.valueOf(val, currencyUnit.getDefaultFractionDigits());
+        return Money.of(minorVal, currencyUnit);
     }
 
     @Override
     public Long toNonNullValue(MonetaryAmount value) {
-    	if (!currencyUnit.equals(value.getCurrency())) {
-    		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrency());
-    	}
+        if (!currencyUnit.equals(value.getCurrency())) {
+            throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was "
+                    + value.getCurrency());
+        }
         BigDecimal val = value.getNumber().numberValue(BigDecimal.class);
 
-    	return val.movePointRight(currencyUnit.getDefaultFractionDigits()).longValue();
+        return val.movePointRight(currencyUnit.getDefaultFractionDigits()).longValue();
     }
 
-	@Override
-	public Money fromNonNullString(String s) {
+    @Override
+    public Money fromNonNullString(String s) {
 
-		int separator = s.indexOf(' ');
+        int separator = s.indexOf(' ');
 
-		String currency = s.substring(0, separator);
-		String value = s.substring(separator + 1);
+        String currency = s.substring(0, separator);
+        String value = s.substring(separator + 1);
 
-		return Money.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
-	}
+        return Money.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
+    }
 
-	@Override
-	public String toNonNullString(MonetaryAmount value) {
-		return value.toString();
-	}
+    @Override
+    public String toNonNullString(MonetaryAmount value) {
+        return value.toString();
+    }
 
-	@Override
+    @Override
     public void setCurrencyUnit(CurrencyUnit currencyUnit) {
         this.currencyUnit = currencyUnit;
     }

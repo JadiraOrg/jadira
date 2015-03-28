@@ -35,7 +35,7 @@ public class LongColumnFastMoneyMinorMapper extends AbstractLongColumnMapper<Mon
     public FastMoney fromNonNullValue(Long val) {
     	
     	BigDecimal minorVal = BigDecimal.valueOf(val, currencyUnit.getDefaultFractionDigits());
-    	return FastMoney.of(currencyUnit, minorVal);
+    	return FastMoney.of(minorVal, currencyUnit);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class LongColumnFastMoneyMinorMapper extends AbstractLongColumnMapper<Mon
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 		
-		return FastMoney.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
+		return FastMoney.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
 	}
 
 	@Override

@@ -22,7 +22,7 @@ import javax.money.MonetaryCurrencies;
 import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryFunctions;
+import org.javamoney.moneta.function.MonetaryUtil;
 
 public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<MonetaryAmount> implements CurrencyUnitConfigured {
 
@@ -32,7 +32,7 @@ public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<Monetar
 
     @Override
     public Money fromNonNullValue(Long val) {
-        return Money.of(currencyUnit, val);
+        return Money.of(val, currencyUnit);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<Monetar
     	if (!currencyUnit.equals(value.getCurrency())) {
     		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrency());
     	}
-        return MonetaryFunctions.majorPart().apply(value).getNumber().longValue();
+        return MonetaryUtil.majorPart().apply(value).getNumber().longValue();
     }
 
 	@Override
@@ -51,7 +51,7 @@ public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<Monetar
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 		
-		return Money.of(MonetaryCurrencies.getCurrency(currency), Long.parseLong(value));
+		return Money.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
 	}
 
 	@Override
