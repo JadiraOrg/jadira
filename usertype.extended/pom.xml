@@ -31,7 +31,7 @@
 	<artifactId>usertype.extended</artifactId>
   	<packaging>jar</packaging>
 
-	<name>Jadira Usertype Extended (supporting JSR 310 with Hibernate)</name>
+	<name>Jadira Usertype Extended (for JSR 310 and Moneta with Hibernate)</name>
 	<description>Classes utilising JSR 310 that add Hibernate support</description>
 	
 	<dependencyManagement>
@@ -47,6 +47,11 @@
 	</dependencyManagement>
 	
 	<dependencies>
+		<dependency>
+		    <groupId>org.threeten</groupId>
+		    <artifactId>threetenbp</artifactId>
+		    <optional>true</optional>
+		</dependency>
 		
 		<dependency>
 		    <groupId>org.javamoney</groupId>
