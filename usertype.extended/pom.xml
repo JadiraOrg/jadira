@@ -47,11 +47,6 @@
 	</dependencyManagement>
 	
 	<dependencies>
-		<dependency>
-		    <groupId>org.threeten</groupId>
-		    <artifactId>threetenbp</artifactId>
-		    <optional>true</optional>
-		</dependency>
 		
 		<dependency>
 		    <groupId>org.javamoney</groupId>
