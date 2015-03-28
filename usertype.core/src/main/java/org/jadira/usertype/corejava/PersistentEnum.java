@@ -60,4 +60,14 @@ public class PersistentEnum extends AbstractReflectionUserType<Enum<?>> implemen
 				
 		super.setParameterValues(parameters);
 	}
+	
+	 @Override
+	 @SuppressWarnings("unchecked")
+	 public Class<Enum<?>> returnedClass() {
+	    Class<?> mappedClass = getMappedClass();
+	    if (mappedClass == null) {
+	        throw new IllegalStateException("enumClass was not defined for " + this.getClass().getName());
+	    }
+	    return (Class<Enum<?>>) mappedClass;
+	 }
 }
