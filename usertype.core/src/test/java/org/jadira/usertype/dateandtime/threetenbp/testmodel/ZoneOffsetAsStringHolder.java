@@ -30,7 +30,7 @@ import org.threeten.bp.ZoneOffset;
 
 @Entity
 @Table(name = "zonedOffsetAsString")
-@TypeDef(name = "test_ZoneOffsetAsStringType", typeClass = PersistentZoneOffsetAsString.class)
+@TypeDef(name = "test310BP_ZoneOffsetAsStringType", typeClass = PersistentZoneOffsetAsString.class)
 public class ZoneOffsetAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -42,7 +42,7 @@ public class ZoneOffsetAsStringHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_ZoneOffsetAsStringType")
+    @Type(type = "test310BP_ZoneOffsetAsStringType")
     private ZoneOffset zoneOffset;
 
     public long getId() {

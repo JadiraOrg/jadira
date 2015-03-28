@@ -30,7 +30,7 @@ import org.threeten.bp.ZoneId;
 
 @Entity
 @Table(name = "timeZoneAsString")
-@TypeDef(name = "test_ZoneIdAsStringType", typeClass = PersistentZoneIdAsString.class)
+@TypeDef(name = "test310BP_ZoneIdAsStringType", typeClass = PersistentZoneIdAsString.class)
 public class ZoneIdAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -42,7 +42,7 @@ public class ZoneIdAsStringHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_ZoneIdAsStringType")
+    @Type(type = "test310BP_ZoneIdAsStringType")
     private ZoneId timeZone;
 
     public long getId() {

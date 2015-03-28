@@ -31,7 +31,7 @@ import org.threeten.bp.OffsetTime;
 
 @Entity
 @Table(name = "offsetTimeAsStringAndStringOffset")
-@TypeDef(name = "test_OffsetTimeAsStringAndStringOffsetType", typeClass = PersistentOffsetTimeAsStringAndStringOffset.class)
+@TypeDef(name = "test310BP_OffsetTimeAsStringAndStringOffsetType", typeClass = PersistentOffsetTimeAsStringAndStringOffset.class)
 public class OffsetTimeAsStringAndStringOffsetHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -43,7 +43,7 @@ public class OffsetTimeAsStringAndStringOffsetHolder implements Serializable {
     private String name;
 
     @Columns(columns = { @Column(name = "MY_DATE"), @Column(name = "MY_OFFSET") })
-    @Type(type = "test_OffsetTimeAsStringAndStringOffsetType")
+    @Type(type = "test310BP_OffsetTimeAsStringAndStringOffsetType")
     private OffsetTime offsetTime;
 
     public long getId() {

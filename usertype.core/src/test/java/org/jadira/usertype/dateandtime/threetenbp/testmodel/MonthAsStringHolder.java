@@ -29,7 +29,7 @@ import org.threeten.bp.Month;
 
 @Entity
 @Table(name = "monthAsString")
-@TypeDef(name = "test_MonthAsStringType", typeClass = PersistentMonthAsString.class)
+@TypeDef(name = "test310BP_MonthAsStringType", typeClass = PersistentMonthAsString.class)
 public class MonthAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -41,7 +41,7 @@ public class MonthAsStringHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_MonthAsStringType")
+    @Type(type = "test310BP_MonthAsStringType")
     private Month month;
 
     public long getId() {

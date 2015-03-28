@@ -30,7 +30,7 @@ import org.threeten.bp.Instant;
 
 @Entity
 @Table(name = "instantAsNanosBigInteger")
-@TypeDef(name = "test_InstantAsNanosBigIntegerType", typeClass = PersistentInstantAsNanosBigInteger.class)
+@TypeDef(name = "test310BP_InstantAsNanosBigIntegerType", typeClass = PersistentInstantAsNanosBigInteger.class)
 public class InstantAsNanosBigIntegerHolder implements Serializable {
 
     private static final long serialVersionUID = 3279731800983627559L;
@@ -42,7 +42,7 @@ public class InstantAsNanosBigIntegerHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_InstantAsNanosBigIntegerType")
+    @Type(type = "test310BP_InstantAsNanosBigIntegerType")
     private Instant instant;
 
     public long getId() {

@@ -29,7 +29,7 @@ import org.threeten.bp.DayOfWeek;
 
 @Entity
 @Table(name = "dayOfWeekAsString")
-@TypeDef(name = "test_DayOfWeekAsStringType", typeClass = PersistentDayOfWeekAsString.class)
+@TypeDef(name = "test310BP_DayOfWeekAsStringType", typeClass = PersistentDayOfWeekAsString.class)
 public class DayOfWeekAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -41,7 +41,7 @@ public class DayOfWeekAsStringHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_DayOfWeekAsStringType")
+    @Type(type = "test310BP_DayOfWeekAsStringType")
     private DayOfWeek dayOfWeek;
 
     public long getId() {

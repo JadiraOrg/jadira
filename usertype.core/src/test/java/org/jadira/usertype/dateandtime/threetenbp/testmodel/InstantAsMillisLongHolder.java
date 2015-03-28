@@ -29,7 +29,7 @@ import org.threeten.bp.Instant;
 
 @Entity
 @Table(name = "instantAsMillisLong")
-@TypeDef(name = "test_InstantAsMillisLongType", typeClass = PersistentInstantAsMillisLong.class)
+@TypeDef(name = "test310BP_InstantAsMillisLongType", typeClass = PersistentInstantAsMillisLong.class)
 public class InstantAsMillisLongHolder implements Serializable {
 
     private static final long serialVersionUID = 1238003766128560347L;
@@ -41,7 +41,7 @@ public class InstantAsMillisLongHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_InstantAsMillisLongType")
+    @Type(type = "test310BP_InstantAsMillisLongType")
     private Instant instant;
 
     public long getId() {

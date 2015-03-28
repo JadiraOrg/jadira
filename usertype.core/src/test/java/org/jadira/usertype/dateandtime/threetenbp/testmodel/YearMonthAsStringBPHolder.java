@@ -30,7 +30,7 @@ import org.threeten.bp.YearMonth;
 
 @Entity
 @Table(name = "yearMonthAsString")
-@TypeDef(name = "test_YearMonthAsStringType", typeClass = PersistentYearMonthAsString.class)
+@TypeDef(name = "test310BP_YearMonthAsStringType", typeClass = PersistentYearMonthAsString.class)
 public class YearMonthAsStringBPHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -42,7 +42,7 @@ public class YearMonthAsStringBPHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_YearMonthAsStringType")
+    @Type(type = "test310BP_YearMonthAsStringType")
     private YearMonth yearMonth;
 
     public long getId() {

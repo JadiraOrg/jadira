@@ -29,7 +29,7 @@ import org.threeten.bp.LocalDateTime;
 
 @Entity
 @Table(name = "localDateTime")
-@TypeDef(name = "test_LocalDateTimeType", typeClass = PersistentLocalDateTime.class)
+@TypeDef(name = "test310BP_LocalDateTimeType", typeClass = PersistentLocalDateTime.class)
 public class LocalDateTimeHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -41,7 +41,7 @@ public class LocalDateTimeHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_LocalDateTimeType")
+    @Type(type = "test310BP_LocalDateTimeType")
     private LocalDateTime localDateTime;
 
     public long getId() {

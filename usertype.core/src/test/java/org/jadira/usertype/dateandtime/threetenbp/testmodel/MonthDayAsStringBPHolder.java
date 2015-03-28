@@ -30,7 +30,7 @@ import org.threeten.bp.MonthDay;
 
 @Entity
 @Table(name = "monthDay")
-@TypeDef(name = "test_MonthDayAsStringType", typeClass = PersistentMonthDayAsString.class)
+@TypeDef(name = "test310BP_MonthDayAsStringType", typeClass = PersistentMonthDayAsString.class)
 public class MonthDayAsStringBPHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -42,7 +42,7 @@ public class MonthDayAsStringBPHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_MonthDayAsStringType")
+    @Type(type = "test310BP_MonthDayAsStringType")
     private MonthDay monthDay;
 
     public long getId() {

@@ -30,7 +30,7 @@ import org.threeten.bp.Year;
 
 @Entity
 @Table(name = "yearAsInteger")
-@TypeDef(name = "test_YearAsIntegerType", typeClass = PersistentYearAsInteger.class)
+@TypeDef(name = "test310BP_YearAsIntegerType", typeClass = PersistentYearAsInteger.class)
 public class YearAsIntegerHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -42,7 +42,7 @@ public class YearAsIntegerHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_YearAsIntegerType")
+    @Type(type = "test310BP_YearAsIntegerType")
     private Year year;
 
     public long getId() {

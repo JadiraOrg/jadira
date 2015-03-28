@@ -29,7 +29,7 @@ import org.threeten.bp.LocalTime;
 
 @Entity
 @Table(name = "localTimeAsNanosLong")
-@TypeDef(name = "test_LocalTimeAsNanosLongType", typeClass = PersistentLocalTimeAsNanosLong.class)
+@TypeDef(name = "test310BP_LocalTimeAsNanosLongType", typeClass = PersistentLocalTimeAsNanosLong.class)
 public class LocalTimeAsNanosLongHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -41,7 +41,7 @@ public class LocalTimeAsNanosLongHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_LocalTimeAsNanosLongType")
+    @Type(type = "test310BP_LocalTimeAsNanosLongType")
     private LocalTime localTime;
 
     public long getId() {

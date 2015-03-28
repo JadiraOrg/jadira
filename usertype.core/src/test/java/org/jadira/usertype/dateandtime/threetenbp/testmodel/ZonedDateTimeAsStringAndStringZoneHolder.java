@@ -31,7 +31,7 @@ import org.threeten.bp.ZonedDateTime;
 
 @Entity
 @Table(name = "zonedDateTimeAsStringStringOffsetAndStringZone")
-@TypeDef(name = "test_ZonedDateTimeAsStringStringOffsetAndStringZoneType", typeClass = PersistentZonedDateTimeAsStringAndStringZone.class)
+@TypeDef(name = "test310BP_ZonedDateTimeAsStringStringOffsetAndStringZoneType", typeClass = PersistentZonedDateTimeAsStringAndStringZone.class)
 public class ZonedDateTimeAsStringAndStringZoneHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -43,7 +43,7 @@ public class ZonedDateTimeAsStringAndStringZoneHolder implements Serializable {
     private String name;
 
     @Columns(columns = { @Column(name = "MY_DATETIME"), @Column(name = "MY_ZONE") })
-    @Type(type = "test_ZonedDateTimeAsStringStringOffsetAndStringZoneType")
+    @Type(type = "test310BP_ZonedDateTimeAsStringStringOffsetAndStringZoneType")
     private ZonedDateTime zonedDateTime;
 
     public long getId() {

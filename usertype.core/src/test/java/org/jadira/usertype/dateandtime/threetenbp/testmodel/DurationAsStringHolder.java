@@ -29,7 +29,7 @@ import org.threeten.bp.Duration;
 
 @Entity
 @Table(name = "durationAsString")
-@TypeDef(name = "test_DurationAsStringType", typeClass = PersistentDurationAsString.class)
+@TypeDef(name = "test310BP_DurationAsStringType", typeClass = PersistentDurationAsString.class)
 public class DurationAsStringHolder implements Serializable {
 
     private static final long serialVersionUID = 5888505180004123768L;
@@ -41,7 +41,7 @@ public class DurationAsStringHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_DurationAsStringType")
+    @Type(type = "test310BP_DurationAsStringType")
     private Duration duration;
 
     public long getId() {
