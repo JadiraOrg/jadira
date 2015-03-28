@@ -63,6 +63,7 @@ public final class ConfigurationHelper {
 	static void configureDefaultProperties(SessionFactory sessionFactory, Properties properties) {
 		if (properties == null) {
 			DEFAULT_PROPERTIES.remove(sessionFactory);
+			DEFAULT_USEJDBC42.remove(sessionFactory);
 		} else {
 			DEFAULT_PROPERTIES.put(sessionFactory, properties);
 		}
