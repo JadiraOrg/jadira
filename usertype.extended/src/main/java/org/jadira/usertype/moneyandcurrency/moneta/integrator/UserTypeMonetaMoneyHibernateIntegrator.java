@@ -18,8 +18,8 @@ package org.jadira.usertype.moneyandcurrency.moneta.integrator;
 import org.hibernate.integrator.spi.Integrator;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
-import org.jadira.usertype.moneyandcurrency.monetabp.PersistentCurrencyUnit;
-import org.jadira.usertype.moneyandcurrency.monetabp.PersistentMoneyAmount;
+import org.jadira.usertype.moneyandcurrency.moneta.PersistentCurrencyUnit;
+import org.jadira.usertype.moneyandcurrency.moneta.PersistentMoneyAmount;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
 import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 

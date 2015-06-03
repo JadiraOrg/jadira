@@ -25,7 +25,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import org.jadira.usertype.moneyandcurrency.monetabp.PersistentMoneyMinorAmountAndCurrency;
+import org.jadira.usertype.moneyandcurrency.moneta.PersistentMoneyMinorAmountAndCurrency;
 import org.javamoney.moneta.Money;
 
 @Entity

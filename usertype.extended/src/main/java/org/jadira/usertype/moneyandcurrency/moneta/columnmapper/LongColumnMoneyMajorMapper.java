@@ -17,7 +17,7 @@ package org.jadira.usertype.moneyandcurrency.moneta.columnmapper;
 
 import javax.money.*;
 
-import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.function.MonetaryUtil;

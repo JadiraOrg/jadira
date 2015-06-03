@@ -18,7 +18,7 @@ package org.jadira.usertype.moneyandcurrency.moneta;
 import javax.money.MonetaryAmount;
 
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.monetabp.columnmapper.LongColumnFastMoneyMajorMapper;
+import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.LongColumnFastMoneyMajorMapper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.javamoney.moneta.FastMoney;
 
@@ -26,7 +26,7 @@ import org.javamoney.moneta.FastMoney;
  * Maps {@link FastMoney} to and from a Long column using the Major amount for storage.
  * For example $100.34 will be stored as $100. Fractional parts will not be retained.
  */
-public class PersistentFastMoneyMajorAmount extends org.jadira.usertype.moneyandcurrency.monetabp.AbstractSingleColumnMoneyUserType<MonetaryAmount, Long, LongColumnFastMoneyMajorMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentFastMoneyMajorAmount extends AbstractSingleColumnMoneyUserType<MonetaryAmount, Long, LongColumnFastMoneyMajorMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = 8215107222490480211L;	
 }

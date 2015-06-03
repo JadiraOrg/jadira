@@ -21,7 +21,7 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
-import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractBigDecimalColumnMapper;
 import org.javamoney.moneta.Money;
 

@@ -18,7 +18,7 @@ package org.jadira.usertype.moneyandcurrency.moneta;
 import javax.money.MonetaryAmount;
 
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.monetabp.columnmapper.LongColumnFastMoneyMinorMapper;
+import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.LongColumnFastMoneyMinorMapper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.javamoney.moneta.FastMoney;
 
@@ -26,7 +26,7 @@ import org.javamoney.moneta.FastMoney;
  * Maps {@link FastMoney} to and from a Long column using the minor amount for storage.
  * For example $100.34 will be stored as 10034.
  */
-public class PersistentFastMoneyMinorAmount extends org.jadira.usertype.moneyandcurrency.monetabp.AbstractSingleColumnMoneyUserType<MonetaryAmount, Long, LongColumnFastMoneyMinorMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentFastMoneyMinorAmount extends AbstractSingleColumnMoneyUserType<MonetaryAmount, Long, LongColumnFastMoneyMinorMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -9177100044920987912L;
 }

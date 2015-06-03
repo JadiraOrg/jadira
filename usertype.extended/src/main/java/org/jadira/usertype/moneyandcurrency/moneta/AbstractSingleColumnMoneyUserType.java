@@ -17,7 +17,7 @@ package org.jadira.usertype.moneyandcurrency.moneta;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;

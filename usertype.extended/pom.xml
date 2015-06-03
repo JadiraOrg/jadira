@@ -54,11 +54,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.javamoney</groupId>
-			<artifactId>moneta-bp</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 		    <groupId>org.javamoney</groupId>
 		    <artifactId>moneta</artifactId>
 		    <optional>true</optional>

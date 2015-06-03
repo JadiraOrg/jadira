@@ -20,14 +20,14 @@ import java.math.BigDecimal;
 import javax.money.MonetaryAmount;
 
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.monetabp.columnmapper.BigDecimalColumnMoneyMapper;
+import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.BigDecimalColumnMoneyMapper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.javamoney.moneta.Money;
 
 /**
  * Maps {@link Money} to and from a BigDecimal column.
  */
-public class PersistentMoneyAmount extends org.jadira.usertype.moneyandcurrency.monetabp.AbstractSingleColumnMoneyUserType<MonetaryAmount, BigDecimal, BigDecimalColumnMoneyMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentMoneyAmount extends AbstractSingleColumnMoneyUserType<MonetaryAmount, BigDecimal, BigDecimalColumnMoneyMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = 486431542623762640L;
 }

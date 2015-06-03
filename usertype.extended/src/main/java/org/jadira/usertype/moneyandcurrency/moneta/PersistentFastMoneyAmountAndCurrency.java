@@ -21,7 +21,7 @@ import javax.money.CurrencyUnit;
 import javax.money.MonetaryAmount;
 
 import org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper.BigDecimalBigDecimalColumnMapper;
-import org.jadira.usertype.moneyandcurrency.monetabp.columnmapper.StringColumnCurrencyUnitMapper;
+import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.StringColumnCurrencyUnitMapper;
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.javamoney.moneta.FastMoney;
