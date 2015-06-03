@@ -18,10 +18,10 @@ package org.jadira.usertype.moneyandcurrency.moneta.columnmapper;
 import java.math.BigDecimal;
 
 import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
 
-import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractBigDecimalColumnMapper;
 import org.javamoney.moneta.FastMoney;
 
@@ -52,7 +52,7 @@ public class BigDecimalColumnFastMoneyMapper extends AbstractBigDecimalColumnMap
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
 		
-		return FastMoney.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
+		return FastMoney.of(Long.parseLong(value), Monetary.getCurrency(currency));
 	}
 
 	@Override

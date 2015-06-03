@@ -20,7 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
+import javax.money.Monetary;
 
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.moneta.testmodel.CurrencyUnitHolder;
@@ -28,7 +28,7 @@ import org.junit.Test;
 
 public class TestPersistentCurrencyUnit extends AbstractDatabaseTest<CurrencyUnitHolder> {
 
-    private static final CurrencyUnit[] currencies = new CurrencyUnit[]{MonetaryCurrencies.getCurrency("EUR"), MonetaryCurrencies.getCurrency("USD"), MonetaryCurrencies.getCurrency("GBP"), MonetaryCurrencies.getCurrency("SAR"), null};
+    private static final CurrencyUnit[] currencies = new CurrencyUnit[]{Monetary.getCurrency("EUR"), Monetary.getCurrency("USD"), Monetary.getCurrency("GBP"), Monetary.getCurrency("SAR"), null};
 
     public TestPersistentCurrencyUnit() {
     	super(TestMonetaMoneySuite.getFactory());

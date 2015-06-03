@@ -41,7 +41,6 @@ public class PortableClassAccess<C> extends AbstractClassAccess<C> implements Cl
 		super(clazz);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public C newInstance() {
 		return (C) OBJENESIS.newInstance(getType());

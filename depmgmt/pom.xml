@@ -280,7 +280,13 @@
 			<dependency>
 			    <groupId>org.javamoney</groupId>
 			    <artifactId>moneta</artifactId>
-			    <version>1.0-RC3</version>
+			    <version>1.0</version>
+			    <optional>true</optional>
+			</dependency>
+			<dependency>
+			    <groupId>org.javamoney</groupId>
+			    <artifactId>moneta-bp</artifactId>
+			    <version>1.0</version>
 			    <optional>true</optional>
 			</dependency>
 			

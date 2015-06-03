@@ -31,8 +31,8 @@
 	<artifactId>usertype.extended</artifactId>
   	<packaging>jar</packaging>
 
-	<name>Jadira Usertype Extended (for JSR 310 and Moneta with Hibernate)</name>
-	<description>Classes utilising JSR 310 that add Hibernate support</description>
+	<name>Jadira Usertype Extended for types requiring Java 8</name>
+	<description>Classes utilising Java 7 and 8 that add Hibernate support for types such as Moneta</description>
 	
 	<dependencyManagement>
 		<dependencies>
@@ -52,7 +52,12 @@
 		    <artifactId>threetenbp</artifactId>
 		    <optional>true</optional>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.javamoney</groupId>
+			<artifactId>moneta-bp</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 		    <groupId>org.javamoney</groupId>
 		    <artifactId>moneta</artifactId>
@@ -190,11 +195,10 @@
 					<source>1.8</source>
 					<target>1.8</target>
 					<compilerArgument>-g</compilerArgument>
-					<encoding>${project.build.sourceEncoding}</encoding> 
-					<charset>${project.build.sourceEncoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
 					<debug>true</debug>
 					<optimize>true</optimize>
-					<showDeprecations>true</showDeprecations>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			

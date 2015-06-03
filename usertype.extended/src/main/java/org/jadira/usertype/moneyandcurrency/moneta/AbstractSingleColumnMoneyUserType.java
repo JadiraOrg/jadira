@@ -15,18 +15,17 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta;
 
-import java.util.Properties;
-
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
-import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
+
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import java.util.Properties;
 
 /**
  * Base class for money types that do not map a currency column using a configured currency instead.
@@ -63,7 +62,7 @@ public abstract class AbstractSingleColumnMoneyUserType<T, J, C extends ColumnMa
 			}
 			if (currencyString != null) {
 
-				currencyUnit = MonetaryCurrencies.getCurrency(currencyString);
+				currencyUnit = Monetary.getCurrency(currencyString);
 			} else {
 				throw new IllegalStateException(getClass().getSimpleName() + " requires currencyCode to be defined as a parameter, or the jadira.usertype.currencyCode Hibernate property to be defined");
 			}

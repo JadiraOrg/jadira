@@ -15,11 +15,9 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta.columnmapper;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryAmount;
-import javax.money.MonetaryCurrencies;
+import javax.money.*;
 
-import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
+import org.jadira.usertype.moneyandcurrency.monetabp.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.Money;
 import org.javamoney.moneta.function.MonetaryUtil;
@@ -50,8 +48,9 @@ public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<Monetar
 		
 		String currency = s.substring(0, separator);
 		String value = s.substring(separator + 1);
-		
-		return Money.of(Long.parseLong(value), MonetaryCurrencies.getCurrency(currency));
+
+		Monetary.getCurrency(currency);
+		return Money.of(Long.parseLong(value), Monetary.getCurrency(currency));
 	}
 
 	@Override

@@ -15,10 +15,10 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta.columnmapper;
 
-import javax.money.CurrencyUnit;
-import javax.money.MonetaryCurrencies;
-
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
+
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
 
 public class StringColumnCurrencyUnitMapper extends AbstractStringColumnMapper<CurrencyUnit> {
 
@@ -26,7 +26,7 @@ public class StringColumnCurrencyUnitMapper extends AbstractStringColumnMapper<C
 
     @Override
     public CurrencyUnit fromNonNullValue(String s) {
-        return MonetaryCurrencies.getCurrency(s);
+        return Monetary.getCurrency(s);
     }
 
     @Override

@@ -17,7 +17,7 @@ package org.jadira.usertype.moneyandcurrency.moneta;
 
 import javax.money.CurrencyUnit;
 
-import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.StringColumnCurrencyUnitMapper;
+import org.jadira.usertype.moneyandcurrency.monetabp.columnmapper.StringColumnCurrencyUnitMapper;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 
 /**

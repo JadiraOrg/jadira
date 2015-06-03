@@ -111,3 +111,4 @@ usertype.spi/usertype.spi.iml
 /jms/.settings
 /jms/target
 /lang/target
+/**/*.iml

@@ -527,11 +527,10 @@
 					<source>1.6</source>
 					<target>1.6</target>
 					<compilerArgument>-g</compilerArgument>
-					<encoding>${project.build.sourceEncoding}</encoding> 
-					<charset>${project.build.sourceEncoding}</charset>
+					<encoding>${project.build.sourceEncoding}</encoding>
 					<debug>true</debug>
 					<optimize>true</optimize>
-					<showDeprecations>true</showDeprecations>
+					<showDeprecation>true</showDeprecation>
 				</configuration>
 			</plugin>
 			<plugin>
