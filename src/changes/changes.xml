@@ -29,7 +29,7 @@
 
 		<!-- types are add, fix, remove, update -->
 
-		<release version="4.0.0.GA" date="TBC" description="New Features">
+		<release version="4.0.0.GA" date="07-07-2015" description="New Features">
 			<action dev="Chris Pheby" type="add">Support for PostgreSQL Enum Type (Suggested by Rudi Wijaya)</action>
 			<action dev="Chris Pheby" type="fix">Fix Connection leak in Integrator (Reported by Brett Wooldridge)</action>
 			<action dev="Chris Pheby" issue="JDF-81" type="fix">Disable detection of JDBC 4.2.x API when Hibernate JDBC Services don't resolve (occurs on Hibernate 4.2.x) (Reported by Rudi Wijaya)</action>
