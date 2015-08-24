@@ -31,8 +31,8 @@
 	<artifactId>usertype.extended</artifactId>
   	<packaging>jar</packaging>
 
-	<name>Jadira Usertype Extended for types requiring Java 8</name>
-	<description>Classes utilising Java 7 and 8 that add Hibernate support for types such as Moneta</description>
+	<name>Jadira Usertype Extended for types requiring Java 7 or 8</name>
+	<description>Classes utilising Java 7 and/or 8 that add Hibernate support for types such as Moneta</description>
 	
 	<dependencyManagement>
 		<dependencies>
