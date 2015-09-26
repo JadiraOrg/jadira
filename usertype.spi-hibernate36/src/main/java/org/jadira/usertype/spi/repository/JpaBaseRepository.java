@@ -15,16 +15,15 @@
  */
 package org.jadira.usertype.spi.repository;
 
-import java.io.Serializable;
-
-import javax.persistence.LockModeType;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.hibernate.engine.SessionImplementor;
 import org.hibernate.metadata.ClassMetadata;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
+
+import javax.persistence.LockModeType;
+import java.io.Serializable;
 
 /**
  * Base implementation of a Repository / type-safe DAO using Hibernate JPA

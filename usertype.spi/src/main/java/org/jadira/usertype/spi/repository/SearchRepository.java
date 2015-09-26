@@ -32,4 +32,9 @@ public interface SearchRepository<T extends Serializable, ID extends Serializabl
 	 * @return The matched entity of type T or null
 	 */
 	T findById(ID id);
+
+	/**
+	 * Clears the persistence context causing all managed entities to become detached
+	 */
+	public void clear();
 }

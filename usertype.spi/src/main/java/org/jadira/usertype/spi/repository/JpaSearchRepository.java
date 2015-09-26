@@ -15,13 +15,12 @@
  */
 package org.jadira.usertype.spi.repository;
 
-import java.io.Serializable;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-
-import org.jadira.usertype.spi.utils.reflection.TypeHelper;
+import java.io.Serializable;
 
 /**
  * Base implementation of a read-only Repository / type-safe DAO using Hibernate JPA
@@ -105,5 +104,13 @@ public abstract class JpaSearchRepository<T extends Serializable, ID extends Ser
 		} catch (NoResultException e) {
 			return null;
 		}
+	}
+
+	/**
+	 * Clears the persistence context causing all managed entities to become detached
+	 */
+	public void clear() {
+
+		getEntityManager().clear();
 	}
 }
