@@ -15,14 +15,13 @@
  */
 package org.jadira.usertype.dateandtime.shared.dbunit;
 
-import java.io.Serializable;
+import org.jadira.usertype.spi.utils.reflection.TypeHelper;
+import org.junit.Before;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Table;
-
-import org.jadira.usertype.spi.utils.reflection.TypeHelper;
-import org.junit.Before;
+import java.io.Serializable;
 
 /**
  * This abstract parent test class bundles several method needed for database relevant tests:
@@ -63,6 +62,9 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
         manager.getTransaction().begin();
         manager.persist(item);
         manager.getTransaction().commit();
+
+        manager.clear();
+
         manager.close();
 
         return item;
@@ -77,6 +79,9 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
         manager.getTransaction().begin();
         E item = manager.find(entityType, id);
         manager.getTransaction().commit();
+
+        manager.clear();
+
         manager.close();
 
         return item;
@@ -85,6 +90,9 @@ public abstract class AbstractDatabaseTest<T extends Serializable> extends Datab
     protected void verifyDatabaseTable() {
         EntityManager manager = factory.createEntityManager();
         verifyDatabaseTable(manager, tableType.getAnnotation(Table.class).name());
+
+        manager.clear();
+
         manager.close();
     }
 }
