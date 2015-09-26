@@ -19,10 +19,10 @@
  -->
 	<persistence-unit name="test1" transaction-type="RESOURCE_LOCAL">
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-      			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/test"/>
+      			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/test?zeroDateTimeBehavior=convertToNull&amp;useLegacyDatetimeCode=false"/>
       			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       			<property name="javax.persistence.jdbc.user" value="test"/>
       			<property name="javax.persistence.jdbc.password" value="test"/>
