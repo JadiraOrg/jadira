@@ -15,19 +15,19 @@
  */
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
-import java.sql.Date;
-
-import org.jadira.usertype.dateandtime.threetenbp.columnmapper.AbstractDateThreeTenBPColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.MonthDay;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class DateColumnMonthDayMapper extends AbstractDateThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneOffset> {
+import java.sql.Date;
+
+public class DateColumnMonthDayMapper extends AbstractDateThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -54,7 +54,7 @@ public class DateColumnMonthDayMapper extends AbstractDateThreeTenBPColumnMapper
     		return MonthDay.parse(value.toString(), LOCAL_DATE_FORMATTER);
     	}
 
-		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+        ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
         
         ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
         MonthDay localDate = MonthDay.of(dateTime.getMonth(), dateTime.getDayOfMonth());
@@ -75,8 +75,8 @@ public class DateColumnMonthDayMapper extends AbstractDateThreeTenBPColumnMapper
         }
     	
         LocalDate ldt = LocalDate.of(1970, value.getMonthValue(), value.getDayOfMonth());
-        
-		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+
+        ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
     	ZonedDateTime zonedValue = ldt.atStartOfDay(currentDatabaseZone);
 
 //        Instant valueAsInstant = Instant.ofEpochSecond(zonedValue.toEpochSecond());

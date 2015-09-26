@@ -15,36 +15,36 @@
  */
 package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
+import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeDateType;
+import org.threeten.bp.ZoneId;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeDateType;
-import org.threeten.bp.ZoneOffset;
-
-public abstract class AbstractDateThreeTenBPColumnMapper<T> extends AbstractDateColumnMapper<T> implements DatabaseZoneConfigured<ZoneOffset> {
+public abstract class AbstractDateThreeTenBPColumnMapper<T> extends AbstractDateColumnMapper<T> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 	
     /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
-    private ZoneOffset databaseZone = null;
+    private ZoneId databaseZone = null;
     
 	public AbstractDateThreeTenBPColumnMapper() {
 	}
 
-	public AbstractDateThreeTenBPColumnMapper(ZoneOffset databaseZone) {
+	public AbstractDateThreeTenBPColumnMapper(ZoneId databaseZone) {
 		this.databaseZone = databaseZone;
 	}
 
     
     @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
+    public void setDatabaseZone(ZoneId databaseZone) {
         this.databaseZone = databaseZone;
     }
 
-    protected ZoneOffset getDatabaseZone() {
+    protected ZoneId getDatabaseZone() {
         return databaseZone;
     }
 	
@@ -63,7 +63,7 @@ public abstract class AbstractDateThreeTenBPColumnMapper<T> extends AbstractDate
     	return new DstSafeDateType(cal);
     }
 
-	private Calendar resolveCalendar(ZoneOffset databaseZone) {
+	private Calendar resolveCalendar(ZoneId databaseZone) {
 		
 		String id = databaseZone.getId();
 		if (Arrays.binarySearch(TimeZone.getAvailableIDs(), id) != -1) {
@@ -71,5 +71,9 @@ public abstract class AbstractDateThreeTenBPColumnMapper<T> extends AbstractDate
 		} else {
 			return null;
 		}
+	}
+
+	public static void main(String ... a) {
+		System.err.println(TimeZone.getTimeZone("Europe/Berlin"));
 	}
 }

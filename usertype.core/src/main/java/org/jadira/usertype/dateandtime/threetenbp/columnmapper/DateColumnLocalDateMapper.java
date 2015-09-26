@@ -20,12 +20,12 @@ import java.sql.Date;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMapper<LocalDate> implements DatabaseZoneConfigured<ZoneOffset> {
+public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMapper<LocalDate> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -36,7 +36,7 @@ public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMappe
 	public DateColumnLocalDateMapper() {
 	}
 
-	public DateColumnLocalDateMapper(ZoneOffset databaseZone) {
+	public DateColumnLocalDateMapper(ZoneId databaseZone) {
 		super(databaseZone);
 	}
     
@@ -52,7 +52,7 @@ public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMappe
     		return LocalDate.parse(value.toString(), LOCAL_DATE_FORMATTER);
     	}
 
-		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+		ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
         
         ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
         LocalDate localDate = dateTime.toLocalDate();
@@ -72,44 +72,44 @@ public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMappe
         	return Date.valueOf(LOCAL_DATE_FORMATTER.format((LocalDate) value));
         }
     	
-		ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+		ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
     	ZonedDateTime zonedValue = value.atStartOfDay(currentDatabaseZone);
 
 //        Instant valueAsInstant = Instant.ofEpochSecond(zonedValue.toEpochSecond());
-//        int defaultTimezoneOffset = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND);
-//        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
-//        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
+//        int defaultTimeZoneId = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND);
+//        int databaseTimeZoneIdInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
+//        int adjustment = defaultTimeZoneId - databaseTimeZoneIdInSeconds * MILLIS_IN_SECOND;
     	
     	final Date date = new Date(zonedValue.toInstant().toEpochMilli());
         return date;
     }
 
-    private static ZoneOffset getDefault() {
+    private static ZoneId getDefault() {
 
-    	ZoneOffset zone = null;
+    	ZoneId zone = null;
         try {
             try {
                 String id = System.getProperty("user.timezone");
                 if (id != null) {
-                    zone = ZoneOffset.of(id);
+                    zone = ZoneId.of(id);
                 }
             } catch (RuntimeException ex) {
                 zone = null;
             }
             if (zone == null) {
-                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
             }
         } catch (RuntimeException ex) {
             zone = null;
         }
         if (zone == null) {
-            zone = ZoneOffset.of("Z");
+            zone = ZoneId.of("Z");
         }
         return zone;
     }
     
 	@Override
-	public ZoneOffset parseZone(String zoneString) {
-		return ZoneOffset.of(zoneString);
+	public ZoneId parseZone(String zoneString) {
+		return ZoneId.of(zoneString);
 	}
 }

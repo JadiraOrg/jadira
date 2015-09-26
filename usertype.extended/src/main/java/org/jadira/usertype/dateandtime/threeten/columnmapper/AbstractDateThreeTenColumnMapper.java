@@ -15,36 +15,36 @@
  */
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
-import java.time.ZoneOffset;
+import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
+import org.jadira.usertype.spi.shared.DstSafeDateType;
+import java.time.ZoneId;
+
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeDateType;
-
-public abstract class AbstractDateThreeTenColumnMapper<T> extends AbstractDateColumnMapper<T> implements DatabaseZoneConfigured<ZoneOffset> {
+public abstract class AbstractDateThreeTenColumnMapper<T> extends AbstractDateColumnMapper<T> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 	
     /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
-    private ZoneOffset databaseZone = null;
+    private ZoneId databaseZone = null;
     
 	public AbstractDateThreeTenColumnMapper() {
 	}
 
-	public AbstractDateThreeTenColumnMapper(ZoneOffset databaseZone) {
+	public AbstractDateThreeTenColumnMapper(ZoneId databaseZone) {
 		this.databaseZone = databaseZone;
 	}
 
     
     @Override
-    public void setDatabaseZone(ZoneOffset databaseZone) {
+    public void setDatabaseZone(ZoneId databaseZone) {
         this.databaseZone = databaseZone;
     }
 
-    protected ZoneOffset getDatabaseZone() {
+    protected ZoneId getDatabaseZone() {
         return databaseZone;
     }
 	
@@ -63,7 +63,7 @@ public abstract class AbstractDateThreeTenColumnMapper<T> extends AbstractDateCo
     	return new DstSafeDateType(cal);
     }
 
-	private Calendar resolveCalendar(ZoneOffset databaseZone) {
+	private Calendar resolveCalendar(ZoneId databaseZone) {
 		
 		String id = databaseZone.getId();
 		if (Arrays.binarySearch(TimeZone.getAvailableIDs(), id) != -1) {
