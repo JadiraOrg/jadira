@@ -15,20 +15,20 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-import java.util.Properties;
-
+import org.hibernate.boot.Metadata;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.integrator.spi.Integrator;
-import org.hibernate.metamodel.source.MetadataImplementor;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
+
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.Properties;
 
 public abstract class AbstractUserTypeHibernateIntegrator implements Integrator {
 
@@ -81,8 +81,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
              
              Connection conn = null;
              try {
-                    JdbcServices jdbcServices = sessionFactory.getJdbcServices();
-                    conn = jdbcServices.getConnectionProvider().getConnection();
+                    JdbcServices jdbcServices = sessionFactory.getServiceRegistry().getService(JdbcServices.class);
+                    conn = jdbcServices.getBootstrapJdbcConnectionAccess().obtainConnection();
                     
                     DatabaseMetaData dmd = conn.getMetaData();
                     int driverMajorVersion = dmd.getDriverMajorVersion();
@@ -156,7 +156,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void integrate(MetadataImplementor metadata, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
+	public void integrate(Metadata metadata, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
 		// no-op
 	}
 

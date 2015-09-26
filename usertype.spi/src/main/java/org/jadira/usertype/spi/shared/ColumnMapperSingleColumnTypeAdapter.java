@@ -21,13 +21,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.dom4j.Node;
 import org.hibernate.HibernateException;
 import org.hibernate.MappingException;
+import org.hibernate.engine.jdbc.Size;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.metamodel.relational.Size;
 import org.hibernate.type.ForeignKeyDirection;
 import org.hibernate.type.SingleColumnType;
 import org.hibernate.type.Type;
@@ -91,12 +90,6 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	@Override
 	public Class getReturnedClass() {
 		return columnMapper.returnedClass();
-	}
-
-	@Deprecated
-	@Override
-	public boolean isXMLElement() {
-		return columnMapper.getHibernateType().isXMLElement();
 	}
 
 	@Override
@@ -195,24 +188,10 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 		columnMapper.getHibernateType().nullSafeSet(st, param, index, session);
 	}
 
-	@Deprecated
-	@Override
-	public void setToXMLNode(Node node, Object value,
-			SessionFactoryImplementor factory) throws HibernateException {
-		columnMapper.getHibernateType().setToXMLNode(node, value, factory);
-	}
-
 	@Override
 	public String toLoggableString(Object value,
 			SessionFactoryImplementor factory) throws HibernateException {
 		return columnMapper.getHibernateType().toLoggableString(value, factory);
-	}
-
-	@Deprecated
-	@Override
-	public Object fromXMLNode(Node xml, Mapping factory)
-			throws HibernateException {
-		return columnMapper.getHibernateType().fromXMLNode(xml, factory);
 	}
 
 	@Override
