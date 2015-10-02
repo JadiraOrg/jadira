@@ -15,7 +15,13 @@
  */
 package org.jadira.usertype.spi.shared;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.SQLException;
+import java.util.Properties;
+
 import org.hibernate.boot.Metadata;
+import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.jdbc.spi.JdbcServices;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
@@ -24,11 +30,6 @@ import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
-
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLException;
-import java.util.Properties;
 
 public abstract class AbstractUserTypeHibernateIntegrator implements Integrator {
 
@@ -60,20 +61,17 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 				autoRegisterUsertypes(configuration);
 			}
 			
-			final boolean use42Api = use42Api(configuration, sessionFactory);
+			final boolean use42Api = use42Api(configuration.getProperty(JDBC42_API_KEY), sessionFactory);
 			ConfigurationHelper.setUse42Api(sessionFactory, use42Api);
 			
-			doIntegrate(configuration, sessionFactory, serviceRegistry);
+			// doIntegrate(configuration, sessionFactory, serviceRegistry);
 		} finally {
 			ConfigurationHelper.setCurrentSessionFactory(null);
 		}
 	}
 
-	@SuppressWarnings("deprecation")
-    private boolean use42Api(Configuration configuration, SessionFactoryImplementor sessionFactory) {
-
-	    String jdbc42Apis = configuration.getProperty(JDBC42_API_KEY);
-	    
+    private boolean use42Api(String jdbc42Apis, SessionFactoryImplementor sessionFactory) {
+   
 	    boolean use42Api;
         if (jdbc42Apis == null) {
 
@@ -131,6 +129,19 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 			registerType(configuration, next);
 		}
 	}
+    
+    private void autoRegisterUsertypes(MetadataImplementor configuration) {
+    	
+		for(UserType next : getUserTypes()) {
+
+			registerType(configuration, next);
+		}
+		
+		for(CompositeUserType next : getCompositeUserTypes()) {
+
+			registerType(configuration, next);
+		}
+	}
 
 	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed, String currencyCode, String jdbc42Apis) {
 		Properties properties = new Properties();
@@ -152,12 +163,53 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		configuration.registerTypeOverride(type, new String[] {className});
 	}
 	
+	private void registerType(MetadataImplementor mi, CompositeUserType type) {
+		String className = type.returnedClass().getName();
+		mi.getTypeResolver().registerTypeOverride(type, new String[] {className});
+	}
+	
+	private void registerType(MetadataImplementor mi, UserType type) {
+		String className = type.returnedClass().getName();
+		mi.getTypeResolver().registerTypeOverride(type, new String[] {className});
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void integrate(Metadata metadata, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
-		// no-op
+
+		final MetadataImplementor mi;
+		if (metadata instanceof MetadataImplementor) {
+			mi = (MetadataImplementor)metadata;
+		} else {
+			throw new IllegalArgumentException("Metadata was not assignable to MetadataImplementor: " + metadata.getClass());
+		}
+		
+		try {
+			ConfigurationHelper.setCurrentSessionFactory(sessionFactory);
+		
+			String isEnabled = sessionFactory.getProperties().getProperty(REGISTER_USERTYPES_KEY); 
+			String javaZone = sessionFactory.getProperties().getProperty(DEFAULT_JAVAZONE_KEY);
+			String databaseZone = sessionFactory.getProperties().getProperty(DEFAULT_DATABASEZONE_KEY);
+			String seed = sessionFactory.getProperties().getProperty(DEFAULT_SEED_KEY);
+			String currencyCode = sessionFactory.getProperties().getProperty(DEFAULT_CURRENCYCODE_KEY);
+			
+			String jdbc42Apis = sessionFactory.getProperties().getProperty(JDBC42_API_KEY);
+			
+			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode, jdbc42Apis);
+		
+			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
+				autoRegisterUsertypes(mi);
+			}
+			
+			final boolean use42Api = use42Api(jdbc42Apis, sessionFactory);
+			ConfigurationHelper.setUse42Api(sessionFactory, use42Api);
+			
+			// doIntegrate(mi, sessionFactory, serviceRegistry);
+		} finally {
+			ConfigurationHelper.setCurrentSessionFactory(null);
+		}
 	}
 
 	/**
@@ -171,7 +223,4 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	protected abstract CompositeUserType[] getCompositeUserTypes();
 	
 	protected abstract UserType[] getUserTypes();
-	
-	protected void doIntegrate(Configuration configuration, SessionFactoryImplementor sessionFactory, SessionFactoryServiceRegistry serviceRegistry) {
-	}
 }

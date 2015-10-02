@@ -21,7 +21,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import org.hamcrest.core.IsEqual;
+import org.hibernate.internal.SessionImpl;
 import org.jadira.usertype.dateandtime.joda.testmodel.DateTimeJoda;
 import org.jadira.usertype.dateandtime.joda.testmodel.JodaDateTimeHolder;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
@@ -38,11 +43,50 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
             null};
     private static final DateTime[] jodaDateTimes = new DateTime[]{
             new DateTime(2004, 2, 25, 12, 11, 10, 0, DateTimeZone.forOffsetHours(4)),
-            new DateTime(1980, 3, 11, 13, 12, 11, 500, DateTimeZone.UTC),
+            new DateTime(1980, 3, 11, 13, 12, 11, 0, DateTimeZone.UTC),
             null};
 
     public TestPersistentDateTime() {
     	super(TestJodaTimeSuite.getFactory());
+    }
+    
+    @Test
+    @Ignore
+    public void testRead() throws SQLException {
+
+    	SessionImpl session = (SessionImpl)(factory.createEntityManager().getDelegate());
+
+    	Connection conn = session.getJdbcConnectionAccess().obtainConnection();
+
+    	String insertTableSQL = "INSERT INTO dateTime"
+    			+ "(ID, NAME, DATETIME) VALUES"
+    			+ "(?,?,?)";
+    	    	
+        for (int i = 0; i < dateTimes.length; i++) {
+
+        	PreparedStatement preparedStatement = conn.prepareStatement(insertTableSQL);
+        	preparedStatement.setInt(1, i);
+        	preparedStatement.setString(2, "test_" + i);
+        	preparedStatement.setTimestamp(3, dateTimes[i] == null ? null : new java.sql.Timestamp(dateTimes[i].getMillis()));
+        	preparedStatement.executeUpdate();
+        }
+        conn.commit();
+
+        for (int i = 0; i < dateTimes.length; i++) {
+
+            JodaDateTimeHolder item = find(JodaDateTimeHolder.class, i);
+
+            assertNotNull(item);
+            assertEquals(i, item.getId());
+            assertEquals("test_" + i, item.getName());
+            if (dateTimes[i] == null) {
+                assertNull(item.getDateTime());
+            } else {
+                assertEquals(dateTimes[i].withZone(DateTimeZone.UTC).toString(), item.getDateTime().toString());
+            }
+        }
+
+        verifyDatabaseTable();
     }
     
     @Test
@@ -58,6 +102,8 @@ public class TestPersistentDateTime extends AbstractDatabaseTest<JodaDateTimeHol
             persist(item);
         }
 
+        
+        
         for (int i = 0; i < dateTimes.length; i++) {
 
             JodaDateTimeHolder item = find(JodaDateTimeHolder.class, i);
