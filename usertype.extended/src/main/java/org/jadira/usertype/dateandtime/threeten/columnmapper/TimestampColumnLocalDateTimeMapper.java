@@ -18,6 +18,7 @@ package org.jadira.usertype.dateandtime.threeten.columnmapper;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,7 +27,7 @@ import java.time.temporal.ChronoField;
 
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 
-public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalDateTime> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalDateTime> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
     
@@ -48,7 +49,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampThreeTe
     @Override
     public LocalDateTime fromNonNullValue(Timestamp value) {
     	
-    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
         
         Instant instant = Instant.ofEpochMilli(value.getTime());
         instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
@@ -64,7 +65,7 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampThreeTe
     @Override
     public Timestamp toNonNullValue(LocalDateTime value) {
 
-    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
     	
     	ZonedDateTime zdt = value.atZone(currentDatabaseZone);
         

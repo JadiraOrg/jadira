@@ -20,7 +20,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -30,7 +30,7 @@ import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 
-public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 
@@ -43,7 +43,7 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenCol
 		super(null);
 	}
 
-	public TimestampColumnLocalTimeMapper(ZoneOffset databaseZone) {
+	public TimestampColumnLocalTimeMapper(ZoneId databaseZone) {
 		super(databaseZone);
 	}
     
@@ -70,13 +70,13 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenCol
     @Override
     public Timestamp toNonNullValue(LocalTime value) {
 
-    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();        
+    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();        
     	
     	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
         Instant ins = zdt.toInstant();
 
-    	ZoneOffset off = getDefault();
+    	ZoneId off = getDefault();
         int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
         final Timestamp timestamp = new Timestamp(ins.toEpochMilli() - adjustment);
@@ -84,32 +84,32 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenCol
         return timestamp;
     }
 
-    private static ZoneOffset getDefault() {
+    private static ZoneId getDefault() {
 
-    	ZoneOffset zone = null;
+    	ZoneId zone = null;
         try {
             try {
                 String id = System.getProperty("user.timezone");
                 if (id != null) {
-                    zone = ZoneOffset.of(id);
+                    zone = ZoneId.of(id);
                 }
             } catch (RuntimeException ex) {
                 zone = null;
             }
             if (zone == null) {
-                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
             }
         } catch (RuntimeException ex) {
             zone = null;
         }
         if (zone == null) {
-            zone = ZoneOffset.of("Z");
+            zone = ZoneId.of("Z");
         }
         return zone;
     }
     
 	@Override
-	public ZoneOffset parseZone(String zoneString) {
-		return ZoneOffset.of(zoneString);
+	public ZoneId parseZone(String zoneString) {
+		return ZoneId.of(zoneString);
 	}
 }

@@ -17,18 +17,17 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.jadira.usertype.dateandtime.threetenbp.columnmapper.AbstractTimestampThreeTenBPColumnMapper;
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.MonthDay;
-import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
-public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
     
@@ -38,7 +37,7 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPCo
 		super();
 	}
 
-	public TimestampColumnMonthDayMapper(ZoneOffset databaseZone) {
+	public TimestampColumnMonthDayMapper(ZoneId databaseZone) {
 		super(databaseZone);
 	}
     
@@ -50,7 +49,7 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPCo
     @Override
     public MonthDay fromNonNullValue(Timestamp value) {
     	
-    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
         
         Instant instant = Instant.ofEpochMilli(value.getTime());
         instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
@@ -69,7 +68,7 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPCo
 
         LocalDateTime ldt = LocalDateTime.of(1970, value.getMonthValue(), value.getDayOfMonth(), 0, 0);
         
-    	ZoneOffset currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
+    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
     	
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
         
@@ -77,32 +76,32 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPCo
         return timestamp;
     }
     
-    private static ZoneOffset getDefault() {
+    private static ZoneId getDefault() {
 
-    	ZoneOffset zone = null;
+    	ZoneId zone = null;
         try {
             try {
                 String id = System.getProperty("user.timezone");
                 if (id != null) {
-                    zone = ZoneOffset.of(id);
+                    zone = ZoneId.of(id);
                 }
             } catch (RuntimeException ex) {
                 zone = null;
             }
             if (zone == null) {
-                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
             }
         } catch (RuntimeException ex) {
             zone = null;
         }
         if (zone == null) {
-            zone = ZoneOffset.of("Z");
+            zone = ZoneId.of("Z");
         }
         return zone;
     }
     
 	@Override
-	public ZoneOffset parseZone(String zoneString) {
-		return ZoneOffset.of(zoneString);
+	public ZoneId parseZone(String zoneString) {
+		return ZoneId.of(zoneString);
 	}
 }

@@ -19,12 +19,12 @@ import java.sql.Timestamp;
 
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.threeten.bp.Instant;
-import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZoneId;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
-public class TimestampColumnInstantMapper extends AbstractTimestampThreeTenBPColumnMapper<Instant> implements DatabaseZoneConfigured<ZoneOffset> {
+public class TimestampColumnInstantMapper extends AbstractTimestampThreeTenBPColumnMapper<Instant> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -34,7 +34,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampThreeTenBPCol
 		super();
 	}
 
-	public TimestampColumnInstantMapper(ZoneOffset databaseZone) {
+	public TimestampColumnInstantMapper(ZoneId databaseZone) {
 		super(databaseZone);
 	}
     
@@ -66,7 +66,7 @@ public class TimestampColumnInstantMapper extends AbstractTimestampThreeTenBPCol
     }
     
 	@Override
-	public ZoneOffset parseZone(String zoneString) {
-		return ZoneOffset.of(zoneString);
+	public ZoneId parseZone(String zoneString) {
+		return ZoneId.of(zoneString);
 	}	
 }
