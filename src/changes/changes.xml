@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--
 		
-  Copyright 2010, 2011-2014 Christopher Pheby
+  Copyright 2010, 2011-2015 Christopher Pheby
 		
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -28,6 +28,11 @@
 	<body>
 
 		<!-- types are add, fix, remove, update -->
+		<release version="5.0.0.GA" date="14-12-2015" description="Hibernate 5 and Multitenancy">
+			<action dev="Chris Pheby" type="fix">Threeten types use ZoneID instead of ZoneOffset (Thanks to Sodasmile)</action>
+			<action dev="Chris Pheby" type="update">Refactored profiles into sub-projects</action>
+			<action dev="Chris Pheby" type="fix">Fixed Integrator behaviour under Hibernate 5</action>
+		</release>
 
 		<release version="4.0.0.GA" date="07-07-2015" description="New Features">
 			<action dev="Chris Pheby" type="add">Support for PostgreSQL Enum Type (Suggested by Rudi Wijaya)</action>
