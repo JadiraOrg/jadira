@@ -17,9 +17,9 @@ package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
 import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -72,17 +72,18 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenCol
 
     	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();        
     	
-    	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
+    	LocalDateTime ldt = LocalDateTime.of(1970, Month.JANUARY, 1, value.getHour(), value.getMinute(), value.getSecond(), value.getNano());
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
         Instant ins = zdt.toInstant();
 
-    	ZoneId off = getDefault();
-        int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+    	// ZoneId off = getDefault();
+        // int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp(ins.toEpochMilli() - adjustment);
+        final Timestamp timestamp = new Timestamp(ins.toEpochMilli()); // + adjustment);
         timestamp.setNanos(value.getNano());
         return timestamp;
     }
+        
 
     private static ZoneId getDefault() {
 
