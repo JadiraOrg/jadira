@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.corejava;
+package org.jadira.usertype.corejava.enumerated;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.PreparedStatement;

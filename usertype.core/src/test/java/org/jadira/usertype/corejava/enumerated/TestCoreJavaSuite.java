@@ -1,4 +1,4 @@
-package org.jadira.usertype.corejava;
+package org.jadira.usertype.corejava.enumerated;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

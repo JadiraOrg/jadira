@@ -294,6 +294,14 @@
 				<groupId>com.googlecode.libphonenumber</groupId>
 				<artifactId>libphonenumber</artifactId>
 				<version>7.0.4</version>
+				<optional>true</optional>
+			</dependency>
+			
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-databind</artifactId>
+			    <version>2.7.0-rc2</version>
+				<optional>true</optional>
 			</dependency>
 			
 			<dependency>		

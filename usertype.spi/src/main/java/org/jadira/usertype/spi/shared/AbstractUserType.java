@@ -25,7 +25,7 @@ public abstract class AbstractUserType implements Serializable {
 
     private static final long serialVersionUID = -3503387360213242237L;
 
-    public final boolean isMutable() {
+    public boolean isMutable() {
         return false;
     }
 
@@ -36,7 +36,7 @@ public abstract class AbstractUserType implements Serializable {
         if ((x == null) || (y == null)) {
             return false;
         }
-    	if (x.equals(y)) {
+    	if (x == y) {
             return true;
         }
         return x.equals(y);

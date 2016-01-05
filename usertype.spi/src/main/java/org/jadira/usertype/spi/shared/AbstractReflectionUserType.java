@@ -29,22 +29,12 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.EnhancedUserType;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
-public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUserType implements EnhancedUserType, Serializable {
+public abstract class AbstractReflectionUserType<T> extends AbstractKnownClassHeuristicUserType<T> implements EnhancedUserType, Serializable {
 
 	private static final long serialVersionUID = 7943328235820102665L;
 
-	private Class<?> mappedClass;
-
 	private Method identifierMethod;
 	private Method valueOfMethod;
-
-	protected void setMappedClass(Class<?> mappedClass) {
-    	this.mappedClass = mappedClass;
-    }
-    
-    protected Class<?> getMappedClass() {
-    	return mappedClass;
-    }
     
     protected void setIdentifierMethod(Method identifierMethod) {
     	this.identifierMethod = identifierMethod;
@@ -66,11 +56,6 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
     }
     
 	public void setParameterValues(Properties parameters) {
-
-		if (mappedClass == null) {
-			
-			throw new IllegalStateException("No mapped class was defined for " + this.getClass().getName());
-		}
 
 		if (identifierMethod == null) {
 			
@@ -97,7 +82,7 @@ public abstract class AbstractReflectionUserType<T> extends AbstractHeuristicUse
 			return null;
 		}
 
-		return valueOfMethod.invoke(mappedClass, new Object[] { identifier });
+		return valueOfMethod.invoke(getMappedClass(), new Object[] { identifier });
 	}
 
     @Override

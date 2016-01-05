@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.corejava.testmodel;
+package org.jadira.usertype.corejava.enumerated.testmodel;
 
 import java.io.Serializable;
 
@@ -26,7 +26,7 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.cdt.country.ISOCountryCode;
-import org.jadira.usertype.corejava.PersistentEnum;
+import org.jadira.usertype.corejava.enumerated.PersistentEnum;
 
 @Entity
 @Table(name = "isoCountryCodeWithGeneric")
