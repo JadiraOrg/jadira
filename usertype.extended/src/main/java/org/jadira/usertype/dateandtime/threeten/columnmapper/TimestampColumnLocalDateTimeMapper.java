@@ -74,32 +74,32 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampThreeTe
         return timestamp;
     }
     
-    private static ZoneOffset getDefault() {
+   private static ZoneId getDefault() {
 
-    	ZoneOffset zone = null;
+        ZoneId zone = null;
         try {
             try {
                 String id = System.getProperty("user.timezone");
                 if (id != null) {
-                    zone = ZoneOffset.of(id);
+                    zone = ZoneId.of(id);
                 }
             } catch (RuntimeException ex) {
                 zone = null;
             }
             if (zone == null) {
-                zone = ZoneOffset.of(java.util.TimeZone.getDefault().getID());
+                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
             }
         } catch (RuntimeException ex) {
             zone = null;
         }
         if (zone == null) {
-            zone = ZoneOffset.of("Z");
+            zone = ZoneId.of("Z");
         }
         return zone;
     }
-    
-	@Override
-	public ZoneOffset parseZone(String zoneString) {
-		return ZoneOffset.of(zoneString);
-	}
+
+    @Override
+    public ZoneId parseZone(String zoneString) {
+        return ZoneId.of(zoneString);
+    }
 }
