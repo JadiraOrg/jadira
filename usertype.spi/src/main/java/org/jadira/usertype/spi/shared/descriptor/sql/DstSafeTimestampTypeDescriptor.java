@@ -61,6 +61,16 @@ public class DstSafeTimestampTypeDescriptor extends TimestampTypeDescriptor {
 					st.setTimestamp(index,
 							javaTypeDescriptor.unwrap(value, Timestamp.class, options), cal);	
 				}
+			}@Override
+			protected void doBind(CallableStatement st, X value, String param,
+					WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					st.setTimestamp(param,
+							javaTypeDescriptor.unwrap(value, Timestamp.class, options));
+				} else {
+					st.setTimestamp(param,
+							javaTypeDescriptor.unwrap(value, Timestamp.class, options), cal);
+				}
 			}
 		};
 	}

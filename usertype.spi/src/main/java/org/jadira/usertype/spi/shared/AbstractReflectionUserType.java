@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.EnhancedUserType;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
@@ -72,9 +72,9 @@ public abstract class AbstractReflectionUserType<T> extends AbstractKnownClassHe
     public Class<T> returnedClass() {
         return (Class<T>) TypeHelper.getTypeArguments(AbstractReflectionUserType.class, getClass()).get(0);
     }
-    
+
 	@Override
-	public Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
 		Object identifier = getType().get(rs, names[0], session);
 		
@@ -86,7 +86,7 @@ public abstract class AbstractReflectionUserType<T> extends AbstractKnownClassHe
 	}
 
     @Override
-    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
     	if (value == null) {
 			preparedStatement.setNull(index, getType().sqlType());

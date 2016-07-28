@@ -18,7 +18,7 @@ package org.jadira.usertype.spi.shared;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.DbTimestampType;
 
 public class DbTimestampSeed extends JvmTimestampSeed {
@@ -28,13 +28,13 @@ public class DbTimestampSeed extends JvmTimestampSeed {
     private final DbTimestampType helper = new DbTimestampType();
 
     @Override
-    public Timestamp getTimestamp(SessionImplementor session) {
+    public Timestamp getTimestamp(SharedSessionContractImplementor session) {
         Object result = helper.seed(session);
         return convertResult(result);
     }
 
     @Override
-    public Timestamp getNextTimestamp(Timestamp current, SessionImplementor session) {
+    public Timestamp getNextTimestamp(Timestamp current, SharedSessionContractImplementor session) {
         Object result = helper.next(current, session);
         return convertResult(result);
     }

@@ -18,7 +18,7 @@ package org.jadira.usertype.spi.shared;
 import java.util.Comparator;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserVersionType;
 
@@ -73,7 +73,7 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
     public abstract int compare(Object o1, Object o2);
 
     @Override
-    public T seed(SessionImplementor session) {
+    public T seed(SharedSessionContractImplementor session) {
 
         final VersionableColumnMapper<T, J> columnMapper = getColumnMapper();
         if (seed == null) {
@@ -84,7 +84,7 @@ public abstract class AbstractVersionableUserType<T, J, C extends VersionableCol
     }
 
     @Override
-    public T next(Object current, SessionImplementor session) {
+    public T next(Object current, SharedSessionContractImplementor session) {
         return seed(session);
     }
 }

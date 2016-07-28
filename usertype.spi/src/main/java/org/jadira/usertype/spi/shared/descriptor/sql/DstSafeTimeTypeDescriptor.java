@@ -15,11 +15,7 @@
  */
 package org.jadira.usertype.spi.shared.descriptor.sql;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.sql.*;
 import java.util.Calendar;
 
 import org.hibernate.type.descriptor.ValueBinder;
@@ -60,6 +56,16 @@ public class DstSafeTimeTypeDescriptor extends TimeTypeDescriptor {
 				} else {
 					st.setTime(index,
 							javaTypeDescriptor.unwrap(value, Time.class, options), cal);	
+				}
+			}
+			@Override
+			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options) throws SQLException {
+				if (cal == null) {
+					st.setDate(name,
+							javaTypeDescriptor.unwrap(value, Date.class, options));
+				} else {
+					st.setDate(name,
+							javaTypeDescriptor.unwrap(value, Date.class, options), cal);
 				}
 			}
 		};

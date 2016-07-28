@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.Type;
 import org.hibernate.usertype.CompositeUserType;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
@@ -104,9 +104,10 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     protected abstract ColumnMapper<?, ?>[] getColumnMappers();
 
+    
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
-    public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+    public T nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
@@ -142,7 +143,7 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     @SuppressWarnings("unchecked")
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
@@ -198,17 +199,17 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
     }
 
     @Override
-    public Serializable disassemble(Object value, SessionImplementor session) throws HibernateException {
+    public Serializable disassemble(Object value, SharedSessionContractImplementor session) throws HibernateException {
         return super.disassemble(value);
     }
 
     @Override
-    public Object assemble(Serializable cached, SessionImplementor session, Object owner) throws HibernateException {
+    public Object assemble(Serializable cached, SharedSessionContractImplementor session, Object owner) throws HibernateException {
         return super.assemble(cached, owner);
     }
 
     @Override
-    public Object replace(Object original, Object target, SessionImplementor session, Object owner) throws HibernateException {
+    public Object replace(Object original, Object target, SharedSessionContractImplementor session, Object owner) throws HibernateException {
         return super.replace(original, target, owner);
     }
 }

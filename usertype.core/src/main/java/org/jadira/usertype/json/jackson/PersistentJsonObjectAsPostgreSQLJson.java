@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.postgresql.util.PGobject;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -35,7 +35,7 @@ public class PersistentJsonObjectAsPostgreSQLJson<T> extends PersistentJsonObjec
 	private static final long serialVersionUID = 228945479215593795L;
 
     @Override
-    public Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
         Object identifier = rs.getObject(names[0]);
         
@@ -66,7 +66,7 @@ public class PersistentJsonObjectAsPostgreSQLJson<T> extends PersistentJsonObjec
     }
 
     @Override
-    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
     	if (value == null) {
 			preparedStatement.setNull(index, Types.NULL);
