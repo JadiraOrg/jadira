@@ -22,7 +22,7 @@ import java.util.Date;
 
 import org.hibernate.HibernateException;
 import org.hibernate.dialect.Dialect;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.LiteralType;
 import org.hibernate.type.StringType;
@@ -58,11 +58,11 @@ public class DstSafeTimestampType extends
 				java.util.Date.class.getName() };
 	}
 
-	public Date next(Date current, SessionImplementor session) {
+	public Date next(Date current, SharedSessionContractImplementor session) {
 		return seed(session);
 	}
 
-	public Date seed(SessionImplementor session) {
+	public Date seed(SharedSessionContractImplementor session) {
 		return new Timestamp(System.currentTimeMillis());
 	}
 

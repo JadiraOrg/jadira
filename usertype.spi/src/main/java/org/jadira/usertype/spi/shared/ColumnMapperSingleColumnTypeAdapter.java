@@ -26,7 +26,8 @@ import org.hibernate.MappingException;
 import org.hibernate.engine.jdbc.Size;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.ForeignKeyDirection;
 import org.hibernate.type.SingleColumnType;
 import org.hibernate.type.Type;
@@ -92,6 +93,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 		return columnMapper.returnedClass();
 	}
 
+	
 	@Override
 	public boolean isSame(Object x, Object y) throws HibernateException {
 		return columnMapper.getHibernateType().isSame(x, y);
@@ -126,20 +128,20 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 
 	@Override
 	public boolean isDirty(Object old, Object current,
-			SessionImplementor session) throws HibernateException {
+						   SharedSessionContractImplementor session) throws HibernateException {
 		return columnMapper.getHibernateType().isDirty(old, current, session);
 	}
 
 	@Override
 	public boolean isDirty(Object oldState, Object currentState,
-			boolean[] checkable, SessionImplementor session)
+			boolean[] checkable, SharedSessionContractImplementor session)
 			throws HibernateException {
 		return columnMapper.getHibernateType().isDirty(oldState, currentState, checkable, session);
 	}
 
 	@Override
 	public boolean isModified(Object dbState, Object currentState,
-			boolean[] checkable, SessionImplementor session)
+			boolean[] checkable, SharedSessionContractImplementor session)
 			throws HibernateException {
 		return columnMapper.getHibernateType().isModified(dbState, currentState, checkable, session);
 	}
@@ -147,7 +149,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	
 	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names,
-			SessionImplementor session, Object owner)
+			SharedSessionContractImplementor session, Object owner)
 			throws HibernateException, SQLException {
 
 		@SuppressWarnings("unchecked") final J hibernateValue = (J)(columnMapper.getHibernateType().nullSafeGet(rs, names, session, owner));
@@ -159,7 +161,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 
 	@Override
 	public Object nullSafeGet(ResultSet rs, String name,
-			SessionImplementor session, Object owner)
+			SharedSessionContractImplementor session, Object owner)
 			throws HibernateException, SQLException {
 
 		@SuppressWarnings("unchecked") final J hibernateValue = (J) columnMapper.getHibernateType().nullSafeGet(rs, name, session, owner);
@@ -172,7 +174,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	@SuppressWarnings("unchecked")
 	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index,
-			boolean[] settable, SessionImplementor session)
+			boolean[] settable, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException {
 
 		final Object param = value == null ? null : columnMapper.fromNonNullValue((J) value);
@@ -182,7 +184,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	@SuppressWarnings("unchecked")
 	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index,
-			SessionImplementor session) throws HibernateException, SQLException {
+			SharedSessionContractImplementor session) throws HibernateException, SQLException {
 		
 		final Object param = value == null ? null : columnMapper.toNonNullValue((T) value);		
 		columnMapper.getHibernateType().nullSafeSet(st, param, index, session);
@@ -211,37 +213,37 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	}
 
 	@Override
-	public Serializable disassemble(Object value, SessionImplementor session,
+	public Serializable disassemble(Object value, SharedSessionContractImplementor session,
 			Object owner) throws HibernateException {
 		return columnMapper.getHibernateType().disassemble(value, session, owner);
 	}
 
 	@Override
-	public Object assemble(Serializable cached, SessionImplementor session,
+	public Object assemble(Serializable cached, SharedSessionContractImplementor session,
 			Object owner) throws HibernateException {
 		return columnMapper.getHibernateType().assemble(cached, session, owner);
 	}
 
 	@Override
-	public void beforeAssemble(Serializable cached, SessionImplementor session) {
+	public void beforeAssemble(Serializable cached, SharedSessionContractImplementor session) {
 		columnMapper.getHibernateType().beforeAssemble(cached, session);
 	}
 
 	@Override
 	public Object hydrate(ResultSet rs, String[] names,
-			SessionImplementor session, Object owner)
+			SharedSessionContractImplementor session, Object owner)
 			throws HibernateException, SQLException {
 		return columnMapper.getHibernateType().hydrate(rs, names, session, owner);
 	}
 
 	@Override
-	public Object resolve(Object value, SessionImplementor session, Object owner)
+	public Object resolve(Object value, SharedSessionContractImplementor session, Object owner)
 			throws HibernateException {
 		return columnMapper.getHibernateType().resolve(value, session, owner);
 	}
 
 	@Override
-	public Object semiResolve(Object value, SessionImplementor session,
+	public Object semiResolve(Object value, SharedSessionContractImplementor session,
 			Object owner) throws HibernateException {
 		return columnMapper.getHibernateType().semiResolve(value, session, owner);
 	}
@@ -253,14 +255,14 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 
 	@Override
 	public Object replace(Object original, Object target,
-			SessionImplementor session, Object owner, @SuppressWarnings("rawtypes") Map copyCache)
+			SharedSessionContractImplementor session, Object owner, @SuppressWarnings("rawtypes") Map copyCache)
 			throws HibernateException {
 		return columnMapper.getHibernateType().replace(original, target, session, owner, copyCache);
 	}
 
 	@Override
 	public Object replace(Object original, Object target,
-			SessionImplementor session, Object owner, @SuppressWarnings("rawtypes") Map copyCache,
+			SharedSessionContractImplementor session, Object owner, @SuppressWarnings("rawtypes") Map copyCache,
 			ForeignKeyDirection foreignKeyDirection) throws HibernateException {
 		return columnMapper.getHibernateType().replace(original, target, session, owner, copyCache, foreignKeyDirection);
 	}
@@ -294,7 +296,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 
 	@Override
 	public T nullSafeGet(ResultSet rs, String name,
-			SessionImplementor session) throws HibernateException, SQLException {
+			SharedSessionContractImplementor session) throws HibernateException, SQLException {
 
 		@SuppressWarnings("unchecked") final J hibernateValue = (J) columnMapper.getHibernateType().nullSafeGet(rs, name, session);
 		if (hibernateValue == null) {
@@ -304,7 +306,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	}
 
 	@Override
-	public Object get(ResultSet rs, String name, SessionImplementor session)
+	public Object get(ResultSet rs, String name, SharedSessionContractImplementor session)
 			throws HibernateException, SQLException {
 		
 		@SuppressWarnings("unchecked") final J hibernateValue = (J)(columnMapper.getHibernateType().get(rs, name, session));
@@ -317,7 +319,7 @@ public class ColumnMapperSingleColumnTypeAdapter<T,J> implements SingleColumnTyp
 	@SuppressWarnings("unchecked")
 	@Override
 	public void set(PreparedStatement st, Object value, int index,
-			SessionImplementor session) throws HibernateException, SQLException {
+			SharedSessionContractImplementor session) throws HibernateException, SQLException {
 		
 		final Object param = value == null ? null : columnMapper.toNonNullValue((T) value);
 		columnMapper.getHibernateType().nullSafeSet(st, param, index, session);	}

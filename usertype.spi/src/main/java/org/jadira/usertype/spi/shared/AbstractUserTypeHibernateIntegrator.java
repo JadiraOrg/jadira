@@ -189,13 +189,13 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		try {
 			ConfigurationHelper.setCurrentSessionFactory(sessionFactory);
 		
-			String isEnabled = sessionFactory.getProperties().getProperty(REGISTER_USERTYPES_KEY); 
-			String javaZone = sessionFactory.getProperties().getProperty(DEFAULT_JAVAZONE_KEY);
-			String databaseZone = sessionFactory.getProperties().getProperty(DEFAULT_DATABASEZONE_KEY);
-			String seed = sessionFactory.getProperties().getProperty(DEFAULT_SEED_KEY);
-			String currencyCode = sessionFactory.getProperties().getProperty(DEFAULT_CURRENCYCODE_KEY);
+			String isEnabled = (String)sessionFactory.getProperties().get(REGISTER_USERTYPES_KEY);
+			String javaZone = (String)sessionFactory.getProperties().get(DEFAULT_JAVAZONE_KEY);
+			String databaseZone = (String)sessionFactory.getProperties().get(DEFAULT_DATABASEZONE_KEY);
+			String seed = (String)sessionFactory.getProperties().get(DEFAULT_SEED_KEY);
+			String currencyCode = (String)sessionFactory.getProperties().get(DEFAULT_CURRENCYCODE_KEY);
 			
-			String jdbc42Apis = sessionFactory.getProperties().getProperty(JDBC42_API_KEY);
+			String jdbc42Apis = (String)sessionFactory.getProperties().get(JDBC42_API_KEY);
 			
 			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode, jdbc42Apis);
 		

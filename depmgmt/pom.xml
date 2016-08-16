@@ -86,13 +86,13 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-core</artifactId>
-				<version>5.0.1.Final</version>
+				<version>5.2.1.Final</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-entitymanager</artifactId>
-				<version>5.0.1.Final</version>
+				<version>5.2.1.Final</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>

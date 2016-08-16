@@ -24,7 +24,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.EnhancedUserType;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.bindings.core.api.Binding;
@@ -100,7 +100,7 @@ public class PersistentBoundClass extends AbstractHeuristicUserType implements P
 	}
 
 	@Override
-	public Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	public Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
 		Object identifier = getType().get(rs, names[0], session);
 		
@@ -114,7 +114,7 @@ public class PersistentBoundClass extends AbstractHeuristicUserType implements P
 	}
 
     @Override
-    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
     	if (value == null) {
 			preparedStatement.setNull(index, getType().sqlType());

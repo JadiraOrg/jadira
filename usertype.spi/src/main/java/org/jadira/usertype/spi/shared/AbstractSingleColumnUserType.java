@@ -23,7 +23,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.EnhancedUserType;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
 
@@ -62,7 +63,7 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     }
 
     @Override
-    public T nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+    public T nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
         
     	beforeNullSafeOperation(session);
     	
@@ -80,14 +81,15 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     	}
     }
 
-    protected J doNullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+    protected J doNullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
 		@SuppressWarnings("unchecked")
 		final J converted = (J) getColumnMapper().getHibernateType().nullSafeGet(resultSet, strings[0], session, object);
 		return converted;
 	}
 
+    
 	@Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
@@ -107,7 +109,7 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     	}
     }
 
-    protected void doNullSafeSet(PreparedStatement preparedStatement, J transformedValue, int index, SessionImplementor session) throws SQLException {
+    protected void doNullSafeSet(PreparedStatement preparedStatement, J transformedValue, int index, SharedSessionContractImplementor session) throws SQLException {
     	getColumnMapper().getHibernateType().nullSafeSet(preparedStatement, transformedValue, index, session);
 	}
 
