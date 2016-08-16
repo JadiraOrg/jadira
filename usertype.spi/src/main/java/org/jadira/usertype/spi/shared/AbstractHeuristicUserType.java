@@ -25,7 +25,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.AbstractSingleColumnStandardBasicType;
 import org.hibernate.type.TypeResolver;
 import org.hibernate.type.descriptor.java.JavaTypeDescriptor;
@@ -73,7 +73,7 @@ public abstract class AbstractHeuristicUserType extends AbstractUserType impleme
     public abstract Class<?> returnedClass();
     
 	@Override
-	public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
+	public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
 
 		beforeNullSafeOperation(session);
 		
@@ -99,10 +99,10 @@ public abstract class AbstractHeuristicUserType extends AbstractUserType impleme
     	}
 	}
 
-    public abstract Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
+    public abstract Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
     
     @Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
@@ -122,7 +122,7 @@ public abstract class AbstractHeuristicUserType extends AbstractUserType impleme
 		}
     }
 
-    public abstract void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
+    public abstract void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException;
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override

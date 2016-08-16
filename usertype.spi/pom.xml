@@ -137,6 +137,27 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-toolchains-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>toolchain</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<toolchains>
+						<jdk>
+							<version>8.0</version>
+							<vendor>oracle</vendor>
+						</jdk>
+					</toolchains>
+			 	 </configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.3.2</version>
 				<executions>
@@ -154,8 +175,8 @@
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<compilerArgument>-g</compilerArgument>
 					<!-- We override the compiler plugin in order to suppress the errors from the following
 					     argument not being set -->

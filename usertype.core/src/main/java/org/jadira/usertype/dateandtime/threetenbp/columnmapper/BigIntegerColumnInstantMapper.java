@@ -20,6 +20,10 @@ import java.math.BigInteger;
 import org.jadira.usertype.spi.shared.AbstractVersionableBigIntegerColumnMapper;
 import org.threeten.bp.Instant;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class BigIntegerColumnInstantMapper extends AbstractVersionableBigIntegerColumnMapper<Instant> {
 
     private static final long serialVersionUID = 2647692721818989190L;

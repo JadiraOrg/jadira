@@ -118,6 +118,7 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
         }
 	}
 	
+	@SuppressWarnings("unused")
 	private void performJdbc42Configuration(Jdbc42Configured next) {
         
         Boolean jdbc42Apis = null;

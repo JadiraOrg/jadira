@@ -22,7 +22,7 @@ import java.sql.Types;
 import java.util.Map;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.postgresql.util.PGobject;
 
 public class PersistentStringMapAsPostgreSQLJson extends PersistentStringMapAsJson {
@@ -30,7 +30,7 @@ public class PersistentStringMapAsPostgreSQLJson extends PersistentStringMapAsJs
 	private static final long serialVersionUID = 849294691718991328L;
 
 	@Override
-	public Map<String, String> doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner)
+	public Map<String, String> doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner)
 			throws HibernateException, SQLException {
 
 		Object identifier = rs.getObject(names[0]);
@@ -57,7 +57,7 @@ public class PersistentStringMapAsPostgreSQLJson extends PersistentStringMapAsJs
 
 	@Override
 	public void doNullSafeSet(PreparedStatement preparedStatement, Map<String, String> value, int index,
-			SessionImplementor session) throws SQLException {
+			SharedSessionContractImplementor session) throws SQLException {
 
 		if (value == null) {
 			preparedStatement.setNull(index, Types.NULL);

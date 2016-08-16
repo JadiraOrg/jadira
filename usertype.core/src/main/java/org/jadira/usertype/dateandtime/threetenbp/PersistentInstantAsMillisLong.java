@@ -25,8 +25,11 @@ import org.threeten.bp.Instant;
  * you should note that JodaTime's org.joda.time.Instant has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
+ * 
  * @see PersistentInstantAsNanosBigInteger
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentInstantAsMillisLong extends AbstractVersionableUserType<Instant, Long, LongColumnInstantMapper> {
 
     private static final long serialVersionUID = 3793471253953101728L;

@@ -23,7 +23,9 @@ import org.threeten.bp.MonthDay;
 
 /**
  * Persist {@link MonthDay} to a Timestamp via Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentMonthDayAsTimestamp extends AbstractSingleColumnUserType<MonthDay, Timestamp, TimestampColumnMonthDayMapper> {
 
     private static final long serialVersionUID = 5686457807800307458L;

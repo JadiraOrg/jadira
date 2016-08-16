@@ -21,7 +21,9 @@ import org.threeten.bp.ZoneOffset;
 
 /**
  * Maps a {@link ZoneOffset} to and from String for Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentZoneOffsetAsString extends AbstractSingleColumnUserType<ZoneOffset, String, StringColumnZoneOffsetMapper> {
 
     private static final long serialVersionUID = 6025957718355515493L;

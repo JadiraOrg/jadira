@@ -35,6 +35,10 @@ import org.jadira.usertype.dateandtime.threetenbp.PersistentZonedDateTime;
 import org.jadira.usertype.spi.shared.AbstractUserTypeHibernateIntegrator;
 import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class UserTypeThreeTenBPHibernateIntegrator extends AbstractUserTypeHibernateIntegrator implements Integrator {
 
 	private static UserType[] userTypes;

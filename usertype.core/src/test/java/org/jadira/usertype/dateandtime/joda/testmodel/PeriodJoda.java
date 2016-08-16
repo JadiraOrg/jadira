@@ -28,8 +28,8 @@ import org.joda.time.Period;
 import org.joda.time.contrib.hibernate.PersistentPeriod;
 
 @Entity
-@Table(name = "periodAsString2")
-@TypeDef(name = "joda2_PeriodType", typeClass = PersistentPeriod.class)
+@Table(name = "periodAsString")
+@TypeDef(name = "joda_PeriodType", typeClass = PersistentPeriod.class)
 public class PeriodJoda implements Serializable {
 
     private static final long serialVersionUID = 1320460550127733967L;
@@ -41,7 +41,7 @@ public class PeriodJoda implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "joda2_PeriodType")
+    @Type(type = "joda_PeriodType")
     private Period period;
 
     public long getId() {

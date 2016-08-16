@@ -245,6 +245,11 @@ public class JClass extends JType {
             next.acceptVisitor(visitor);
         }
         for (JField next : getFields()) {
+        	
+        	// Since Java 8 access to this member is problematic, so we always guard for it
+        	if ("classLoader".equals(next.getName()) && "java.lang.Class".equals(next.getEnclosingType().getName())) {
+        		continue;
+        	}
             next.acceptVisitor(visitor);
         }
         for (JConstructor next : getConstructors()) {

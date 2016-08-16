@@ -21,6 +21,10 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<LocalDateTime> {
 
 	public static final DateTimeFormatter DATETIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd'T'HH:mm:ss").appendOptional(new DateTimeFormatterBuilder().appendLiteral('.').appendFraction(ChronoField.NANO_OF_SECOND, 1, 9, false).toFormatter()).toFormatter();

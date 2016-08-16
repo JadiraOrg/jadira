@@ -31,7 +31,7 @@ public class StringColumnDateTimeMapper extends AbstractStringColumnMapper<DateT
 
     private static final long serialVersionUID = -2548824513686423324L;
 
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
+    private static final DateTimeFormatter DATE_TIME_PARSER = new DateTimeFormatterBuilder()
         .append(ISODateTimeFormat.date())
         .appendLiteral('T')
         .append(ISODateTimeFormat.hourMinuteSecondFraction())
@@ -39,10 +39,22 @@ public class StringColumnDateTimeMapper extends AbstractStringColumnMapper<DateT
         .appendTimeZoneId()
         .toFormatter();
 
+   
+    private static final DateTimeFormatter DATE_TIME_PRINTER_PREFIX = new DateTimeFormatterBuilder()
+            .append(ISODateTimeFormat.yearMonth()).appendLiteral("-")
+            .toFormatter();
+    
+    private static final DateTimeFormatter DATE_TIME_PRINTER_SUFFIX = new DateTimeFormatterBuilder()
+		    .appendLiteral('T')
+		    .append(ISODateTimeFormat.hourMinuteSecondFraction())
+		    .appendLiteral('_')
+		    .appendTimeZoneId()
+		    .toFormatter();
+    
     @Override
     public DateTime fromNonNullValue(String s) {
 
-        DateTime parsedDateTime = DATE_TIME_FORMATTER.parseDateTime(s);
+        DateTime parsedDateTime = DATE_TIME_PARSER.parseDateTime(s);
         DateTimeZone correctTimeZone = parsedDateTime.getZone();
         DateTime utcDateTime = parsedDateTime.withZoneRetainFields(DateTimeZone.UTC);
         DateTime correctedDateTime = utcDateTime.withZone(correctTimeZone);
@@ -55,7 +67,18 @@ public class StringColumnDateTimeMapper extends AbstractStringColumnMapper<DateT
         DateTimeZone correctTimeZone = value.getZone();
         DateTime utcDateTime = value.withZone(DateTimeZone.UTC);
         DateTime utcDateTimeWithCorrectTimeZone = utcDateTime.withZoneRetainFields(correctTimeZone);
-        String dateTimeAsString = DATE_TIME_FORMATTER.print(utcDateTimeWithCorrectTimeZone);
+        
+        int dayOfMonth = utcDateTimeWithCorrectTimeZone.getDayOfMonth();
+        
+        String dateTimeAsString = DATE_TIME_PRINTER_PREFIX.print(utcDateTimeWithCorrectTimeZone);
+        
+        if (dayOfMonth < 10) {
+        	dateTimeAsString = dateTimeAsString + "0";
+        }
+        dateTimeAsString = dateTimeAsString + dayOfMonth;
+        
+        dateTimeAsString = dateTimeAsString + DATE_TIME_PRINTER_SUFFIX.print(utcDateTimeWithCorrectTimeZone);
+        
         return dateTimeAsString;
     }
 }

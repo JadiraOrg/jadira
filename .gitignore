@@ -112,3 +112,4 @@ usertype.spi/usertype.spi.iml
 /jms/target
 /lang/target
 /**/*.iml
+/maven/fmpp-maven-plugin/.factorypath

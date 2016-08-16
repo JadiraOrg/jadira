@@ -15,7 +15,7 @@
  */
 package org.jadira.usertype.spi.shared;
 
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 
 public interface Seed<T> {
 
@@ -24,7 +24,7 @@ public interface Seed<T> {
      * @param session The session from which this request originates.
      * @return an instance of the type
      */
-    T getTimestamp(SessionImplementor session);
+    T getTimestamp(SharedSessionContractImplementor session);
 
     /**
      * Increment the version value.
@@ -32,5 +32,5 @@ public interface Seed<T> {
      * @param current the current version value
      * @return an instance of the type T
      */
-    T getNextTimestamp(T current, SessionImplementor session);
+    T getNextTimestamp(T current, SharedSessionContractImplementor session);
 }

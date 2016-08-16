@@ -18,6 +18,10 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import org.jadira.usertype.spi.shared.AbstractIntegerColumnMapper;
 import org.threeten.bp.DayOfWeek;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class IntegerColumnDayOfWeekMapper extends AbstractIntegerColumnMapper<DayOfWeek> {
 
     private static final long serialVersionUID = 3803107030453775035L;

@@ -27,12 +27,24 @@
 		
 	<body>
 
-		<release version="5.1.0.GA" date="TBC" description="JSON Serialization">
+<!--
+		<release version="6.1.0.GA" date="TBC" description="JSON Serialization">
 			<action dev="Chris Pheby" type="add">Serialization of Objects to String using JSON (this addition was supported by Computing Distribution Group Ltd)</action>
 			<action dev="Chris Pheby" type="add">Serialization of Maps to String using JSON (this addition was supported by Computing Distribution Group Ltd)</action>
 		</release>
+-->
 
 		<!-- types are add, fix, remove, update -->
+		<release version="6.0.0.GA" date="16-08-2016" description="Java 8 Update">
+			<action dev="Chris Pheby" type="update">Jadira now requires Java 8 across all modules</action>
+			<action dev="Chris Pheby" type="remove">Hibernate 3.6 modules have been removed from sources</action>
+			<action dev="Chris Pheby" type="update">Compatibility with Hibernate 5.2</action>
+			<action dev="Chris Pheby" type="update">Joda Time Backport types have been deprecated as anyone using Java 8 should transition away from it</action>
+			<action dev="Chris Pheby" type="fix">Joda DateTimeAsString and LocalDateTimeAsString have been tweaked to ensure output complies with other temporal libraries</action>
+			<action dev="Chris Pheby" type="fix">Resolved a Stackoverflowerror in scanner under Java 8</action>
+			<action dev="Chris Pheby" type="fix">Usertype-extended has been removed - all its types can be found in Usertype-core now.</action>
+		</release>
+
 		<release version="5.0.0.GA" date="14-12-2015" description="Hibernate 5 and Multitenancy">
 			<action dev="Chris Pheby" type="fix">Threeten types use ZoneID instead of ZoneOffset (Thanks to Sodasmile)</action>
 			<action dev="Chris Pheby" type="update">Refactored profiles into sub-projects</action>

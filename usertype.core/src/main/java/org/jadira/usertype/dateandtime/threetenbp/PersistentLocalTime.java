@@ -29,7 +29,10 @@ import org.threeten.bp.LocalTime;
  * However, note that org.joda.time.contrib.hibernate.PersistentLocalTimeAsTime contains a bug where times written
  * down will be offset from GMT due to its use of {@link java.sql.Time#setTime(long)}. This class is not affected by this
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes.
+ * 
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalTime extends AbstractParameterizedUserType<LocalTime, Time, TimeColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -6901872002988989156L;

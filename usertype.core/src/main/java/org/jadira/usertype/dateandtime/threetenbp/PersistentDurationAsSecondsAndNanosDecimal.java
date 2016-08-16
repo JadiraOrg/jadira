@@ -24,7 +24,9 @@ import org.threeten.bp.Duration;
 /**
  * Maps a {@link Duration} to and from a decimal value for Hibernate. This type stores Duration using
  * a seconds and nanoseconds value.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDurationAsSecondsAndNanosDecimal extends AbstractSingleColumnUserType<Duration, BigDecimal, BigDecimalColumnDurationMapper> {
     
     private static final long serialVersionUID = 5935446369086020399L;

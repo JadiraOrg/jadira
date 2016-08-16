@@ -35,7 +35,7 @@ public class TestPersistentDurationAsString extends AbstractDatabaseTest<JodaDur
 
     private static final Duration[] durations = new Duration[] { 
         Duration.ZERO, 
-        new Duration(30 * 1000), 
+        new Duration(30l * 1000l), 
         new Period(0, 0, 30, 0).toDurationFrom(new LocalDateTime(2010, 8, 8, 10, 10, 10).toDateTime(DateTimeZone.UTC)), 
         new Duration(new DateTime(2010, 4, 1, 0, 0, 0, DateTimeZone.UTC).minusMonths(3), new DateTime(2010, 4, 1, 0, 0, 0, DateTimeZone.UTC)) };
     

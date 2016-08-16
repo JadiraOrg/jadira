@@ -33,7 +33,10 @@ import org.threeten.bp.OffsetTime;
  * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  * N.B. To use the zone of the JVM supply 'jvm'
+ * 
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentOffsetTimeAsTimestamp extends AbstractParameterizedUserType<OffsetTime, Timestamp, TimestampColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 2629423108971922341L;

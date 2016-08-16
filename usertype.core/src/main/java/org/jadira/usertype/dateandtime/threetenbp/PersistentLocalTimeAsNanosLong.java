@@ -23,8 +23,11 @@ import org.threeten.bp.LocalTime;
  * Persist {@link LocalTime} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with
  * Joda Time's org.joda.time.contrib.hibernate.PersistentLocalTimeExact because that class uses a millisecond rather than nanosecond
  * absolute value. For compatibility use {@link PersistentLocalTimeAsMillisInteger}
+ * 
  * @see PersistentLocalTimeAsMillisInteger
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalTimeAsNanosLong extends AbstractSingleColumnUserType<LocalTime, Long, LongColumnLocalTimeMapper> {
 
     private static final long serialVersionUID = -3198627056015121907L;

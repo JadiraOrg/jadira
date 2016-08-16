@@ -13,19 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threetenbp;
+package org.jadira.usertype.dateandtime.threeten;
 
-import org.jadira.usertype.dateandtime.threetenbp.columnmapper.IntegerColumnDurationMapper;
+import java.time.Year;
+
+import org.jadira.usertype.dateandtime.threeten.columnmapper.StringColumnYearMapper;
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
-import org.threeten.bp.Duration;
 
 /**
- * Maps a {@link Duration} to and from Integer for Hibernate. This type aims to be compatible with
- * JPA / JDBC 4.2's mapping of Duration to seconds.
- * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ * Maps a {@link Year} to and from String for Hibernate.
  */
-@Deprecated
-public class PersistentDurationAsSecondsInteger extends AbstractSingleColumnUserType<Duration, Integer, IntegerColumnDurationMapper> {
+public class PersistentYearAsString extends AbstractSingleColumnUserType<Year, String, StringColumnYearMapper> {
 
-    private static final long serialVersionUID = 5954125836252428928L;
+    private static final long serialVersionUID = 2203287045641899191L;
 }

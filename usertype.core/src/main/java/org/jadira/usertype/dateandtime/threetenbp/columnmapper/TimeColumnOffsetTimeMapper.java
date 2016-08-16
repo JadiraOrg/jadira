@@ -28,6 +28,10 @@ import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class TimeColumnOffsetTimeMapper extends AbstractTimeThreeTenBPColumnMapper<OffsetTime> implements DatabaseZoneConfigured<ZoneOffset>, JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;

@@ -21,7 +21,6 @@ import javax.persistence.LockModeType;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.jpa.HibernateEntityManagerFactory;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.metadata.ClassMetadata;
 import org.jadira.usertype.spi.utils.reflection.TypeHelper;
@@ -43,10 +42,11 @@ public abstract class JpaBaseRepository<T extends Serializable, ID extends Seria
 	 * @param entity The entity to retrieve the ID for
 	 * @return The ID
 	 */
+	@SuppressWarnings("deprecation") // No good alternative in the Hibernate API yet
 	protected ID extractId(T entity) {
 
 		final Class<?> entityClass = TypeHelper.getTypeArguments(JpaBaseRepository.class, this.getClass()).get(0);
-		final SessionFactory sf = ((HibernateEntityManagerFactory) getEntityManager().getEntityManagerFactory()).getSessionFactory();
+		final SessionFactory sf = (SessionFactory)getEntityManager().getEntityManagerFactory();
 		final ClassMetadata cmd = sf.getClassMetadata(entityClass);
 
 		final SessionImplementor si = (SessionImplementor)(getEntityManager().getDelegate());

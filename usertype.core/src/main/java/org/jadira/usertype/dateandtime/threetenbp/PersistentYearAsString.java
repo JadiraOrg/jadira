@@ -21,7 +21,9 @@ import org.threeten.bp.Year;
 
 /**
  * Maps a {@link Year} to and from String for Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentYearAsString extends AbstractSingleColumnUserType<Year, String, StringColumnYearMapper> {
 
     private static final long serialVersionUID = 2203287045641899191L;

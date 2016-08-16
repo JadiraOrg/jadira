@@ -26,7 +26,9 @@ import org.threeten.bp.LocalTime;
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalTimeAsTimestamp extends AbstractParameterizedUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 526277986034021423L;

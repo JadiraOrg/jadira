@@ -22,7 +22,9 @@ import org.threeten.bp.LocalDateTime;
 
 /**
  * Persist {@link LocalDateTime} via Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalDateTimeAsString extends AbstractSingleColumnUserType<LocalDateTime, String, StringColumnLocalDateTimeMapper> {
 
     private static final long serialVersionUID = 4865444142792602978L;

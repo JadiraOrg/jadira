@@ -18,6 +18,10 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.threeten.bp.Duration;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnDurationMapper extends AbstractStringColumnMapper<Duration> {
 
     private static final long serialVersionUID = -5741261927204773374L;

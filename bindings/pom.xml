@@ -145,8 +145,8 @@
 				<configuration>
 					<toolchains>
 						<jdk>
-							<version>7.0</version>
-							<vendor>sun</vendor>
+							<version>8.0</version>
+							<vendor>oracle</vendor>
 						</jdk>
 					</toolchains>
 			 	 </configuration>
@@ -158,8 +158,8 @@
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<compilerArgument>-g</compilerArgument>
 					<encoding>${project.build.sourceEncoding}</encoding> 
 					<charset>${project.build.sourceEncoding}</charset>

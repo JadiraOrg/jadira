@@ -27,6 +27,10 @@ import org.threeten.bp.format.DateTimeFormatterBuilder;
 
 import java.sql.Date;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class DateColumnMonthDayMapper extends AbstractDateThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 6734385103313158326L;

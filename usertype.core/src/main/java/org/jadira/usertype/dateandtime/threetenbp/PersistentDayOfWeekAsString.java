@@ -19,10 +19,11 @@ import org.jadira.usertype.dateandtime.threetenbp.columnmapper.StringColumnDayOf
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.threeten.bp.DayOfWeek;
 
-
 /**
  * Persist {@link DayOfWeek} via Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDayOfWeekAsString extends AbstractSingleColumnUserType<DayOfWeek, String, StringColumnDayOfWeekMapper> {
 
     private static final long serialVersionUID = 5686457807800307458L;

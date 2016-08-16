@@ -13,36 +13,29 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
+package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.LocalTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.ZonedDateTime;
-import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.format.DateTimeFormatterBuilder;
-import org.threeten.bp.temporal.ChronoField;
 
-/**
- * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
- */
-@Deprecated
-public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenBPColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneId> {
+public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalTime> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 
     public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = new DateTimeFormatterBuilder().appendPattern("0001-01-01 HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd HH:mm:ss").appendFraction(ChronoField.NANO_OF_SECOND, 0, 9, true).toFormatter();
 
-	private static final int MILLIS_IN_SECOND = 1000;
-    
 	public TimestampColumnLocalTimeMapper() {
 		super(null);
 	}
@@ -76,17 +69,18 @@ public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenBPC
 
     	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();        
     	
-    	LocalDateTime ldt = value.atDate(LocalDate.of(1970, 1, 1));
+    	LocalDateTime ldt = LocalDateTime.of(1970, Month.JANUARY, 1, value.getHour(), value.getMinute(), value.getSecond(), value.getNano());
     	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
         Instant ins = zdt.toInstant();
 
-    	ZoneId off = getDefault();
-        int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
+    	// ZoneId off = getDefault();
+        // int adjustment = TimeZone.getDefault().getOffset(ins.toEpochMilli()) - (off.getRules().getOffset(LocalDateTime.now()).getTotalSeconds() * MILLIS_IN_SECOND);
         
-        final Timestamp timestamp = new Timestamp(ins.toEpochMilli() - adjustment);
+        final Timestamp timestamp = new Timestamp(ins.toEpochMilli()); // + adjustment);
         timestamp.setNanos(value.getNano());
         return timestamp;
     }
+        
 
     private static ZoneId getDefault() {
 

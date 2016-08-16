@@ -24,6 +24,10 @@ import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 import org.threeten.bp.ZoneId;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public abstract class AbstractTimestampThreeTenBPColumnMapper<T> extends AbstractVersionableTimestampColumnMapper<T> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;

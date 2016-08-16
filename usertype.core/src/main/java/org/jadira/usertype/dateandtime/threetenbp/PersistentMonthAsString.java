@@ -19,10 +19,11 @@ import org.jadira.usertype.dateandtime.threetenbp.columnmapper.StringColumnMonth
 import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.threeten.bp.Month;
 
-
 /**
  * Persist {@link Month} via Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentMonthAsString extends AbstractSingleColumnUserType<Month, String, StringColumnMonthMapper> {
 
     private static final long serialVersionUID = 5686457807800307458L;

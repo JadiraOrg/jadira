@@ -166,6 +166,10 @@ public class ClasspathResolver extends AbstractFileResolver<JElement> {
 	
 	public Class<?> loadClass(String className) {
 	    
+		if ("java.lang.Class".equals(className)) {
+			return java.lang.Class.class;
+		}
+		
 	    for (int i = 0; i < classLoaders.length; i++) {
             try {
                 return Class.forName(className, true, classLoaders[i]);

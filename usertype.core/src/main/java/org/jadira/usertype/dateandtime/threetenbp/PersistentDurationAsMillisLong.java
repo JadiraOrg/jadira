@@ -22,7 +22,9 @@ import org.threeten.bp.Duration;
 /**
  * Maps a {@link Duration} to and from Long for Hibernate. This type stores Duration using
  * a millisecond value.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDurationAsMillisLong extends AbstractSingleColumnUserType<Duration, Long, LongColumnDurationMapper> {
 
     private static final long serialVersionUID = 5223443949599090296L;

@@ -25,8 +25,11 @@ import org.threeten.bp.LocalTime;
  * you should note that JodaTime's org.joda.time.LocalTime has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
+ * 
  * @see PersistentLocalTimeAsNanosLong
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalTimeAsMillisInteger extends AbstractSingleColumnUserType<LocalTime, Integer, IntegerColumnLocalTimeMapper> {
 
     private static final long serialVersionUID = 5231874917398959855L;

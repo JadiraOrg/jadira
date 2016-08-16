@@ -22,7 +22,9 @@ import org.threeten.bp.Duration;
 /**
  * Maps a {@link Duration} to and from BigInteger for Hibernate. This type stores Duration using
  * a nanosecond value.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDurationAsNanosBigInteger extends AbstractSingleColumnUserType<Duration, Long, LongColumnDurationMapper> {
 
     private static final long serialVersionUID = -2339112412473925328L;

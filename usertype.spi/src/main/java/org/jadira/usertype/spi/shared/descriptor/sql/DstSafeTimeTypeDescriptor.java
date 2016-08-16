@@ -62,6 +62,17 @@ public class DstSafeTimeTypeDescriptor extends TimeTypeDescriptor {
 							javaTypeDescriptor.unwrap(value, Time.class, options), cal);	
 				}
 			}
+
+			@Override
+			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
+					throws SQLException {
+				if (cal == null) {
+					st.setTime(name,
+							javaTypeDescriptor.unwrap(value, Time.class, options));
+				} else {
+					st.setTime(name,
+							javaTypeDescriptor.unwrap(value, Time.class, options), cal);	
+				}			}
 		};
 	}
 

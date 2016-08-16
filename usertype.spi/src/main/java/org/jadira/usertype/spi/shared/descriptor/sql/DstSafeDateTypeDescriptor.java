@@ -61,6 +61,18 @@ public class DstSafeDateTypeDescriptor extends DateTypeDescriptor {
 							javaTypeDescriptor.unwrap(value, Date.class, options), cal);	
 				}
 			}
+
+			@Override
+			protected void doBind(CallableStatement st, X value, String name, WrapperOptions options)
+					throws SQLException {
+				if (cal == null) {
+					st.setDate(name,
+							javaTypeDescriptor.unwrap(value, Date.class, options));
+				} else {
+					st.setDate(name,
+							javaTypeDescriptor.unwrap(value, Date.class, options), cal);	
+				}
+			}
 		};
 	}
 	

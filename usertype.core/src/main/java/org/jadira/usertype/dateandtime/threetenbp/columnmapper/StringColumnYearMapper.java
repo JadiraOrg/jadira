@@ -20,7 +20,10 @@ import org.threeten.bp.Year;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
-
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnYearMapper extends AbstractStringColumnMapper<Year> {
 
     private static final long serialVersionUID = -7158493703736747997L;

@@ -18,7 +18,7 @@ package org.jadira.usertype.spi.shared;
 import java.io.Serializable;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.SerializationException;
 
 public abstract class AbstractUserType implements Serializable {
@@ -80,7 +80,7 @@ public abstract class AbstractUserType implements Serializable {
      * Included to allow session state to be applied to the user type
      * @param session The session
      */
-    public void beforeNullSafeOperation(SessionImplementor session) {
+    public void beforeNullSafeOperation(SharedSessionContractImplementor session) {
     	
     	ConfigurationHelper.setCurrentSessionFactory(session.getFactory());
     	if (this instanceof IntegratorConfiguredType) {
@@ -93,7 +93,7 @@ public abstract class AbstractUserType implements Serializable {
      * This should be called from a finally block for surety.
      * @param session The session
      */
-    public void afterNullSafeOperation(SessionImplementor session) {
+    public void afterNullSafeOperation(SharedSessionContractImplementor session) {
     	ConfigurationHelper.setCurrentSessionFactory(null);
     }
 }

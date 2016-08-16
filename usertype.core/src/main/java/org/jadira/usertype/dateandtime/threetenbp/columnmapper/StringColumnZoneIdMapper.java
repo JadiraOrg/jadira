@@ -18,7 +18,10 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.threeten.bp.ZoneId;
 
-
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnZoneIdMapper extends AbstractStringColumnMapper<ZoneId> {
 
     private static final long serialVersionUID = 4205713919952452881L;

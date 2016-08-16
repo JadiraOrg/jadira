@@ -25,6 +25,10 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class DateColumnLocalDateMapper extends AbstractDateThreeTenBPColumnMapper<LocalDate> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = 6734385103313158326L;

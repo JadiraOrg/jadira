@@ -21,7 +21,9 @@ import org.threeten.bp.Instant;
 
 /**
  * Persist {@link Instant} via Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentInstantAsString extends AbstractSingleColumnUserType<Instant, String, StringColumnInstantMapper> {
 
     private static final long serialVersionUID = -7212497504048340155L;

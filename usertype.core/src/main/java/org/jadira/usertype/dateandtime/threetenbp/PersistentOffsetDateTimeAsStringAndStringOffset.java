@@ -25,7 +25,9 @@ import org.threeten.bp.ZoneOffset;
 
 /**
  * Persist {@link OffsetDateTime} via Hibernate. The offset will be stored in an extra column.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentOffsetDateTimeAsStringAndStringOffset extends AbstractMultiColumnUserType<OffsetDateTime> {
 
     private static final long serialVersionUID = 1364221029392346011L;

@@ -17,7 +17,9 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.DateTimeFormatterBuilder;
 import org.joda.time.format.ISODateTimeFormat;
 
 public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<LocalDateTime> {
@@ -26,8 +28,15 @@ public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<
 
     public static final DateTimeFormatter LOCAL_DATETIME_PARSER = ISODateTimeFormat.localDateOptionalTimeParser();
 
-    public static final DateTimeFormatter LOCAL_DATETIME_PRINTER = ISODateTimeFormat.ordinalDateTime();
+    private static final DateTimeFormatter DATE_TIME_PRINTER_PREFIX = new DateTimeFormatterBuilder()
+            .append(ISODateTimeFormat.yearMonth()).appendLiteral("-")
+            .toFormatter();
+    
+    public static final DateTimeFormatter LOCAL_TIME_PRINTER = ISODateTimeFormat.hourMinuteSecond();
 
+    public static final DateTimeFormatter LOCAL_MILLIS_PRINTER = DateTimeFormat.forPattern("SSS");
+
+    
     @Override
     public LocalDateTime fromNonNullValue(String s) {
         return LOCAL_DATETIME_PARSER.parseDateTime(s).toLocalDateTime();
@@ -36,7 +45,21 @@ public class StringColumnLocalDateTimeMapper extends AbstractStringColumnMapper<
     @Override
     public String toNonNullValue(LocalDateTime value) {
 
-        String formatted = LOCAL_DATETIME_PRINTER.print(value);
+    	String date = DATE_TIME_PRINTER_PREFIX.print(value);
+    	
+    	int dayOfMonth = value.getDayOfMonth();
+    	
+        if (dayOfMonth < 10) {
+        	date = date + "0";
+        }
+        date = date + dayOfMonth;
+    	
+    	String millis = LOCAL_MILLIS_PRINTER.print(value);
+    	while (millis.length() > 1 && millis.endsWith("0")) {
+    		millis = millis.substring(0, millis.length() - 1);
+    	}
+    	
+        String formatted = date + "T" + LOCAL_TIME_PRINTER.print(value) + "." + millis;
         return formatted;
     }
 }

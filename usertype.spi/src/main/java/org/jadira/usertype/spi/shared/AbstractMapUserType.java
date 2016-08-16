@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.UserType;
 
 public abstract class AbstractMapUserType<K,V> extends AbstractUserType implements UserType, Serializable {
@@ -39,7 +39,7 @@ public abstract class AbstractMapUserType<K,V> extends AbstractUserType implemen
     }
 	
     @Override
-    public Map<K, V> nullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+    public Map<K, V> nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
         
     	beforeNullSafeOperation(session);
     	
@@ -56,7 +56,7 @@ public abstract class AbstractMapUserType<K,V> extends AbstractUserType implemen
     	}
     }
 
-    protected Map<K,V> doNullSafeGet(ResultSet resultSet, String[] strings, SessionImplementor session, Object object) throws SQLException {
+    protected Map<K,V> doNullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
 		
 		String value = resultSet.getString(strings[0]);
 		if (value == null) {
@@ -67,7 +67,7 @@ public abstract class AbstractMapUserType<K,V> extends AbstractUserType implemen
 
 	@SuppressWarnings("unchecked")
 	@Override
-    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException {
+    public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException {
 
     	beforeNullSafeOperation(session);
     	
@@ -79,7 +79,7 @@ public abstract class AbstractMapUserType<K,V> extends AbstractUserType implemen
     	}
     }
 
-    protected void doNullSafeSet(PreparedStatement preparedStatement, Map<K, V> value, int index, SessionImplementor session) throws SQLException {
+    protected void doNullSafeSet(PreparedStatement preparedStatement, Map<K, V> value, int index, SharedSessionContractImplementor session) throws SQLException {
 		
     	if (value == null) {
 			preparedStatement.setNull(index, sqlTypes()[0]);

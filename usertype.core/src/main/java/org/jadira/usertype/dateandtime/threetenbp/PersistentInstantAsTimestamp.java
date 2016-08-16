@@ -30,7 +30,10 @@ import org.threeten.bp.Instant;
  * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#getTimeZone(String)} format
  * to indicate the zone of the database.
  * N.B. To use the zone of the JVM supply 'jvm'
+ * 
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -1184009888235202420L;

@@ -27,7 +27,7 @@
 	<version>5.0.1.GA-SNAPSHOT</version>
 
 	<name>Jadira Framework Parent</name>
-	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money and other Common Data Types</description>
+	<description>Hibernate and DDD support including for Joda Time, JSR 310, Joda Money, JSR 354 and other Common Data Types</description>
 	<url>http://oss.jadira.co.uk/</url>
 	<inceptionYear>2010</inceptionYear>
 
@@ -248,8 +248,8 @@
 				<configuration>
 					<toolchains>
 						<jdk>
-							<version>6.0</version>
-							<vendor>sun</vendor>
+							<version>8.0</version>
+							<vendor>oracle</vendor>
 						</jdk>
 					</toolchains>
 			 	 </configuration>
@@ -261,8 +261,8 @@
 				<configuration>
 					<verbose>true</verbose>
 					<fork>true</fork>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 					<compilerArgument>-g</compilerArgument>
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<debug>true</debug>
@@ -708,15 +708,6 @@
 		<module>refdata</module>
 		<module>usertype.spi</module>
 		<module>usertype.core</module>
-		<module>usertype.extended</module>
-		<!--
-			These are commented as they won't be re-released until
-			there is a sufficient range of new features / fixes
-			to justify backporting again
-			
-		<module>usertype.spi-hibernate36</module>
-		<module>usertype.core-hibernate36</module>
-		-->
 		<module>quant</module>
 	</modules>
 	

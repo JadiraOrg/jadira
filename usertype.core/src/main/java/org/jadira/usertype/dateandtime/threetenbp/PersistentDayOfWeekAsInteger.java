@@ -21,7 +21,9 @@ import org.threeten.bp.DayOfWeek;
 
 /**
  * Persist {@link DayOfWeek} via Hibernate using integer value.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDayOfWeekAsInteger extends AbstractSingleColumnUserType<DayOfWeek, Integer, IntegerColumnDayOfWeekMapper> {
 
     private static final long serialVersionUID = 4694981953643179773L;

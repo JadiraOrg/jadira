@@ -19,6 +19,10 @@ import org.threeten.bp.ZoneId;
 
 import org.threeten.bp.ZoneOffset;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public final class ZoneHelper {
 
     private static final int MILLIS_IN_SECOND = 1000;

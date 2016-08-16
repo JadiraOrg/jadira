@@ -20,6 +20,10 @@ import java.math.BigInteger;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.threeten.bp.Duration;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class LongColumnDurationMapper extends AbstractLongColumnMapper<Duration> {
 
     private static final long serialVersionUID = 8408450977695192938L;

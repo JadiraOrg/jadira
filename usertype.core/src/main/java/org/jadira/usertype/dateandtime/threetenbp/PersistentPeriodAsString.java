@@ -25,7 +25,9 @@ import org.threeten.bp.Period;
  * you should note that JodaTime's org.joda.time.Period has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda Time will
  * round down to the nearest millisecond.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentPeriodAsString extends AbstractSingleColumnUserType<Period, String, StringColumnPeriodMapper> {
 
     private static final long serialVersionUID = -8895920152179319506L;

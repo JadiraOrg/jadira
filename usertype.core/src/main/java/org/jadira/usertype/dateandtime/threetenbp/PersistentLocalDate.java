@@ -26,7 +26,9 @@ import org.threeten.bp.LocalDate;
 /**
  * Persist {@link LocalDate} via Hibernate. This type shares database
  * representation with org.joda.time.contrib.hibernate.PersistentLocalDate
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5362933224614493534L;

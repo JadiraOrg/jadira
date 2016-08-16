@@ -18,7 +18,10 @@ package org.jadira.usertype.dateandtime.threetenbp.columnmapper;
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.threeten.bp.LocalDate;
 
-
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnLocalDateMapper extends AbstractStringColumnMapper<LocalDate> {
 
     private static final long serialVersionUID = -6885561256539185520L;

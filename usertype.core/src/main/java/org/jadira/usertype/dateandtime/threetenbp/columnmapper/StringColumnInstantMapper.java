@@ -21,6 +21,10 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class StringColumnInstantMapper extends AbstractStringColumnMapper<Instant> {
 
     private static final long serialVersionUID = -6885561256539185520L;

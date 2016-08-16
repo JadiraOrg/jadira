@@ -23,10 +23,11 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
-
 /**
  * Persist {@link ZonedDateTime} via Hibernate. The offset will be stored in an extra column.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentZonedDateTimeAsStringAndStringZone extends AbstractMultiColumnUserType<ZonedDateTime> {
 
     private static final long serialVersionUID = -1335371912886315820L;

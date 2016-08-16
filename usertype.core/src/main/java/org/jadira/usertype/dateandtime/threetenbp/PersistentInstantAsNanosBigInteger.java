@@ -25,8 +25,11 @@ import org.threeten.bp.Instant;
  * Persist {@link Instant} via Hibernate using nanoseconds of the day. This class is INCOMPATIBLE with
  * Joda Time's org.joda.time.contrib.hibernate.PersistentInstantExact because that class uses a millisecond rather than nanosecond
  * absolute value. For compatibility use {@link PersistentInstantAsMillisLong}
+ * 
  * @see PersistentInstantAsMillisLong
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentInstantAsNanosBigInteger extends AbstractVersionableUserType<Instant, BigInteger, BigIntegerColumnInstantMapper> {
 
     private static final long serialVersionUID = -1960271853562222300L;

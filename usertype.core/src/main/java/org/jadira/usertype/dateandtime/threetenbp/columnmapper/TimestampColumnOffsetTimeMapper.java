@@ -32,7 +32,9 @@ import org.threeten.bp.temporal.ChronoField;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class TimestampColumnOffsetTimeMapper extends AbstractTimestampThreeTenBPColumnMapper<OffsetTime> implements DatabaseZoneConfigured<ZoneId>, JavaZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;

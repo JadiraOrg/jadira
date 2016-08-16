@@ -28,7 +28,7 @@ import org.jadira.reflection.cloning.BasicCloner;
  * Applied to a field, this annotation indicates that the field should be considered
  * to be transient when performing a clone. Transient fields when configured in {@link BasicCloner}
  * will be given the null or default values. If you simply want to retain the transient field without
- * copying, register it is {@link Immutable} or {@link NonCloneable} as appropriate. 
+ * copying, register it as {@link Immutable} or {@link NonCloneable} as appropriate. 
  */
 @Retention(RUNTIME) @Target({FIELD})
 @Documented

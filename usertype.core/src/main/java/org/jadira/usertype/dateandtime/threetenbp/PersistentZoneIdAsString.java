@@ -21,7 +21,9 @@ import org.threeten.bp.ZoneId;
 
 /**
  * Maps a {@link ZoneId} to and from String for Hibernate.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentZoneIdAsString extends AbstractSingleColumnUserType<ZoneId, String, StringColumnZoneIdMapper> {
 
     private static final long serialVersionUID = -4510322446163655815L;

@@ -27,6 +27,10 @@ import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.DateTimeFormatterBuilder;
 import org.threeten.bp.temporal.ChronoField;
 
+/**
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
+ */
+@Deprecated
 public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenBPColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;

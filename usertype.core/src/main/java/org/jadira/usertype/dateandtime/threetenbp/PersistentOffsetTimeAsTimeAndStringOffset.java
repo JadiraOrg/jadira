@@ -27,7 +27,9 @@ import org.threeten.bp.ZoneOffset;
 /**
  * Persist {@link OffsetTime} via Hibernate. This uses java.sql.Time and the time datatype of your database. You
  * will not retain millis / nanoseconds part.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentOffsetTimeAsTimeAndStringOffset extends AbstractMultiColumnUserType<OffsetTime> {
 
     private static final long serialVersionUID = 1364221029392346011L;

@@ -21,7 +21,9 @@ import org.threeten.bp.Year;
 
 /**
  * Persist {@link Year} via Hibernate using integer value.
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentYearAsInteger extends AbstractSingleColumnUserType<Year, Integer, IntegerColumnYearMapper> {
 
     private static final long serialVersionUID = 4694981953643179773L;

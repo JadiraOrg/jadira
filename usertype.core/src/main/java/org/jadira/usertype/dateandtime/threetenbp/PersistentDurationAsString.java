@@ -25,7 +25,10 @@ import org.threeten.bp.Duration;
  * you should not that JodaTime's org.joda.time.Duration has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond.
+ * 
+ * @deprecated Jadira now depends on Java 8 so you are recommended to switch to the threeten package types
  */
+@Deprecated
 public class PersistentDurationAsString extends AbstractSingleColumnUserType<Duration, String, StringColumnDurationMapper> {
 
     private static final long serialVersionUID = -778504731510459403L;
