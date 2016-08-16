@@ -34,6 +34,18 @@ public class PersistentJsonObjectAsPostgreSQLJson<T> extends PersistentJsonObjec
 
 	private static final long serialVersionUID = 228945479215593795L;
 
+	private static boolean HAS_POSTGRES_DRIVER;
+	
+	static {
+		
+		try {
+		Class.forName("org.postgresql.util.PGobject");
+		HAS_POSTGRES_DRIVER = true;
+		} catch (ClassNotFoundException e) {
+			HAS_POSTGRES_DRIVER = false;
+		}
+	}
+	
     @Override
     public Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
@@ -44,7 +56,7 @@ public class PersistentJsonObjectAsPostgreSQLJson<T> extends PersistentJsonObjec
         }
 
 		final String jsonText;
-		if (identifier instanceof PGobject) {
+		if (HAS_POSTGRES_DRIVER && identifier instanceof PGobject) {
             PGobject pg = (PGobject) identifier;
             jsonText = pg.getValue();
         } else if (identifier instanceof String) { // some PostgreSQL Dialects / Versions return String not PGObject
@@ -75,9 +87,16 @@ public class PersistentJsonObjectAsPostgreSQLJson<T> extends PersistentJsonObjec
 			try {
 				String identifier = getObjectWriter().writeValueAsString(value);
 				
-	        	PGobject jsonObject = new PGobject();
-	        	jsonObject.setType("json");
-	        	jsonObject.setValue(identifier);
+				Object jsonObject;
+				if (HAS_POSTGRES_DRIVER) {
+				
+		        	PGobject pgObject = new PGobject();
+		        	pgObject.setType("json");
+		        	pgObject.setValue(identifier);
+		        	jsonObject = pgObject;
+				} else {
+					jsonObject = identifier;
+				}
 				
 	            preparedStatement.setObject(index, jsonObject);
 			} catch (JsonProcessingException e) {

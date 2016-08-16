@@ -31,9 +31,25 @@ public class PersistentEnumAsPostgreSQLEnum extends PersistentEnum {
 
     private static final int POSTGRES_ENUM_TYPE = 1111;
     
+	private static boolean HAS_POSTGRES_DRIVER;
+    
+	static {
+		
+		try {
+		Class.forName("org.postgresql.util.PGobject");
+		HAS_POSTGRES_DRIVER = true;
+		} catch (ClassNotFoundException e) {
+			HAS_POSTGRES_DRIVER = false;
+		}
+	}
+	
     @Override
     public Object doNullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
+    	if (!HAS_POSTGRES_DRIVER) {
+    		return super.doNullSafeGet(rs, names, session, owner);
+    	}
+    	
         Object identifier = rs.getObject(names[0]);
         
         if (rs.wasNull()) {
@@ -53,6 +69,11 @@ public class PersistentEnumAsPostgreSQLEnum extends PersistentEnum {
     @Override
     public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SessionImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
+    	if (!HAS_POSTGRES_DRIVER) {
+    		super.doNullSafeSet(preparedStatement, value, index, session);
+    		return;
+    	}
+    	
         if (value == null) {
             preparedStatement.setNull(index, POSTGRES_ENUM_TYPE);
         } else {
