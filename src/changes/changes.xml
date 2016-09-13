@@ -35,6 +35,11 @@
 -->
 
 		<!-- types are add, fix, remove, update -->
+		<release version="6.0.1.GA" date="16-08-2016" description="Java 8 Update">
+			<action dev="Chris Pheby" type="update">Refactor scanner for Java 8 to use streams</action>
+			<action dev="Chris Pheby" type="fix">Work around problem in Spring environment when proxying entity manager factory in BaseJpaRepository</action>
+		</release>
+		
 		<release version="6.0.0.GA" date="16-08-2016" description="Java 8 Update">
 			<action dev="Chris Pheby" type="update">Jadira now requires Java 8 across all modules</action>
 			<action dev="Chris Pheby" type="remove">Hibernate 3.6 modules have been removed from sources</action>

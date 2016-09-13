@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import jsr166y.ForkJoinPool;
-
 import org.jadira.scanner.core.api.Allocator;
 import org.jadira.scanner.core.api.Filter;
 import org.jadira.scanner.core.api.Locator;
@@ -21,8 +19,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	private static final Integer ZERO = Integer.valueOf(0);
 
 	private static final int SEGMENT_SIZE = 500;
-	private static final ForkJoinPool FORKJOIN_POOL = new ForkJoinPool();
-	
+
 	private final List<A> driverData;
 	
 	protected AbstractResolver() {
@@ -53,13 +50,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	protected List<E> allocate(List<A> driverData) {
 		
 		AllocatorTask<E, A> task = new AllocatorTask<E, A>(getAllocator(), driverData);
-		
-		final List<E> result;
-		if (AllocatorTask.getForkInterval() != -1) {
-			result = FORKJOIN_POOL.invoke(task);
-		} else {
-			result = task.compute();
-		}
+		final List<E> result = task.compute();
 		
 		return result;
 	}
@@ -67,13 +58,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	protected List<E> project(Projector<E> projector, List<E> sourceList) {
 		
 		ProjectorTask<E> task = new ProjectorTask<E>(projector, sourceList);
-		
-		List<E> result;
-		if (ProjectorTask.getForkInterval() != -1) {
-			result = FORKJOIN_POOL.invoke(task);
-		} else {
-			result = task.compute();
-		}
+		List<E> result = task.compute();
 		
 		return result;
 	}
@@ -81,12 +66,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 	protected List<T> assign(List<E> sourceList) {
 		
 		AllocatorTask<T, E> task = new AllocatorTask<T, E>(getAssigner(), sourceList);
-		List<T> result;
-		if (AllocatorTask.getForkInterval() != -1) {
-			result = FORKJOIN_POOL.invoke(task);
-		} else {
-			result = task.compute();
-		}
+		List<T> result = task.compute();
 		
 		return result;
 	}
@@ -105,11 +85,7 @@ public abstract class AbstractResolver<T, E, A> implements Resolver<T, E, A> {
 				Filter<S> theFilter = (Filter<S>) nextFilter;
 				
 				FilterTask<S> task = new FilterTask<S>(limit, theFilter, result);
-				if (FilterTask.getForkInterval() != -1) {
-					result = FORKJOIN_POOL.invoke(task);
-				} else {
-					result = task.compute();
-				}
+				result = task.compute();
 			}
 		}
 		return result;

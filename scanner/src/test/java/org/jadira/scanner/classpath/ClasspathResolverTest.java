@@ -18,7 +18,13 @@ package org.jadira.scanner.classpath;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.jadira.scanner.classpath.types.JAnnotation;
 import org.jadira.scanner.classpath.types.JClass;
@@ -166,7 +172,7 @@ public class ClasspathResolverTest {
 
         // JClass pkg = JClass.getJClass("java.lang.CharacterData00", helper);
 
-        JPackage pkg = JPackage.getJPackage("java.lang", helper);
+        JPackage pkg = JPackage.getJPackage("java", helper);
         Set<JClass> classes = pkg.getClasses();
 
         for (JClass next : classes) {
