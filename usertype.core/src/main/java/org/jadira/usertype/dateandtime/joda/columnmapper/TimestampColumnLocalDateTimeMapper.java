@@ -24,6 +24,7 @@ import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.IllegalInstantException;
 import org.joda.time.LocalDateTime;
 
 public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnMapper<LocalDateTime> implements ColumnMapper<LocalDateTime, Timestamp>, DatabaseZoneConfigured<DateTimeZone> {
@@ -61,7 +62,15 @@ public class TimestampColumnLocalDateTimeMapper extends AbstractTimestampColumnM
     @Override
     public Timestamp toNonNullValue(LocalDateTime value) {
 
-    	DateTime zonedValue = value.toDateTime(value.toDateTime());
+        DateTime zonedValue;
+
+        try {
+            zonedValue = value.toDateTime(value.toDateTime());
+        } catch (IllegalInstantException e) {
+            // fix non-existent time by moving 1 hour forward (DST): https://github.com/JadiraOrg/jadira/issues/39
+            value = value.plusHours(1);
+            zonedValue = value.toDateTime(value.toDateTime());
+        }
 
         final Timestamp timestamp = new Timestamp(zonedValue.getMillis());
         return timestamp;
