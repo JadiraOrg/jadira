@@ -40,7 +40,7 @@ public class FeatureDetection {
 	static {
 		boolean hasMutabilityDetector = true;
 		try {
-			Class.forName("org.mutabilitydetector.ThreadUnsafeAnalysisSession");
+			Class.forName("org.mutabilitydetector.Configurations");
 		} catch (ClassNotFoundException e) {
 			hasMutabilityDetector = false;
 		}
