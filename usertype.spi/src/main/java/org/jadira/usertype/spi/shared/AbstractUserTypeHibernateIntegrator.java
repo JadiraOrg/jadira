@@ -75,7 +75,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 	    boolean use42Api;
         if (jdbc42Apis == null) {
 
-            if (JavaVersion.getMajorVersion() >= 1 && JavaVersion.getMinorVersion() >= 8) {
+            if (JavaVersion.isJava8OrLater()) {
              
              Connection conn = null;
              try {

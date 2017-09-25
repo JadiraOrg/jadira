@@ -44,8 +44,7 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
     
 	private <Z> void doApplyConfiguration() {
 
-	    if (JavaVersion.getMajorVersion() >= 1 &&
-	            JavaVersion.getMinorVersion() >= 8 &&
+	    if (JavaVersion.isJava8OrLater() &&
 	            Jdbc42Configured.class.isAssignableFrom(this.getClass())) {
 	        Jdbc42Configured next = (Jdbc42Configured)this;
 	        performJdbc42Configuration(next);
