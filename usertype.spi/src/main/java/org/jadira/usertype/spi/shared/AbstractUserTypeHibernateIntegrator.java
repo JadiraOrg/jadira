@@ -30,6 +30,7 @@ import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 import org.hibernate.usertype.CompositeUserType;
 import org.hibernate.usertype.UserType;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
+import org.hibernate.type.ConcurrentHashMapBackedProperties;
 
 public abstract class AbstractUserTypeHibernateIntegrator implements Integrator {
 
