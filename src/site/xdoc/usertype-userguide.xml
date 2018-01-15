@@ -109,7 +109,7 @@ private DateTime dateTime;
 @Column
 @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmount",
 	parameters = {@org.hibernate.annotations.Parameter(name = "currencyCode", value = "USD")})
-private DateTime dateTime;
+private Money moneyAmount;
 					]]></pre>
 				<p>
 					Alternatively, with other types two columns to hold the amount an currency:
@@ -117,7 +117,7 @@ private DateTime dateTime;
 				<pre><![CDATA[
 @Columns(columns = { @Column(name = "MY_CURRENCY"), @Column(name = "MY_AMOUNT") })
 @Type(type = "org.jadira.usertype.moneyandcurrency.joda.PersistentMoneyAmountAndCurrency")
-private DateTime dateTime;
+private Money moneyAmount;
 					]]></pre>
 			</subsection>
 			
