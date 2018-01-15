@@ -79,7 +79,7 @@
 	</licenses>
 	
 	<prerequisites>
-	    <maven>3.0.5</maven>
+	    <maven>3.5.2</maven>
   	</prerequisites>
 	
 	<properties>
@@ -159,7 +159,8 @@
 	</profiles>
 	
 	<build>
-		<defaultGoal>install</defaultGoal>	
+
+		<defaultGoal>install</defaultGoal>
 
 		<extensions>
 	        <extension>
@@ -212,7 +213,7 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>3.0.5</version>
+									<version>3.5.2</version>
 								</requireMavenVersion>
 								<requireJavaVersion>
 									<version>1.6.0</version>
@@ -377,189 +378,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.3</version>
-				<configuration>
-					<reportPlugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-javadoc-plugin</artifactId>
-							<version>2.9.1</version>
-							<configuration>
-								<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
-								<javadocVersion>1.8</javadocVersion>
-								<linksource>true</linksource>
-								<links>
-									<!-- <link>http://docs.oracle.com/javase/6/docs/api/</link> -->
-									<!-- <link>http://download.java.net/jdk8/docs/api/</link> -->
-								</links>
-								<encoding>UTF-8</encoding>
-								<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-								<docletArtifact>
-									<groupId>org.umlgraph</groupId>
-									<artifactId>umlgraph</artifactId>
-									<version>5.6.6</version>
-								</docletArtifact>
-								<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)|(com.ibm.*)</additionalparam>
-								<sourceFileExcludes>
-    								<!--  Not working in 2.9, workaround below
-    								<exclude>org/jadira/usertype/spi/jta/SpringWebSphereUowTransactionManager.java</exclude>
-    								 -->
-    								 <exclude>org/jadira/usertype/spi/jta/*.java</exclude>
-								</sourceFileExcludes>
-								<reportSets>
-									<reportSet>
-										<id>aggregate</id>
-										<inherited>false</inherited>
-										<configuration>
-										<!-- Specific configuration for the aggregate report -->
-										</configuration>
-										<reports>
-											<report>aggregate</report>
-										</reports>
-									</reportSet>
-									<reportSet>
-										<id>nonaggregate</id>
-										<configuration>
-										<!-- Specific configuration for the non aggregate report -->
-										</configuration>
-										<reports>
-											<report>javadoc</report>
-										</reports>
-									</reportSet>
-								</reportSets>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-jxr-plugin</artifactId>
-							<version>2.4</version>
-							<configuration>
-								<aggregate>true</aggregate>
-								<linkJavadoc>true</linkJavadoc>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId> 
-							<artifactId>maven-changes-plugin</artifactId> 
-							<version>2.9</version> 
-							<reportSets>
-								<reportSet>
-									<reports>
-										<report>changes-report</report>
-										<report>jira-report</report>
-									</reports>
-								</reportSet>
-							</reportSets>
-							<configuration>
-								<issueManagementSystems>
-									<issueManagementSystem>changes.xml</issueManagementSystem>
-									<issueManagementSystem>JIRA</issueManagementSystem>
-          							</issueManagementSystems>
-	          						<useJql>true</useJql>
-	          						<columnNames>Key,Fix Version,Summary,Status,Resolution</columnNames>
-          							<sortColumnNames>Fix Version DESC,Key DESC</sortColumnNames>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-changelog-plugin</artifactId>
-							<version>2.2</version>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.11</version>
-							<configuration>
-								<encoding>${project.build.sourceEncoding}</encoding> 
-								<charset>${project.build.sourceEncoding}</charset>
-								<enableRulesSummary>false</enableRulesSummary>
-								<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId> 
-							<artifactId>maven-pmd-plugin</artifactId> 
-							<version>3.0.1</version> 
-							<configuration>
-								<targetJdk>1.5</targetJdk>
-								<minimumTokens>20</minimumTokens>
-								<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
-								<!-- <ruleset>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/pmd.xml</ruleset> -->
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-project-info-reports-plugin</artifactId>
-							<version>2.7</version>
-							<reportSets>
-								<reportSet>
-									<reports>
-										<report>index</report>
-										<report>dependencies</report>
-										<report>project-team</report>
-										<report>mailing-list</report>
-										<report>issue-tracking</report>
-										<report>license</report>
-										<report>scm</report>
-										<report>summary</report>
-									</reports>
-								</reportSet>
-							</reportSets>
-						</plugin>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-surefire-report-plugin</artifactId>
-							<version>2.16</version>
-							<configuration>
-								<xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
-								<showSuccess>true</showSuccess>
-							</configuration>
-						</plugin>
-						<!-- <plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>clirr-maven-plugin</artifactId>
-							<version>2.6.1</version>
-							<configuration>
-								<comparisonVersion>1.1</comparisonVersion>
-							</configuration>
-						</plugin> -->
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId> 
-							<artifactId>cobertura-maven-plugin</artifactId> 
-							<version>2.6</version> 
-							<configuration>
-								<formats>
-									<format>xml</format>
-									<format>html</format>
-								</formats>
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId> 
-							<artifactId>findbugs-maven-plugin</artifactId> 
-							<version>2.4.0</version> <!-- skip 2.5.1, 2.5.2 and 2.5.3 doesn't work -->
-							<configuration>
-								 <!-- <includeFilterFile>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/findbugs.xml</includeFilterFile> -->
-							</configuration>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>jdepend-maven-plugin</artifactId>
-							<version>2.0-beta-2</version>
-						</plugin>
-						<plugin>
-							<groupId>org.codehaus.mojo</groupId>
-							<artifactId>taglist-maven-plugin</artifactId>
-							<version>2.4</version>
-							<configuration>
-								<tags>
-									<tag>TODO</tag>
-									<tag>@todo</tag>
-									<tag>FIXME</tag>
-								</tags>
-							</configuration>
-						</plugin>
-					</reportPlugins>
-				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -694,7 +512,192 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
 	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<javadocExecutable>${env.JAVA_HOME}/bin/javadoc</javadocExecutable>
+					<javadocVersion>1.8</javadocVersion>
+					<linksource>true</linksource>
+					<links>
+						<!-- <link>http://docs.oracle.com/javase/6/docs/api/</link> -->
+						<!-- <link>http://download.java.net/jdk8/docs/api/</link> -->
+					</links>
+					<encoding>UTF-8</encoding>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>umlgraph</artifactId>
+						<version>5.6.6</version>
+					</docletArtifact>
+					<additionalparam>-attributes -enumconstants -enumerations -operations -types -visibility -inferrel -inferdep -hide (java.*)|(org.hibernate.*)|(org.joda.*)|(com.ibm.*)</additionalparam>
+					<sourceFileExcludes>
+						<!--  Not working in 2.9, workaround below
+                        <exclude>org/jadira/usertype/spi/jta/SpringWebSphereUowTransactionManager.java</exclude>
+                         -->
+						<exclude>org/jadira/usertype/spi/jta/*.java</exclude>
+					</sourceFileExcludes>
+					<reportSets>
+						<reportSet>
+							<id>aggregate</id>
+							<inherited>false</inherited>
+							<configuration>
+								<!-- Specific configuration for the aggregate report -->
+							</configuration>
+							<reports>
+								<report>aggregate</report>
+							</reports>
+						</reportSet>
+						<reportSet>
+							<id>nonaggregate</id>
+							<configuration>
+								<!-- Specific configuration for the non aggregate report -->
+							</configuration>
+							<reports>
+								<report>javadoc</report>
+							</reports>
+						</reportSet>
+					</reportSets>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<aggregate>true</aggregate>
+					<linkJavadoc>true</linkJavadoc>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.9</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>changes-report</report>
+							<report>jira-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+				<configuration>
+					<issueManagementSystems>
+						<issueManagementSystem>changes.xml</issueManagementSystem>
+						<issueManagementSystem>JIRA</issueManagementSystem>
+					</issueManagementSystems>
+					<useJql>true</useJql>
+					<columnNames>Key,Fix Version,Summary,Status,Resolution</columnNames>
+					<sortColumnNames>Fix Version DESC,Key DESC</sortColumnNames>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changelog-plugin</artifactId>
+				<version>2.2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.11</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<charset>${project.build.sourceEncoding}</charset>
+					<enableRulesSummary>false</enableRulesSummary>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.0.1</version>
+				<configuration>
+					<targetJdk>1.5</targetJdk>
+					<minimumTokens>20</minimumTokens>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref</xrefLocation>
+					<!-- <ruleset>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/pmd.xml</ruleset> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.7</version>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>index</report>
+							<report>dependencies</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+							<report>summary</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.16</version>
+				<configuration>
+					<xrefLocation>${project.reporting.outputDirectory}/../xref-test</xrefLocation>
+					<showSuccess>true</showSuccess>
+				</configuration>
+			</plugin>
+			<!-- <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <comparisonVersion>1.1</comparisonVersion>
+                </configuration>
+            </plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<formats>
+						<format>xml</format>
+						<format>html</format>
+					</formats>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>2.4.0</version> <!-- skip 2.5.1, 2.5.2 and 2.5.3 doesn't work -->
+				<configuration>
+					<!-- <includeFilterFile>http://sonar_host/sonar/rules_configuration/export/java/Sonar%2520way/findbugs.xml</includeFilterFile> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jdepend-maven-plugin</artifactId>
+				<version>2.0-beta-2</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<tags>
+						<tag>TODO</tag>
+						<tag>@todo</tag>
+						<tag>FIXME</tag>
+					</tags>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
 	<modules>
 		<module>depmgmt</module>

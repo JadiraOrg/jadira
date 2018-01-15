@@ -22,7 +22,7 @@ import java.util.Map;
 
 import org.mutabilitydetector.AnalysisSession;
 import org.mutabilitydetector.IsImmutable;
-import org.mutabilitydetector.ThreadUnsafeAnalysisSession;
+import org.mutabilitydetector.DefaultCachingAnalysisSession;
 import org.mutabilitydetector.locations.Dotted;
 
 /**
@@ -35,7 +35,7 @@ public final class MutabilityDetector {
     
     private static final ThreadLocal<AnalysisSession> ANALYSIS_SESSION = new ThreadLocal<AnalysisSession>() {
         public AnalysisSession initialValue() {
-            return ThreadUnsafeAnalysisSession.createWithCurrentClassPath(OUT_OF_THE_BOX_CONFIGURATION);
+            return DefaultCachingAnalysisSession.createWithCurrentClassPath(OUT_OF_THE_BOX_CONFIGURATION);
         }
     };
     

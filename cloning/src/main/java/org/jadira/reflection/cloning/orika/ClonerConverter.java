@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ma.glasnost.orika.CustomConverter;
+import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.metadata.Type;
 import ma.glasnost.orika.metadata.TypeFactory;
 
@@ -106,7 +107,7 @@ public class ClonerConverter extends CustomConverter<Object, Object> {
     }
 
     @Override
-    public Object convert(Object source, Type<? extends Object> destinationType) {
+    public Object convert(Object source, Type<? extends Object> destinationType, MappingContext context) {
 
         if (source == null) {
             return null;
