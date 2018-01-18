@@ -18,13 +18,15 @@ package org.jadira.usertype.spi.shared;
 import java.sql.Time;
 import java.sql.Types;
 
+import org.hibernate.type.TimeType;
+
 public abstract class AbstractTimeColumnMapper<T> extends AbstractColumnMapper<T, Time> {
 
     private static final long serialVersionUID = -3070239764121234482L;
 
     @Override
-    public DstSafeTimeType getHibernateType() {
-    	return DstSafeTimeType.INSTANCE;
+    public TimeType getHibernateType() {
+    	return TimeType.INSTANCE;
     }
 
     @Override
