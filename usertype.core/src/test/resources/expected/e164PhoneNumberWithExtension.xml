@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "e164PhoneNumberWithExtension.dtd">
 <dataset>
   <e164PhoneNumberWithExtension ID="0" E164PHONENUMBERWITHEXTENSION="+441963350474" NAME="test_0"/>
   <e164PhoneNumberWithExtension ID="1" E164PHONENUMBERWITHEXTENSION="+441963350474;ext=000032" NAME="test_1"/>

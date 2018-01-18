@@ -696,6 +696,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
         }
     }
 	
+	@SuppressWarnings("unlikely-arg-type")
 	private boolean isSameConverter(Converter<?,?> old, Converter<?,?> converter) {
 		
 		if (old.getClass().equals(converter.getClass())) {
@@ -899,6 +900,7 @@ public class BasicBinder implements Binder, RegisterableBinder {
 	 * into the target class. Similarly, the target can be unmarshalled to produce an instance of the source type.
 	 * @param key The key to look up
 	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public <S, T> Binding<S, T> findBinding(ConverterKey<S,T> key) {
 
 		FromUnmarshaller<?,?> fromUnmarshaller = null;

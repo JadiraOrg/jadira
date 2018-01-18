@@ -16,18 +16,13 @@
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-
-public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
+public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColumnMapper<MonthDay> {
 
     private static final long serialVersionUID = -7670411089210984705L;
     
@@ -35,10 +30,6 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColu
 
 	public TimestampColumnMonthDayMapper() {
 		super();
-	}
-
-	public TimestampColumnMonthDayMapper(ZoneId databaseZone) {
-		super(databaseZone);
 	}
     
     @Override
@@ -49,12 +40,7 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColu
     @Override
     public MonthDay fromNonNullValue(Timestamp value) {
     	
-    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
-        
-        Instant instant = Instant.ofEpochMilli(value.getTime());
-        instant = instant.with(ChronoField.NANO_OF_SECOND, value.getNanos());
-        
-        LocalDateTime ldt = LocalDateTime.ofInstant(instant, currentDatabaseZone);
+    	LocalDateTime ldt = value.toLocalDateTime();
         return MonthDay.of(ldt.getMonth(), ldt.getDayOfMonth());
     }
 
@@ -66,42 +52,8 @@ public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColu
     @Override
     public Timestamp toNonNullValue(MonthDay value) {
 
-        LocalDateTime ldt = LocalDateTime.of(1970, value.getMonthValue(), value.getDayOfMonth(), 0, 0);
-        
-    	ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
-    	
-    	ZonedDateTime zdt = ldt.atZone(currentDatabaseZone);
-        
-        final Timestamp timestamp = new Timestamp(zdt.toInstant().toEpochMilli());
+        LocalDateTime ldt = LocalDateTime.of(1970, value.getMonthValue(), value.getDayOfMonth(), 0, 0);        
+        final Timestamp timestamp = Timestamp.valueOf(ldt);
         return timestamp;
     }
-    
-    private static ZoneId getDefault() {
-
-    	ZoneId zone = null;
-        try {
-            try {
-                String id = System.getProperty("user.timezone");
-                if (id != null) {
-                    zone = ZoneId.of(id);
-                }
-            } catch (RuntimeException ex) {
-                zone = null;
-            }
-            if (zone == null) {
-                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
-            }
-        } catch (RuntimeException ex) {
-            zone = null;
-        }
-        if (zone == null) {
-            zone = ZoneId.of("Z");
-        }
-        return zone;
-    }
-    
-	@Override
-	public ZoneId parseZone(String zoneString) {
-		return ZoneId.of(zoneString);
-	}
 }

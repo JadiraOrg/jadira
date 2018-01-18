@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dateTimeZoneAsString.dtd">
 <dataset>
   <dateTimeZoneAsString ID="0" DATETIMEZONE="+04:00" NAME="test_0"/>
   <dateTimeZoneAsString ID="1" DATETIMEZONE="UTC" NAME="test_1"/>

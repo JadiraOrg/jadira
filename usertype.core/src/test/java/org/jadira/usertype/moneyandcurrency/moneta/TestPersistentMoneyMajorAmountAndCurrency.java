@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import org.jadira.usertype.dateandtime.shared.dbunit.AbstractDatabaseTest;
 import org.jadira.usertype.moneyandcurrency.moneta.testmodel.MoneyMajorAmountAndCurrencyHolder;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryUtil;
+import org.javamoney.moneta.function.MonetaryQueries;
 import org.junit.Test;
 
 public class TestPersistentMoneyMajorAmountAndCurrency extends AbstractDatabaseTest<MoneyMajorAmountAndCurrencyHolder> {
@@ -57,7 +57,7 @@ public class TestPersistentMoneyMajorAmountAndCurrency extends AbstractDatabaseT
             if (moneys[i] == null) {
                 assertNull(item.getMoney());
             } else {
-                assertEquals(MonetaryUtil.majorPart().apply(moneys[i]).toString(), item.getMoney().toString());
+                assertEquals(MonetaryQueries.extractMajorPart().queryFrom(moneys[i]).toString(), item.getMoney().toString());
             }
         }
 

@@ -15,61 +15,19 @@
  */
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
+import org.hibernate.type.DateType;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeDateType;
-import java.time.ZoneId;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.TimeZone;
-
-public abstract class AbstractDateThreeTenColumnMapper<T> extends AbstractDateColumnMapper<T> implements DatabaseZoneConfigured<ZoneId> {
+public abstract class AbstractDateThreeTenColumnMapper<T> extends AbstractDateColumnMapper<T> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 	
-    /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
-    private ZoneId databaseZone = null;
-    
 	public AbstractDateThreeTenColumnMapper() {
 	}
-
-	public AbstractDateThreeTenColumnMapper(ZoneId databaseZone) {
-		this.databaseZone = databaseZone;
-	}
-
-    
-    @Override
-    public void setDatabaseZone(ZoneId databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
-    protected ZoneId getDatabaseZone() {
-        return databaseZone;
-    }
 	
     @Override
-    public final DstSafeDateType getHibernateType() {
+    public final DateType getHibernateType() {
     	
-    	if (databaseZone == null) {
-    		return DstSafeDateType.INSTANCE;
-    	}
-    	
-    	Calendar cal = resolveCalendar(databaseZone);
-    	if (cal == null) {
-    		throw new IllegalStateException("Could not map Zone " + databaseZone + " to Calendar");
-    	}
-    	
-    	return new DstSafeDateType(cal);
+    	return DateType.INSTANCE;
     }
-
-	private Calendar resolveCalendar(ZoneId databaseZone) {
-		
-		String id = databaseZone.getId();
-		if (Arrays.binarySearch(TimeZone.getAvailableIDs(), id) != -1) {
-			return Calendar.getInstance(TimeZone.getTimeZone(id));
-		} else {
-			return null;
-		}
-	}
 }

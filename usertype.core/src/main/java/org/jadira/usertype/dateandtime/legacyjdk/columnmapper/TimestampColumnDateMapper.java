@@ -23,14 +23,13 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 
 /**
  * Maps a precise date column for storage. The GMT Zone will be used to store the value
  */
-public class TimestampColumnDateMapper extends AbstractVersionableTimestampColumnMapper<java.util.Date> implements DatabaseZoneConfigured<TimeZone> {
+public class TimestampColumnDateMapper extends AbstractVersionableTimestampColumnMapper<java.util.Date> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -45,14 +44,8 @@ public class TimestampColumnDateMapper extends AbstractVersionableTimestampColum
     		return format;
     	}
     };
-    
-    private TimeZone databaseZone = GMT;
 
     public TimestampColumnDateMapper() {
-    }
-    
-    public TimestampColumnDateMapper(TimeZone databaseZone) {
-    	this.databaseZone = databaseZone;
     }
     
     @Override
@@ -157,19 +150,9 @@ public class TimestampColumnDateMapper extends AbstractVersionableTimestampColum
         final Timestamp timestamp = new Timestamp(value.getTime());
         return timestamp;
     }
-
-    @Override
-    public void setDatabaseZone(TimeZone databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-        
-	@Override
-	public TimeZone parseZone(String zoneString) {
-		return TimeZone.getTimeZone(zoneString);
-	}
 	
     @Override
-    public final DstSafeTimestampType getHibernateType() {
-    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone));
+    public final TimestampType getHibernateType() {
+    	return TimestampType.INSTANCE;
     }
 }

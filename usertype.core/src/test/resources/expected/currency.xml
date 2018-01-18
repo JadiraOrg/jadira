@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "currency.dtd">
 <dataset>
   <currency ID="0" CURRENCY="EUR" NAME="test_0"/>
   <currency ID="1" CURRENCY="USD" NAME="test_1"/>

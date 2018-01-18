@@ -35,7 +35,6 @@ public class PortableCloneStrategy extends AbstractCloneStrategy implements Clon
 
 	private static final Objenesis objenesis = new ObjenesisStd();
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T newInstance(Class<T> c) {
 		return (T) objenesis.newInstance(c);

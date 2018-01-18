@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "bigMoneyMajorAmount.dtd">
 <dataset>
   <bigMoneyMajorAmount ID="0" BIGMONEY="100" NAME="test_0"/>
   <bigMoneyMajorAmount ID="1" BIGMONEY="100" NAME="test_1"/>

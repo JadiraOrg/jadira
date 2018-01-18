@@ -18,13 +18,15 @@ package org.jadira.usertype.spi.shared;
 import java.sql.Date;
 import java.sql.Types;
 
+import org.hibernate.type.DateType;
+
 public abstract class AbstractDateColumnMapper<T> extends AbstractColumnMapper<T, Date> {
 
     private static final long serialVersionUID = -8841076386862845448L;
 
     @Override
-    public DstSafeDateType getHibernateType() {
-        return DstSafeDateType.INSTANCE;
+    public DateType getHibernateType() {
+        return DateType.INSTANCE;
     }
 
     @Override

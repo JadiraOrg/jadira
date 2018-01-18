@@ -34,6 +34,11 @@
 	<name>Jadira Bindings</name>
     <description>Bindings for Jadira Framework</description>
 
+	<properties>
+		<m2e.jpa.activation>false</m2e.jpa.activation>
+		<m2e.cdi.activation>false</m2e.cdi.activation>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

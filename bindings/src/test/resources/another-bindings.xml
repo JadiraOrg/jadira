@@ -16,7 +16,7 @@
   limitations under the License.
 
  -->
-<bindings xmlns="http://org.jadira.bindings/xml/ns/binding" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://org.jadira.bindings/xml/ns/stringbinding jadira-bindings.xsd">
+<bindings xmlns="http://org.jadira.bindings/xml/ns/binding" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://org.jadira.bindings/xml/ns/binding jadira-bindings.xsd">
 
 	<!-- Define built in bindings here -->
 	<binding class="org.jadira.bindings.core.general.SubjectC"></binding>

@@ -15,18 +15,12 @@
  */
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-
 import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.MonthDay;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<MonthDay> implements DatabaseZoneConfigured<ZoneId> {
+public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<MonthDay> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -35,10 +29,6 @@ public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<M
 //	private static final int MILLIS_IN_SECOND = 1000;
     
 	public DateColumnMonthDayMapper() {
-	}
-
-	public DateColumnMonthDayMapper(ZoneId databaseZone) {
-		super(databaseZone);
 	}
     
     @Override
@@ -49,16 +39,7 @@ public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<M
     @Override
     public MonthDay fromNonNullValue(Date value) {
 
-		if (getDatabaseZone() == null) {
-    		return MonthDay.parse(value.toString(), LOCAL_DATE_FORMATTER);
-    	}
-
-        ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
-        
-        ZonedDateTime dateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
-        MonthDay localDate = MonthDay.of(dateTime.getMonth(), dateTime.getDayOfMonth());
-        
-        return localDate;
+    	return MonthDay.parse(value.toString(), LOCAL_DATE_FORMATTER);
     }
 
     @Override
@@ -69,50 +50,6 @@ public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<M
     @Override
     public Date toNonNullValue(MonthDay value) {
     	
-        if (getDatabaseZone() == null) {
-        	return Date.valueOf(LOCAL_DATE_FORMATTER.format((MonthDay) value));
-        }
-    	
-        LocalDate ldt = LocalDate.of(1970, value.getMonthValue(), value.getDayOfMonth());
-        
-		ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefault() : getDatabaseZone();
-    	ZonedDateTime zonedValue = ldt.atStartOfDay(currentDatabaseZone);
-
-//        Instant valueAsInstant = Instant.ofEpochSecond(zonedValue.toEpochSecond());
-//        int defaultTimezoneOffset = TimeZone.getDefault().getOffset(zonedValue.toEpochSecond() * MILLIS_IN_SECOND);
-//        int databaseTimezoneOffsetInSeconds = currentDatabaseZone.getRules().getOffset(valueAsInstant).getTotalSeconds();
-//        int adjustment = defaultTimezoneOffset - databaseTimezoneOffsetInSeconds * MILLIS_IN_SECOND;
-    	
-    	final Date date = new Date(zonedValue.toInstant().toEpochMilli());
-        return date;
+        return Date.valueOf(LOCAL_DATE_FORMATTER.format((MonthDay) value));
     }
-
-    private static ZoneId getDefault() {
-
-        ZoneId zone = null;
-        try {
-            try {
-                String id = System.getProperty("user.timezone");
-                if (id != null) {
-                    zone = ZoneId.of(id);
-                }
-            } catch (RuntimeException ex) {
-                zone = null;
-            }
-            if (zone == null) {
-                zone = ZoneId.of(java.util.TimeZone.getDefault().getID());
-            }
-        } catch (RuntimeException ex) {
-            zone = null;
-        }
-        if (zone == null) {
-            zone = ZoneId.of("Z");
-        }
-        return zone;
-    }
-    
-	@Override
-	public ZoneId parseZone(String zoneString) {
-		return ZoneId.of(zoneString);
-	}
 }

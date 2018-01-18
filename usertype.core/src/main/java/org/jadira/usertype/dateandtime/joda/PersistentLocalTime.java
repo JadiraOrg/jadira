@@ -30,11 +30,8 @@ import org.joda.time.LocalTime;
  * down will be offset from GMT due to its use of {@link java.sql.Time#setTime(long)}. This class is not affected by this
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes. 
  * 
- * The type is stored using UTC timezone.
- *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database. 
- * N.B. To use the zone of the JVM supply 'jvm'
+ *  The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone'.
  */
 public class PersistentLocalTime extends AbstractParameterizedUserType<LocalTime, Time, TimeColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 

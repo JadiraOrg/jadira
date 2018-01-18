@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dateMidnight.dtd">
 <dataset>
   <dateMidnight ID="0" MY_DATE="2004-02-25" MY_OFFSET="+04:00" NAME="test_0"/>
   <dateMidnight ID="1" MY_DATE="1980-03-11" MY_OFFSET="UTC" NAME="test_1"/>

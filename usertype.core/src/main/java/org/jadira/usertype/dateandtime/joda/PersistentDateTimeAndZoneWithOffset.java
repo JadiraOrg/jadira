@@ -20,7 +20,6 @@ import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDat
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
 import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -31,7 +30,7 @@ import org.joda.time.LocalDateTime;
  * This class replaces PersistentDateTimeWithZone, which will be removed in future. When you migrate to 
  * this class you are encouraged to retest as the behaviour is slightly different.
  */
-public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMultiColumnUserType<DateTime> implements DatabaseZoneConfigured<DateTimeZone> {
+public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMultiColumnUserType<DateTime> {
 
     private static final long serialVersionUID = 1364221029392346011L;
 
@@ -48,8 +47,6 @@ public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMu
     public String[] getPropertyNames() {
         return ArrayUtils.copyOf(PROPERTY_NAMES);
     }
-    
-    private DateTimeZone databaseZone = DateTimeZone.UTC;
 
     @Override
     protected DateTime fromConvertedColumns(Object[] convertedColumns) {
@@ -62,11 +59,7 @@ public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMu
         if (datePart == null) {
             result = null;
         } else {
-            result = datePart.toDateTime(databaseZone == null ? offset.getStandardDateTimeZone() : databaseZone);
-            
-            if (databaseZone != null) {
-            	result = result.withZone(offset.getStandardDateTimeZone());
-            }
+            result = datePart.toDateTime(offset.getStandardDateTimeZone());
         }
         
         // Handling DST rollover
@@ -80,23 +73,6 @@ public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMu
 
     @Override
     protected Object[] toConvertedColumns(DateTime value) {
-
-    	final DateTime myValue;
-    	if (databaseZone == null) {
-    		myValue = value;
-    	} else {
-    		myValue = value.withZone(databaseZone);
-    	}
-        return new Object[] { myValue.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
+        return new Object[] { value.toLocalDateTime(), new DateTimeZoneWithOffset(value.getZone(), value.getZone().isFixed() ? null : DateTimeZone.forOffsetMillis(value.getZone().getOffset(value))) };
     }
-    
-	@Override
-	public void setDatabaseZone(DateTimeZone databaseZone) {
-		this.databaseZone = databaseZone;
-	}
-
-	@Override
-	public DateTimeZone parseZone(String zoneString) {
-		return DateTimeZone.forID(zoneString);
-	}
 }

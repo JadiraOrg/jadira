@@ -16,13 +16,10 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
+import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.TimeOfDay;
@@ -30,18 +27,12 @@ import org.joda.time.TimeOfDay;
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsTimestamp}
  */
-public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> implements DatabaseZoneConfigured<DateTimeZone> {
+public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 
-    private DateTimeZone databaseZone = null;
-
 	public TimestampColumnTimeOfDayMapper() {
 	}
-
-    public TimestampColumnTimeOfDayMapper(DateTimeZone databaseZone) {
-    	this.databaseZone = databaseZone;
-    }
 
     @Override
     public TimeOfDay fromNonNullString(String s) {
@@ -73,19 +64,9 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
         final Timestamp timestamp = new Timestamp(zonedValue.getMillis());
         return timestamp;
     }
-
-    @Override
-	public void setDatabaseZone(DateTimeZone databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
-	@Override
-	public DateTimeZone parseZone(String zoneString) {
-		return DateTimeZone.forID(zoneString);
-	}
 		
     @Override
-    public final DstSafeTimestampType getHibernateType() {
-    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone.toTimeZone()));
+    public final TimestampType getHibernateType() {
+    	return TimestampType.INSTANCE;
     }
 }

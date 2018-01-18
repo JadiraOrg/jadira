@@ -15,6 +15,11 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta;
 
+import java.util.Properties;
+
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+
 import org.hibernate.SessionFactory;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
@@ -22,10 +27,6 @@ import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
-
-import javax.money.CurrencyUnit;
-import javax.money.Monetary;
-import java.util.Properties;
 
 /**
  * Base class for money types that do not map a currency column using a configured currency instead.

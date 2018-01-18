@@ -27,12 +27,7 @@ public abstract class AbstractParameterizedMultiColumnUserType<T> extends Abstra
     
 	private <Z> void doApplyConfiguration() {
     	
-		if (DatabaseZoneConfigured.class.isAssignableFrom(this.getClass())) {
-			
-			@SuppressWarnings("unchecked")
-			DatabaseZoneConfigured<Z> next = (DatabaseZoneConfigured<Z>)this;			
-			performDatabaseZoneConfiguration(next);
-		}
+
 		if (JavaZoneConfigured.class.isAssignableFrom(this.getClass())) {
 			
 			@SuppressWarnings("unchecked")
@@ -41,15 +36,7 @@ public abstract class AbstractParameterizedMultiColumnUserType<T> extends Abstra
 		}
 		
 		for (int i = 0; i < getColumnMappers().length; i++) {
-			
-			if (DatabaseZoneConfigured.class.isAssignableFrom(getColumnMappers()[i].getClass())) {
-	
-				@SuppressWarnings("unchecked")
-				DatabaseZoneConfigured<Z> next = (DatabaseZoneConfigured<Z>)getColumnMappers()[i];
-				
-		        performDatabaseZoneConfiguration(next);
-			}
-			
+						
 			if (JavaZoneConfigured.class.isAssignableFrom(getColumnMappers()[i].getClass())) {
 				
 				@SuppressWarnings("unchecked")
@@ -59,26 +46,7 @@ public abstract class AbstractParameterizedMultiColumnUserType<T> extends Abstra
 			}
 		}
     }
-	
-	private <Z> void performDatabaseZoneConfiguration(DatabaseZoneConfigured<Z> next) {
 		
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                next.setDatabaseZone(null);
-            } else {
-            	next.setDatabaseZone(next.parseZone(databaseZone));
-            }
-        }
-	}
-	
 	private <Z> void performJavaZoneConfiguration(JavaZoneConfigured<Z> next) {
 		
 		String javaZone = null;

@@ -16,31 +16,22 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
-import java.util.Calendar;
 
+import org.hibernate.type.TimeType;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeTimeType;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> implements DatabaseZoneConfigured<DateTimeZone> {
+public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 6734385103313158326L;
-
-    private DateTimeZone databaseZone = null;
 
     public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
 
     public TimeColumnLocalTimeMapper() {
-    }
-
-    public TimeColumnLocalTimeMapper(DateTimeZone databaseZone) {
-    	this.databaseZone = databaseZone;
     }
 
     @Override
@@ -72,19 +63,9 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
         final Time time = new Time(zonedValue.getMillis());
         return time;
     }
-
-    @Override
-	public void setDatabaseZone(DateTimeZone databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
-	@Override
-	public DateTimeZone parseZone(String zoneString) {
-		return DateTimeZone.forID(zoneString);
-	}
 	
     @Override
-    public final DstSafeTimeType getHibernateType() {
-    	return databaseZone == null ? DstSafeTimeType.INSTANCE : new DstSafeTimeType(Calendar.getInstance(databaseZone.toTimeZone()));
+    public final TimeType getHibernateType() {
+    	return TimeType.INSTANCE;
     }
 }

@@ -23,7 +23,7 @@ import org.jadira.usertype.moneyandcurrency.moneta.columnmapper.StringColumnCurr
 import org.jadira.usertype.spi.shared.AbstractMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryUtil;
+import org.javamoney.moneta.function.MonetaryQueries;
 
 /**
  * Persists the minor amount and currency from a Money instance
@@ -54,7 +54,7 @@ public class PersistentMoneyMajorAmountAndCurrency extends AbstractMultiColumnUs
     @Override
     protected Object[] toConvertedColumns(MonetaryAmount value) {
 
-        return new Object[] { value.getCurrency(), MonetaryUtil.majorPart().apply(value).getNumber().longValue() };
+        return new Object[] { value.getCurrency(), MonetaryQueries.extractMajorPart().queryFrom(value).longValue() };
     }
     
     @Override

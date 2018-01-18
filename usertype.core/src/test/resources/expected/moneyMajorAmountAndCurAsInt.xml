@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "moneyMajorAmountAndCurAsInt.dtd">
 <dataset>
   <moneyMajorAmountAndCurAsInt ID="0" MY_CURRENCY="840" MY_AMOUNT="100" NAME="test_0"/>
   <moneyMajorAmountAndCurAsInt ID="1" MY_CURRENCY="840" MY_AMOUNT="100" NAME="test_1"/>

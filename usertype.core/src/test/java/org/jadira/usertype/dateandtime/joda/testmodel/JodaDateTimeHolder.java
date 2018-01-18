@@ -42,7 +42,7 @@ public class JodaDateTimeHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "testjoda_DateTimeType", parameters = {@Parameter(name = "databaseZone", value = "UTC"), @Parameter(name = "javaZone", value = "UTC") }) // value = "Europe/Berlin") })
+    @Type(type = "testjoda_DateTimeType", parameters = {@Parameter(name = "javaZone", value = "UTC")} )
     private DateTime dateTime;
 
     public long getId() {

@@ -25,17 +25,16 @@ import org.objenesis.strategy.StdInstantiatorStrategy;
  * You may use this class independently of the cloning framework.
  */
 public class UnsafeInstantiatorStrategy extends StdInstantiatorStrategy {
-
 	/**
 	 * Return an {@link ObjectInstantiator} allowing to create instance without any constructor
 	 * being called.
 	 * @param type Class to instantiate
 	 * @return The ObjectInstantiator for the class
 	 */
-	public ObjectInstantiator newInstantiatorOf(@SuppressWarnings("rawtypes") Class type) {
+	public <T> ObjectInstantiator<T> newInstantiatorOf(Class<T> type) {
 
 		if (FeatureDetection.hasUnsafe()) {
-			return new UnsafeFactoryInstantiator(type);
+			return new UnsafeFactoryInstantiator<T>(type);
 		}
 		return super.newInstantiatorOf(type);
 	}

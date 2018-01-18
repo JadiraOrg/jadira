@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "dayOfWeekAsInteger.dtd">
 <dataset>
   <dayOfWeekAsInteger ID="0" NAME="test_0" DAYOFWEEK="1"/>
   <dayOfWeekAsInteger ID="1" NAME="test_1" DAYOFWEEK="2"/>

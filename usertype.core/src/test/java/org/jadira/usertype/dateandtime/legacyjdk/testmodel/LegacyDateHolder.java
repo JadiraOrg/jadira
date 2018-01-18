@@ -23,7 +23,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.jadira.usertype.dateandtime.legacyjdk.PersistentDate;
@@ -42,7 +41,7 @@ public class LegacyDateHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "test_legacyDateType", parameters = {@Parameter(name = "databaseZone", value = "UTC") }) // value = "Europe/Berlin") })
+    @Type(type = "test_legacyDateType")
     private Date legacyDate;
 
     public long getId() {

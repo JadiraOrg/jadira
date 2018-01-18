@@ -23,9 +23,9 @@ import org.objenesis.instantiator.ObjectInstantiator;
  * Provides the Objenesis API an instantiator implementation that can use Unsafe. 
  * You may use this class independently of the cloning framework.
  */
-public class UnsafeFactoryInstantiator implements ObjectInstantiator {
+public class UnsafeFactoryInstantiator<T> implements ObjectInstantiator<T> {
 
-	private Class<?> type;
+	private Class<T> type;
 
 	private static final UnsafeOperations UNSAFE_OPERATIONS = UnsafeOperations.getUnsafeOperations();
 
@@ -33,12 +33,12 @@ public class UnsafeFactoryInstantiator implements ObjectInstantiator {
 	 * Creates a new instance for the given type
 	 * @param type The type to be instantiated by this instance
 	 */
-	public UnsafeFactoryInstantiator(Class<?> type) {
+	public UnsafeFactoryInstantiator(Class<T> type) {
 		this.type = type;
 	}
 
 	@Override
-	public Object newInstance() {
+	public T newInstance() {
 		try {
 			return UNSAFE_OPERATIONS.allocateInstance(type);
 		} catch (IllegalStateException e) {

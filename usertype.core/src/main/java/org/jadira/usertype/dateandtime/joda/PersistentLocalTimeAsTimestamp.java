@@ -25,11 +25,8 @@ import org.joda.time.LocalTime;
 
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
- * be retained. The type is stored using UTC timezone.
- *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database. 
- * N.B. To use the zone of the JVM supply 'jvm'
+ * be retained.  The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone'..
  */
 public class PersistentLocalTimeAsTimestamp extends AbstractParameterizedUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 

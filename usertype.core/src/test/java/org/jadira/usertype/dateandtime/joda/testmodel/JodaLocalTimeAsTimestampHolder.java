@@ -41,7 +41,7 @@ public class JodaLocalTimeAsTimestampHolder implements Serializable {
     private String name;
 
     @Column
-    @Type(type = "testjoda_LocalTimeAsTimestampType") // parameters = {@Parameter(name = "databaseZone", value = "UTC") }) // value = "Europe/Berlin") }))
+    @Type(type = "testjoda_LocalTimeAsTimestampType")
     private LocalTime localTime;
 
     public long getId() {

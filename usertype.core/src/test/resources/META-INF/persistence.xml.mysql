@@ -31,7 +31,6 @@
 			
 			<!-- <property name="jadira.usertype.autoRegisterUserTypes" value="true" /> -->
 			<!-- <property name="jadira.usertype.javaZone" value="UTC" /> -->
-			<!-- <property name="jadira.usertype.databaseZone" value="UTC" /> -->
 			
 		</properties>
 	</persistence-unit>

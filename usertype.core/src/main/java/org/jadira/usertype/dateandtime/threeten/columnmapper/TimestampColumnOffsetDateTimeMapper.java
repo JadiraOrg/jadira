@@ -18,7 +18,6 @@ package org.jadira.usertype.dateandtime.threeten.columnmapper;
 import static org.jadira.usertype.dateandtime.threeten.utils.ZoneHelper.getDefaultZoneId;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -26,13 +25,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnOffsetDateTimeMapper extends AbstractTimestampThreeTenColumnMapper<OffsetDateTime> implements DatabaseZoneConfigured<ZoneId>, JavaZoneConfigured<ZoneId> {
+public class TimestampColumnOffsetDateTimeMapper extends AbstractTimestampThreeTenColumnMapper<OffsetDateTime> implements JavaZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -46,8 +44,7 @@ public class TimestampColumnOffsetDateTimeMapper extends AbstractTimestampThreeT
 		super();
 	}
 
-	public TimestampColumnOffsetDateTimeMapper(ZoneId databaseZone, ZoneId javaZone) {
-		super(databaseZone);
+	public TimestampColumnOffsetDateTimeMapper(ZoneId javaZone) {
 		this.javaZone = javaZone;
 	}
     
@@ -59,12 +56,10 @@ public class TimestampColumnOffsetDateTimeMapper extends AbstractTimestampThreeT
     @Override
     public OffsetDateTime fromNonNullValue(Timestamp value) {
 
-        ZoneId currentDatabaseZone = getDatabaseZone() == null ? getDefaultZoneId() : getDatabaseZone();
         ZoneId currentJavaZone = javaZone == null ? getDefaultZoneId() : javaZone;
 
-        OffsetDateTime dateTime = OffsetDateTime.ofInstant(Instant.ofEpochMilli(value.getTime()), currentDatabaseZone);
-        ZonedDateTime zonedDateTime = dateTime.with(ChronoField.NANO_OF_SECOND, value.getNanos()).atZoneSameInstant(currentJavaZone);
-        dateTime = zonedDateTime.toOffsetDateTime();
+        ZonedDateTime zonedDateTime = value.toInstant().with(ChronoField.NANO_OF_SECOND, value.getNanos()).atZone(currentJavaZone);
+        OffsetDateTime dateTime = zonedDateTime.toOffsetDateTime();
         
         return dateTime;
     }

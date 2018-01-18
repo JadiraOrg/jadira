@@ -143,7 +143,8 @@ public class ConfigurationBuilder implements Configuration {
         return this;
     }
 
-    ConfigurationBuilder setLocators(final Locator<URL>... locators) {
+    @SafeVarargs 
+    final ConfigurationBuilder setLocators(final Locator<URL>... locators) {
         this.locators = new ArrayList<Locator<URL>>(locators.length);
         for (Locator<URL> next : locators) {
             this.locators.add(next);
@@ -156,7 +157,8 @@ public class ConfigurationBuilder implements Configuration {
         return this;
     }
     
-    ConfigurationBuilder addLocators(final Locator<URL>... locators) {
+    @SafeVarargs
+    final ConfigurationBuilder addLocators(final Locator<URL>... locators) {
         for (Locator<URL> next : locators) {
             this.locators.add(next);
         }

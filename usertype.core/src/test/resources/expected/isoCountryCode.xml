@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "isoCountryCode.dtd">
 <dataset>
   <isoCountryCode ID="0" ISOCOUNTRYCODE="AD" NAME="test_0"/>
   <isoCountryCode ID="1" ISOCOUNTRYCODE="GB" NAME="test_1"/>

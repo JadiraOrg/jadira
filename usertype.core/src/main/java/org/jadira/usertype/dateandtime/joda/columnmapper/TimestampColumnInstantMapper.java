@@ -16,25 +16,16 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
+import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeTimestampType;
-import org.joda.time.DateTimeZone;
 import org.joda.time.Instant;
 
-public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> implements DatabaseZoneConfigured<DateTimeZone> {
+public class TimestampColumnInstantMapper extends AbstractVersionableTimestampColumnMapper<Instant> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
-    private DateTimeZone databaseZone = DateTimeZone.UTC;
-
     public TimestampColumnInstantMapper() {
-    }
-    
-    public TimestampColumnInstantMapper(DateTimeZone databaseZone) {
-    	this.databaseZone = databaseZone;
     }
     
     @Override
@@ -60,19 +51,9 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
         final Timestamp timestamp = new Timestamp(value.getMillis());
         return timestamp;
     }
-
-    @Override
-    public void setDatabaseZone(DateTimeZone databaseZone) {
-        this.databaseZone = databaseZone;
-    }
     
-	@Override
-	public DateTimeZone parseZone(String zoneString) {
-		return DateTimeZone.forID(zoneString);
-	}
-		
     @Override
-    public final DstSafeTimestampType getHibernateType() {
-    	return databaseZone == null ? DstSafeTimestampType.INSTANCE : new DstSafeTimestampType(Calendar.getInstance(databaseZone.toTimeZone()));
+    public final TimestampType getHibernateType() {
+    	return TimestampType.INSTANCE;
     }
 }

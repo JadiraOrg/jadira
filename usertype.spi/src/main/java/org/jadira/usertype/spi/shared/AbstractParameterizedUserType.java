@@ -49,27 +49,14 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
 	        Jdbc42Configured next = (Jdbc42Configured)this;
 	        performJdbc42Configuration(next);
 	    }
-		if (DatabaseZoneConfigured.class.isAssignableFrom(this.getClass())) {
-				
-			@SuppressWarnings("unchecked")
-			DatabaseZoneConfigured<Z> next = (DatabaseZoneConfigured<Z>)this;			
-			performDatabaseZoneConfiguration(next);
-		}
-		if (JavaZoneConfigured.class.isAssignableFrom(this.getClass())) {
+		
+	    if (JavaZoneConfigured.class.isAssignableFrom(this.getClass())) {
 			
 			@SuppressWarnings("unchecked")
 			JavaZoneConfigured<Z> next = (JavaZoneConfigured<Z>)this;			
 			performJavaZoneConfiguration(next);
 		}
-		
-		if (DatabaseZoneConfigured.class.isAssignableFrom(getColumnMapper().getClass())) {
-
-			@SuppressWarnings("unchecked")
-			DatabaseZoneConfigured<Z> next = (DatabaseZoneConfigured<Z>)getColumnMapper();
-			
-			performDatabaseZoneConfiguration(next);
-		}
-		
+				
 		if (JavaZoneConfigured.class.isAssignableFrom(getColumnMapper().getClass())) {
 			
 			@SuppressWarnings("unchecked")
@@ -77,25 +64,6 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
 
 			performJavaZoneConfiguration(next);
 		}
-	}
-	
-	private <Z> void performDatabaseZoneConfiguration(DatabaseZoneConfigured<Z> next) {
-		
-        String databaseZone = null;
-        if (getParameterValues() != null) {
-        	databaseZone = getParameterValues().getProperty("databaseZone");
-        }
-		if (databaseZone == null) {
-			databaseZone = ConfigurationHelper.getProperty("databaseZone");
-		}
-		
-        if (databaseZone != null) {
-            if ("jvm".equals(databaseZone)) {
-                next.setDatabaseZone(null);
-            } else {
-            	next.setDatabaseZone(next.parseZone(databaseZone));
-            }
-        }
 	}
 	
 	private <Z> void performJavaZoneConfiguration(JavaZoneConfigured<Z> next) {

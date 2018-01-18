@@ -15,61 +15,18 @@
  */
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.TimeZone;
-
+import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeTimestampType;
 
-public abstract class AbstractTimestampThreeTenColumnMapper<T> extends AbstractVersionableTimestampColumnMapper<T> implements DatabaseZoneConfigured<ZoneId> {
+public abstract class AbstractTimestampThreeTenColumnMapper<T> extends AbstractVersionableTimestampColumnMapper<T> {
 
     private static final long serialVersionUID = -7670411089210984705L;
-	
-    private ZoneId databaseZone = ZoneOffset.of("Z");
     
 	public AbstractTimestampThreeTenColumnMapper() {
 	}
-
-	public AbstractTimestampThreeTenColumnMapper(ZoneId databaseZone) {
-		this.databaseZone = databaseZone;
-	}
-
     
     @Override
-    public void setDatabaseZone(ZoneId databaseZone) {
-        this.databaseZone = databaseZone;
+    public final TimestampType getHibernateType() {    	
+    	return TimestampType.INSTANCE;
     }
-
-    protected ZoneId getDatabaseZone() {
-        return databaseZone;
-    }
-	
-    @Override
-    public final DstSafeTimestampType getHibernateType() {
-    	
-    	if (databaseZone == null) {
-    		return DstSafeTimestampType.INSTANCE;
-    	}
-    	
-    	Calendar cal = resolveCalendar(databaseZone);
-    	if (cal == null) {
-    		throw new IllegalStateException("Could not map Zone " + databaseZone + " to Calendar");
-    	}
-    	
-    	return new DstSafeTimestampType(cal);
-    }
-
-	private Calendar resolveCalendar(ZoneId databaseZone) {
-		
-		String id = databaseZone.getId();
-		if (Arrays.binarySearch(TimeZone.getAvailableIDs(), id) != -1) {
-			return Calendar.getInstance(TimeZone.getTimeZone(id));
-		} else {
-			return null;
-		}
-	}
 }

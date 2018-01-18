@@ -23,10 +23,12 @@ import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
- * Persist {@link java.util.Date} via Hibernate. The type is stored using UTC timezone.
-  * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#getTimeZone(String)} format
- * to indicate the zone of the database. 
- * N.B. To use the zone of the JVM supply 'jvm'
+ * Persist {@link java.util.Date} via Hibernate. The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone.
+ *
+ * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
+ * value on return from the database.
  */
 public class PersistentDate extends AbstractVersionableUserType<java.util.Date, Timestamp, TimestampColumnDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 

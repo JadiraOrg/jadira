@@ -31,6 +31,7 @@ import org.dbunit.database.QueryDataSet;
 import org.dbunit.dataset.DataSetException;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatDtdDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.h2.H2Connection;
@@ -80,8 +81,10 @@ public class DatabaseCapable {
 							+ System.getProperty("file.separator")
 							+ tableName + ".xml");
 
+					
+					// writeDtd(dbunitConnection, tableName);
 					// writeExpectedFile(dbunitConnection, comparisonFile, tableName);
-
+					
 					IDataSet expectedDataSet = new FlatXmlDataSetBuilder()
 							.build(comparisonFile);
 					ITable expectedTable = expectedDataSet.getTable(tableName);
@@ -109,4 +112,20 @@ public class DatabaseCapable {
 
 		FlatXmlDataSet.write(partialDataSet, new FileOutputStream(outputFile));
 	}
+	
+	protected void writeDtd(IDatabaseConnection dbunitConnection,String tableName) throws IOException,
+			DataSetException, SQLException {
+		
+		File placeholder = new File(DatabaseCapable.class
+				.getResource("/expected/.dbunit-comparison-files")
+				.getFile());
+		
+		File dtdFile = new File(placeholder.getParentFile()
+				.getPath()
+				+ System.getProperty("file.separator")
+				+ tableName + ".dtd");
+		
+        FlatDtdDataSet.write(dbunitConnection.createDataSet(new String[] { tableName } ), new FileOutputStream(dtdFile));
+	}
+
 }

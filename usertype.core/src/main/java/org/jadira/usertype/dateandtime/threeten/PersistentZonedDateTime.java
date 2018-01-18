@@ -28,13 +28,12 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * mostly compatible with org.joda.time.contrib.hibernate.PersistentDateTime however
  * you should note that JodaTime's org.joda.time.DateTime has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is stored using UTC timezone and presented in the
+ * round down to the nearest millisecond. The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link java.util.TimeZone#getTimeZone(String)} format
- * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
+ * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
- * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentZonedDateTime extends AbstractVersionableUserType<ZonedDateTime, Timestamp, TimestampColumnZonedDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 

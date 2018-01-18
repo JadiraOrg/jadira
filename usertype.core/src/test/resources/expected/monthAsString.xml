@@ -1,4 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "monthAsString.dtd">
 <dataset>
   <monthAsString ID="0" MONTH="JANUARY" NAME="test_0"/>
   <monthAsString ID="1" MONTH="FEBRUARY" NAME="test_1"/>

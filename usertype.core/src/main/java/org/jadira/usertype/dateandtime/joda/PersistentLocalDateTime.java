@@ -28,11 +28,8 @@ import org.joda.time.LocalDateTime;
  * mostly compatible with org.joda.time.contrib.hibernate.PersistentLocalDateTime however
  * you should note that JodaTime's {@link org.joda.time.LocalDateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is stored to the database using UTC zone.
- *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database.
- * N.B. To use the zone of the JVM supply 'jvm'
+ * round down to the nearest millisecond.  The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone'.
  */
 public class PersistentLocalDateTime extends AbstractParameterizedUserType<LocalDateTime, Timestamp, TimestampColumnLocalDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 

@@ -30,6 +30,10 @@ import org.hibernate.type.VersionType;
 import org.hibernate.type.descriptor.java.JdbcTimestampTypeDescriptor;
 import org.jadira.usertype.spi.shared.descriptor.sql.DstSafeTimestampTypeDescriptor;
 
+/**
+ * @deprecated This class should no longer be used now that Hibernate allows configuration of  hibernate.jdbc.time_zone configuration property 
+ */
+@Deprecated
 public class DstSafeTimestampType extends
 		AbstractSingleColumnStandardBasicType<Date> implements
 		VersionType<Date>, LiteralType<Date> {

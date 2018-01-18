@@ -25,11 +25,12 @@ import org.joda.time.Instant;
 
 /**
  * Persist {@link Instant} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
- * be retained. The type is stored using UTC timezone.
+ * be retained. The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database.
- * N.B. To use the zone of the JVM supply 'jvm'
+ * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
+ * value on return from the database.
  */
 public class PersistentInstantAsTimestamp extends AbstractVersionableUserType<Instant, Timestamp, TimestampColumnInstantMapper> implements ParameterizedType, IntegratorConfiguredType {
 

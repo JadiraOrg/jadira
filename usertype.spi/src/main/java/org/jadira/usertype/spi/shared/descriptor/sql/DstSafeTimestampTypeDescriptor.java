@@ -31,6 +31,10 @@ import org.hibernate.type.descriptor.sql.BasicExtractor;
 import org.hibernate.type.descriptor.sql.SqlTypeDescriptor;
 import org.hibernate.type.descriptor.sql.TimestampTypeDescriptor;
 
+/**
+ * @deprecated This class should no longer be used now that Hibernate allows configuration of  hibernate.jdbc.time_zone configuration property 
+ */
+@Deprecated
 public class DstSafeTimestampTypeDescriptor extends TimestampTypeDescriptor {
 
 	private static final long serialVersionUID = -1927559005967709998L;

@@ -25,14 +25,13 @@ import org.joda.time.Interval;
 
 /**
  * Persist {@link Interval} via Hibernate. The interval type is intended to be compatible with
- * org.joda.time.contrib.hibernate.PersistentInterval and stores beginning and end values
- * using the UTC zone and presented in the
+ * org.joda.time.contrib.hibernate.PersistentInterval and stores beginning and end values.
+ * The types are stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
  * JVM using the JVM's default zone.
  *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database. The 'javaZone' can be used to similarly configure the zone of the
+ * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
- * N.B. To use the zone of the JVM supply 'jvm'
  */
 public class PersistentInterval extends AbstractParameterizedMultiColumnUserType<Interval> implements ParameterizedType, IntegratorConfiguredType {
 

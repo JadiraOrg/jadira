@@ -16,31 +16,21 @@
 package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
-import java.util.Calendar;
 
+import org.hibernate.type.DateType;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
-import org.jadira.usertype.spi.shared.DatabaseZoneConfigured;
-import org.jadira.usertype.spi.shared.DstSafeDateType;
 import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.DateTimeFormatterBuilder;
 
-public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> implements DatabaseZoneConfigured<DateTimeZone> {
+public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
     public static final DateTimeFormatter LOCAL_DATE_FORMATTER = new DateTimeFormatterBuilder().appendPattern("yyyy-MM-dd").toFormatter();
 
-    /* Explicitly set this to null for preferred default behaviour. See https://jadira.atlassian.net/browse/JDF-26 */
-    private DateTimeZone databaseZone = null;
-
     public DateColumnLocalDateMapper() {
-    }
-
-    public DateColumnLocalDateMapper(DateTimeZone databaseZone) {
-    	this.databaseZone = databaseZone;
     }
 
     @Override
@@ -50,10 +40,6 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
 
     @Override
     public LocalDate fromNonNullValue(Date value) {
-
-		if (databaseZone == null) {
-    		return new LocalDate(value.toString());
-    	}
 
         DateTime dateTime = new DateTime(value.getTime());
         LocalDate localDate = dateTime.toLocalDate();
@@ -69,28 +55,11 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     @Override
     public Date toNonNullValue(LocalDate value) {
 
-        if (databaseZone==null) {
-        	return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
-        }
-
-    	DateTime zonedValue = value.toDateTime(value.toDateTimeAtStartOfDay());
-
-        final Date date = new Date(zonedValue.getMillis());
-        return date;
+        return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
     }
-
-    @Override
-    public void setDatabaseZone(DateTimeZone databaseZone) {
-        this.databaseZone = databaseZone;
-    }
-
-	@Override
-	public DateTimeZone parseZone(String zoneString) {
-		return DateTimeZone.forID(zoneString);
-	}
 	
     @Override
-    public final DstSafeDateType getHibernateType() {
-    	return databaseZone == null ? DstSafeDateType.INSTANCE : new DstSafeDateType(Calendar.getInstance(databaseZone.toTimeZone()));
+    public final DateType getHibernateType() {
+    	return DateType.INSTANCE;
     }
 }

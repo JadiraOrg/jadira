@@ -15,12 +15,14 @@
  */
 package org.jadira.usertype.moneyandcurrency.moneta.columnmapper;
 
-import javax.money.*;
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
 
 import org.jadira.usertype.moneyandcurrency.moneta.util.CurrencyUnitConfigured;
 import org.jadira.usertype.spi.shared.AbstractLongColumnMapper;
 import org.javamoney.moneta.Money;
-import org.javamoney.moneta.function.MonetaryUtil;
+import org.javamoney.moneta.function.MonetaryQueries;
 
 public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<MonetaryAmount> implements CurrencyUnitConfigured {
 
@@ -38,7 +40,7 @@ public class LongColumnMoneyMajorMapper extends AbstractLongColumnMapper<Monetar
     	if (!currencyUnit.equals(value.getCurrency())) {
     		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrency());
     	}
-        return MonetaryUtil.majorPart().apply(value).getNumber().longValue();
+        return MonetaryQueries.extractMajorPart().queryFrom(value).longValue();
     }
 
 	@Override

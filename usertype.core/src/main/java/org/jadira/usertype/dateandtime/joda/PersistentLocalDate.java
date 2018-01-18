@@ -27,11 +27,8 @@ import org.joda.time.LocalDate;
  * Persist {@link LocalDate} via Hibernate. This type shares database
  * representation with org.joda.time.contrib.hibernate.PersistentLocalDate
  * 
- * The type is stored using the JVM timezone by default.
- *
- * Alternatively provide the 'databaseZone' parameter in the {@link org.joda.time.DateTimeZone#forID(String)} format
- * to indicate the zone of the database. Be careful to set this carefully. See https://jadira.atlassian.net/browse/JDF-26
- * N.B. To use the zone of the JVM for the database zone you can also supply 'jvm'
+ * The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone'.
  */
 public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 
