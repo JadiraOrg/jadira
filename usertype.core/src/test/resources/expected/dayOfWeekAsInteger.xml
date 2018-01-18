@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "dayOfWeekAsInteger.dtd">
 <dataset>
-  <dayOfWeekAsInteger ID="0" NAME="test_0" DAYOFWEEK="1"/>
-  <dayOfWeekAsInteger ID="1" NAME="test_1" DAYOFWEEK="2"/>
-  <dayOfWeekAsInteger ID="2" NAME="test_2" DAYOFWEEK="7"/>
+  <DAYOFWEEKASINTEGER ID="0" NAME="test_0" DAYOFWEEK="1"/>
+  <DAYOFWEEKASINTEGER ID="1" NAME="test_1" DAYOFWEEK="2"/>
+  <DAYOFWEEKASINTEGER ID="2" NAME="test_2" DAYOFWEEK="7"/>
 </dataset>

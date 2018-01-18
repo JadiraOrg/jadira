@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <monthDay ID="0" MONTHDAY="--01-01" NAME="test_0"/>
-  <monthDay ID="1" MONTHDAY="--02-29" NAME="test_1"/>
-  <monthDay ID="2" MONTHDAY="--12-31" NAME="test_2"/>
+  <MONTHDAY ID="0" MONTHDAY="--01-01" NAME="test_0"/>
+  <MONTHDAY ID="1" MONTHDAY="--02-29" NAME="test_1"/>
+  <MONTHDAY ID="2" MONTHDAY="--12-31" NAME="test_2"/>
 </dataset>

@@ -18,8 +18,8 @@
 
  -->
 <dataset>
-  <periodAsString ID="0" NAME="test_0" PERIOD="P3M"/>
-  <periodAsString ID="1" NAME="test_1" PERIOD="P4Y35M40D"/>
-  <periodAsString ID="2" NAME="test_2" PERIOD="P28Y10M2D"/>
-  <periodAsString ID="3" NAME="test_3" PERIOD="P28Y10M"/>
+  <PERIODASSTRING ID="0" NAME="test_0" PERIOD="P3M"/>
+  <PERIODASSTRING ID="1" NAME="test_1" PERIOD="P4Y35M40D"/>
+  <PERIODASSTRING ID="2" NAME="test_2" PERIOD="P28Y10M2D"/>
+  <PERIODASSTRING ID="3" NAME="test_3" PERIOD="P28Y10M"/>
 </dataset>

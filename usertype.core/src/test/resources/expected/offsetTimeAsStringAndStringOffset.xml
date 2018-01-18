@@ -18,6 +18,6 @@
 
  -->
 <dataset>
-  <offsetTimeAsStringAndStringOffset ID="0" NAME="test_0" MY_DATE="12:10:31" MY_OFFSET="Z"/>
-  <offsetTimeAsStringAndStringOffset ID="1" NAME="test_1" MY_DATE="23:07:43.000000120" MY_OFFSET="+02:00"/>
+  <OFFSETTIMEASSTRINGANDSTRINGOFFSET ID="0" NAME="test_0" MY_DATE="12:10:31" MY_OFFSET="Z"/>
+  <OFFSETTIMEASSTRINGANDSTRINGOFFSET ID="1" NAME="test_1" MY_DATE="23:07:43.000000120" MY_OFFSET="+02:00"/>
 </dataset>

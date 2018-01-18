@@ -18,6 +18,6 @@
 
  -->
 <dataset>
-  <localDateAsString ID="0" LOCALDATE="2004-02-25" NAME="test_0"/>
-  <localDateAsString ID="1" LOCALDATE="1980-03-11" NAME="test_1"/>
+  <LOCALDATEASSTRING ID="0" LOCALDATE="2004-02-25" NAME="test_0"/>
+  <LOCALDATEASSTRING ID="1" LOCALDATE="1980-03-11" NAME="test_1"/>
 </dataset>

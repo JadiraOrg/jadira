@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <yearMonthAsString ID="0" NAME="test_0" YEARMONTH="2011-01"/>
-  <yearMonthAsString ID="1" NAME="test_1" YEARMONTH="2000-01"/>
-  <yearMonthAsString ID="2" NAME="test_2" YEARMONTH="1999-12"/>
+  <YEARMONTHASSTRING ID="0" NAME="test_0" YEARMONTH="2011-01"/>
+  <YEARMONTHASSTRING ID="1" NAME="test_1" YEARMONTH="2000-01"/>
+  <YEARMONTHASSTRING ID="2" NAME="test_2" YEARMONTH="1999-12"/>
 </dataset>

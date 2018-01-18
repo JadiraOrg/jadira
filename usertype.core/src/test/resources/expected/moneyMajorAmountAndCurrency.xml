@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "moneyMajorAmountAndCurrency.dtd">
 <dataset>
-  <moneyMajorAmountAndCurrency ID="0" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_0"/>
-  <moneyMajorAmountAndCurrency ID="1" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_1"/>
-  <moneyMajorAmountAndCurrency ID="2" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_2"/>
-  <moneyMajorAmountAndCurrency ID="3" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_3"/>
-  <moneyMajorAmountAndCurrency ID="4" NAME="test_4"/>
+  <MONEYMAJORAMOUNTANDCURRENCY ID="0" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_0"/>
+  <MONEYMAJORAMOUNTANDCURRENCY ID="1" MY_CURRENCY="USD" MY_AMOUNT="100" NAME="test_1"/>
+  <MONEYMAJORAMOUNTANDCURRENCY ID="2" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_2"/>
+  <MONEYMAJORAMOUNTANDCURRENCY ID="3" MY_CURRENCY="EUR" MY_AMOUNT="0" NAME="test_3"/>
+  <MONEYMAJORAMOUNTANDCURRENCY ID="4" NAME="test_4"/>
 </dataset>

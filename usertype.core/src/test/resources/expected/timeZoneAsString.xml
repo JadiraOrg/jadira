@@ -18,6 +18,6 @@
 
  -->
 <dataset>
-  <timeZoneAsString ID="0" NAME="test_0" TIMEZONE="Z"/>
-  <timeZoneAsString ID="1" NAME="test_1" TIMEZONE="Europe/Paris"/>
+  <TIMEZONEASSTRING ID="0" NAME="test_0" TIMEZONE="Z"/>
+  <TIMEZONEASSTRING ID="1" NAME="test_1" TIMEZONE="Europe/Paris"/>
 </dataset>

@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <localTime ID="0" NAME="test_0" LOCALTIME="14:02:25"/>
-  <localTime ID="1" NAME="test_1" LOCALTIME="23:59:59"/>
-  <localTime ID="2" NAME="test_2" LOCALTIME="00:00:00"/>
+  <LOCALTIME ID="0" NAME="test_0" LOCALTIME="14:02:25"/>
+  <LOCALTIME ID="1" NAME="test_1" LOCALTIME="23:59:59"/>
+  <LOCALTIME ID="2" NAME="test_2" LOCALTIME="00:00:00"/>
 </dataset>

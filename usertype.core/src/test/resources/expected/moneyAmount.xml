@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "moneyAmount.dtd">
 <dataset>
-  <moneyAmount ID="0" MONEY="100.00" NAME="test_0"/>
-  <moneyAmount ID="1" MONEY="100.10" NAME="test_1"/>
-  <moneyAmount ID="2" MONEY="0.99" NAME="test_2"/>
-  <moneyAmount ID="3" NAME="test_3"/>
+  <MONEYAMOUNT ID="0" MONEY="100.00" NAME="test_0"/>
+  <MONEYAMOUNT ID="1" MONEY="100.10" NAME="test_1"/>
+  <MONEYAMOUNT ID="2" MONEY="0.99" NAME="test_2"/>
+  <MONEYAMOUNT ID="3" NAME="test_3"/>
 </dataset>

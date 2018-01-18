@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "monthAsString.dtd">
 <dataset>
-  <monthAsString ID="0" MONTH="JANUARY" NAME="test_0"/>
-  <monthAsString ID="1" MONTH="FEBRUARY" NAME="test_1"/>
-  <monthAsString ID="2" MONTH="DECEMBER" NAME="test_2"/>
+  <MONTHASSTRING ID="0" MONTH="JANUARY" NAME="test_0"/>
+  <MONTHASSTRING ID="1" MONTH="FEBRUARY" NAME="test_1"/>
+  <MONTHASSTRING ID="2" MONTH="DECEMBER" NAME="test_2"/>
 </dataset>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "instantAsNanosBigInteger.dtd">
 <dataset>
-  <instantAsNanosBigInteger ID="0" INSTANT="1077728625760000000" NAME="test_0"/>
-  <instantAsNanosBigInteger ID="1" INSTANT="321581025000000000" NAME="test_1"/>
+  <INSTANTASNANOSBIGINTEGER ID="0" INSTANT="1077728625760000000" NAME="test_0"/>
+  <INSTANTASNANOSBIGINTEGER ID="1" INSTANT="321581025000000000" NAME="test_1"/>
 </dataset>

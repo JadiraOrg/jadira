@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <localTimeAsMillisInteger ID="0" NAME="test_0" LOCALTIME="50545000"/>
-  <localTimeAsMillisInteger ID="1" NAME="test_1" LOCALTIME="86399000"/>
-  <localTimeAsMillisInteger ID="2" NAME="test_2" LOCALTIME="0"/>
+  <LOCALTIMEASMILLISINTEGER ID="0" NAME="test_0" LOCALTIME="50545000"/>
+  <LOCALTIMEASMILLISINTEGER ID="1" NAME="test_1" LOCALTIME="86399000"/>
+  <LOCALTIMEASMILLISINTEGER ID="2" NAME="test_2" LOCALTIME="0"/>
 </dataset>

@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <minute ID="0" NAME="test_0" MINUTE="1"/>
-  <minute ID="1" NAME="test_1" MINUTE="2010"/>
-  <minute ID="2" NAME="test_2" MINUTE="1999"/>
+  <MINUTE ID="0" NAME="test_0" MINUTE="1"/>
+  <MINUTE ID="1" NAME="test_1" MINUTE="2010"/>
+  <MINUTE ID="2" NAME="test_2" MINUTE="1999"/>
 </dataset>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE dataset SYSTEM "isoCountryCode.dtd">
 <dataset>
-  <isoCountryCode ID="0" ISOCOUNTRYCODE="AD" NAME="test_0"/>
-  <isoCountryCode ID="1" ISOCOUNTRYCODE="GB" NAME="test_1"/>
-  <isoCountryCode ID="2" ISOCOUNTRYCODE="US" NAME="test_2"/>
-  <isoCountryCode ID="3" ISOCOUNTRYCODE="FR" NAME="test_3"/>
-  <isoCountryCode ID="4" NAME="test_4"/>
+  <ISOCOUNTRYCODE ID="0" ISOCOUNTRYCODE="AD" NAME="test_0"/>
+  <ISOCOUNTRYCODE ID="1" ISOCOUNTRYCODE="GB" NAME="test_1"/>
+  <ISOCOUNTRYCODE ID="2" ISOCOUNTRYCODE="US" NAME="test_2"/>
+  <ISOCOUNTRYCODE ID="3" ISOCOUNTRYCODE="FR" NAME="test_3"/>
+  <ISOCOUNTRYCODE ID="4" NAME="test_4"/>
 </dataset>

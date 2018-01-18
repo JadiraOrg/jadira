@@ -18,7 +18,7 @@
 
  -->
 <dataset>
-  <yearAsInteger ID="0" NAME="test_0" YEAR="1"/>
-  <yearAsInteger ID="1" NAME="test_1" YEAR="2010"/>
-  <yearAsInteger ID="2" NAME="test_2" YEAR="1999"/>
+  <YEARASINTEGER ID="0" NAME="test_0" YEAR="1"/>
+  <YEARASINTEGER ID="1" NAME="test_1" YEAR="2010"/>
+  <YEARASINTEGER ID="2" NAME="test_2" YEAR="1999"/>
 </dataset>

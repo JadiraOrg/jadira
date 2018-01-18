@@ -18,8 +18,8 @@
 
  -->
 <dataset>
-  <zonedOffsetAsString ID="0" NAME="test_0" ZONEOFFSET="Z"/>
-  <zonedOffsetAsString ID="1" NAME="test_1" ZONEOFFSET="+05:00"/>
-  <zonedOffsetAsString ID="2" NAME="test_2" ZONEOFFSET="+11:30"/>
-  <zonedOffsetAsString ID="3" NAME="test_3" ZONEOFFSET="+05:40:45"/>
+  <ZONEDOFFSETASSTRING ID="0" NAME="test_0" ZONEOFFSET="Z"/>
+  <ZONEDOFFSETASSTRING ID="1" NAME="test_1" ZONEOFFSET="+05:00"/>
+  <ZONEDOFFSETASSTRING ID="2" NAME="test_2" ZONEOFFSET="+11:30"/>
+  <ZONEDOFFSETASSTRING ID="3" NAME="test_3" ZONEOFFSET="+05:40:45"/>
 </dataset>
