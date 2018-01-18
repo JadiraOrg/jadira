@@ -65,7 +65,9 @@ public class PersistentJsonObjectAsString<T> extends AbstractKnownClassHeuristic
 		if (parameters.containsKey("jsonClass")) {
 			String jsonClassName = parameters.getProperty("jsonClass");
 			try {
-				setMappedClass((Class<T>) Class.forName(jsonClassName));
+				Class<T> mappedClass = (Class<T>) Class.forName(jsonClassName);
+				setMappedClass(mappedClass);
+				setIdentifierType(mappedClass);
 			} catch (ClassNotFoundException e) {
 				throw new HibernateException("Specified class could not be found", e);
 			}
