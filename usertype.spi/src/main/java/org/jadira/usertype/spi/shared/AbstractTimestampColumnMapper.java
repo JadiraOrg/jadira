@@ -17,18 +17,23 @@ package org.jadira.usertype.spi.shared;
 
 import java.sql.Timestamp;
 import java.sql.Types;
+import java.util.TimeZone;
 
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.type.TimestampType;
+import org.jadira.usertype.spi.timezone.proxy.TimeZoneProvidingSharedSessionContractImplementor;
 
-public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> implements ColumnMapper<T, Timestamp> {
+public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMapper<T, Timestamp> implements ColumnMapper<T, Timestamp>, DatabaseZoneConfigured {
 
     private static final long serialVersionUID = -3070239764121234482L;
 
+	private TimeZone databaseZone;
+    
     @Override
-    public TimestampType getHibernateType() {
+    public final TimestampType getHibernateType() {    	
     	return TimestampType.INSTANCE;
     }
-
+    
     @Override
     public final int getSqlType() {
         return Types.TIMESTAMP;
@@ -45,4 +50,33 @@ public abstract class AbstractTimestampColumnMapper<T> extends AbstractColumnMap
 
     @Override
     public abstract String toNonNullString(T value);
+    
+	@Override
+	public void setDatabaseZone(TimeZone databaseZone) {
+		this.databaseZone = databaseZone;
+	}
+
+	@Override
+	public TimeZone parseZone(String zoneString) {
+		return TimeZone.getTimeZone(zoneString);
+	}
+
+	@Override
+	public TimeZone getDatabaseZone() {
+		return databaseZone;
+	}
+
+	public SharedSessionContractImplementor wrapSession(SharedSessionContractImplementor session) {
+		
+		final SharedSessionContractImplementor mySession;
+
+		if (databaseZone != null) {
+			mySession = new TimeZoneProvidingSharedSessionContractImplementor(session, databaseZone);
+		} else {
+			mySession = session;
+		}
+		
+		return mySession;
+	}
 }
+

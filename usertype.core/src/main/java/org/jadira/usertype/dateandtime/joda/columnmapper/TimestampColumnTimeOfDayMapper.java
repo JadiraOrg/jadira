@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractTimestampColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
@@ -63,10 +62,5 @@ public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMappe
 
         final Timestamp timestamp = new Timestamp(zonedValue.getMillis());
         return timestamp;
-    }
-		
-    @Override
-    public final TimestampType getHibernateType() {
-    	return TimestampType.INSTANCE;
     }
 }

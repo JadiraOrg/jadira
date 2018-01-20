@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractVersionableUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTime;
 
@@ -28,19 +28,17 @@ import org.joda.time.DateTime;
  * mostly compatible with org.joda.time.contrib.hibernate.PersistentDateTime however
  * you should note that JodaTime's {@link org.joda.time.DateTime} has only millisecond precision,
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
- * round down to the nearest millisecond. The type is stored using the timezone as configured 
+ * round down to the nearest millisecond. 
+ *
+ * The type is stored using the timezone as configured 
  * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
- * JVM using the JVM's default zone.
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  *
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  */
-public class PersistentDateTime extends AbstractVersionableUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentDateTime extends AbstractParameterizedUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -6656619988954550389L;
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return ((DateTime) o1).compareTo((DateTime) o2);
-    }
 }

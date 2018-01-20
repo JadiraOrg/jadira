@@ -18,7 +18,9 @@ package org.jadira.usertype.spi.shared;
 import java.util.Properties;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.ParameterizedType;
+import org.jadira.usertype.spi.timezone.proxy.WrapsSession;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
 
 public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C> implements ParameterizedType, IntegratorConfiguredType {
@@ -49,14 +51,31 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
 	        Jdbc42Configured next = (Jdbc42Configured)this;
 	        performJdbc42Configuration(next);
 	    }
-		
-	    if (JavaZoneConfigured.class.isAssignableFrom(this.getClass())) {
+	    
+		if (DatabaseZoneConfigured.class.isAssignableFrom(this.getClass())) {
+				
+			DatabaseZoneConfigured next = (DatabaseZoneConfigured)this;			
+			performDatabaseZoneConfiguration(next);
+		}
+		if (JavaZoneConfigured.class.isAssignableFrom(this.getClass())) {
 			
 			@SuppressWarnings("unchecked")
 			JavaZoneConfigured<Z> next = (JavaZoneConfigured<Z>)this;			
 			performJavaZoneConfiguration(next);
 		}
-				
+		
+	    if (JavaVersion.isJava8OrLater() &&
+	            Jdbc42Configured.class.isAssignableFrom(getColumnMapper().getClass())) {
+	        Jdbc42Configured next = (Jdbc42Configured)this;
+	        performJdbc42Configuration(next);
+	    }
+		
+		if (DatabaseZoneConfigured.class.isAssignableFrom(getColumnMapper().getClass())) {
+
+			DatabaseZoneConfigured next = (DatabaseZoneConfigured)getColumnMapper();
+			performDatabaseZoneConfiguration(next);
+		}
+		
 		if (JavaZoneConfigured.class.isAssignableFrom(getColumnMapper().getClass())) {
 			
 			@SuppressWarnings("unchecked")
@@ -66,12 +85,32 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
 		}
 	}
 	
+	private <Z> void performDatabaseZoneConfiguration(DatabaseZoneConfigured next) {
+		
+        String databaseZone = null;
+        if (getParameterValues() != null) {
+        	databaseZone = getParameterValues().getProperty("databaseZone");
+        }
+		if (databaseZone == null) {
+			databaseZone = ConfigurationHelper.getProperty("databaseZone");
+		}
+		
+        if (databaseZone != null) {
+            if ("jvm".equals(databaseZone)) {
+                next.setDatabaseZone(null);
+            } else {
+            	next.setDatabaseZone(next.parseZone(databaseZone));
+            }
+        }
+	}
+	
 	private <Z> void performJavaZoneConfiguration(JavaZoneConfigured<Z> next) {
 		
 		String javaZone = null;
         if (getParameterValues() != null) {
         	javaZone = getParameterValues().getProperty("javaZone");
         }
+        
 		if (javaZone == null) {
 			javaZone = ConfigurationHelper.getProperty("javaZone");
 		}
@@ -80,7 +119,7 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
             if ("jvm".equals(javaZone)) {
                 next.setJavaZone(null);
             } else {
-            	next.setJavaZone(next.parseZone(javaZone));
+            	next.setJavaZone(next.parseJavaZone(javaZone));
             }
         }
 	}
@@ -104,4 +143,16 @@ public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper
         
         next.setUseJdbc42Apis(jdbc42Apis);
     }
+	
+	@Override
+	protected SharedSessionContractImplementor doWrapSession(SharedSessionContractImplementor session) {
+		SharedSessionContractImplementor mySession = session;
+		if (WrapsSession.class.isAssignableFrom(getColumnMapper().getClass())) {
+			mySession = ((WrapsSession)getColumnMapper()).wrapSession(mySession);
+		}
+		if (WrapsSession.class.isAssignableFrom(this.getClass())) {
+			mySession = ((WrapsSession)this).wrapSession(mySession);
+		}
+		return mySession;
+	}
 }

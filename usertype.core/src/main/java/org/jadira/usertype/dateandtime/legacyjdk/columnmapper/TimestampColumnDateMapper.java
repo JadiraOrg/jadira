@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 
 /**
@@ -149,10 +148,5 @@ public class TimestampColumnDateMapper extends AbstractVersionableTimestampColum
 
         final Timestamp timestamp = new Timestamp(value.getTime());
         return timestamp;
-    }
-	
-    @Override
-    public final TimestampType getHibernateType() {
-    	return TimestampType.INSTANCE;
     }
 }

@@ -26,7 +26,9 @@ import org.joda.time.TimeOfDay;
 /**
  * Persist {@link TimeOfDay} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.  The type is stored using the timezone as configured 
- * using Hibernate's configuration property 'hibernate.jdbc.time_zone'.
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */
 public class PersistentTimeOfDayAsTimestamp extends AbstractParameterizedUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {

@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.hibernate.type.TimestampType;
 import org.jadira.usertype.dateandtime.joda.util.ZoneHelper;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
@@ -77,12 +76,7 @@ public class TimestampColumnDateTimeMapper extends AbstractVersionableTimestampC
     }
     
 	@Override
-	public DateTimeZone parseZone(String zoneString) {
+	public DateTimeZone parseJavaZone(String zoneString) {
 		return DateTimeZone.forID(zoneString);
 	}
-	
-    @Override
-    public final TimestampType getHibernateType() {
-    	return TimestampType.INSTANCE;
-    }
 }

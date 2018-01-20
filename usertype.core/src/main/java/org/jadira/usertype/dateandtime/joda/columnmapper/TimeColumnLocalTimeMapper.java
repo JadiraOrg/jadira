@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Time;
 
-import org.hibernate.type.TimeType;
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDateTime;
@@ -62,10 +61,5 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
 
         final Time time = new Time(zonedValue.getMillis());
         return time;
-    }
-	
-    @Override
-    public final TimeType getHibernateType() {
-    	return TimeType.INSTANCE;
     }
 }

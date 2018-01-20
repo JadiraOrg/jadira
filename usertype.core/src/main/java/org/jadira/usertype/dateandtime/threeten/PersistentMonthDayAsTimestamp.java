@@ -23,6 +23,11 @@ import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 
 /**
  * Persist {@link MonthDay} to a Timestamp via Hibernate.
+ * 
+The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  */
 public class PersistentMonthDayAsTimestamp extends AbstractSingleColumnUserType<MonthDay, Timestamp, TimestampColumnMonthDayMapper> {
 

@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Timestamp;
 
-import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.joda.time.Instant;
 
@@ -50,10 +49,5 @@ public class TimestampColumnInstantMapper extends AbstractVersionableTimestampCo
         
         final Timestamp timestamp = new Timestamp(value.getMillis());
         return timestamp;
-    }
-    
-    @Override
-    public final TimestampType getHibernateType() {
-    	return TimestampType.INSTANCE;
     }
 }

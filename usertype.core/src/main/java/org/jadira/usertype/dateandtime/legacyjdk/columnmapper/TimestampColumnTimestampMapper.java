@@ -21,7 +21,6 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.hibernate.type.TimestampType;
 import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 
 /**
@@ -92,10 +91,5 @@ public class TimestampColumnTimestampMapper extends AbstractVersionableTimestamp
         timestamp.setNanos(value.getNanos());
         
         return timestamp;
-    } 
-    
-    @Override
-    public final TimestampType getHibernateType() {
-    	return TimestampType.INSTANCE;
     }
 }

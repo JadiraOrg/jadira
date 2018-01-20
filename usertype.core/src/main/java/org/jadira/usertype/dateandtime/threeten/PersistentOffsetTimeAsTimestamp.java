@@ -28,7 +28,8 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * in the database.
  * The type is stored using the timezone as configured 
  * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
- * JVM using the JVM's default zone.
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  *
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.

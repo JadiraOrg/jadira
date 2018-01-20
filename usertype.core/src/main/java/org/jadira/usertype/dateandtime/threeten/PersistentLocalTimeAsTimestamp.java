@@ -26,6 +26,11 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 /**
  * Persist {@link LocalTime} via Hibernate using a JDBC Timestamp datatype with a reference date.  - note that sub-second values will not
  * be retained.
+ * 
+ * The type is stored using the timezone as configured 
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  */
 public class PersistentLocalTimeAsTimestamp extends AbstractParameterizedUserType<LocalTime, Timestamp, TimestampColumnLocalTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 

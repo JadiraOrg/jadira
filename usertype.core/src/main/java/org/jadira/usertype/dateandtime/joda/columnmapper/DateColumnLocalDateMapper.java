@@ -17,7 +17,6 @@ package org.jadira.usertype.dateandtime.joda.columnmapper;
 
 import java.sql.Date;
 
-import org.hibernate.type.DateType;
 import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
@@ -56,10 +55,5 @@ public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDat
     public Date toNonNullValue(LocalDate value) {
 
         return Date.valueOf(LOCAL_DATE_FORMATTER.print((LocalDate) value));
-    }
-	
-    @Override
-    public final DateType getHibernateType() {
-    	return DateType.INSTANCE;
     }
 }

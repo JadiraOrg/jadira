@@ -22,9 +22,10 @@ import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
+import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 
-public class TimeColumnOffsetTimeMapper extends AbstractTimeThreeTenColumnMapper<OffsetTime> implements JavaZoneConfigured<ZoneOffset> {
+public class TimeColumnOffsetTimeMapper extends AbstractTimeColumnMapper<OffsetTime> implements JavaZoneConfigured<ZoneOffset> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 
@@ -67,7 +68,7 @@ public class TimeColumnOffsetTimeMapper extends AbstractTimeThreeTenColumnMapper
     }
         
 	@Override
-	public ZoneOffset parseZone(String zoneString) {
+	public ZoneOffset parseJavaZone(String zoneString) {
 		return ZoneOffset.of(zoneString);
 	}
 }

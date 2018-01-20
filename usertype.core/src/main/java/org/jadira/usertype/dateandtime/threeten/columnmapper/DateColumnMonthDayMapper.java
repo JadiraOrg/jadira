@@ -20,7 +20,9 @@ import java.time.MonthDay;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-public class DateColumnMonthDayMapper extends AbstractDateThreeTenColumnMapper<MonthDay> {
+import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+
+public class DateColumnMonthDayMapper extends AbstractDateColumnMapper<MonthDay> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 

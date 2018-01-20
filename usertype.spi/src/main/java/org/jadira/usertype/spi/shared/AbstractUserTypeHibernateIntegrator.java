@@ -35,7 +35,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 
 	private static final String REGISTER_USERTYPES_KEY = "jadira.usertype.autoRegisterUserTypes";
 
-	private static final String DEFAULT_JAVAZONE_KEY = "jadira.usertype.javaZone";
+	private static final String DEFAULT_JAVAZONE_KEY = "jadira.usertype.javaZone";	
+	private static final String DEFAULT_DATABASEZONE_KEY = "jadira.usertype.databaseZone";
 	private static final String DEFAULT_SEED_KEY = "jadira.usertype.seed";
 	private static final String DEFAULT_CURRENCYCODE_KEY = "jadira.usertype.currencyCode";
 	
@@ -48,12 +49,13 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		
 			String isEnabled = configuration.getProperty(REGISTER_USERTYPES_KEY); 
 			String javaZone = configuration.getProperty(DEFAULT_JAVAZONE_KEY);
+			String databaseZone = configuration.getProperty(DEFAULT_DATABASEZONE_KEY);
 			String seed = configuration.getProperty(DEFAULT_SEED_KEY);
 			String currencyCode = configuration.getProperty(DEFAULT_CURRENCYCODE_KEY);
 			
 			String jdbc42Apis = configuration.getProperty(JDBC42_API_KEY);
 			
-			configureDefaultProperties(sessionFactory, javaZone, seed, currencyCode, jdbc42Apis);
+			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode, jdbc42Apis);
 		
 			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
 				autoRegisterUsertypes(configuration);
@@ -141,8 +143,9 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		}
 	}
 
-	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String seed, String currencyCode, String jdbc42Apis) {
+	private void configureDefaultProperties(SessionFactoryImplementor sessionFactory, String javaZone, String databaseZone, String seed, String currencyCode, String jdbc42Apis) {
 		Properties properties = new Properties();
+		if (databaseZone != null) { properties.put("databaseZone", databaseZone); }
 		if (javaZone != null) { properties.put("javaZone", javaZone); }
 		if (seed != null) { properties.put("seed", seed); }
 		if (currencyCode != null) { properties.put("currencyCode", currencyCode); }
@@ -188,12 +191,13 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
 		
 			String isEnabled = (String)sessionFactory.getProperties().get(REGISTER_USERTYPES_KEY); 
 			String javaZone = (String)sessionFactory.getProperties().get(DEFAULT_JAVAZONE_KEY);
+			String databaseZone = (String)sessionFactory.getProperties().get(DEFAULT_DATABASEZONE_KEY);
 			String seed = (String)sessionFactory.getProperties().get(DEFAULT_SEED_KEY);
 			String currencyCode = (String)sessionFactory.getProperties().get(DEFAULT_CURRENCYCODE_KEY);
 			
 			String jdbc42Apis = (String)sessionFactory.getProperties().get(JDBC42_API_KEY);
 			
-			configureDefaultProperties(sessionFactory, javaZone, seed, currencyCode, jdbc42Apis);
+			configureDefaultProperties(sessionFactory, javaZone, databaseZone, seed, currencyCode, jdbc42Apis);
 		
 			if (isEnabled != null && Boolean.valueOf(isEnabled)) {
 				autoRegisterUsertypes(mi);

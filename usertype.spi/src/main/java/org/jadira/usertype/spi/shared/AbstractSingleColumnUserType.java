@@ -65,9 +65,11 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     public T nullSafeGet(ResultSet resultSet, String[] strings, SharedSessionContractImplementor session, Object object) throws SQLException {
         
     	beforeNullSafeOperation(session);
+        	
+    	final SharedSessionContractImplementor mySession = doWrapSession(session);
     	
     	try {
-	    	J converted = doNullSafeGet(resultSet, strings, session, object);
+	    	J converted = doNullSafeGet(resultSet, strings, mySession, object);
 	
 	        if (converted == null) {
 	            return null;
@@ -88,8 +90,10 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
 
 	@Override
     public void nullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException {
-
+		
     	beforeNullSafeOperation(session);
+    	    	
+    	final SharedSessionContractImplementor mySession = doWrapSession(session);
     	
     	try {
 	        final J transformedValue;
@@ -100,7 +104,7 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
 	            transformedValue = getColumnMapper().toNonNullValue(myValue);
 	        }
 	
-	        doNullSafeSet(preparedStatement, transformedValue, index, session);
+	        doNullSafeSet(preparedStatement, transformedValue, index, mySession);
 	        
     	} finally {
     		afterNullSafeOperation(session);
@@ -129,4 +133,8 @@ public abstract class AbstractSingleColumnUserType<T, J, C extends ColumnMapper<
     public T fromXMLString(String string) {
         return getColumnMapper().fromNonNullString(string);
     }
+    
+	protected SharedSessionContractImplementor doWrapSession(SharedSessionContractImplementor session) {
+		return session;
+	}
 }

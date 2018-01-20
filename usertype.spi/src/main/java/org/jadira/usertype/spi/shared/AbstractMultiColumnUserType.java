@@ -110,13 +110,15 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     	beforeNullSafeOperation(session);
     	
+    	final SharedSessionContractImplementor mySession = doWrapSession(session);
+    	
     	try {
 	        Object[] convertedColumns = new Object[getColumnMappers().length];
 	
 	        for (int getIndex = 0; getIndex < getColumnMappers().length; getIndex++) {
 	            ColumnMapper nextMapper = getColumnMappers()[getIndex];
 	
-	            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[getIndex], session, object);
+	            final Object converted = nextMapper.getHibernateType().nullSafeGet(resultSet, strings[getIndex], mySession, object);
 	
 	            if (converted != null) {
 	                convertedColumns[getIndex] = nextMapper.fromNonNullValue(converted);
@@ -146,6 +148,8 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 
     	beforeNullSafeOperation(session);
     	
+    	final SharedSessionContractImplementor mySession = doWrapSession(session);
+    	
     	try {
 	        final Object[] valuesToSet = new Object[getColumnMappers().length];
 	
@@ -164,7 +168,9 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 	        for (int setIndex = 0; setIndex < valuesToSet.length; setIndex++) {
 	
 	            @SuppressWarnings("rawtypes") ColumnMapper nextMapper = getColumnMappers()[setIndex];
-	            nextMapper.getHibernateType().nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex, session);
+
+	            // TODO Still need to work out where an adjuster will be injected
+	            nextMapper.getHibernateType().nullSafeSet(preparedStatement, valuesToSet[setIndex], index + setIndex, mySession);
 	        }
 	        
 		} finally {
@@ -172,6 +178,10 @@ public abstract class AbstractMultiColumnUserType<T> extends AbstractUserType im
 		}
     }
 
+	protected SharedSessionContractImplementor doWrapSession(SharedSessionContractImplementor session) {
+		return session;
+	}
+    
     @Override
     public String[] getPropertyNames() {
         return defaultPropertyNames;

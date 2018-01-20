@@ -21,7 +21,9 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-public class TimeColumnLocalTimeMapper extends AbstractTimeThreeTenColumnMapper<LocalTime> {
+import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
+
+public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 6734385103313158326L;
     

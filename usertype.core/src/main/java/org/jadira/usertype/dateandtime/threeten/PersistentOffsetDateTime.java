@@ -30,7 +30,8 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * whilst JSR 310 offers nanosecond precision. When interpreting nanosecond values, Joda time will
  * round down to the nearest millisecond. The type is stored using the timezone as configured 
  * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
- * JVM using the JVM's default zone.
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  *
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
@@ -38,9 +39,10 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 public class PersistentOffsetDateTime extends AbstractVersionableUserType<OffsetDateTime, Timestamp, TimestampColumnOffsetDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 9030422333054503794L;
-
+    
     @Override
     public int compare(Object o1, Object o2) {
         return ((OffsetDateTime) o1).compareTo((OffsetDateTime) o2);
     }
+   
 }

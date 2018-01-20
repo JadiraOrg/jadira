@@ -31,7 +31,9 @@ import org.joda.time.TimeOfDay;
  * issue, but this means you cannot rely on the interpretation of this type to be the same for both classes.
  * 
  * The type is stored using the timezone as configured 
- * using Hibernate's configuration property 'hibernate.jdbc.time_zone'..
+ * using Hibernate's configuration property 'hibernate.jdbc.time_zone' and presented in the
+ * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
+ * parameter 'databaseZone' on this type.
  * 
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTime}
  */

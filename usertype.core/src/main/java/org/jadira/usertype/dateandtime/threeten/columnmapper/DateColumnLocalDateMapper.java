@@ -20,7 +20,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-public class DateColumnLocalDateMapper extends AbstractDateThreeTenColumnMapper<LocalDate> {
+import org.jadira.usertype.spi.shared.AbstractDateColumnMapper;
+
+public class DateColumnLocalDateMapper extends AbstractDateColumnMapper<LocalDate> {
 
     private static final long serialVersionUID = 6734385103313158326L;
 

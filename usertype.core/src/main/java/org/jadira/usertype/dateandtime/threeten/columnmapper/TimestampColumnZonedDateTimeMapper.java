@@ -24,12 +24,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
 import org.jadira.usertype.spi.shared.JavaZoneConfigured;
 
 /**
  * Maps a precise datetime column for storage. The UTC Zone will be used to store the value
  */
-public class TimestampColumnZonedDateTimeMapper extends AbstractTimestampThreeTenColumnMapper<ZonedDateTime> implements JavaZoneConfigured<ZoneId> {
+public class TimestampColumnZonedDateTimeMapper extends AbstractVersionableTimestampColumnMapper<ZonedDateTime> implements JavaZoneConfigured<ZoneId> {
 
     private static final long serialVersionUID = -7670411089210984705L;
 
@@ -80,7 +81,7 @@ public class TimestampColumnZonedDateTimeMapper extends AbstractTimestampThreeTe
     }
         
 	@Override
-	public ZoneId parseZone(String zoneString) {
+	public ZoneId parseJavaZone(String zoneString) {
 		return ZoneId.of(zoneString);
 	}
 }

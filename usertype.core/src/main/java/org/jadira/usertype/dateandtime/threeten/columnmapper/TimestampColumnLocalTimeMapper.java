@@ -23,7 +23,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-public class TimestampColumnLocalTimeMapper extends AbstractTimestampThreeTenColumnMapper<LocalTime> {
+import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+
+public class TimestampColumnLocalTimeMapper extends AbstractVersionableTimestampColumnMapper<LocalTime> {
 
     private static final long serialVersionUID = 1921591625617366103L;
 

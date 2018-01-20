@@ -22,7 +22,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-public class TimestampColumnMonthDayMapper extends AbstractTimestampThreeTenColumnMapper<MonthDay> {
+import org.jadira.usertype.spi.shared.AbstractVersionableTimestampColumnMapper;
+
+public class TimestampColumnMonthDayMapper extends AbstractVersionableTimestampColumnMapper<MonthDay> {
 
     private static final long serialVersionUID = -7670411089210984705L;
     
