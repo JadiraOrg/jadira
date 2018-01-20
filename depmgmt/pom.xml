@@ -292,8 +292,20 @@
 			
 			<dependency>
 			    <groupId>tec.units</groupId>
+			    <artifactId>indriya</artifactId>
+			    <version>1.0</version>
+			    <optional>true</optional>
+			</dependency>
+			<dependency>
+			    <groupId>tec.units</groupId>
 			    <artifactId>unit-ri</artifactId>
 			    <version>1.0.3</version>
+			    <optional>true</optional>
+			</dependency>
+			<dependency>
+			    <groupId>org.jscience</groupId>
+			    <artifactId>jscience</artifactId>
+			    <version>4.3.1</version>
 			    <optional>true</optional>
 			</dependency>	
 			
