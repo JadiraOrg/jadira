@@ -87,16 +87,11 @@
 		    <artifactId>indriya</artifactId>
 		    <optional>true</optional>
 		</dependency>
-		<dependency>
-		    <groupId>tec.units</groupId>
-		    <artifactId>unit-ri</artifactId>
-		    <optional>true</optional>
-		</dependency>
-		<dependency>
-		    <groupId>org.jscience</groupId>
-		    <artifactId>jscience</artifactId>
-		    <optional>true</optional>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>tec.units</groupId> -->
+<!-- 		    <artifactId>unit-ri</artifactId> -->
+<!-- 		    <optional>true</optional> -->
+<!-- 		</dependency> -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
