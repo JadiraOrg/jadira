@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.DateTime;
 
@@ -38,7 +38,7 @@ import org.joda.time.DateTime;
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  */
-public class PersistentDateTime extends AbstractParameterizedUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentDateTime extends AbstractParameterizedTemporalUserType<DateTime, Timestamp, TimestampColumnDateTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -6656619988954550389L;
 }

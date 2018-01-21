@@ -20,7 +20,7 @@ import java.time.LocalDate;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threeten.columnmapper.DateColumnLocalDateMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
@@ -32,7 +32,7 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * JVM using the JVM's default zone. You can optionally override or use as an alternative to this property the 
  * parameter 'databaseZone' on this type.
  */
-public class PersistentLocalDate extends AbstractParameterizedUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentLocalDate extends AbstractParameterizedTemporalUserType<LocalDate, Date, DateColumnLocalDateMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5362933224614493534L;
 }

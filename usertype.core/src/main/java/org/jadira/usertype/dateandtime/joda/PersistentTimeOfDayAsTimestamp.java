@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnTimeOfDayMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.TimeOfDay;
 
@@ -31,7 +31,7 @@ import org.joda.time.TimeOfDay;
  * parameter 'databaseZone' on this type.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */
-public class PersistentTimeOfDayAsTimestamp extends AbstractParameterizedUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentTimeOfDayAsTimestamp extends AbstractParameterizedTemporalUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -2642237430338499187L;
 }

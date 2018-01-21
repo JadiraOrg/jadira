@@ -17,7 +17,7 @@ package org.jadira.usertype.dateandtime.joda;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnDateTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalMultiColumnUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
@@ -34,7 +34,7 @@ import org.joda.time.Interval;
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  */
-public class PersistentInterval extends AbstractParameterizedMultiColumnUserType<Interval> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentInterval extends AbstractParameterizedTemporalMultiColumnUserType<Interval> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 1364221029392346011L;
 

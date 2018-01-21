@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
-import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
@@ -32,7 +32,7 @@ import org.joda.time.LocalDateTime;
  * to this class
  */
 @Deprecated
-public class PersistentDateTimeWithZone extends AbstractParameterizedMultiColumnUserType<DateTime> {
+public class PersistentDateTimeWithZone extends AbstractParameterizedTemporalMultiColumnUserType<DateTime> {
 
     private static final long serialVersionUID = 1364224029392346011L;
 

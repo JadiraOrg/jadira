@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimestampColumnLocalDateTimeMapper;
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
-import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
@@ -30,7 +30,7 @@ import org.joda.time.LocalDateTime;
  * This class replaces PersistentDateTimeWithZone, which will be removed in future. When you migrate to 
  * this class you are encouraged to retest as the behaviour is slightly different.
  */
-public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedMultiColumnUserType<DateTime> {
+public class PersistentDateTimeAndZoneWithOffset extends AbstractParameterizedTemporalMultiColumnUserType<DateTime> {
 
     private static final long serialVersionUID = 1364221029392346011L;
 

@@ -19,7 +19,7 @@ import java.sql.Date;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.DateColumnYearMonthDayMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.YearMonthDay;
 
@@ -37,7 +37,7 @@ import org.joda.time.YearMonthDay;
  *
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
  */
-public class PersistentYearMonthDay extends AbstractParameterizedUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentYearMonthDay extends AbstractParameterizedTemporalUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -198265563149334183L;
 }

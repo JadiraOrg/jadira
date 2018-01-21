@@ -85,70 +85,70 @@ public class PersistentJsonObjectAsString<T> extends AbstractKnownClassHeuristic
 	    return mappedClass;
 	 }
 	 
-		@Override
-		public Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+	@Override
+	public Object doNullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
-			String jsonText = (String) getType().get(rs, names[0], session);
-			
-			if (rs.wasNull()) {
-				return null;
-			}
-
-			Object obj;
-			try {
-				obj = getObjectReader().readValue(jsonText);
-			} catch (JsonParseException e) {
-				throw new HibernateException("Problem parsing retrieved JSON String: " + jsonText, e);
-			} catch (JsonMappingException e) {
-				throw new HibernateException("Problem mapping retrieved JSON String: " + jsonText, e);
-			} catch (IOException e) {
-				throw new HibernateException("Problem reading JSON String: " + jsonText, e);
-			}
-			
-			return obj;
+		String jsonText = (String) getType().get(rs, names[0], session);
+		
+		if (rs.wasNull()) {
+			return null;
 		}
 
-	    @Override
-	    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+		Object obj;
+		try {
+			obj = getObjectReader().readValue(jsonText);
+		} catch (JsonParseException e) {
+			throw new HibernateException("Problem parsing retrieved JSON String: " + jsonText, e);
+		} catch (JsonMappingException e) {
+			throw new HibernateException("Problem mapping retrieved JSON String: " + jsonText, e);
+		} catch (IOException e) {
+			throw new HibernateException("Problem reading JSON String: " + jsonText, e);
+		}
+		
+		return obj;
+	}
 
-	    	if (value == null) {
-				preparedStatement.setNull(index, getType().sqlType());
-			} else {				
-				
-				try {
-					String identifier = objectWriter.writeValueAsString(value);
-					getType().nullSafeSet(preparedStatement, identifier, index, session);
-				} catch (JsonProcessingException e) {
-					throw new HibernateException("Problem writing JSON String: " + e.getMessage(), e);
-				}
-			}
-	    }
-	    
-	    @Override
-	    public String objectToSQLString(final Object object) {
-	    	
-	    	if (object == null) {
-	    		return null;
-	    	}
+    @Override
+    public void doNullSafeSet(PreparedStatement preparedStatement, Object value, int index, SharedSessionContractImplementor session) throws SQLException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
 
-	    	try {
-				return objectWriter.writeValueAsString(object);
+    	if (value == null) {
+			preparedStatement.setNull(index, getType().sqlType());
+		} else {				
+			
+			try {
+				String identifier = objectWriter.writeValueAsString(value);
+				getType().nullSafeSet(preparedStatement, identifier, index, session);
 			} catch (JsonProcessingException e) {
-				throw new HibernateException("Cannot serialize JSON object: " + e.getMessage(), e);
+				throw new HibernateException("Problem writing JSON String: " + e.getMessage(), e);
 			}
-	    }
-	    
-	    @Override
-	    public String toXMLString(Object object) {
-	    	
-	    	if (object == null) {
-	    		return null;
-	    	}
+		}
+    }
+    
+    @Override
+    public String objectToSQLString(final Object object) {
+    	
+    	if (object == null) {
+    		return null;
+    	}
 
-	    	try {
-				return objectWriter.writeValueAsString(object);
-			} catch (JsonProcessingException e) {
-				throw new HibernateException("Cannot serialize JSON object: " + e.getMessage(), e);
-			}
-	    }
+    	try {
+			return objectWriter.writeValueAsString(object);
+		} catch (JsonProcessingException e) {
+			throw new HibernateException("Cannot serialize JSON object: " + e.getMessage(), e);
+		}
+    }
+    
+    @Override
+    public String toXMLString(Object object) {
+    	
+    	if (object == null) {
+    		return null;
+    	}
+
+    	try {
+			return objectWriter.writeValueAsString(object);
+		} catch (JsonProcessingException e) {
+			throw new HibernateException("Cannot serialize JSON object: " + e.getMessage(), e);
+		}
+    }
 }

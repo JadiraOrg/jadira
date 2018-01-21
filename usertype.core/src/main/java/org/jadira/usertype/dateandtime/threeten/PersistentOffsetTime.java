@@ -20,7 +20,7 @@ import java.time.OffsetTime;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.threeten.columnmapper.TimeColumnOffsetTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 
 /**
@@ -34,7 +34,7 @@ import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
  * Alternatively provide the 'javaZone' can be used to similarly configure the zone of the
  * value on return from the database.
  */
-public class PersistentOffsetTime extends AbstractParameterizedUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentOffsetTime extends AbstractParameterizedTemporalUserType<OffsetTime, Time, TimeColumnOffsetTimeMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = 5138742305537333265L;
 }

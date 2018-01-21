@@ -19,7 +19,7 @@ import java.sql.Time;
 
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.dateandtime.joda.columnmapper.TimeColumnTimeOfDayMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
 import org.joda.time.TimeOfDay;
 
@@ -37,7 +37,7 @@ import org.joda.time.TimeOfDay;
  * 
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTime}
  */
-public class PersistentTimeOfDay extends AbstractParameterizedUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
+public class PersistentTimeOfDay extends AbstractParameterizedTemporalUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -7674573524546389213L;
 }

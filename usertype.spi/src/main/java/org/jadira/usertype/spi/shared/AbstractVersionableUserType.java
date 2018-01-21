@@ -23,7 +23,7 @@ import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserVersionType;
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractParameterizedUserType<T, J, C>
+public abstract class AbstractVersionableUserType<T, J, C extends VersionableColumnMapper<T, J>> extends AbstractParameterizedTemporalUserType<T, J, C>
        implements UserVersionType, Comparator, ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -8127535032447082933L;

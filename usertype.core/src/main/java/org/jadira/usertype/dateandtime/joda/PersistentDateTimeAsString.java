@@ -18,7 +18,7 @@ package org.jadira.usertype.dateandtime.joda;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeZoneWithOffsetMapper;
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnLocalDateTimeMapper;
 import org.jadira.usertype.dateandtime.joda.util.DateTimeZoneWithOffset;
-import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalMultiColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.utils.reflection.ArrayUtils;
 import org.joda.time.DateTime;
@@ -28,7 +28,7 @@ import org.joda.time.LocalDateTime;
 /**
  * Persist {@link org.joda.time.DateTime} via Hibernate. The offset will be stored in an extra column.
  */
-public class PersistentDateTimeAsString extends AbstractParameterizedMultiColumnUserType<DateTime> {
+public class PersistentDateTimeAsString extends AbstractParameterizedTemporalMultiColumnUserType<DateTime> {
 
     private static final long serialVersionUID = 1364221029397346011L;
 

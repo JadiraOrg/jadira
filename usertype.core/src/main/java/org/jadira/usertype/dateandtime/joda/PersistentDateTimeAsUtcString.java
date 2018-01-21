@@ -16,7 +16,7 @@
 package org.jadira.usertype.dateandtime.joda;
 
 import org.jadira.usertype.dateandtime.joda.columnmapper.StringColumnDateTimeMapper;
-import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
+import org.jadira.usertype.spi.shared.AbstractParameterizedTemporalUserType;
 import org.joda.time.DateTime;
 
 /**
@@ -31,7 +31,7 @@ import org.joda.time.DateTime;
  * one single, sortable field.
  * @author dwijnand
  */
-public class PersistentDateTimeAsUtcString extends AbstractParameterizedUserType<DateTime, String, StringColumnDateTimeMapper> {
+public class PersistentDateTimeAsUtcString extends AbstractParameterizedTemporalUserType<DateTime, String, StringColumnDateTimeMapper> {
 
     private static final long serialVersionUID = 6477950463426162426L;
 }
