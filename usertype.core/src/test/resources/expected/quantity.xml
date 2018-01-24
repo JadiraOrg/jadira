@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <quantity ID="0" NAME="test_0" QUANTITY="10"/>
+  <quantity ID="1" NAME="test_1"/>
+</dataset>

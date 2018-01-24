@@ -15,9 +15,10 @@
  */
 package org.jadira.usertype.unitsofmeasurement.indriya.util;
 
+import javax.measure.Quantity;
 import javax.measure.Unit;
 
-public interface UnitConfigured {
+public interface UnitConfigured<Q extends Quantity<Q>> {
 	
-    void setUnit(Unit<?> unit);
+    void setUnit(Unit<Q> unit);
 }

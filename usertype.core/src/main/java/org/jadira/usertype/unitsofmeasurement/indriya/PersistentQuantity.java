@@ -23,7 +23,8 @@ import java.util.Map;
 
 import javax.measure.Quantity;
 import javax.measure.Unit;
-import javax.measure.spi.SystemOfUnits;
+import javax.measure.spi.ServiceProvider;
+import javax.measure.spi.SystemOfUnitsService;
 
 import org.hibernate.SessionFactory;
 import org.jadira.usertype.spi.shared.AbstractParameterizedUserType;
@@ -32,29 +33,32 @@ import org.jadira.usertype.spi.utils.reflection.ClassLoaderUtils;
 import org.jadira.usertype.unitsofmeasurement.indriya.columnmapper.StringColumnQuantityMapper;
 import org.jadira.usertype.unitsofmeasurement.indriya.util.UnitConfigured;
 
-import tec.units.indriya.unit.Units;
-
 /**
  * Persists a Quantity using the specified unit. Out of the box, the supported units are those defined in the generally used System of Units.
  * If you want to add additional units, you must either specify them using the parameter 'validTypes', where they can be specified as a comma separated
  * list of class names. Define the unit using its symbol via the parameter 'unit' - or, if the type has not been specified (or is built in), you can 
  * also use its fully qualified class name.
  */
-public class PersistentQuantity extends AbstractParameterizedUserType<Quantity<?>, String, StringColumnQuantityMapper> implements ValidTypesConfigured<Unit<?>> {
+public class  PersistentQuantity<Q extends Quantity<Q>> extends AbstractParameterizedUserType<Q, String, StringColumnQuantityMapper<Q>> implements ValidTypesConfigured<Unit<?>> {
 
 	private static final long serialVersionUID = -2015829087239519037L;
-
-    private static final SystemOfUnits UNITS = Units.getInstance();
     
-    private final Map<String, Unit<?>> unitsMap = new HashMap<String, Unit<?>>();
+    private static final Map<String, Unit<?>> BASE_UNITS_MAP = new HashMap<String, Unit<?>>();
 
+	private static SystemOfUnitsService SYSTEM_OF_UNITS_SERVICE = ServiceProvider.current().getSystemOfUnitsService();
+    
+    static {
+        for (Unit<?> next : SYSTEM_OF_UNITS_SERVICE.getSystemOfUnits().getUnits()) {
+        	BASE_UNITS_MAP.put(next.getSymbol(), next);
+        }
+    }
+    
+    private static final Map<String, Unit<?>> unitsMap = new HashMap<String, Unit<?>>();
+    
 	private List<Class<Unit<?>>> validTypes;
     		
     public PersistentQuantity() {
     	super();
-    	for (Unit<?> next : UNITS.getUnits()) {
-    		unitsMap.put(next.getSymbol(), next);
-        }
 	}
 	
 	@Override
@@ -78,27 +82,32 @@ public class PersistentQuantity extends AbstractParameterizedUserType<Quantity<?
 //		performUnitConfiguration(unitConfigured);
 //		}
 		if (UnitConfigured.class.isAssignableFrom(getColumnMapper().getClass())) {
-			UnitConfigured unitConfigured = (UnitConfigured)getColumnMapper();
+			UnitConfigured<?> unitConfigured = (UnitConfigured<?>)getColumnMapper();
 			performUnitConfiguration(unitConfigured);
 		}
 	}
 	
-	private void performUnitConfiguration(UnitConfigured unitConfigured) {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	private void performUnitConfiguration(UnitConfigured<?> unitConfigured) {
         String unitString = null;
         if (getParameterValues() != null) {
         	unitString = getParameterValues().getProperty("unit");
         }
 		if (unitString != null) {				
 			try {
-				Unit<?> unit = unitsMap.get(unitString);
+				Unit<?> unit = BASE_UNITS_MAP.get(unitString);
+				
 				if (unit == null) {
-					@SuppressWarnings("unchecked")
-					Class<Unit<?>> unitClass = (Class<Unit<?>>)(ClassLoaderUtils.classForName(unitString));
-					unit = unitClass.newInstance();
+					unit = unitsMap.get(unitString);
 				}
-				unitConfigured.setUnit(unit);
+				if (unit == null) {
+					final Class<Unit<?>> unitClass = (Class<Unit<?>>)(ClassLoaderUtils.classForName(unitString));
+					final Unit<?> myUnit = unitClass.newInstance();
+					unit = myUnit;
+				}
+				((StringColumnQuantityMapper) unitConfigured).setUnit(unit);
 			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-				throw new IllegalStateException("Cannot find specified class or unit" + unitString, e);
+				throw new IllegalStateException("Cannot find specified class or unit " + unitString, e);
 			}
 		}
 	}

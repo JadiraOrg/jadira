@@ -6,25 +6,24 @@ import java.util.List;
 import java.util.Map;
 
 import javax.measure.Unit;
-import javax.measure.spi.SystemOfUnits;
+import javax.measure.spi.ServiceProvider;
+import javax.measure.spi.SystemOfUnitsService;
 
 import org.jadira.usertype.spi.shared.AbstractStringColumnMapper;
 import org.jadira.usertype.spi.shared.ValidTypesConfigured;
-
-import tec.units.indriya.unit.Units;
 
 public class StringColumnUnitMapper extends AbstractStringColumnMapper<Unit<?>> implements ValidTypesConfigured<Unit<?>> {
 
     private static final long serialVersionUID = 4205713919952452881L;
 
-    private static final SystemOfUnits UNITS = Units.getInstance();
+	private static SystemOfUnitsService SYSTEM_OF_UNITS_SERVICE = ServiceProvider.current().getSystemOfUnitsService();
     
     private final Map<String, Unit<?>> unitsMap = new HashMap<String, Unit<?>>();
 
 	private List<Class<Unit<?>>> validTypes;
     		
     public StringColumnUnitMapper() {
-    	for (Unit<?> next : UNITS.getUnits()) {
+    	for (Unit<?> next : SYSTEM_OF_UNITS_SERVICE.getSystemOfUnits().getUnits()) {
     		unitsMap.put(next.getSymbol(), next);
         }
 	}	

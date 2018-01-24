@@ -23,45 +23,48 @@ import org.jadira.usertype.unitsofmeasurement.indriya.util.UnitConfigured;
 
 import tec.units.indriya.quantity.Quantities;
 
-public class LongColumnQuantityMapper extends AbstractLongColumnMapper<Quantity<?>> implements UnitConfigured {
+public class LongColumnQuantityMapper<Q extends Quantity<Q>> extends AbstractLongColumnMapper<Q> implements UnitConfigured<Q> {
 
     private static final long serialVersionUID = 4205713919952452881L;
 	
-    private Unit<?> unit;
+    private Unit<Q> unit;
     
-    @Override
-    public Quantity<?> fromNonNullValue(Long val) {
+	@Override
+    public Q fromNonNullValue(Long val) {
     
-    	return Quantities.getQuantity(val, unit);
+		@SuppressWarnings("unchecked")
+    	final Q result = (Q) Quantities.getQuantity(val, unit);
+		return result;
     }
 
     @Override
-    public Long toNonNullValue(Quantity<?> value) {
-    	if (!unit.equals(value.getUnit())) {
-    		throw new IllegalStateException("Expected unit " + unit.getSymbol() + " but was " + value.getUnit().getSymbol());
+    public Long toNonNullValue(Q value) {
+    	if (!unit.getClass().isAssignableFrom(value.getUnit().getClass())) {
+    		throw new IllegalStateException("Expected unit " + unit + " but was " + value.getUnit());
     	}
     	return Long.parseLong(value.getValue().toString());
     }
 
 	@Override
-	public Quantity<?> fromNonNullString(String s) {
-		Quantity<?> quantity = Quantities.getQuantity(s);
-    	if (!unit.equals(quantity.getUnit())) {
-    		throw new IllegalStateException("Expected unit " + unit.getSymbol() + " but was " + quantity.getUnit().getSymbol());
+	public Q fromNonNullString(String s) {
+		@SuppressWarnings("unchecked")
+		final Q quantity = (Q) Quantities.getQuantity(s);
+    	if (!unit.getClass().isAssignableFrom(quantity.getUnit().getClass())) {
+    		throw new IllegalStateException("Expected unit " + unit + " but was " + quantity.getUnit());
     	}
     	return quantity;
 	}
 
 	@Override
-	public String toNonNullString(Quantity<?> value) {
-    	if (!unit.equals(value.getUnit())) {
-    		throw new IllegalStateException("Expected unit " + unit.getSymbol() + " but was " + value.getUnit().getSymbol());
+	public String toNonNullString(Q value) {
+    	if (!unit.getClass().isAssignableFrom(value.getUnit().getClass())) {
+    		throw new IllegalStateException("Expected unit " + unit + " but was " + value.getUnit());
     	}
 		return value.toString();
 	}
 	
 	@Override
-    public void setUnit(Unit<?> unit) {
+    public void setUnit(Unit<Q> unit) {
         this.unit = unit;
     }
 }

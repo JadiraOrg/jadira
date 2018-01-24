@@ -23,28 +23,30 @@ import org.jadira.usertype.unitsofmeasurement.indriya.util.UnitConfigured;
 
 import tec.units.indriya.quantity.Quantities;
 
-public class StringColumnQuantityMapper extends AbstractStringColumnMapper<Quantity<?>> implements UnitConfigured {
+public class StringColumnQuantityMapper<Q extends Quantity<Q>> extends AbstractStringColumnMapper<Q> implements UnitConfigured<Q> {
 
     private static final long serialVersionUID = 4205713919952452881L;
 	
-    private Unit<?> unit;
+    private Unit<Q> unit;
     
     @Override
-    public Quantity<?> fromNonNullValue(String val) {
+    public Q fromNonNullValue(String val) {
     
-    	return Quantities.getQuantity(val + " " + unit.toString());
+    	@SuppressWarnings("unchecked")
+		final Q quantity = (Q) Quantities.getQuantity(val + " " + unit.getSymbol());
+    	return quantity;
     }
 
     @Override
-    public String toNonNullValue(Quantity<?> value) {
-    	if (!unit.equals(value.getUnit())) {
+    public String toNonNullValue(Q value) {
+    	if (!unit.getClass().isAssignableFrom(value.getUnit().getClass())) {
     		throw new IllegalStateException("Expected unit " + unit.getSymbol() + " but was " + value.getUnit().getSymbol());
     	}
     	return value.getValue().toString();
     }
 	
 	@Override
-    public void setUnit(Unit<?> unit) {
+    public void setUnit(Unit<Q> unit) {
         this.unit = unit;
     }
 }
