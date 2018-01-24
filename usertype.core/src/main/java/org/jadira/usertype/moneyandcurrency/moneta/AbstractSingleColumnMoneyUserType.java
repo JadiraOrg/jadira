@@ -27,6 +27,7 @@ import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
+import org.jadira.usertype.corejava.ConcurrentHashMapBackedProperties;
 
 /**
  * Base class for money types that do not map a currency column using a configured currency instead.
@@ -41,7 +42,7 @@ public abstract class AbstractSingleColumnMoneyUserType<T, J, C extends ColumnMa
     
     @Override
     public void setParameterValues(Properties parameters) {
-    	this.parameterValues = parameters;
+    	this.parameterValues = new ConcurrentHashMapBackedProperties(parameters);
     }
     
     protected Properties getParameterValues() {

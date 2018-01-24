@@ -8,6 +8,10 @@ import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.spi.timezone.proxy.WrapsSession;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
 
+import org.jadira.usertype.spi.timezone.proxy.WrapsSession;
+import org.jadira.usertype.spi.utils.runtime.JavaVersion;
+import org.jadira.usertype.corejava.ConcurrentHashMapBackedProperties;
+
 public abstract class AbstractParameterizedMultiColumnUserType<T> extends AbstractMultiColumnUserType<T> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -5378286101759906332L;
@@ -16,7 +20,7 @@ public abstract class AbstractParameterizedMultiColumnUserType<T> extends Abstra
     
     @Override
     public void setParameterValues(Properties parameters) {
-    	this.parameterValues = parameters;
+    	this.parameterValues = new ConcurrentHashMapBackedProperties(parameters);
     }
     
     protected Properties getParameterValues() {
