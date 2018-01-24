@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses(value = { 
-		TestPersistentQuantity.class
+		TestPersistentQuantity.class,
+		TestPersistentQuantityAndUnit.class
 })
 public class TestIndriyaSuite {
 
