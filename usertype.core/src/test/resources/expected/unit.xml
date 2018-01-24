@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE dataset SYSTEM "unit.dtd">
+<dataset>
+  <UNIT ID="0" NAME="test_0" UNIT="A"/>
+  <UNIT ID="1" NAME="test_1" UNIT="Bq"/>
+</dataset>
