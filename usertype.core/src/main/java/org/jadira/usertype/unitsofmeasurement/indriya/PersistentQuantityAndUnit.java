@@ -23,7 +23,8 @@ import java.util.Map;
 
 import javax.measure.Quantity;
 import javax.measure.Unit;
-import javax.measure.spi.SystemOfUnits;
+import javax.measure.spi.ServiceProvider;
+import javax.measure.spi.SystemOfUnitsService;
 
 import org.hibernate.SessionFactory;
 import org.jadira.usertype.spi.shared.AbstractParameterizedMultiColumnUserType;
@@ -35,7 +36,6 @@ import org.jadira.usertype.unitsofmeasurement.indriya.columnmapper.StringColumnS
 import org.jadira.usertype.unitsofmeasurement.indriya.columnmapper.StringColumnUnitMapper;
 
 import tec.units.indriya.quantity.Quantities;
-import tec.units.indriya.unit.Units;
 
 /**
  * Persists a Quantity using an arbitrary unit. Out of the box, the supported units are those defined in the generally used System of Units.
@@ -45,10 +45,18 @@ import tec.units.indriya.unit.Units;
 public class PersistentQuantityAndUnit extends AbstractParameterizedMultiColumnUserType<Quantity<?>> implements ValidTypesConfigured<Unit<?>> {
 
 	private static final long serialVersionUID = -2015829087239519037L;
-
-    private static final SystemOfUnits UNITS = Units.getInstance();
     
-    private final Map<String, Unit<?>> unitsMap = new HashMap<String, Unit<?>>();
+    private static final Map<String, Unit<?>> BASE_UNITS_MAP = new HashMap<String, Unit<?>>();
+
+	private static SystemOfUnitsService SYSTEM_OF_UNITS_SERVICE = ServiceProvider.current().getSystemOfUnitsService();
+    
+    static {
+        for (Unit<?> next : SYSTEM_OF_UNITS_SERVICE.getSystemOfUnits().getUnits()) {
+        	BASE_UNITS_MAP.put(next.getSymbol(), next);
+        }
+    }
+    
+    private static final Map<String, Unit<?>> unitsMap = new HashMap<String, Unit<?>>();
     
 	private List<Class<Unit<?>>> validTypes;
 	
@@ -58,10 +66,6 @@ public class PersistentQuantityAndUnit extends AbstractParameterizedMultiColumnU
     		
     public PersistentQuantityAndUnit() {
     	super();
-    	
-    	for (Unit<?> next : UNITS.getUnits()) {
-    		unitsMap.put(next.getSymbol(), next);
-        }
 	}
 	
 	@Override
@@ -96,8 +100,7 @@ public class PersistentQuantityAndUnit extends AbstractParameterizedMultiColumnU
 			String[] validTypes = validTypesString.split(",");
 			List<Class<Unit<?>>> units = new ArrayList<>();
 			for (String nextType : validTypes) {
-				
-				
+						
 				try {
 					@SuppressWarnings("unchecked")
 					Class<Unit<?>> nextClass = (Class<Unit<?>>)(ClassLoaderUtils.classForName(nextType));
