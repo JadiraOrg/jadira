@@ -24,8 +24,8 @@ import org.jadira.usertype.spi.shared.AbstractSingleColumnUserType;
 import org.jadira.usertype.spi.shared.ColumnMapper;
 import org.jadira.usertype.spi.shared.ConfigurationHelper;
 import org.jadira.usertype.spi.shared.IntegratorConfiguredType;
+import org.jadira.usertype.spi.utils.lang.ConcurrentHashMapBackedProperties;
 import org.joda.money.CurrencyUnit;
-import org.jadira.usertype.corejava.ConcurrentHashMapBackedProperties;
 
 /**
  * Base class for money types that do not map a currency column using a configured currency instead.

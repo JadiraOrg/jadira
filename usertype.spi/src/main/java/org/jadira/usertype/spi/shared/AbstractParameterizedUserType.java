@@ -21,8 +21,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.usertype.ParameterizedType;
 import org.jadira.usertype.spi.timezone.proxy.WrapsSession;
+import org.jadira.usertype.spi.utils.lang.ConcurrentHashMapBackedProperties;
 import org.jadira.usertype.spi.utils.runtime.JavaVersion;
-import org.jadira.usertype.corejava.ConcurrentHashMapBackedProperties;
 
 public abstract class AbstractParameterizedUserType<T, J, C extends ColumnMapper<T, J>> extends AbstractSingleColumnUserType<T, J, C> implements ParameterizedType, IntegratorConfiguredType {
 

@@ -1,4 +1,4 @@
-package org.jadira.usertype.corejava;
+package org.jadira.usertype.spi.utils.lang;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
