@@ -21,6 +21,7 @@ import org.joda.time.TimeOfDay;
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsMillisInteger}
  */
+@Deprecated
 public class IntegerColumnTimeOfDayMapper extends AbstractIntegerColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = -3448788221055335510L;

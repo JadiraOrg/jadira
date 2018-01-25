@@ -23,6 +23,7 @@ import org.joda.time.YearMonthDay;
  * Persist {@link YearMonthDay} as a String via Hibernate.
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
  */
+@Deprecated
 public class PersistentYearMonthDayAsString extends AbstractSingleColumnUserType<YearMonthDay, String, StringColumnYearMonthDayMapper> {
 
     private static final long serialVersionUID = 5718541406675274613L;

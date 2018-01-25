@@ -23,6 +23,7 @@ import org.joda.time.chrono.ISOChronology;
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsNanosLong}
  */
+@Deprecated
 public class LongColumnTimeOfDayMapper extends AbstractLongColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = 8408450977695192938L;

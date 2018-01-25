@@ -23,8 +23,9 @@ import org.joda.time.LocalDate;
 
 /**
  * Persist {@link DateMidnight} via Hibernate. The offset will be stored in an extra column.
+ * @deprecated
  */
-@SuppressWarnings("deprecation")
+@Deprecated
 public abstract class AbstractMultiColumnDateMidnight extends AbstractMultiColumnUserType<DateMidnight> {
 
     private static final long serialVersionUID = 7061588330446583269L;

@@ -26,6 +26,7 @@ import org.joda.time.TimeOfDay;
 /**
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalTimeAsTimestamp}
  */
+@Deprecated
 public class TimestampColumnTimeOfDayMapper extends AbstractTimestampColumnMapper<TimeOfDay> {
 
     private static final long serialVersionUID = 1921591625617366103L;

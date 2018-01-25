@@ -133,12 +133,14 @@ public abstract class AbstractHeuristicUserType extends AbstractUserType impleme
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
+	@Deprecated
     public String toXMLString(Object object) {
     	final JavaTypeDescriptor desc = type.getJavaTypeDescriptor();
     	return desc.toString(object);
     }
 
     @Override
+    @Deprecated
     public Object fromXMLString(String string) {
 		return type.fromString(string);
     }

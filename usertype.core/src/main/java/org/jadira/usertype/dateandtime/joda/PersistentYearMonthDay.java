@@ -37,6 +37,7 @@ import org.joda.time.YearMonthDay;
  *
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link PersistentLocalDate}
  */
+@Deprecated
 public class PersistentYearMonthDay extends AbstractParameterizedTemporalUserType<YearMonthDay, Date, DateColumnYearMonthDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
 	private static final long serialVersionUID = -198265563149334183L;

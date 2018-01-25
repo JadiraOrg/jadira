@@ -27,6 +27,7 @@ import org.joda.time.TimeOfDay;
  * round down to the nearest millisecond.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsString}
  */
+@Deprecated
 public class PersistentTimeOfDayAsString extends AbstractSingleColumnUserType<TimeOfDay, String, StringColumnTimeOfDayMapper> {
 
     private static final long serialVersionUID = -6895579990780796242L;

@@ -31,6 +31,7 @@ import org.joda.time.TimeOfDay;
  * parameter 'databaseZone' on this type.
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsTimestamp}
  */
+@Deprecated
 public class PersistentTimeOfDayAsTimestamp extends AbstractParameterizedTemporalUserType<TimeOfDay, Timestamp, TimestampColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -2642237430338499187L;

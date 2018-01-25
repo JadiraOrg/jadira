@@ -37,6 +37,7 @@ import org.joda.time.TimeOfDay;
  * 
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTime}
  */
+@Deprecated
 public class PersistentTimeOfDay extends AbstractParameterizedTemporalUserType<TimeOfDay, Time, TimeColumnTimeOfDayMapper> implements ParameterizedType, IntegratorConfiguredType {
 
     private static final long serialVersionUID = -7674573524546389213L;

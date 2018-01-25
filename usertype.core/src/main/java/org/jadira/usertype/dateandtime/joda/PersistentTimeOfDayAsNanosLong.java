@@ -26,6 +26,7 @@ import org.joda.time.TimeOfDay;
  * @see PersistentLocalTimeAsMillisInteger
  * @deprecated Recommend replacing use of {@link TimeOfDay} with {@link org.joda.time.LocalTime} and {@link PersistentLocalTimeAsNanosLong}
  */
+@Deprecated
 public class PersistentTimeOfDayAsNanosLong extends AbstractSingleColumnUserType<TimeOfDay, Long, LongColumnTimeOfDayMapper> {
 
     private static final long serialVersionUID = 8364584846390296447L;

@@ -26,6 +26,7 @@ import org.joda.time.format.DateTimeFormatterBuilder;
 /**
  * @deprecated Recommend replacing use of {@link YearMonthDay} with {@link org.joda.time.LocalDate} and {@link org.jadira.usertype.dateandtime.joda.PersistentLocalDate}
  */
+@Deprecated
 public class DateColumnYearMonthDayMapper extends AbstractDateColumnMapper<YearMonthDay> {
 
 	private static final long serialVersionUID = 5399269707841091964L;
