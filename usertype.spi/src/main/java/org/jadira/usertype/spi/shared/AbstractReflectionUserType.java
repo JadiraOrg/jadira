@@ -115,6 +115,7 @@ public abstract class AbstractReflectionUserType<T> extends AbstractKnownClassHe
     }
     
     @Override
+    @Deprecated
     public String toXMLString(Object object) {
         if (identifierMethod != null) {
             try {
