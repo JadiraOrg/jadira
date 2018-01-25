@@ -547,10 +547,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 				<version>3.4</version>
-				<configuration>
-					<reportPlugins>
-					</reportPlugins>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
