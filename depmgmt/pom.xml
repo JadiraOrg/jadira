@@ -24,7 +24,7 @@
 	<artifactId>jadira.depmgmt</artifactId>
 	<packaging>pom</packaging>
 
-	<version>7.0.0.CR1</version>
+	<version>7.0.0.CR2-SNAPSHOT</version>
 
 	<name>Jadira Framework Dependency Management</name>
 	<description>Dependency Management for Jadira Framework</description>
@@ -76,7 +76,7 @@
 	    <connection>scm:git:git@github.com:JadiraOrg/jadira.git</connection>
 	    <url>scm:git:git@github.com:JadiraOrg/jadira.git</url>
 	    <developerConnection>scm:git:git@github.com:JadiraOrg/jadira.git</developerConnection>
-  	  <tag>jadira.parent-7.0.0.CR1</tag>
+  	  <tag>HEAD</tag>
 	</scm>
 
 	<dependencyManagement>
