@@ -27,12 +27,28 @@
 		
 	<body>
 
-<!--
-		<release version="6.1.0.GA" date="TBC" description="JSON Serialization">
-			<action dev="Chris Pheby" type="add">Serialization of Objects to String using JSON (this addition was supported by Computing Distribution Group Ltd)</action>
-			<action dev="Chris Pheby" type="add">Serialization of Maps to String using JSON (this addition was supported by Computing Distribution Group Ltd)</action>
+		<!-- types are add, fix, remove, update -->
+		<release version="7.0.0.CR1" date="25-01-2018" description="JSON Serialization">
+			<action dev="Chris Pheby" type="update">Support JDK 9 version. Thanks to Artem Prigoda. Fixes #62</action>
+			<action dev="Chris Pheby" type="update">Updated to (and requires) Hibernate 5.2.12 or later</action>
+			<action dev="Chris Pheby" type="update">Deprecated the DstSafe types due to implementation of hibernate.jdbc.time_zone in Hibernate 5.2.x</action>
+			<action dev="Chris Pheby" type="add">Changed databaseZone so that it reconfigures (proxies) the Hibernate property. Note that Database Zone uses JDK TimeZone formats in all cases. Fixes #58</action>
+			<action dev="Chris Pheby" type="update">Update Spring to 5.0.2</action>
+			<action dev="Chris Pheby" type="update">Updated many library dependencies</action>
+			<action dev="Chris Pheby" type="fix">Updated Weld-dependencies to 2.4.6. Fixes #67</action>
+			<action dev="Chris Pheby" type="fix">Marked EntityManager module as optional. Fixes #51</action>
+			<action dev="Chris Pheby" type="fix">Minor documentation fixes. Fixes #60 Fixes #55</action>
+			<action dev="Chris Pheby" type="update">Added DTDs for DBUnit files and various fixes to XML files</action>
+			<action dev="Chris Pheby" type="update">Updated to Maven 3.5.2</action>
+			<action dev="Chris Pheby" type="remove">Removed the previously deprecated 310 backport types</action>
+			<action dev="Chris Pheby" type="update">Minor enhancements to the API signatures for Cloning's Objenesis integration</action>
+			<action dev="Chris Pheby" type="fix">Fixed NullPointer in PersistentJsonObjectAsString. Fixes #65</action>
+			<action dev="Chris Pheby" type="add">Added Indriya (Units of Measure) user types implementation #15</action>
+			<action dev="Chris Pheby" type="fix">Add Concurrence-friendly implementation of Hibernate ParameterizedType. Fix by Akarsh Jain. Fixes #69</action>
+			<action dev="Chris Pheby" type="fix">Removed a duplicate in the Checkstyle configuration. PR from infstylecheck Fixes #62</action>
+			<action dev="Chris Pheby" type="add">Serialization of Objects to String using JSON (this addition supported by Computing Distribution Group Ltd)</action>
+			<action dev="Chris Pheby" type="add">Serialization of Maps to String using JSON (this addition supported by Computing Distribution Group Ltd)</action>
 		</release>
--->
 
 		<!-- types are add, fix, remove, update -->
 		<release version="6.0.1.GA" date="16-08-2016" description="Java 8 Update">
