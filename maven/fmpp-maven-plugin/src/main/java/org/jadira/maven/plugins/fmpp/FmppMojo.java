@@ -37,7 +37,7 @@ import fmpp.util.MiscUtil;
  * added to src or test. The default configuration adds the generated-sources to compile scope (not test)
  * @author Chris Pheby
  */
-@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+@Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true)
 public class FmppMojo extends AbstractMojo {
 
 	@Parameter(defaultValue="${project}", required=true, readonly=true)
