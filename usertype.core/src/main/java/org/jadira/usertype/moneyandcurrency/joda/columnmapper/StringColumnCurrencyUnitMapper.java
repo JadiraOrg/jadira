@@ -29,6 +29,6 @@ public class StringColumnCurrencyUnitMapper extends AbstractStringColumnMapper<C
 
     @Override
     public String toNonNullValue(CurrencyUnit value) {
-        return value.getCurrencyCode();
+        return value.getCode();
     }
 }
