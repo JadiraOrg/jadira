@@ -34,7 +34,7 @@ public class LongColumnMoneyMinorMapper extends AbstractLongColumnMapper<Money> 
     @Override
     public Long toNonNullValue(Money value) {
     	if (!currencyUnit.equals(value.getCurrencyUnit())) {
-    		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrencyUnit());
+    		throw new IllegalStateException("Expected currency " + currencyUnit.getCode() + " but was " + value.getCurrencyUnit());
     	}
         return value.getAmountMinorLong();
     }

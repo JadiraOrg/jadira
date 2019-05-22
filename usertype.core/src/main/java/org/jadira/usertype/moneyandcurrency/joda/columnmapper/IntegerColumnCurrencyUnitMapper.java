@@ -46,7 +46,7 @@ public class IntegerColumnCurrencyUnitMapper extends AbstractIntegerColumnMapper
 	public String toNonNullString(CurrencyUnit value) {
 		String str = value.getNumeric3Code();
 		if ("".equals(str)) {
-			return value.getCurrencyCode();
+			return value.getCode();
 		} else {
 			return str;
 		}
