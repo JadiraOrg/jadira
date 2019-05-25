@@ -16,6 +16,7 @@
 package org.jadira.usertype.moneyandcurrency.joda;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.StringColumnCurrencyUnitMapper;
 import org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper.BigDecimalBigDecimalColumnMapper;
@@ -29,23 +30,34 @@ import org.joda.money.Money;
  */
 public class PersistentMoneyAmountAndCurrency extends AbstractMultiColumnUserType<Money> {
 
-	private static final long serialVersionUID = 3735995469031558183L;
+    private static final long serialVersionUID = 3735995469031558183L;
 
-	private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnCurrencyUnitMapper(), new BigDecimalBigDecimalColumnMapper() };
+    private static final ColumnMapper<?, ?>[] COLUMN_MAPPERS = new ColumnMapper<?, ?>[] { new StringColumnCurrencyUnitMapper(), new BigDecimalBigDecimalColumnMapper() };
 
     private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amount" };
-	
-	@Override
-	protected ColumnMapper<?, ?>[] getColumnMappers() {
-		return COLUMN_MAPPERS;
-	}
+
+    private RoundingMode roundingMode;
+
+    public PersistentMoneyAmountAndCurrency() {
+        this(RoundingMode.HALF_UP);
+    }
+
+    public PersistentMoneyAmountAndCurrency(RoundingMode roundingMode) {
+        super();
+        this.roundingMode = roundingMode;
+    }
+
+    @Override
+    protected ColumnMapper<?, ?>[] getColumnMappers() {
+        return COLUMN_MAPPERS;
+    }
 
     @Override
     protected Money fromConvertedColumns(Object[] convertedColumns) {
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         BigDecimal amountPart = (BigDecimal) convertedColumns[1];
-        Money money = Money.of(currencyUnitPart, amountPart);
+        Money money = Money.of(currencyUnitPart, amountPart, roundingMode);
 
         return money;
     }
@@ -55,9 +67,9 @@ public class PersistentMoneyAmountAndCurrency extends AbstractMultiColumnUserTyp
 
         return new Object[] { value.getCurrencyUnit(), value.getAmount() };
     }
-    
+
     @Override
-	public String[] getPropertyNames() {
-		return PROPERTY_NAMES;
-	}
+    public String[] getPropertyNames() {
+        return PROPERTY_NAMES;
+    }
 }

@@ -36,7 +36,7 @@ public class BigDecimalColumnBigMoneyMapper extends AbstractBigDecimalColumnMapp
     @Override
     public BigDecimal toNonNullValue(BigMoney value) {
     	if (!currencyUnit.equals(value.getCurrencyUnit())) {
-    		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrencyUnit());
+    		throw new IllegalStateException("Expected currency " + currencyUnit.getCode() + " but was " + value.getCurrencyUnit());
     	}
         return BigMoney.of(value).getAmount();
     }

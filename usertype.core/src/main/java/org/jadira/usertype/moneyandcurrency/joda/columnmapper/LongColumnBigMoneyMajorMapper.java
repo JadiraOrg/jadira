@@ -38,7 +38,7 @@ public class LongColumnBigMoneyMajorMapper extends AbstractLongColumnMapper<BigM
     @Override
     public Long toNonNullValue(BigMoney value) {
     	if (!currencyUnit.equals(value.getCurrencyUnit())) {
-    		throw new IllegalStateException("Expected currency " + currencyUnit.getCurrencyCode() + " but was " + value.getCurrencyUnit());
+    		throw new IllegalStateException("Expected currency " + currencyUnit.getCode() + " but was " + value.getCurrencyUnit());
     	}
         return value.toBigMoney().getAmountMajorLong();
     }

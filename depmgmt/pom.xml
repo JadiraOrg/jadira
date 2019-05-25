@@ -274,7 +274,7 @@
 			<dependency>
 				<groupId>org.joda</groupId>
 				<artifactId>joda-money</artifactId>
-				<version>0.12</version>
+				<version>1.0.1</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>

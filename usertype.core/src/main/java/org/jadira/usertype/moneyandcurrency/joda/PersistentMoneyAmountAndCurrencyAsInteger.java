@@ -16,6 +16,7 @@
 package org.jadira.usertype.moneyandcurrency.joda;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.jadira.usertype.moneyandcurrency.joda.columnmapper.IntegerColumnCurrencyUnitMapper;
 import org.jadira.usertype.moneyandcurrency.legacyjdk.columnmapper.BigDecimalBigDecimalColumnMapper;
@@ -35,6 +36,17 @@ public class PersistentMoneyAmountAndCurrencyAsInteger extends AbstractMultiColu
 
     private static final String[] PROPERTY_NAMES = new String[]{ "currencyUnit", "amount" };
 	
+    private RoundingMode roundingMode;
+
+    public PersistentMoneyAmountAndCurrencyAsInteger() {
+        this(RoundingMode.HALF_UP);
+    }
+
+    public PersistentMoneyAmountAndCurrencyAsInteger(RoundingMode roundingMode) {
+        super();
+        this.roundingMode = roundingMode;
+    }
+
 	@Override
 	protected ColumnMapper<?, ?>[] getColumnMappers() {
 		return COLUMN_MAPPERS;
@@ -45,7 +57,7 @@ public class PersistentMoneyAmountAndCurrencyAsInteger extends AbstractMultiColu
 
         CurrencyUnit currencyUnitPart = (CurrencyUnit) convertedColumns[0];
         BigDecimal amountPart = (BigDecimal) convertedColumns[1];
-        Money money = Money.of(currencyUnitPart, amountPart);
+        Money money = Money.of(currencyUnitPart, amountPart, roundingMode);
 
         return money;
     }

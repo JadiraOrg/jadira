@@ -24,7 +24,7 @@ import static org.junit.Assert.*;
 
 public class TestPersistentCurrencyUnit extends AbstractDatabaseTest<CurrencyUnitHolder> {
 
-    private static final CurrencyUnit[] currencies = new CurrencyUnit[]{CurrencyUnit.EUR, CurrencyUnit.USD, CurrencyUnit.GBP, CurrencyUnit.getInstance("SAR"), null};
+    private static final CurrencyUnit[] currencies = new CurrencyUnit[]{CurrencyUnit.EUR, CurrencyUnit.USD, CurrencyUnit.GBP, CurrencyUnit.of("SAR"), null};
 
     public TestPersistentCurrencyUnit() {
     	super(TestJodaMoneySuite.getFactory());
