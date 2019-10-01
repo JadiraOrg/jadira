@@ -15,19 +15,16 @@
  */
 package org.jadira.usertype.dateandtime.threeten.columnmapper;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-
 import org.jadira.usertype.spi.shared.AbstractTimeColumnMapper;
 
-public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime> {
+import java.sql.Time;
+import java.time.LocalTime;
+
+public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTime>
+{
 
     private static final long serialVersionUID = 6734385103313158326L;
-    
-    public static final DateTimeFormatter LOCAL_TIME_FORMATTER = new DateTimeFormatterBuilder().appendPattern("HH:mm:ss").toFormatter();
+        
 
 	public TimeColumnLocalTimeMapper() {
 	}
@@ -49,13 +46,8 @@ public class TimeColumnLocalTimeMapper extends AbstractTimeColumnMapper<LocalTim
     }
 
     @Override
-    public Time toNonNullValue(LocalTime value) {
-    	
-    	LocalDateTime localDateTime = LocalDateTime.of(
-    				1970, 1, 1, value.getHour(), value.getMinute(), value.getSecond(), value.getNano()
-    			);
-    	
-        final Time time = new Time(localDateTime.getNano());
-        return time;
+    public Time toNonNullValue(LocalTime value)
+    {
+        return Time.valueOf(value);
     }
 }
