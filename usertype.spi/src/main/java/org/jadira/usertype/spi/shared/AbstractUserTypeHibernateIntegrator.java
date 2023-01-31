@@ -78,8 +78,8 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
             if (JavaVersion.isJava8OrLater()) {
              
              Connection conn = null;
+             JdbcServices jdbcServices = sessionFactory.getServiceRegistry().getService(JdbcServices.class);
              try {
-                    JdbcServices jdbcServices = sessionFactory.getServiceRegistry().getService(JdbcServices.class);
                     conn = jdbcServices.getBootstrapJdbcConnectionAccess().obtainConnection();
                     
                     DatabaseMetaData dmd = conn.getMetaData();
@@ -102,7 +102,7 @@ public abstract class AbstractUserTypeHibernateIntegrator implements Integrator 
                     
                     if (conn != null) {
                         try {
-                            conn.close();
+                            jdbcServices.getBootstrapJdbcConnectionAccess().releaseConnection(conn);
                         } catch (SQLException e) {
                             // Ignore
                         }
